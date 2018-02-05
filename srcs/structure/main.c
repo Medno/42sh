@@ -20,6 +20,7 @@ int				main(void)
 	struct termios	current;
 	char			*str;
     int             ret;
+	int				len_prompt;
 
 	if (!init_termcaps())
 		return (0);
@@ -29,9 +30,9 @@ int				main(void)
     str = NULL;
 	while (1)
 	{
-		put_path(&new_env);
+		len_prompt = put_path(&new_env);
 		ft_cfmakeraw(&current);
-		ret = ft_line_edition(&str);
+		ret = ft_line_edition(&str, len_prompt);
 		ft_cfmakedefault(&current);
 		ft_strdel(&str);
         if (!ret)

@@ -12,10 +12,11 @@
 
 #include "21sh.h"
 
-void	put_path(t_env **env)
+int		put_path(t_env **env)
 {
 	char	*new;
 	char	*tmp;
+	int		len;
 
 	new = NULL;
 	if (ft_getenv(env, "PWD"))
@@ -30,7 +31,9 @@ void	put_path(t_env **env)
 		ft_strdel(&tmp);
 	}
 	ft_printf_fd(STDERR_FILENO, "{tblue}%s{eoc} {tgreen}$>{eoc} ", new);
+	len = ft_strlen(new) + 4;
 	ft_strdel(&new);
+	return (len);
 }
 
 void	insert_env_start(t_env **env)

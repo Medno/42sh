@@ -34,7 +34,7 @@ STRUC_PATH = structure/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
 ### LINE EDIT ###
-LINE_NAME = ft_line.c init_terms.c
+LINE_NAME = ft_line.c init_terms.c chain_db.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 

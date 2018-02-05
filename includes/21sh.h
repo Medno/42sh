@@ -33,6 +33,14 @@ typedef struct		s_env
 	char			*content;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct      s_line
+{
+    char            c;
+    int             index;
+    struct s_line   *next;
+    struct s_line   *prev;
+}                   t_line;
 /*
 ** builtins
 */
@@ -57,7 +65,7 @@ t_env				*create_env(char **arr);
 /*
 ** addons
 */
-void				put_path(t_env **env);
+int	    			put_path(t_env **env);
 void				insert_env_start(t_env **env);
 /*
 ** attrs
@@ -67,8 +75,11 @@ void				ft_cfmakedefault(struct termios *my_state);
 /*
 ** line_edit
 */
-int                 ft_line_edition(char **line);
+int                 ft_line_edition(char **line, int prompt_len);
 
+int 				dblist_len(t_line *first);
+/*
+*/
 char 				*get_ttyname(void);
 int 				init_termcaps(void);
 
