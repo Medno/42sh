@@ -64,4 +64,12 @@ void				insert_env_start(t_env **env);
 */
 void				ft_cfmakeraw(struct termios *my_state);
 void				ft_cfmakedefault(struct termios *my_state);
+/*
+** line_edit
+*/
+int                 ft_line_edition(char **line);
+
+char 				*get_ttyname(void);
+int 				init_termcaps(void);
+
 #endif

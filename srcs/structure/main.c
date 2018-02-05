@@ -18,15 +18,24 @@ int				main(void)
 {
 	t_env			*new_env;
 	struct termios	current;
+	char			*str;
+    int             ret;
 
+	if (!init_termcaps())
+		return (0);
 	tcgetattr(STDIN_FILENO, &current);
-	ft_cfmakeraw(&current);
 	new_env = create_env(environ);
 	insert_env_start(&new_env);
+    str = NULL;
 	while (1)
 	{
 		put_path(&new_env);
+		ft_cfmakeraw(&current);
+		ret = ft_line_edition(&str);
+		ft_cfmakedefault(&current);
+		ft_strdel(&str);
+        if (!ret)
+            break ;
 	}
-	ft_cfmakedefault(&current);
 	return (0);
 }

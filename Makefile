@@ -33,6 +33,11 @@ STRUC_NAME = addons.c ft_environment.c main.c init_attrs.c
 STRUC_PATH = structure/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
+### LINE EDIT ###
+LINE_NAME = ft_line.c init_terms.c
+LINE_PATH = line_edit/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
+
 ### LIBFT ###
 LIBINC = ./libft
 INC += -I$(LIBINC)/includes
