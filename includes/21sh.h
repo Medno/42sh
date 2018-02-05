@@ -78,6 +78,7 @@ void				ft_cfmakedefault(struct termios *my_state);
 int                 ft_line_edition(char **line, int prompt_len);
 
 int 				dblist_len(t_line *first);
+t_list              *create_elem(char c);
 /*
 */
 char 				*get_ttyname(void);
