@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*  21sh.h                                              :+:      :+:    :+:   */
+/*   21sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/07 14:30:49 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/05 10:30:02 by kyazdani         ###   ########.fr       */
+/*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
+/*   Updated: 2018/02/06 08:59:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ typedef struct		s_env
 	struct s_env	*next;
 }					t_env;
 
-typedef struct      s_line
+typedef struct		s_line
 {
-    char            c;
-    int             index;
-    struct s_line   *next;
-    struct s_line   *prev;
-}                   t_line;
+	char			c;
+	int				index;
+	struct s_line	*next;
+	struct s_line	*prev;
+}					t_line;
 /*
 ** builtins
 */
@@ -65,7 +65,7 @@ t_env				*create_env(char **arr);
 /*
 ** addons
 */
-int	    			put_path(t_env **env);
+int					put_path(t_env **env);
 void				insert_env_start(t_env **env);
 /*
 ** attrs
@@ -75,13 +75,14 @@ void				ft_cfmakedefault(struct termios *my_state);
 /*
 ** line_edit
 */
-int                 ft_line_edition(char **line, int prompt_len);
+int					ft_line_edition(char **line, int prompt_len);
 
-int 				dblist_len(t_line *first);
-t_list              *create_elem(char c);
+int					dblist_len(t_line *first);
+t_line				*create_elem(char c);
 /*
+***
 */
-char 				*get_ttyname(void);
-int 				init_termcaps(void);
+char				*get_ttyname(void);
+int					init_termcaps(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/31 13:35:12 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/06 09:00:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				main(void)
 	t_env			*new_env;
 	struct termios	current;
 	char			*str;
-    int             ret;
+	int				ret;
 	int				len_prompt;
 
 	if (!init_termcaps())
@@ -27,7 +27,7 @@ int				main(void)
 	tcgetattr(STDIN_FILENO, &current);
 	new_env = create_env(environ);
 	insert_env_start(&new_env);
-    str = NULL;
+	str = NULL;
 	while (1)
 	{
 		len_prompt = put_path(&new_env);
@@ -35,8 +35,8 @@ int				main(void)
 		ret = ft_line_edition(&str, len_prompt);
 		ft_cfmakedefault(&current);
 		ft_strdel(&str);
-        if (!ret)
-            break ;
+		if (!ret)
+			break ;
 	}
 	return (0);
 }
