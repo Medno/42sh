@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 12:14:57 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/07 13:05:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,27 @@ static int	read_end(char **line, t_line *elm)
 	return (1);
 }
 
-void		move_left(t_line *cur, int *index)
+t_line		*move_left(t_line *cur)
 {
 	if (cur->prev)
-		tputs(tgetstr("nd", NULL), 0, ft_inputchar);
+	{
+		tputs(tgetstr("le", NULL), 0, ft_inputchar);
+		cur = cur->prev;
+	}
+	return (cur);
 }
 
-void		move_right(t_line *cur, int *index)
+t_line		*move_right(t_line *cur)
 {
 	if (cur->next)
-		tputs(tgetstr("le", NULL), 0, ft_inputchar);
+	{
+		tputs(tgetstr("nd", NULL), 0, ft_inputchar);
+		cur = cur->next;
+	}
+	return (cur);
 }
 
-void		ft_line_esc(t_line *cur, int *index)
+t_line		*ft_line_esc(t_line *cur)
 {
 	char	buf[8];
 
@@ -52,15 +60,17 @@ void		ft_line_esc(t_line *cur, int *index)
 	if (buf[0] == '[')
 	{
 		if (buf[1] == 'C')
-			move_left(cur, index);
+			cur = move_right(cur);
 		if (buf[1] == 'D')
-			move_right(cur, index);
+			cur = move_left(cur);
 	}
+	return (cur);
 }
 
-void		ft_line_usual(t_line *cur)
+t_line	*ft_line_usual(t_line *cur, char c, int len)
 {
-	
+	cur = push_new(cur, c, len);
+	return (cur);
 }
 
 int			ft_line_edition(char **line, int prompt_len)
@@ -70,18 +80,17 @@ int			ft_line_edition(char **line, int prompt_len)
 	t_line	*first;
 	t_line	*current;
 
-	first = create_elem(-1);
+	first = create_elem(0);
 	current = first;
 	while ((ret = read(STDIN_FILENO, &c, 1)))
 	{
 		if (c == '\n')
 			return (read_end(line, first));
 		else if (c == 27)
-			ft_line_esc(current, buf, &ret);
+			current = ft_line_esc(current);
 		else
 		{
-			//ft_line_norm
-			write(0, &c, 1);
+			current = ft_line_usual(current, c, prompt_len);
 		}
 	}
 	return (0);

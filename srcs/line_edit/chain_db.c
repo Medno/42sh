@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:56:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/06 08:57:24 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 13:30:30 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,66 @@ t_line	*create_elem(char c)
 int		dblist_len(t_line *first)
 {
 	int		i;
+	t_line	*tmp;
 
 	i = 0;
-	while (first)
+	tmp = first;
+	while (tmp)
 	{
-		first = first->next;
+		tmp = tmp->next;
 		i++;
 	}
 	return (i);
+}
+
+void	increment_all(t_line *current)
+{
+	t_line	*tmp;
+
+	tmp = current;
+	while (tmp)
+	{
+		tmp->index++;
+		tmp = tmp->next;
+	}
+}
+
+void	print_line(t_line *current, int len, int prompt)
+{
+	t_line	*tmp;
+	char	buf[len];
+	int		i;
+
+	ft_bzero(buf, len);
+	i = 0;
+	tmp = current;
+	while (tmp)
+	{
+		buf[i] = tmp->c;
+		tmp = tmp->next;
+		i++;
+	}
+	tputs(tgetstr("sc", NULL), 0, &ft_inputchar);
+	write(STDIN_FILENO, &buf, len);
+	tputs(tgetstr("rc", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
+}
+
+t_line	*push_new(t_line *current, char c, int prompt)
+{
+	t_line	*new;
+
+	if (!(new = create_elem(c)))
+		return (NULL);
+	new->index = current->index;
+	increment_all(current);
+	new->next = current;
+	if (current->prev)
+	{
+		new->prev = current->prev;
+		current->prev->next = new;
+	}
+	current->prev = new;
+	print_line(new, dblist_len(new), prompt);
+	return (current);
 }

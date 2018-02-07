@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/06 08:59:28 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 12:22:19 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int					ft_line_edition(char **line, int prompt_len);
 
 int					dblist_len(t_line *first);
 t_line				*create_elem(char c);
+t_line				*push_new(t_line *current, char c, int prompt);
 /*
 ***
 */
