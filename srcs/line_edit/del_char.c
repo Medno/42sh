@@ -14,25 +14,10 @@
 
 void	print_line_del(t_line *current, int len, int check)
 {
-	t_line	*tmp;
-	char	buf[len];
-	int		i;
-
-	ft_bzero(buf, len);
-	i = 0;
-	tmp = current;
-	while (tmp)
-	{
-		buf[i] = tmp->c;
-		tmp = tmp->next;
-		i++;
-	}
+	tputs(tgetflag("bw"), 0, &ft_inputchar);
 	if (!check)
 		tputs(tgetstr("le", NULL), 0, &ft_inputchar);
-	tputs(tgetstr("sc", NULL), 0, &ft_inputchar);
-	write(STDIN_FILENO, &buf, len);
-	write(STDIN_FILENO, " ", 1);
-	tputs(tgetstr("rc", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("dc", NULL), 0, &ft_inputchar);
 }
 
 t_line		*line_delone(t_line *cur, int len)
