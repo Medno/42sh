@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 14:52:06 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:44:42 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static int	read_end(char **line, t_line *elm)
 		i++;
 	}
 	*line[i] = 0;
-	//free list here;
+	del_elem(elm);
 	write(STDIN_FILENO, "\n", 1);
 	return (1);
 }
 
-t_line		*ft_line_esc(t_line *cur)
+t_line		*ft_line_esc(t_line *cur, int len)
 {
 	char	buf[8];
 
@@ -43,6 +43,8 @@ t_line		*ft_line_esc(t_line *cur)
 			cur = move_right(cur);
 		if (buf[1] == 'D')
 			cur = move_left(cur);
+		if (buf[1] == '3')
+			cur = del_next(cur, len);
 	}
 	return (cur);
 }
@@ -70,11 +72,9 @@ int			ft_line_edition(char **line, int prompt_len)
 		if (c == '\n')
 			return (read_end(line, first));
 		else if (c == 27)
-			current = ft_line_esc(current);
+			current = ft_line_esc(current, prompt_len);
 		else
-		{
 			current = ft_line_usual(current, c, prompt_len);
-		}
 	}
 	return (0);
 }

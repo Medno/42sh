@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:56:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 15:11:05 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:19:15 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,29 @@ t_line	*create_elem(char c)
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
+}
+
+void	del_one_elem(t_line *del)
+{
+	if (del)
+	{
+		del->next = NULL;
+		del->prev = NULL;
+		free(del);
+		del = NULL;
+	}
+}
+
+void	del_elem(t_line *first)
+{
+	t_line	*next;
+
+	while (first)
+	{
+		next = first->next;
+		del_one_elem(first);
+		first = next;
+	}
 }
 
 int		dblist_len(t_line *first)
