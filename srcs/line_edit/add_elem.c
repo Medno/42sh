@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 15:17:40 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:42:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 static void	print_line(t_line *current, int len, int prompt)
 {
-	t_line	*tmp;
-	char	buf[len];
-	int		i;
+	t_line			*tmp;
+	char			buf[len];
+	int				i;
+	struct winsize	screen;
 
 	ft_bzero(buf, len);
 	i = 0;
 	tmp = current;
+	ioctl(STDIN_FILENO, TIOCGWINSZ, &screen);
 	while (tmp)
 	{
 		buf[i] = tmp->c;
@@ -30,7 +32,10 @@ static void	print_line(t_line *current, int len, int prompt)
 	tputs(tgetstr("sc", NULL), 0, &ft_inputchar);
 	write(STDIN_FILENO, &buf, len);
 	tputs(tgetstr("rc", NULL), 0, &ft_inputchar);
-	tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
+	if (screen.ws_col == prompt + current->index + 1)
+		tputs(tgetstr("do", NULL), 0, &ft_inputchar);
+	else
+		tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
 }
 
 t_line		*push_new(t_line *current, char c, int prompt)
