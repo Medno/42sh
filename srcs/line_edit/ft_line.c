@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 13:05:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 14:52:06 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,6 @@ static int	read_end(char **line, t_line *elm)
 	return (1);
 }
 
-t_line		*move_left(t_line *cur)
-{
-	if (cur->prev)
-	{
-		tputs(tgetstr("le", NULL), 0, ft_inputchar);
-		cur = cur->prev;
-	}
-	return (cur);
-}
-
-t_line		*move_right(t_line *cur)
-{
-	if (cur->next)
-	{
-		tputs(tgetstr("nd", NULL), 0, ft_inputchar);
-		cur = cur->next;
-	}
-	return (cur);
-}
-
 t_line		*ft_line_esc(t_line *cur)
 {
 	char	buf[8];
@@ -67,9 +47,12 @@ t_line		*ft_line_esc(t_line *cur)
 	return (cur);
 }
 
-t_line	*ft_line_usual(t_line *cur, char c, int len)
+t_line		*ft_line_usual(t_line *cur, char c, int len)
 {
-	cur = push_new(cur, c, len);
+	if (c == 127)
+		cur = line_delone(cur, len);
+	else
+		cur = push_new(cur, c, len);
 	return (cur);
 }
 

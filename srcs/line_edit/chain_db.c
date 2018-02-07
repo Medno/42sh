@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:56:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 13:30:30 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 14:52:48 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int		dblist_len(t_line *first)
 	return (i);
 }
 
-void	increment_all(t_line *current)
+void	increment_all(t_line *current, char c)
 {
 	t_line	*tmp;
 
 	tmp = current;
 	while (tmp)
 	{
-		tmp->index++;
+		tmp->index += c;
 		tmp = tmp->next;
 	}
 }
@@ -80,7 +80,7 @@ t_line	*push_new(t_line *current, char c, int prompt)
 	if (!(new = create_elem(c)))
 		return (NULL);
 	new->index = current->index;
-	increment_all(current);
+	increment_all(current, 1);
 	new->next = current;
 	if (current->prev)
 	{

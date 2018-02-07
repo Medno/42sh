@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 12:22:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 14:53:03 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,15 @@ void				ft_cfmakedefault(struct termios *my_state);
 ** line_edit
 */
 int					ft_line_edition(char **line, int prompt_len);
+t_line				*line_delone(t_line *cur, int len);
 
+void				increment_all(t_line *current, char c);
+void				print_line(t_line *current, int len, int prompt);
 int					dblist_len(t_line *first);
 t_line				*create_elem(char c);
 t_line				*push_new(t_line *current, char c, int prompt);
+t_line				*move_left(t_line *cur);
+t_line				*move_right(t_line *cur);
 /*
 ***
 */
