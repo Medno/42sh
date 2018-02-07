@@ -6,23 +6,37 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 15:42:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 17:28:47 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+static void	step_2(t_line *current, int len, int prompt)
+{
+	int		x;
+	int		y;
+	int		tot;
+	struct winsize	screen;
+
+	ioctl(STDIN_FILENO, TIOCGWINSZ, &screen);
+	tot = prompt + current->index + 1;
+	x = tot % screen.ws_col;
+	if (!x)
+		tputs(tgetstr("do", NULL), 0, &ft_inputchar);
+	else
+		tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
+}
 
 static void	print_line(t_line *current, int len, int prompt)
 {
 	t_line			*tmp;
 	char			buf[len];
 	int				i;
-	struct winsize	screen;
 
 	ft_bzero(buf, len);
 	i = 0;
 	tmp = current;
-	ioctl(STDIN_FILENO, TIOCGWINSZ, &screen);
 	while (tmp)
 	{
 		buf[i] = tmp->c;
@@ -32,10 +46,7 @@ static void	print_line(t_line *current, int len, int prompt)
 	tputs(tgetstr("sc", NULL), 0, &ft_inputchar);
 	write(STDIN_FILENO, &buf, len);
 	tputs(tgetstr("rc", NULL), 0, &ft_inputchar);
-	if (screen.ws_col == prompt + current->index + 1)
-		tputs(tgetstr("do", NULL), 0, &ft_inputchar);
-	else
-		tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
+	step_2(current, len, prompt);
 }
 
 t_line		*push_new(t_line *current, char c, int prompt)
