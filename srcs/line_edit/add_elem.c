@@ -6,9 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 15:11:07 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/07 15:17:40 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "21sh.h"
 
 static void	print_line(t_line *current, int len, int prompt)
 {
