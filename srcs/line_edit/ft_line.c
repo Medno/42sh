@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 15:44:42 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/08 12:03:47 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ static int	read_end(char **line, t_line *elm)
 {
 	int		i;
 
+	while (elm->prev)
+		elm = elm->prev;
 	if (!(*line = (char *)malloc(sizeof(char) * dblist_len(elm))))
 		return (0);
 	i = 0;
 	while (elm)
 	{
-		*line[i] = elm->c;
+		(*line)[i] = elm->c;
 		elm = elm->next;
 		i++;
 	}
-	*line[i] = 0;
+	(*line)[i] = 0;
 	del_elem(elm);
 	write(STDIN_FILENO, "\n", 1);
 	return (1);
@@ -62,15 +64,13 @@ int			ft_line_edition(char **line, int prompt_len)
 {
 	char	c;
 	int		ret;
-	t_line	*first;
 	t_line	*current;
 
-	first = create_elem(0);
-	current = first;
+	current = create_elem(0);
 	while ((ret = read(STDIN_FILENO, &c, 1)))
 	{
 		if (c == '\n')
-			return (read_end(line, first));
+			return (read_end(line, current));
 		else if (c == 27)
 			current = ft_line_esc(current, prompt_len);
 		else

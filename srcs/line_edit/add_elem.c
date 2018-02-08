@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/08 09:14:17 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/08 11:51:35 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static void	print_line(t_line *current, int len, int prompt, char c)
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &screen);
 	tot = prompt + current->index;
 	x = tot % screen.ws_col;
-	if (!x)
-		tputs(tgetstr("do", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("im", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("ic", NULL), 0, &ft_inputchar);
 	write(0, &c, 1);
