@@ -52,12 +52,9 @@ void		print_del(t_line *cur, int len, int prompt)
 		tmp = tmp->next;
 		i++;
 	}
+	tputs(tgetstr("sc", NULL), 0, &ft_inputchar);
 	write(STDIN_FILENO, &buf, i);
-/*	while (i)
-	{
-		tmp = move_left(tmp, len);
-		i--;
-	}*/
+	tputs(tgetstr("rc", NULL), 0, &ft_inputchar);
 }
 
 t_line		*line_delone(t_line *cur, int len)
@@ -73,7 +70,8 @@ t_line		*line_delone(t_line *cur, int len)
 			del->prev->next = cur;
 		del_one_elem(del);
 		increment_all(cur, -1);
-		tputs(tgetstr("cd", NULL), 0, &ft_inputchar);
+		if (cur->next)
+			tputs(tgetstr("cd", NULL), 0, &ft_inputchar);
 		moove_curs(cur, len);
 		if (cur->next)
 			print_del(cur, dblist_len(cur), len);
