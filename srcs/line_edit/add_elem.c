@@ -6,47 +6,25 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/07 17:28:47 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/08 08:16:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static void	step_2(t_line *current, int len, int prompt)
+static void	print_line(t_line *current, int len, int prompt, char c)
 {
 	int		x;
-	int		y;
 	int		tot;
 	struct winsize	screen;
 
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &screen);
-	tot = prompt + current->index + 1;
+	tot = prompt + current->index + len;
 	x = tot % screen.ws_col;
-	if (!x)
-		tputs(tgetstr("do", NULL), 0, &ft_inputchar);
-	else
-		tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
-}
-
-static void	print_line(t_line *current, int len, int prompt)
-{
-	t_line			*tmp;
-	char			buf[len];
-	int				i;
-
-	ft_bzero(buf, len);
-	i = 0;
-	tmp = current;
-	while (tmp)
-	{
-		buf[i] = tmp->c;
-		tmp = tmp->next;
-		i++;
-	}
-	tputs(tgetstr("sc", NULL), 0, &ft_inputchar);
-	write(STDIN_FILENO, &buf, len);
-	tputs(tgetstr("rc", NULL), 0, &ft_inputchar);
-	step_2(current, len, prompt);
+	tputs(tgetstr("im", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("ic", NULL), 0, &ft_inputchar);
+	write(0, &c, 1);
+	tputs(tgetstr("ei", NULL), 0, &ft_inputchar);
 }
 
 t_line		*push_new(t_line *current, char c, int prompt)
@@ -64,6 +42,6 @@ t_line		*push_new(t_line *current, char c, int prompt)
 		current->prev->next = new;
 	}
 	current->prev = new;
-	print_line(new, dblist_len(new), prompt);
+	print_line(new, dblist_len(new), prompt, c);
 	return (current);
 }
