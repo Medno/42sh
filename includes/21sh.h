@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/08 14:02:31 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:38:15 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ t_line				*create_elem(char c);
 void				del_one_elem(t_line *del);
 void				del_elem(t_line *first);
 t_line				*push_new(t_line *current, char c, int prompt);
-t_line				*move_left(t_line *cur);
-t_line				*move_right(t_line *cur);
+t_line				*move_left(t_line *cur, int prompt);
+t_line				*move_right(t_line *cur, int prompt);
 /*
 ***
 */

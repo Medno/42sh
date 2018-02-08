@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/08 13:51:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/08 15:39:35 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ t_line		*ft_line_esc(t_line *cur, int len)
 	if (buf[0] == '[')
 	{
 		if (buf[1] == 'C')
-			cur = move_right(cur);
+			cur = move_right(cur, len);
 		if (buf[1] == 'D')
-			cur = move_left(cur);
+			cur = move_left(cur, len);
 		if (buf[1] == '3')
 			cur = del_next(cur);
 	}
