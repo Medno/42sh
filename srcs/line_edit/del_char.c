@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:33 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/08 17:14:34 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/09 14:00:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	moove_curs(t_line *current, int prompt)
 	}
 }
 
-void		print_del(t_line *cur, int len, int prompt)
+void		print_del(t_line *cur, int len)
 {
 	t_line	*tmp;
 	char	buf[len];
@@ -60,7 +60,6 @@ void		print_del(t_line *cur, int len, int prompt)
 t_line		*line_delone(t_line *cur, int len)
 {
 	t_line	*del;
-	t_line	*tmp;
 
 	del = cur->prev;
 	if (del)
@@ -74,7 +73,7 @@ t_line		*line_delone(t_line *cur, int len)
 			tputs(tgetstr("cd", NULL), 0, &ft_inputchar);
 		moove_curs(cur, len);
 		if (cur->next)
-			print_del(cur, dblist_len(cur), len);
+			print_del(cur, dblist_len(cur));
 	}
 	return (cur);
 }
@@ -92,7 +91,8 @@ t_line		*del_next(t_line *cur)
 			del->prev->next = cur;
 		del_one_elem(del);
 		increment_all(cur, -1);
-		tputs(tgetstr("dc", NULL), 0, &ft_inputchar);
+		tputs(tgetstr("cd", NULL), 0, &ft_inputchar);
+		print_del(cur, dblist_len(cur));
 	}
 	return (cur);
 }

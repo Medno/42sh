@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/08 15:39:35 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/09 13:57:34 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	read_end(char **line, t_line *elm)
 	return (1);
 }
 
-t_line		*ft_line_esc(t_line *cur, int len)
+t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur)
 {
 	char	buf[8];
 
@@ -51,30 +51,32 @@ t_line		*ft_line_esc(t_line *cur, int len)
 	return (cur);
 }
 
-t_line		*ft_line_usual(t_line *cur, char c, int len)
+t_line		*ft_line_usual(t_line *cur, char c, int len, t_curs *curseur)
 {
 	if (c == 127)
 		cur = line_delone(cur, len);
 	else
-		cur = push_new(cur, c, len);
+		cur = push_new(cur, c, len, curseur);
 	return (cur);
 }
 
 int			ft_line_edition(char **line, int prompt_len)
 {
-	char	c;
-	int		ret;
-	t_line	*current;
+	char			c;
+	int				ret;
+	t_curs			curseur;
+	t_line			*current;
 
 	current = create_elem(0);
+	init_curs(&curseur, prompt_len);
 	while ((ret = read(STDIN_FILENO, &c, 1)))
 	{
 		if (c == '\n')
 			return (read_end(line, current));
 		else if (c == 27)
-			current = ft_line_esc(current, prompt_len);
+			current = ft_line_esc(current, prompt_len, &curseur);
 		else
-			current = ft_line_usual(current, c, prompt_len);
+			current = ft_line_usual(current, c, prompt_len, &curseur);
 	}
 	return (0);
 }
