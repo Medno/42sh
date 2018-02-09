@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/09 13:57:34 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/09 16:38:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,22 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur)
 	if (buf[0] == '[')
 	{
 		if (buf[1] == 'C')
-			cur = move_right(cur, len);
+			cur = moove_right(cur, len, curseur);
 		if (buf[1] == 'D')
-			cur = move_left(cur, len);
+			cur = moove_left(cur, len, curseur);
 		if (buf[1] == '3')
 			cur = del_next(cur);
 	}
 	return (cur);
 }
 
-t_line		*ft_line_usual(t_line *cur, char c, int len, t_curs *curseur)
+t_line		*ft_line_usual(t_line *current, char c, int prompt , t_curs *curseur)
 {
 	if (c == 127)
-		cur = line_delone(cur, len);
+		current = line_delone(current, prompt);
 	else
-		cur = push_new(cur, c, len, curseur);
-	return (cur);
+		current = push_new(current, c, prompt, curseur);
+	return (current);
 }
 
 int			ft_line_edition(char **line, int prompt_len)

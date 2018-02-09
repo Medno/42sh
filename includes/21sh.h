@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/09 16:10:07 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/09 18:19:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,13 @@ t_line				*del_next(t_line *cur);
 
 void				increment_all(t_line *current, char c);
 int					dblist_len(t_line *first);
+int					full_list_len(t_line *el);
 t_line				*create_elem(char c);
 void				del_one_elem(t_line *del);
 void				del_elem(t_line *first);
 t_line				*push_new(t_line *current, char c, int prompt, t_curs *curseur);
-t_line				*move_left(t_line *cur, int prompt);
-t_line				*move_right(t_line *cur, int prompt);
+t_line				*moove_left(t_line *cur, int prompt, t_curs *curseur);
+t_line				*moove_right(t_line *cur, int prompt, t_curs *curseur);
 /*
 ** ft_pos
 */
