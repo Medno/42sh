@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/09 13:58:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/09 16:10:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct		s_curs
 {
 	int				x;
 	int				y;
+	int				xmax;
 	int				ymax;
 	struct winsize	screen;
 }					t_curs;
@@ -99,7 +100,7 @@ t_line				*move_right(t_line *cur, int prompt);
 ** ft_pos
 */
 void				check_ynx(t_curs *curseur, int prompt, int index);
-void				check_ymax(t_curs *curseur, int len);
+void				check_max(t_curs *curseur, int len);
 void				init_curs(t_curs *curseur, int prompt);
 /*
 ***

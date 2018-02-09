@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/09 13:23:56 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/09 16:12:32 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ static void	moove_curs(t_line *current, int len, int prompt, t_curs *curseur)
 	{
 		if (curseur->x && curseur->y < curseur->ymax && current->next->next)
 		{
-			while (++i <= curseur->x - ((current->index + len + prompt)
-						% curseur->screen.ws_col))
+			while (++i <= curseur->x - curseur->xmax)
 				tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
-			tputs(tgetstr("up", NULL), 0, &ft_inputchar);
+			i = curseur->ymax + 1;
+			while (--i > curseur->y)
+				tputs(tgetstr("up", NULL), 0, &ft_inputchar);
 		}
 		else if (!curseur->x)
 		{
@@ -59,7 +60,7 @@ static void	print_line(t_line *current, int len, int prompt, t_curs *curseur)
 	tputs(tgetstr("sc", NULL), 0, &ft_inputchar);
 	write(STDIN_FILENO, &buf, i);
 	check_ynx(curseur, prompt, current->index);
-	check_ymax(curseur, prompt + len + current->index);
+	check_max(curseur, prompt + len + current->index);
 	moove_curs(current, len, prompt, curseur);
 }
 
