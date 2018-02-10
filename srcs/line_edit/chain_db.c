@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:56:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/09 19:00:50 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/10 08:51:19 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_line	*create_elem(char c)
 	if (!(new = (t_line *)malloc(sizeof(t_line))))
 		return (NULL);
 	new->c = c;
-	new->index = 1;
+	new->index = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

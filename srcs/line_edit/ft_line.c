@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/09 16:38:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/10 11:20:32 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	read_end(char **line, t_line *elm)
 
 	while (elm->prev)
 		elm = elm->prev;
-	if (!(*line = (char *)malloc(sizeof(char) * dblist_len(elm))))
+	if (!(*line = (char *)malloc(sizeof(char) * dblist_len(elm) + 1)))
 		return (0);
 	i = 0;
 	while (elm)
@@ -29,6 +29,7 @@ static int	read_end(char **line, t_line *elm)
 	}
 	(*line)[i] = 0;
 	del_elem(elm);
+	//moove_last();
 	write(STDIN_FILENO, "\n", 1);
 	return (1);
 }
@@ -45,6 +46,14 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur)
 			cur = moove_right(cur, len, curseur);
 		if (buf[1] == 'D')
 			cur = moove_left(cur, len, curseur);
+		if (buf[1] == 'A')
+			cur = moove_up(cur, len, curseur);
+		if (buf[1] == 'B')
+			cur = moove_down(cur, len, curseur);
+		if (buf[1] == 'H')
+			cur = moove_first(cur, len, curseur);
+		if (buf[1] == 'F')
+			cur = moove_last(cur, len, curseur);
 		if (buf[1] == '3')
 			cur = del_next(cur);
 	}
