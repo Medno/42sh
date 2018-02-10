@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/10 11:20:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/10 11:51:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,27 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur)
 
 	ft_bzero(&buf, 8);
 	read(STDIN_FILENO, &buf, 8);
-	if (buf[0] == '[')
-	{
-		if (buf[1] == 'C')
-			cur = moove_right(cur, len, curseur);
-		if (buf[1] == 'D')
-			cur = moove_left(cur, len, curseur);
-		if (buf[1] == 'A')
-			cur = moove_up(cur, len, curseur);
-		if (buf[1] == 'B')
-			cur = moove_down(cur, len, curseur);
-		if (buf[1] == 'H')
-			cur = moove_first(cur, len, curseur);
-		if (buf[1] == 'F')
-			cur = moove_last(cur, len, curseur);
-		if (buf[1] == '3')
-			cur = del_next(cur);
-	}
+	if (ft_strequ(buf, "[C"))
+		cur = moove_right(cur, len, curseur);
+	else if (ft_strequ(buf, "[D"))
+		cur = moove_left(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2A"))
+		cur = moove_up(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2B"))
+		cur = moove_down(cur, len, curseur);
+	else if (ft_strequ(buf, "[H"))
+		cur = moove_first(cur, len, curseur);
+	else if (ft_strequ(buf, "[F"))
+		cur = moove_last(cur, len, curseur);
+	else if (ft_strequ(buf, "[3~"))
+		cur = del_next(cur);
 	return (cur);
 }
 
 t_line		*ft_line_usual(t_line *current, char c, int prompt , t_curs *curseur)
 {
 	if (c == 127)
-		current = line_delone(current, prompt);
+		current = line_delone(current, prompt, curseur);
 	else
 		current = push_new(current, c, prompt, curseur);
 	return (current);
