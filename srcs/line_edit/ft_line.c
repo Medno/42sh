@@ -6,21 +6,22 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/09 13:57:34 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/10 13:13:09 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static int	read_end(char **line, t_line *elm)
+static int	read_end(char **line, t_line *elm, int prompt, t_curs *curseur)
 {
 	int		i;
 
 	while (elm->prev)
 		elm = elm->prev;
-	if (!(*line = (char *)malloc(sizeof(char) * dblist_len(elm))))
+	if (!(*line = (char *)malloc(sizeof(char) * dblist_len(elm) + 1)))
 		return (0);
 	i = 0;
+	moove_last(elm, prompt, curseur);
 	while (elm)
 	{
 		(*line)[i] = elm->c;
@@ -39,25 +40,34 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur)
 
 	ft_bzero(&buf, 8);
 	read(STDIN_FILENO, &buf, 8);
-	if (buf[0] == '[')
-	{
-		if (buf[1] == 'C')
-			cur = move_right(cur, len);
-		if (buf[1] == 'D')
-			cur = move_left(cur, len);
-		if (buf[1] == '3')
-			cur = del_next(cur);
-	}
+	if (ft_strequ(buf, "[C"))
+		cur = moove_right(cur, len, curseur);
+	else if (ft_strequ(buf, "[D"))
+		cur = moove_left(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2A"))
+		cur = moove_up(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2B"))
+		cur = moove_down(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2C"))
+		cur = moove_rword(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2D"))
+		cur = moove_lword(cur, len, curseur);
+	else if (ft_strequ(buf, "[H"))
+		cur = moove_first(cur, len, curseur);
+	else if (ft_strequ(buf, "[F"))
+		cur = moove_last(cur, len, curseur);
+	else if (ft_strequ(buf, "[3~"))
+		cur = del_next(cur);
 	return (cur);
 }
 
-t_line		*ft_line_usual(t_line *cur, char c, int len, t_curs *curseur)
+t_line		*ft_line_usual(t_line *current, char c, int prompt, t_curs *curseur)
 {
 	if (c == 127)
-		cur = line_delone(cur, len);
+		current = line_delone(current, prompt, curseur);
 	else
-		cur = push_new(cur, c, len, curseur);
-	return (cur);
+		current = push_new(current, c, prompt, curseur);
+	return (current);
 }
 
 int			ft_line_edition(char **line, int prompt_len)
@@ -72,7 +82,7 @@ int			ft_line_edition(char **line, int prompt_len)
 	while ((ret = read(STDIN_FILENO, &c, 1)))
 	{
 		if (c == '\n')
-			return (read_end(line, current));
+			return (read_end(line, current, prompt_len, &curseur));
 		else if (c == 27)
 			current = ft_line_esc(current, prompt_len, &curseur);
 		else

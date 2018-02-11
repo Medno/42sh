@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/02/09 10:47:54 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/02/10 11:20:53 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ STRUC_PATH = structure/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
 ### LINE EDIT ###
-LINE_NAME = ft_line.c init_terms.c chain_db.c move.c del_char.c add_elem.c \
-			ft_pos.c
+LINE_NAME = ft_line.c init_terms.c chain_db.c moove.c del_char.c add_elem.c \
+			ft_pos.c moove2.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
@@ -47,6 +47,7 @@ INC += -I$(LIBINC)/includes
 INCLUDES = ./includes/ 
 INC += -I$(INCLUDES)
 
+INC += -I./logger/incs/
 
 # flags
 FLAGS = -Wall -Wextra
@@ -74,7 +75,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : makelib $(NAME)
 
 $(NAME) : $(OBJ)
-		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS)
+		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS) ./logger/liblogger.a
 		@echo "\033[35m***** done *****\033[0m"
 
 %.o:%.c
