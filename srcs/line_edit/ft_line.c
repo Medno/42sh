@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/10 11:51:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/10 13:13:09 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static int	read_end(char **line, t_line *elm)
+static int	read_end(char **line, t_line *elm, int prompt, t_curs *curseur)
 {
 	int		i;
 
@@ -21,6 +21,7 @@ static int	read_end(char **line, t_line *elm)
 	if (!(*line = (char *)malloc(sizeof(char) * dblist_len(elm) + 1)))
 		return (0);
 	i = 0;
+	moove_last(elm, prompt, curseur);
 	while (elm)
 	{
 		(*line)[i] = elm->c;
@@ -29,7 +30,6 @@ static int	read_end(char **line, t_line *elm)
 	}
 	(*line)[i] = 0;
 	del_elem(elm);
-	//moove_last();
 	write(STDIN_FILENO, "\n", 1);
 	return (1);
 }
@@ -48,6 +48,10 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur)
 		cur = moove_up(cur, len, curseur);
 	else if (ft_strequ(buf, "[1;2B"))
 		cur = moove_down(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2C"))
+		cur = moove_rword(cur, len, curseur);
+	else if (ft_strequ(buf, "[1;2D"))
+		cur = moove_lword(cur, len, curseur);
 	else if (ft_strequ(buf, "[H"))
 		cur = moove_first(cur, len, curseur);
 	else if (ft_strequ(buf, "[F"))
@@ -57,7 +61,7 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur)
 	return (cur);
 }
 
-t_line		*ft_line_usual(t_line *current, char c, int prompt , t_curs *curseur)
+t_line		*ft_line_usual(t_line *current, char c, int prompt, t_curs *curseur)
 {
 	if (c == 127)
 		current = line_delone(current, prompt, curseur);
@@ -78,7 +82,7 @@ int			ft_line_edition(char **line, int prompt_len)
 	while ((ret = read(STDIN_FILENO, &c, 1)))
 	{
 		if (c == '\n')
-			return (read_end(line, current));
+			return (read_end(line, current, prompt_len, &curseur));
 		else if (c == 27)
 			current = ft_line_esc(current, prompt_len, &curseur);
 		else
