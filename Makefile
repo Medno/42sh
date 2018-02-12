@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/02/12 17:30:36 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/02/12 17:39:30 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,11 @@ LINE_NAME = ft_line.c init_terms.c dblist.c moove.c del_char.c add_elem.c \
 			ft_pos.c moove2.c completion.c dblist2.c historic.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
+
+### LEXER ###
+LEXER_NAME =  lexer.c lex_init.c lex_copy.c
+LEXER_PATH = lexer/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 
 ### LIBFT ###
 LIBINC = ./libft
@@ -75,7 +80,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : makelib $(NAME)
 
 $(NAME) : $(OBJ)
-		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS) ./logger/liblogger.a
+		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS)
 		@echo "\033[35m***** done *****\033[0m"
 
 %.o:%.c

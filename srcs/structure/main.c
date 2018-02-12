@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 16:16:12 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 17:51:53 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int				main(void)
 		ret = ft_line_edition(&str, len_prompt, &historic);
 		if (ft_strequ("exit", str))
 			break ;
+lexer(str);
 		ft_cfmakedefault(&current);
 		ft_strdel(&str);
 		if (!ret)
