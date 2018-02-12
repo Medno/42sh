@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 11:13:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/10 13:15:45 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 09:08:29 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_line		*moove_lword(t_line *cur, int prompt, t_curs *curseur)
 
 t_line		*moove_rword(t_line *cur, int prompt, t_curs *curseur)
 {
-	while (cur->next && cur->next->c != ' ')
+	while (cur->next && cur->c != ' ')
 		cur = moove_right(cur, prompt, curseur);
-	while (cur->next && (cur->next->c == ' ' || cur->c == ' '))
+	while (cur->next && cur->c == ' ')
 		cur = moove_right(cur, prompt, curseur);
 	return (cur);
 }

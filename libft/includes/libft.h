@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 08:44:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 16:24:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:59:50 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <inttypes.h>
 # include <unistd.h>
 # include "ft_printf.h"
+# include "get_next_line.h"
 
 typedef struct		s_list
 {

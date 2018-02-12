@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/24 17:49:45 by kyazdani          #+#    #+#              #
-#    Updated: 2018/01/29 14:09:15 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/02/12 08:53:09 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ WRITE_PATH = ft_write/
 SRC += $(addprefix $(WRITE_PATH), $(WRITE_NAME))
 
 ### SPECIALS ###
-SPEC_NAME = ft_getopt.c
+SPEC_NAME = ft_getopt.c get_next_line.c
 SPEC_PATH = ft_spec/
 SRC += $(addprefix $(SPEC_PATH), $(SPEC_NAME))
 

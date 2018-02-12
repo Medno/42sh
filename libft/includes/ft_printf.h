@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 20:22:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/31 13:36:45 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 08:56:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdarg.h>
 # include <wchar.h>
 # include <locale.h>
+# include <stdio.h>
 # include "libft.h"
 # define ARG_NAME "spdiouxcSDOUXCaAbBeEfFgGHIJkKmMnNPqQrRtTvVwWyYZ%"
 

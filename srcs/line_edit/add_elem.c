@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/10 10:12:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 13:17:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	moove_curseur(t_curs *curseur)
 	if (curseur->x > curseur->xmax)
 	{
 		if (!curseur->xmax)
-			{
+		{
 			tputs(tgetstr("sf", NULL), 0, &ft_inputchar);
 			tputs(tgetstr("up", NULL), 0, &ft_inputchar);
 		}

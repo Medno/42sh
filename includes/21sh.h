@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/10 13:13:36 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 11:57:22 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct		s_env
 	char			*content;
 	struct s_env	*next;
 }					t_env;
+
+typedef struct		s_hist
+{
+	char			*line;
+	struct s_hist	*next;
+	struct s_hist	*prev;
+}					t_hist;
 
 typedef struct		s_line
 {
@@ -72,11 +79,16 @@ int					count_list_len(t_env **env);
 char				**put_in_tab(t_env **env);
 char				*ft_getenv(t_env **env, char *elem);
 t_env				*create_env(char **arr);
+void				insert_env_start(t_env **env);
 /*
 ** addons >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 int					put_path(t_env **env);
-void				insert_env_start(t_env **env);
+/*
+** historic >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
+t_hist				*new_hist(void);
+void				hist_to_file(t_hist *historic);
 /*
 ** attrs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
@@ -85,7 +97,7 @@ void				ft_cfmakedefault(struct termios *my_state);
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-int					ft_line_edition(char **line, int prompt_len);
+int					ft_line_edition(char **line, int prompt_len, t_hist *histo);
 t_line				*line_delone(t_line *cur, int prompt, t_curs *curseur);
 t_line				*del_next(t_line *cur);
 /*
@@ -119,6 +131,10 @@ t_line				*moove_lword(t_line *cur, int prompt, t_curs *curseur);
 void				check_ynx(t_curs *curseur, int prompt, int index);
 void				check_max(t_curs *curseur, int len);
 void				init_curs(t_curs *curseur, int prompt);
+/*
+**
+*/
+t_line				*completion(t_line *cur, int prompt, t_curs *curseur);
 /*
 *** termcaps setup
 */
