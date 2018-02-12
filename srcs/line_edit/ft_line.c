@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 13:42:52 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 17:05:49 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,8 @@
 
 static int	read_end(char **line, t_line *elm, int prompt, t_curs *curseur)
 {
-	int		i;
-
-	if (!(*line = (char *)malloc(sizeof(char) * full_list_len(elm) + 1)))
-		return (0);
-	i = 0;
 	elm = moove_first(elm, prompt, curseur);
-	while (elm->next)
-	{
-		(*line)[i] = elm->c;
-		elm = moove_right(elm, prompt, curseur);
-		i++;
-	}
-	(*line)[i] = 0;
+	*line = line_to_str(elm);
 	del_elem(elm);
 	write(STDIN_FILENO, "\n", 1);
 	return (1);
@@ -45,16 +34,16 @@ t_line		*ft_line_esc_2(t_line *cur, int prompt, t_curs *curseur, char *buf)
 	return (cur);
 }
 
-t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist *histo)
+t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 {
 	char	buf[8];
 
 	ft_bzero(&buf, 8);
 	read(STDIN_FILENO, &buf, 8);
 	if (ft_strequ(buf, "[A"))
-		;
+		cur = hist_up(cur, histo, len, curseur);
 	else if (ft_strequ(buf, "[B"))
-		(void)histo;
+		cur = hist_down(cur, histo, len, curseur);
 	else if (ft_strequ(buf, "[C"))
 		cur = moove_right(cur, len, curseur);
 	else if (ft_strequ(buf, "[D"))
@@ -81,7 +70,7 @@ t_line		*ft_line_usual(t_line *current, char c, int prompt, t_curs *curseur)
 	return (current);
 }
 
-int			ft_line_edition(char **line, int prompt_len, t_hist *histo)
+int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
 {
 	char			c;
 	int				ret;
@@ -90,10 +79,14 @@ int			ft_line_edition(char **line, int prompt_len, t_hist *histo)
 
 	current = create_elem(0);
 	init_curs(&curseur, prompt_len);
+	init_hist(histo);
 	while ((ret = read(STDIN_FILENO, &c, 1)))
 	{
 		if (c == '\n')
+		{
+			handle_history_ret(current, histo);
 			return (read_end(line, current, prompt_len, &curseur));
+		}
 		else if (c == 27)
 			current = ft_line_esc(current, prompt_len, &curseur, histo);
 		else

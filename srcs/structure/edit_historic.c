@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 11:40:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 11:58:25 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 17:25:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static t_hist	*create_hist(char *str)
+t_hist			*create_hist(char *str)
 {
 	t_hist	*new;
 
@@ -24,15 +24,15 @@ static t_hist	*create_hist(char *str)
 	return (new);
 }
 
-static void		append_new(t_hist *list, t_hist *new)
+static void		append_new(t_hist **list, t_hist *new)
 {
 	t_hist	*tmp;
 
-	if (!list)
-		list = new;
+	if (!*list)
+		*list = new;
 	else
 	{
-		tmp = list;
+		tmp = *list;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
@@ -43,20 +43,22 @@ static void		append_new(t_hist *list, t_hist *new)
 void			hist_to_file(t_hist *historic)
 {
 	int		fd;
+	t_hist	*tmp;
 
-	fd = open(".history", O_CREAT, O_WRONLY);
+	fd = open("./srcs/structure/.history", O_CREAT | O_WRONLY, 0600);
 	while (historic->prev)
 		historic = historic->prev;
 	while (historic)
 	{
-		write(fd, &historic->line, ft_strlen(historic->line));
-		write(fd, "\n", 1);
+		ft_putendl_fd(historic->line, fd);
 		ft_strdel(&historic->line);
+		tmp = historic;
 		historic->prev = NULL;
 		historic = historic->next;
-		historic->prev->next = NULL;
-		free(historic->prev);
+		tmp->next = NULL;
+		free(tmp);
 	}
+	close(fd);
 }
 
 t_hist			*new_hist(void)
@@ -66,7 +68,7 @@ t_hist			*new_hist(void)
 	int		fd;
 	char	*line;
 
-	if ((fd = open(".history", O_RDONLY)) < 0)
+	if ((fd = open("./srcs/structure/.history", O_RDONLY)) < 0)
 		return (NULL);
 	line = NULL;
 	list = NULL;
@@ -74,8 +76,9 @@ t_hist			*new_hist(void)
 	{
 		new = NULL;
 		if ((new = create_hist(line)))
-			append_new(list, new);
+			append_new(&list, new);
 		ft_strdel(&line);
 	}
+	close(fd);
 	return (list);
 }

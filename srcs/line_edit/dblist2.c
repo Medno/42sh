@@ -6,11 +6,31 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 09:33:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 12:22:27 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:42:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+
+char		*line_to_str(t_line *cur)
+{
+	char	*str;
+	int		i;
+
+	if (!(str = malloc(sizeof(char) * full_list_len(cur) + 1)))
+		return (NULL);
+	i = 0;
+	while (cur->prev)
+		cur = cur->prev;
+	while (cur->next)
+	{
+		str[i] = cur->c;
+		cur = cur->next;
+		i++;
+	}
+	str[i] = 0;
+	return (str);
+}
 
 void	increment_all(t_line *current, char c)
 {

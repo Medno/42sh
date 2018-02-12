@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/02/12 12:03:32 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/02/12 17:30:36 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
 ### LINE EDIT ###
 LINE_NAME = ft_line.c init_terms.c dblist.c moove.c del_char.c add_elem.c \
-			ft_pos.c moove2.c completion.c dblist2.c
+			ft_pos.c moove2.c completion.c dblist2.c historic.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
@@ -80,7 +80,7 @@ $(NAME) : $(OBJ)
 
 %.o:%.c
 		@$(CC) $(FLAGS) $(INC) -o $@ -c $<
-		@echo "\x1b[38;2;255;95;30m"
+		@echo "\x1b[38;2;255;95;30m\c"
 		@echo " [$@] > compiled\033[0m"
 
 makelib :

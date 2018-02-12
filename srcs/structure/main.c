@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 12:01:35 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/12 16:16:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ int				main(void)
 	tcgetattr(STDIN_FILENO, &current);
 	new_env = create_env(environ);
 	insert_env_start(&new_env);
+	historic = NULL;
 	historic = new_hist();
 	str = NULL;
 	while (1)
 	{
 		len_prompt = put_path(&new_env);
 		ft_cfmakeraw(&current);
-		ret = ft_line_edition(&str, len_prompt, historic);
+		ret = ft_line_edition(&str, len_prompt, &historic);
+		if (ft_strequ("exit", str))
+			break ;
 		ft_cfmakedefault(&current);
 		ft_strdel(&str);
 		if (!ret)
