@@ -12,7 +12,8 @@
 
 #include "21sh.h"
 
-t_line			*paste(t_line *cur, char *str, int prompt, t_curs *curseur)
+t_line			*paste_line(t_line *cur, char *str, int prompt,
+			t_curs *curseur)
 {
 	while (str && *str)
 	{

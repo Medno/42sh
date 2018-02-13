@@ -86,7 +86,7 @@ $(NAME) : $(OBJ)
 
 %.o:%.c
 		@$(CC) $(FLAGS) $(INC) -o $@ -c $<
-		@echo "\x1b[38;2;255;95;30m\c"
+		@echo "\033[38;2;255;95;30m\c"
 		@echo " [$@] > compiled\033[0m"
 
 makelib :

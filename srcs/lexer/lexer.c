@@ -43,7 +43,7 @@ t_lex	*treat_char(t_lex *new, char *str, int *i)
 		new = lex_copy_redir(new, str, i);
 	else if (str[*i] == '\'' || str[*i] == '\"')
 		new = lex_copy_quote(new, str, i, ft_strlen(&str[*i]));
-	else if (isdigit(str[*i]))
+	else if (ft_isdigit(str[*i]))
 		new = lex_copy_int(new, str, i);
 	else
 		new = lex_copy_str(new, str, i);

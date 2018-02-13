@@ -66,7 +66,7 @@ static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 	if (c == 7)
 		cur = grab_mod(cur, prompt, curseur);
 	else if (c == 11)
-		cur = paste(cur, str, prompt, curseur);
+		cur = paste_line(cur, str, prompt, curseur);
 	ft_strdel(&str);
 	return (cur);
 }

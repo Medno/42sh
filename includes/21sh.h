@@ -121,7 +121,7 @@ t_line				*del_next(t_line *cur);
 ** copy
 */
 t_line				*grab_mod(t_line *current, int prompt, t_curs *curseur);
-t_line				*paste(t_line *cur, char *str, int prompt, t_curs *curseur);
+t_line				*paste_line(t_line *cur, char *str, int prompt, t_curs *curseur);
 /*
 ** historic
 */
