@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 09:18:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:42:13 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,11 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == 12)
 			;//handle clear
-		else if (c == 10 && (current = moove_last(current, prompt_len, &curseur)))
+		else if (c == '\n')
+		{
+			current = moove_last(current, prompt_len, &curseur);
 			return (read_end(line, current, histo));
+		}
 		else if (c == 14)
 			current = hist_down(current, histo, prompt_len, &curseur);
 		else if (c == 16)

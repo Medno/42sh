@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:56:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 10:40:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:17:35 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_line	*create_elem(char c)
 		return (NULL);
 	new->c = c;
 	new->index = 0;
+	new->select = 0;
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);

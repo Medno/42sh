@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 13:32:11 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:46:27 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct		s_line
 {
 	char			c;
 	int				index;
+	int				select;
 	struct s_line	*next;
 	struct s_line	*prev;
 }					t_line;
@@ -108,15 +109,21 @@ void				hist_to_file(t_hist *historic);
 void				ft_cfmakeraw(struct termios *my_state);
 void				ft_cfmakedefault(struct termios *my_state);
 /*
- **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- */
-int					ft_line_edition(char **line, int prompt_len, t_hist **histo);
-t_line				*ft_line_usual(t_line *current, char c, int prompt, t_curs *curseur);
+**  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
+int					ft_line_edition(char **line, int prompt_len,
+					t_hist **histo);
+t_line				*ft_line_usual(t_line *current, char c, int prompt,
+					t_curs *curseur);
 t_line				*line_delone(t_line *cur, int prompt, t_curs *curseur);
 t_line				*del_next(t_line *cur);
 /*
- ** historic
- */
+** copy
+*/
+t_line				*grab_mod(t_line *current, int prompt, t_curs *curseur);
+/*
+** historic
+*/
 t_line				*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur);
 t_line				*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur);
 t_hist				*create_hist(char *str);
@@ -124,8 +131,8 @@ char				*line_to_str(t_line *cur);
 void				init_hist(t_hist **histo);
 void				handle_history_ret(t_line *cur, t_hist **histo);
 /*
- ** list checkups
- */
+** list checkups
+*/
 void				increment_all(t_line *current, char c);
 int					dblist_len(t_line *first);
 int					full_list_len(t_line *el);
