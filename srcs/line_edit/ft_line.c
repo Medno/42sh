@@ -14,7 +14,7 @@
 
 static int	read_end(char **line, t_line *elm, int prompt, t_curs *curseur)
 {
-	elm = moove_first(elm, prompt, curseur);
+	elm = moove_last(elm, prompt, curseur);
 	*line = line_to_str(elm);
 	del_elem(elm);
 	write(STDIN_FILENO, "\n", 1);
