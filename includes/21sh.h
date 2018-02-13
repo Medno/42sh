@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 09:18:15 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/13 13:32:11 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,8 @@ void				del_lex(t_lex *first);
 int					isredir(char c);
 t_lex				*lex_copy_str(t_lex *new, char *str, int *i);
 t_lex				*lex_copy_int(t_lex *new, char *str, int *i);
+t_lex				*lex_copy_redir(t_lex *new, char *str, int *i);
+t_lex				*lex_copy_quote(t_lex *new, char *str, int *i, int len);
 
 
 #endif

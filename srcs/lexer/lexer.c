@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/12 18:20:36 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:23:51 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	print_lex(t_lex *first)
 	t_lex	*tmp;
 
 	tmp = first;
-	while (tmp && (tmp->value || tmp->token == INT))
+	while (tmp && tmp->token != NONE)
 	{
-		if (tmp->token == STR)
+		if (tmp->token != INT)
 			ft_putendl(tmp->value);
 		else if (tmp->token == INT)
 		{
@@ -39,16 +39,14 @@ void	print_lex(t_lex *first)
 
 t_lex	*treat_char(t_lex *new, char *str, int *i)
 {
-	if (isalpha(str[*i]) || str[*i] == ';')
-		new = lex_copy_str(new, str, i);
+	if (isredir(str[*i]))
+		new = lex_copy_redir(new, str, i);
+	else if (str[*i] == '\'' || str[*i] == '\"')
+		new = lex_copy_quote(new, str, i, ft_strlen(&str[*i]));
 	else if (isdigit(str[*i]))
 		new = lex_copy_int(new, str, i);
-	/*
-	else if (isredir(str[*i]))
-		new = lex_copy_redir(new, str, i);
-	else if (str[*i] == ''' || str[*i] == '"')
-		new = lex_copy_quote(new, str, i);
-		*/
+	else
+		new = lex_copy_str(new, str, i);
 	return (new);
 }
 
