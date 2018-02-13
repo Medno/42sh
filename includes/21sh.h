@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 15:46:27 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:56:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct		s_lex
 	struct s_lex	*prev;
 }					t_lex;
 /*
- ** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- */
+** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
 void				ft_cd(t_env **env, char **str, int len);
 void				ft_cd_l(t_env **env, char *curpath, char *dir);
 char				**delete_and_paste(char **arr, int i);
@@ -86,8 +86,8 @@ void				ft_env(t_env *env, char **entry);
 void				ft_setenv(t_env **list, char *name, char *content);
 void				ft_unsetenv(t_env **list, char *name);
 /*
- ** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- */
+** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
 void				free_list(t_env **env);
 int					count_list_len(t_env **env);
 char				**put_in_tab(t_env **env);
@@ -95,17 +95,17 @@ char				*ft_getenv(t_env **env, char *elem);
 t_env				*create_env(char **arr);
 void				insert_env_start(t_env **env);
 /*
- ** addons >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- */
+** addons >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
 int					put_path(t_env **env);
 /*
- ** historic >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- */
+** historic >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
 t_hist				*new_hist(void);
 void				hist_to_file(t_hist *historic);
 /*
- ** attrs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
- */
+** attrs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
 void				ft_cfmakeraw(struct termios *my_state);
 void				ft_cfmakedefault(struct termios *my_state);
 /*
@@ -139,15 +139,15 @@ int					full_list_len(t_line *el);
 t_line				*create_elem(char c);
 void				free_dblist(t_line *el);
 /*
- ** deletion
- */
+** deletion
+*/
 void				del_one_elem(t_line *del);
 void				del_elem(t_line *first);
 /*
- ** adding and mooving
- */
+** adding and mooving
+*/
 t_line				*push_new(t_line *current, char c, int prompt,
-		t_curs *curseur);
+					t_curs *curseur);
 t_line				*moove_left(t_line *cur, int prompt, t_curs *curseur);
 t_line				*moove_right(t_line *cur, int prompt, t_curs *curseur);
 t_line				*moove_up(t_line *cur, int prompt, t_curs *curseur);
@@ -157,18 +157,18 @@ t_line				*moove_last(t_line *cur, int prompt, t_curs *curseur);
 t_line				*moove_rword(t_line *cur, int prompt, t_curs *curseur);
 t_line				*moove_lword(t_line *cur, int prompt, t_curs *curseur);
 /*
- ** ft_pos
- */
+** ft_pos
+*/
 void				check_ynx(t_curs *curseur, int prompt, int index);
 void				check_max(t_curs *curseur, int len);
 void				init_curs(t_curs *curseur, int prompt);
 /*
- **
- */
+**
+*/
 t_line				*completion(t_line *cur, int prompt, t_curs *curseur);
 /*
- *** termcaps setup
- */
+*** termcaps setup
+*/
 char				*get_ttyname(void);
 int					init_termcaps(void);
 /*
@@ -182,6 +182,4 @@ t_lex				*lex_copy_str(t_lex *new, char *str, int *i);
 t_lex				*lex_copy_int(t_lex *new, char *str, int *i);
 t_lex				*lex_copy_redir(t_lex *new, char *str, int *i);
 t_lex				*lex_copy_quote(t_lex *new, char *str, int *i, int len);
-
-
 #endif
