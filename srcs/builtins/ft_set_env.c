@@ -30,10 +30,8 @@ static t_env	*new_env(char *name, char *content)
 void			ft_setenv(t_env **list, char *name, char *content)
 {
 	t_env	*tmp;
-	int		i;
 
 	tmp = *list;
-	i = -1;
 	while (tmp && tmp->next && ft_strcmp(name, tmp->name))
 		tmp = tmp->next;
 	if (!content)

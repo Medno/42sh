@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 17:05:49 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/13 06:56:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	read_end(char **line, t_line *elm, int prompt, t_curs *curseur)
 {
 	elm = moove_last(elm, prompt, curseur);
 	*line = line_to_str(elm);
-	del_elem(elm);
+	free_dblist(elm);
 	write(STDIN_FILENO, "\n", 1);
 	return (1);
 }

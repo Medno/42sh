@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/02/12 17:39:30 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/02/13 06:47:15 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,9 @@ $(NAME) : $(OBJ)
 
 makelib :
 		@make -C $(LIBINC) NOERR=$(NOERR) DEV=$(DEV) SAN=$(SAN)
+
+hist :
+		@/bin/rm -f ./srcs/structure/.history
 
 clean : cleanlib
 		@/bin/rm -rf $(OBJ)

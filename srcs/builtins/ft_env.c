@@ -72,5 +72,5 @@ void		ft_env(t_env *env, char **entry)
 		else if (c == 'i')
 			i = 1;
 	}
-	ft_env_2(env, &entry[g_optind], i);
+	ft_env_2(tmp, &entry[g_optind], i);
 }
