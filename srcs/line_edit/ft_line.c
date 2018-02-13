@@ -6,15 +6,15 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 06:56:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/13 09:18:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-static int	read_end(char **line, t_line *elm, int prompt, t_curs *curseur)
+static int	read_end(char **line, t_line *elm, t_hist **histo)
 {
-	elm = moove_last(elm, prompt, curseur);
+	handle_history_ret(elm, histo);
 	*line = line_to_str(elm);
 	free_dblist(elm);
 	write(STDIN_FILENO, "\n", 1);
@@ -59,34 +59,27 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 	return (cur);
 }
 
-t_line		*ft_line_usual(t_line *current, char c, int prompt, t_curs *curseur)
-{
-	if (c == 127)
-		current = line_delone(current, prompt, curseur);
-	else if (c == '\t')
-		current = completion(current, prompt, curseur);
-	else
-		current = push_new(current, c, prompt, curseur);
-	return (current);
-}
-
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
 {
 	char			c;
-	int				ret;
 	t_curs			curseur;
 	t_line			*current;
 
 	current = create_elem(0);
 	init_curs(&curseur, prompt_len);
 	init_hist(histo);
-	while ((ret = read(STDIN_FILENO, &c, 1)))
+	while (read(STDIN_FILENO, &c, 1))
 	{
-		if (c == '\n')
-		{
-			handle_history_ret(current, histo);
-			return (read_end(line, current, prompt_len, &curseur));
-		}
+		if (c == 4 && !current->next && !current->prev)
+			return (0);//HANDLE_CTRLD_exit
+		else if (c == 12)
+			;//handle clear
+		else if (c == 10 && (current = moove_last(current, prompt_len, &curseur)))
+			return (read_end(line, current, histo));
+		else if (c == 14)
+			current = hist_down(current, histo, prompt_len, &curseur);
+		else if (c == 16)
+			current = hist_up(current, histo, prompt_len, &curseur);
 		else if (c == 27)
 			current = ft_line_esc(current, prompt_len, &curseur, histo);
 		else
