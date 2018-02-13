@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 15:56:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:28:14 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ t_line				*del_next(t_line *cur);
 ** copy
 */
 t_line				*grab_mod(t_line *current, int prompt, t_curs *curseur);
+t_line				*paste(t_line *cur, char *str, int prompt, t_curs *curseur);
 /*
 ** historic
 */
