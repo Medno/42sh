@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 16:28:14 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/14 15:50:55 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct		s_curs
 
 typedef enum		e_token
 {
-	STR, INT, REDIR, QUOTE, SEMICOLON, NONE
+	STR, INT, REDIR, QUOTE, SEMICOLON, LOGIC, NONE
 }					t_token;
 
 typedef struct		s_lex

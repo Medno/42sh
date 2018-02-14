@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/13 15:23:51 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/14 10:51:43 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ t_lex	*treat_char(t_lex *new, char *str, int *i)
 {
 	if (isredir(str[*i]))
 		new = lex_copy_redir(new, str, i);
-	else if (str[*i] == '\'' || str[*i] == '\"')
+	else if (str[*i] == '#')
+		while (str[*i])
+			(*i)++;
+	else if (str[*i] == '\'' || str[*i] == '\"' || str[*i] == '`')
 		new = lex_copy_quote(new, str, i, ft_strlen(&str[*i]));
 	else if (ft_isdigit(str[*i]))
 		new = lex_copy_int(new, str, i);
