@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 12:42:13 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/15 15:02:52 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,58 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 	return (cur);
 }
 
-int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
+int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 {
-	char			c;
-	t_curs			curseur;
-	t_line			*current;
+	char	c;
+	int		closing;
+	t_curs	curseur;
 
-	current = create_elem(0);
+	closing = 1;
+	if (prompt_len == -1)
+	{
+		prompt_len = 2;
+		closing = 0;
+	}
 	init_curs(&curseur, prompt_len);
-	init_hist(histo);
 	while (read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 4 && !current->next && !current->prev)
+		if (c == '\"' || c == '\'')
+			closing = !closing;
+		if (c == 4 && !(*current)->next && !(*current)->prev)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == 12)
 			;//handle clear
-		else if (c == '\n')
+		else if (c == '\n' && closing)
 		{
-			current = moove_last(current, prompt_len, &curseur);
-			return (read_end(line, current, histo));
+			(*current) = moove_last((*current), prompt_len, &curseur);
+			return (read_end(line, (*current), histo));
+		}
+		else if (c == '\n' && !closing) // Quote not closed
+		{
+			(*current) = moove_last((*current), prompt_len, &curseur);
+			(*current) = push_new((*current), c, prompt_len, &curseur);
+			ft_printf("{tred}>{eoc} ");
+			return (read_line(line, current, -1, histo));
 		}
 		else if (c == 14)
-			current = hist_down(current, histo, prompt_len, &curseur);
+			(*current) = hist_down((*current), histo, prompt_len, &curseur);
 		else if (c == 16)
-			current = hist_up(current, histo, prompt_len, &curseur);
+			(*current) = hist_up((*current), histo, prompt_len, &curseur);
 		else if (c == 27)
-			current = ft_line_esc(current, prompt_len, &curseur, histo);
+			(*current) = ft_line_esc((*current), prompt_len, &curseur, histo);
 		else
-			current = ft_line_usual(current, c, prompt_len, &curseur);
+			(*current) = ft_line_usual((*current), c, prompt_len, &curseur);
 	}
+	return (0);
+}
+
+int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
+{
+	t_line			*current;
+
+	current = create_elem(0);
+	init_hist(histo);
+	if (read_line(line, &current, prompt_len, histo))
+		return (1);
 	return (0);
 }

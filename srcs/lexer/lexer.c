@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/14 10:51:43 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/15 13:45:32 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ int		isredir(char c)
 void	print_lex(t_lex *first)
 {
 	t_lex	*tmp;
+	int		i;
 
 	tmp = first;
+	i = 1;
 	while (tmp && tmp->token != NONE)
 	{
+		ft_printf("Token n. : %d\n", i);
 		if (tmp->token != INT)
 			ft_putendl(tmp->value);
 		else if (tmp->token == INT)
@@ -33,6 +36,7 @@ void	print_lex(t_lex *first)
 			ft_putnbr(tmp->number);
 			write(1, "\n", 1);
 		}
+		i++;
 		tmp = tmp->next;
 	}
 }
@@ -63,9 +67,9 @@ void	build_lexer(t_lex **first, char *str)
 	new = *first;
 	while (str[i])
 	{
-		new = treat_char(new, str, &i);
-		if (str[i] && str[i] == ' ')
+		while (str[i] && str[i] == ' ')
 			i++;
+		new = treat_char(new, str, &i);
 		if (str[i])
 		{
 			new->next = init_lexer();
