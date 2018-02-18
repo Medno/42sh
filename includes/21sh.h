@@ -61,7 +61,7 @@ typedef struct		s_curs
 
 typedef enum		e_token
 {
-	STR, INT, OP_REDIR, OP_CONTROL, QUOTE, NONE, IO_NUMBER
+	WORD, INT, OP, QUOTE, NONE, IO_NUMBER, EOI
 }					t_token;
 
 typedef struct		s_lex
