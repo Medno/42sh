@@ -186,20 +186,20 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 {
 	t_lex	*new;
 	int		i;
-	int		quoted;
+	//int		quoted;
 	char	buf[len_str];
 	char	read[2];
 
 	i = 0;
 	*first = init_lexer();
 	new = *first;
-	quoted = 0;
+	g_quote = 0;
 	read[1] = '\0';
 	ft_bzero(buf, len_str);
 	while (str[i])
 	{
 		read[0] = str[i];
-		if (new->token == OP && !quoted)
+		if (new->token == OP && !g_quote)
 		{
 			if (is_op(str[i], buf) && cat_op(str[i], buf))
 				ft_strcat(buf, read);
@@ -211,17 +211,16 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 				new->next = init_lexer();
 				new->next->prev = new;
 				new = new->next;
-				ft_strcat(buf, read);
 				i--;
 			}
 		}
-		else if (is_esc(str[i]) && !quoted)
+		else if (is_esc(str[i]) && !g_quote)
 		{
 			new->token = WORD;
-			quoted = 1;
+			g_quote = str[i];
 			ft_strcat(buf, read);
 		}
-		else if (!quoted && is_op(str[i], buf))
+		else if (!g_quote && is_op(str[i], buf))
 		{
 			if (buf[0])
 			{
@@ -237,7 +236,7 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 			ft_strcat(buf, read);
 			new->token = OP;
 		}
-		else if (!quoted && (str[i] == '\n' || str[i] == ' '))
+		else if (!g_quote && (str[i] == '\n' || str[i] == ' '))
 		{
 			if (new->token != NONE)
 			{
@@ -249,10 +248,10 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 			new = new->next;
 			}
 		}
-		else if (new->token == WORD)
+		else if (new->token == WORD || str[i] == g_quote)
 		{
-			if (is_esc(str[i]))
-				quoted = 0;
+			if (str[i] == g_quote)
+				g_quote = 0;
 			ft_strcat(buf, read);
 		}
 		else if (str[i] == '#')
@@ -279,6 +278,7 @@ t_lex	*lexer(char *str)
 {
 	t_lex	*first;
 
+	g_quote = 0;
 	if (!str)
 		return (NULL);
 	build_lexer(&first, str, ft_strlen(str));

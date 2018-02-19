@@ -69,7 +69,7 @@ int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 	init_curs(&curseur, prompt_len);
 	while (read(STDIN_FILENO, &c, 1))
 	{
-		if (((c == '\"' || c == '\'') && !g_quote) || g_quote == c)
+		if (((c == '\"' || c == '\'') && !g_quote) || (c == g_quote && g_quote))
 		{
 			if (!g_quote)
 				g_quote = c;
