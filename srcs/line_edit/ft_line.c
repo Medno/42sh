@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/15 15:02:52 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/19 16:46:11 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,30 +62,30 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 {
 	char	c;
-	int		closing;
 	t_curs	curseur;
 
-	closing = 1;
 	if (prompt_len == -1)
-	{
 		prompt_len = 2;
-		closing = 0;
-	}
 	init_curs(&curseur, prompt_len);
 	while (read(STDIN_FILENO, &c, 1))
 	{
-		if (c == '\"' || c == '\'')
-			closing = !closing;
+		if (((c == '\"' || c == '\'') && !g_quote) || g_quote == c)
+		{
+			if (!g_quote)
+				g_quote = c;
+			else
+				g_quote = 0;
+		}
 		if (c == 4 && !(*current)->next && !(*current)->prev)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == 12)
 			;//handle clear
-		else if (c == '\n' && closing)
+		else if (c == '\n' && !g_quote)
 		{
 			(*current) = moove_last((*current), prompt_len, &curseur);
 			return (read_end(line, (*current), histo));
 		}
-		else if (c == '\n' && !closing) // Quote not closed
+		else if (c == '\n' && g_quote) // Quote not closed
 		{
 			(*current) = moove_last((*current), prompt_len, &curseur);
 			(*current) = push_new((*current), c, prompt_len, &curseur);
@@ -108,6 +108,7 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
 {
 	t_line			*current;
 
+	g_quote = 0;
 	current = create_elem(0);
 	init_hist(histo);
 	if (read_line(line, &current, prompt_len, histo))

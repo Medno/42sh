@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/02/13 16:17:45 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/02/19 12:52:45 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
 ### LEXER ###
-LEXER_NAME =  lexer.c lex_init.c lex_copy.c
+LEXER_NAME = lexer.c lex_init.c
 LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 

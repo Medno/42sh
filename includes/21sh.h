@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/16 14:47:35 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/19 16:44:42 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ typedef struct		s_curs
 
 typedef enum		e_token
 {
-	WORD, INT, OP, QUOTE, NONE, IO_NUMBER, EOI
+	WORD, INT, OP, QUOTE, NONE, IO_NUMBER, EOI, AND_IF, OR_IF, DSEMI,
+	DLESS, DGREAT, LESSAND, GREATAND, LESSGREAT, DLESSDASH, CLOBBER
 }					t_token;
 
 typedef struct		s_lex
@@ -72,6 +73,9 @@ typedef struct		s_lex
 	struct s_lex	*next;
 	struct s_lex	*prev;
 }					t_lex;
+
+char				g_quote;
+
 /*
 ** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
