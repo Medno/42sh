@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/19 16:46:11 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/21 17:09:05 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	read_end(char **line, t_line *elm, t_hist **histo)
 	handle_history_ret(elm, histo);
 	*line = line_to_str(elm);
 	free_dblist(elm);
-	write(STDIN_FILENO, "\n", 1);
 	return (1);
 }
 
@@ -70,12 +69,7 @@ int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 	while (read(STDIN_FILENO, &c, 1))
 	{
 		if (((c == '\"' || c == '\'') && !g_quote) || (c == g_quote && g_quote))
-		{
-			if (!g_quote)
-				g_quote = c;
-			else
-				g_quote = 0;
-		}
+			g_quote = (g_quote) ? 0 : c;
 		if (c == 4 && !(*current)->next && !(*current)->prev)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == 12)
@@ -83,14 +77,13 @@ int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 		else if (c == '\n' && !g_quote)
 		{
 			(*current) = moove_last((*current), prompt_len, &curseur);
-			return (read_end(line, (*current), histo));
-		}
-		else if (c == '\n' && g_quote) // Quote not closed
-		{
-			(*current) = moove_last((*current), prompt_len, &curseur);
 			(*current) = push_new((*current), c, prompt_len, &curseur);
-			ft_printf("{tred}>{eoc} ");
-			return (read_line(line, current, -1, histo));
+			if (g_quote)
+			{
+				ft_printf("{tred}>{eoc} ");
+				return (read_line(line, current, -1, histo));
+			}
+			return (read_end(line, (*current), histo));
 		}
 		else if (c == 14)
 			(*current) = hist_down((*current), histo, prompt_len, &curseur);
