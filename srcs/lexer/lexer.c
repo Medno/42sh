@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/19 16:14:56 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/22 15:09:07 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,8 @@ t_lex	*categorize_token(t_lex *new)
 	{
 	
 	}
+	else if (ft_strequ("\n", new->value))
+		new->token = '\n';
 	return (new);
 }
 
@@ -240,12 +242,12 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 		{
 			if (new->token != NONE)
 			{
-			new->value = ft_strdup(buf);
-			new = categorize_token(new);
-			ft_bzero(buf, len_str);
-			new->next = init_lexer();
-			new->next->prev = new;
-			new = new->next;
+				new->value = ft_strdup(buf);
+				new = categorize_token(new);
+				ft_bzero(buf, len_str);
+				new->next = init_lexer();
+				new->next->prev = new;
+				new = new->next;
 			}
 		}
 		else if (new->token == WORD || str[i] == g_quote)

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/19 16:44:42 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/22 12:03:21 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,13 @@ typedef struct		s_lex
 	struct s_lex	*next;
 	struct s_lex	*prev;
 }					t_lex;
+
+typedef struct		s_ast
+{
+	struct s_ast	*parent;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
 
 char				g_quote;
 
@@ -183,8 +190,4 @@ t_lex				*lexer(char *str);
 t_lex				*init_lexer(void);
 void				del_lex(t_lex *first);
 int					isredir(char c);
-t_lex				*lex_copy_str(t_lex *new, char *str, int *i);
-t_lex				*lex_copy_int(t_lex *new, char *str, int *i);
-t_lex				*lex_copy_redir(t_lex *new, char *str, int *i);
-t_lex				*lex_copy_quote(t_lex *new, char *str, int *i, int len);
 #endif

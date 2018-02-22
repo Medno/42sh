@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/21 17:09:05 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/22 14:23:41 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == 12)
 			;//handle clear
-		else if (c == '\n' && !g_quote)
+		else if (c == '\n')
 		{
 			(*current) = moove_last((*current), prompt_len, &curseur);
 			(*current) = push_new((*current), c, prompt_len, &curseur);
