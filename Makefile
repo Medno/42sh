@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/02/19 12:52:45 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/02/23 12:09:17 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,14 @@ LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
 ### LEXER ###
-LEXER_NAME = lexer.c lex_init.c
+LEXER_NAME = lexer.c init_lex.c
 LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
+
+### PARSER ###
+PARSER_NAME = ast.c init_ast.c
+PARSER_PATH = parser/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 
 ### LIBFT ###
 LIBINC = ./libft

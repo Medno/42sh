@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/23 10:19:03 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/23 12:13:40 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ extern char	**environ;
 
 int				main(void)
 {
+	t_lex			*lex;
 	t_env			*new_env;
 	t_hist			*historic;
 	struct termios	current;
@@ -42,7 +43,8 @@ int				main(void)
 			break ;
 		}
 		ft_cfmakedefault(&current);
-	lexer(str);
+		lex = lexer(str);
+		build_ast(lex);
 		ft_strdel(&str);
 		if (!ret)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/22 12:03:21 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/23 12:59:55 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct		s_lex
 
 typedef struct		s_ast
 {
+	char			*value;
 	struct s_ast	*parent;
 	struct s_ast	*left;
 	struct s_ast	*right;
@@ -179,7 +180,7 @@ void				init_curs(t_curs *curseur, int prompt);
 */
 t_line				*completion(t_line *cur, int prompt, t_curs *curseur);
 /*
-*** termcaps setup
+** termcaps setup
 */
 char				*get_ttyname(void);
 int					init_termcaps(void);
@@ -189,5 +190,10 @@ int					init_termcaps(void);
 t_lex				*lexer(char *str);
 t_lex				*init_lexer(void);
 void				del_lex(t_lex *first);
-int					isredir(char c);
+void				print_lex(t_lex *first);
+/*
+** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
+t_ast				*build_ast(t_lex *first);
+t_ast				*init_ast(void);
 #endif

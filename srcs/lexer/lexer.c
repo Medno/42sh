@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/22 15:09:07 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/23 12:41:12 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ t_lex	*lexer(char *str)
 	if (!str)
 		return (NULL);
 	build_lexer(&first, str, ft_strlen(str));
-	print_lex(first);
-	del_lex(first);
+//	print_lex(first);
+//	del_lex(first);
 	return (first);
 }
