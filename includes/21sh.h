@@ -194,6 +194,6 @@ void				print_lex(t_lex *first);
 /*
 ** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-t_ast				*build_ast(t_lex *first);
+t_ast				*build_ast(t_lex *first, int rec);
 t_ast				*init_ast(void);
 #endif

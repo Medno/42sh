@@ -44,7 +44,7 @@ int				main(void)
 		}
 		ft_cfmakedefault(&current);
 		lex = lexer(str);
-		build_ast(lex);
+		build_ast(lex, 0);
 		ft_strdel(&str);
 		if (!ret)
 			break ;

@@ -18,8 +18,8 @@ t_ast	*init_ast(void)
 
 	if (!(tmp = (t_ast *)malloc(sizeof(t_ast))))
 		return (NULL);
-	tmp->lex = NULL;
-//	tmp->value = NULL;
+//	tmp->lex = NULL;
+	tmp->value = NULL;
 	tmp->parent = NULL;
 	tmp->left = NULL;
 	tmp->right = NULL;
