@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 08:28:30 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 17:19:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/26 14:23:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void		init_hist(t_hist **histo)
+void	init_hist(t_hist **histo)
 {
 	t_hist	*new;
 
@@ -73,7 +73,7 @@ t_line	*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 	if (!*histo || !(*histo)->prev)
 		return (cur);
 	cur = moove_first(cur, prompt, curseur);
-	tputs(tgetstr("cd", NULL), 0, &ft_inputchar);
+	ft_printf("\033[J");
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);
 	free_dblist(cur);
@@ -88,7 +88,7 @@ t_line	*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 	if (!*histo || !(*histo)->next)
 		return (cur);
 	cur = moove_first(cur, prompt, curseur);
-	tputs(tgetstr("cd", NULL), 0, &ft_inputchar);
+	ft_printf("\033[J");
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);
 	free_dblist(cur);

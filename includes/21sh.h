@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/23 12:59:55 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/26 13:27:37 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@
 # include <termios.h>
 # include "libft.h"
 # include "ft_printf.h"
+
+# include "logger.h" // to remove
+
+# define LEFT(x) ft_printf("\033[%dD", x)
+# define RIGHT(x) ft_printf("\033[%dC", x)
+# define DOWN(x) ft_printf("\033[%dB", x)
+# define UP(x) ft_printf("\033[%dA", x)
+# define NL ft_printf("\033E")
 
 typedef struct		s_env
 {

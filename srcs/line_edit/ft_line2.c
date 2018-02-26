@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/13 16:34:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/26 14:21:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static int		count_selected(t_line *cur)
 			i++;
 		tmp = tmp->next;
 	}
-	if (i > 30)
-		return (0);
 	return (i);
 }
 
@@ -61,10 +59,19 @@ static char		*foo_paste(t_line *cur)
 static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 {
 	char	*str;
+	char	*tmp;
 
 	str = foo_paste(cur);
 	if (c == 7)
+	{
 		cur = grab_mod(cur, prompt, curseur);
+		ft_printf_fd(STDIN_FILENO, "\033[s");
+		moove_first(cur, prompt, curseur);
+		ft_printf_fd(STDIN_FILENO, "\033[J");
+		tmp = line_to_str(cur);
+		write(0, tmp, ft_strlen(tmp));
+		ft_printf_fd(STDIN_FILENO, "\033[u");
+	}
 	else if (c == 11)
 		cur = paste_line(cur, str, prompt, curseur);
 	ft_strdel(&str);

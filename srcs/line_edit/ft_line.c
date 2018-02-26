@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/23 10:18:15 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/26 14:31:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,13 @@ int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 	init_curs(&curseur, prompt_len);
 	while (read(STDIN_FILENO, &c, 1))
 	{
-		if (((c == '\"' || c == '\'') && !g_quote) || (c == g_quote && g_quote))
-			g_quote = (g_quote) ? 0 : c;
 		if (c == 4 && !(*current)->next && !(*current)->prev)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == 12)
-			;//handle clear
+			;//mooves everything to top of screen
 		else if (c == '\n')
 		{
 			(*current) = moove_last((*current), prompt_len, &curseur);
-			if (g_quote)
-			{
-			(*current) = push_new((*current), c, prompt_len, &curseur);
-				ft_printf("{tred}>{eoc} ");
-				return (read_line(line, current, -1, histo));
-			}
 			return (read_end(line, (*current), histo));
 		}
 		else if (c == 14)

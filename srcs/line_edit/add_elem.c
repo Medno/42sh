@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 13:17:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/26 13:27:54 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,19 @@
 
 static void	moove_curseur(t_curs *curseur)
 {
-	int		i;
-
 	if (curseur->y < curseur->ymax)
-	{
-		i = curseur->y;
-		while (++i <= curseur->ymax)
-			tputs(tgetstr("up", NULL), 0, &ft_inputchar);
-	}
+		UP(curseur->ymax - curseur->y);
 	if (curseur->x > curseur->xmax)
 	{
 		if (!curseur->xmax)
 		{
-			tputs(tgetstr("sf", NULL), 0, &ft_inputchar);
-			tputs(tgetstr("up", NULL), 0, &ft_inputchar);
+			NL;
+			UP(1);
 		}
-		i = curseur->xmax;
-		while (++i <= curseur->x)
-			tputs(tgetstr("nd", NULL), 0, &ft_inputchar);
+		RIGHT(curseur->x - curseur->xmax);
 	}
 	else
-	{
-		i = curseur->x;
-		while (++i <= curseur->xmax)
-			tputs(tgetstr("le", NULL), 0, &ft_inputchar);
-	}
+		LEFT(curseur->xmax - curseur->x);
 }
 
 static void	print_line(t_line *new, int len_end, t_curs *curseur)
@@ -58,7 +46,7 @@ static void	print_line(t_line *new, int len_end, t_curs *curseur)
 	}
 	write(STDIN_FILENO, &buf, len_end);
 	if (!new->next->next && !curseur->x)
-		tputs(tgetstr("sf", NULL), 0, &ft_inputchar);
+		NL;
 	else if (new->next->next)
 		moove_curseur(curseur);
 }

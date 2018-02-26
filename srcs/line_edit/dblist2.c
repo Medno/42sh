@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 09:33:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 16:42:12 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/26 14:23:42 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-char		*line_to_str(t_line *cur)
+char	*line_to_str(t_line *cur)
 {
 	char	*str;
 	int		i;

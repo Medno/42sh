@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/23 12:13:40 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/26 13:11:49 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int				main(void)
 	int				ret;
 	int				len_prompt;
 
+	logger_init(D_TRACE, "/tmp/out.log");
 	if (!init_termcaps())
 		return (0);
 	tcgetattr(STDIN_FILENO, &current);
