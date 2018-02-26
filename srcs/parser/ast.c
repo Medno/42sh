@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/23 16:40:18 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/26 12:06:35 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_ast	*io_file(t_lex **first)
 		root->left->parent = root;
 		root->right->parent = root;
 			(*first) = (*first)->next;
+			(*first) = (*first)->next;
 			return (root);
 		}
 	}
@@ -91,15 +92,10 @@ t_ast	*io_redirect(t_lex **first)
 	root = NULL;
 	if ((*first)->token == IO_NUMBER && (*first)->next)
 	{
-		root->left = init_ast();
-		root->left->value = ft_strdup((*first)->value);
-		root->right = io_redirect(&(*first)->next);
-		root->left->parent = root;
+		root = init_ast();
+		root = io_redirect(&(*first)->next);
 		root->right->parent = root;
-		//free(first)
-		//first = first->next;
-		//root = root->right;
-		return (root->right);
+		return (root);
 	}
 	root = io_file(first);
 	return (root);
@@ -110,12 +106,12 @@ t_ast	*command_suf(t_lex *first)
 	t_ast	*root;
 
 	root = init_ast();
-	if (first->token == WORD)
+	if (first->token == WORD || first->token == IO_NUMBER)
 		root->value = first->value;
-	else if ((root->left = io_redirect(&first)))
+	if ((root->left = io_redirect(&first)))
 	{
 		root->left->parent = root;
-		root->value = ft_strdup("io_redirect");
+//		root->value = ft_strdup("io_redirect");
 	}
 	else
 		;//error
