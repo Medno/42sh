@@ -25,3 +25,19 @@ t_ast	*init_ast(void)
 	tmp->right = NULL;
 	return (tmp);
 }
+
+void	del_ast(t_ast **root)
+{
+	if (*root && !(*root)->left && !(*root)->right)
+	{
+		ft_strdel(&((*root)->value));
+		free(*root);
+		(*root) = NULL;
+		return ;
+	}
+	if ((*root) && (*root)->left)
+		del_ast(&(*root)->left);
+	if ((*root) && (*root)->right)
+		del_ast(&(*root)->right);
+	del_ast(root);
+}

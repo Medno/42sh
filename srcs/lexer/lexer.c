@@ -284,7 +284,5 @@ t_lex	*lexer(char *str)
 	if (!str)
 		return (NULL);
 	build_lexer(&first, str, ft_strlen(str));
-//	print_lex(first);
-//	del_lex(first);
 	return (first);
 }

@@ -21,7 +21,6 @@ void	print_ast(t_ast *root, char *pos)
 	{
 		if (pos)
 			ft_putendl(pos);
-		//	print_lex(root->value);
 		if (!root->parent)
 			ft_putendl("Racine");
 		else
@@ -74,11 +73,11 @@ t_ast	*io_file(t_lex **first)
 			root->left->value = ft_strdup((*first)->value);
 			root->right = init_ast();
 			root->right->value = ft_strdup((*first)->next->value);
-			//free(first)
-		root->left->parent = root;
-		root->right->parent = root;
+			root->left->parent = root;
+			root->right->parent = root;
 			(*first) = (*first)->next;
-			(*first) = (*first)->next;
+//			if (*first)
+//			(*first) = (*first)->next;
 			return (root);
 		}
 	}
@@ -94,7 +93,6 @@ t_ast	*io_redirect(t_lex **first)
 	{
 		root = init_ast();
 		root = io_redirect(&(*first)->next);
-		root->right->parent = root;
 		return (root);
 	}
 	root = io_file(first);
@@ -104,18 +102,21 @@ t_ast	*io_redirect(t_lex **first)
 t_ast	*command_suf(t_lex *first)
 {
 	t_ast	*root;
+	t_lex	*tmp;
 
 	root = init_ast();
-	if (first->token == WORD || first->token == IO_NUMBER)
-		root->value = first->value;
-	if ((root->left = io_redirect(&first)))
+	tmp = first;
+	if (first->token == WORD)
+		root->value = ft_strdup(first->value);
+	else if ((root->left = io_redirect(&tmp)))
 	{
 		root->left->parent = root;
-//		root->value = ft_strdup("io_redirect");
+		root->value = ft_strdup("io_redirect");
+		first = tmp;
 	}
 	else
 		;//error
-	if (first->next)
+	if (first && first->next)
 	{
 		root->right = command_suf(first->next);
 		root->right->parent = root;
@@ -128,7 +129,7 @@ t_ast	*command(t_lex *first)
 	t_ast	*root;
 
 	root = init_ast();
-	root->value = first->value;
+	root->value = ft_strdup(first->value);
 	if (first->next)
 	{
 		root->left = command_suf(first->next);
@@ -145,10 +146,11 @@ t_ast	*pipeline(t_lex *first)
 	if ((sep = get_lex(first, OP, "|")))
 	{
 		root = init_ast();
-		root->value = sep->value;
+		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
 		root->left = command(sep->next);
+		del_lex(sep);
 		root->right = pipeline(first);
 		root->left->parent = root;
 		root->right->parent = root;
@@ -166,10 +168,11 @@ t_ast   *and_or(t_lex *first)
 	if ((sep = get_lex(first, AND_IF, NULL)) || (sep = get_lex(first, OR_IF, NULL)))
 	{
 		root = init_ast();
-		root->value = sep->value;
+		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
 		root->left = pipeline(sep->next);
+		del_lex(sep);
 		root->right = and_or(first);
 		root->left->parent = root;
 		root->right->parent = root;
@@ -179,7 +182,7 @@ t_ast   *and_or(t_lex *first)
 	return (root);
 }
 
-t_ast   *build_ast(t_lex *first, int rec)
+t_ast   *build_ast(t_lex *first)
 {
 	t_ast   *root;
 	t_lex   *sep;
@@ -188,17 +191,18 @@ t_ast   *build_ast(t_lex *first, int rec)
 	if (/*(sep = get_lex(first, NONE, "&")) || */(sep = get_lex(first, NONE, ";")))
 	{
 		root = init_ast();
-		root->value = sep->value;
+		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
 		root->left = and_or(first);
-		root->right = build_ast(sep->next, 1);
+		if (sep->next)
+			root->right = build_ast(sep->next);
+		del_lex(sep);
 		root->left->parent = root;
-		root->right->parent = root;
+		if (root->right)
+			root->right->parent = root;
 	}
 	else
 		root = and_or(first);
-	if (!rec)
-		print_ast(root, NULL);
 	return (root);
 }

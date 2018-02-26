@@ -202,6 +202,9 @@ void				print_lex(t_lex *first);
 /*
 ** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-t_ast				*build_ast(t_lex *first, int rec);
+int					parser(t_lex *first);
+t_ast				*build_ast(t_lex *first);
 t_ast				*init_ast(void);
+void				del_ast(t_ast **root);
+void				print_ast(t_ast *root, char *pos);
 #endif

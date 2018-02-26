@@ -24,7 +24,7 @@ int				main(void)
 	int				ret;
 	int				len_prompt;
 
-	logger_init(D_TRACE, "/tmp/out.log");
+//	logger_init(D_TRACE, "/tmp/out.log");
 	if (!init_termcaps())
 		return (0);
 	tcgetattr(STDIN_FILENO, &current);
@@ -45,7 +45,7 @@ int				main(void)
 		}
 		ft_cfmakedefault(&current);
 		lex = lexer(str);
-		build_ast(lex, 0);
+		parser(lex);
 		ft_strdel(&str);
 		if (!ret)
 			break ;
