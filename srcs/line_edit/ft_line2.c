@@ -47,7 +47,7 @@ static char		*foo_paste(t_line *cur)
 	static char	str[1024];
 	int			i;
 
-	if (!count_selected(cur))
+	if (!count_selected(cur) || count_selected(cur) > 1024)
 		return ((char *)&str[0]);
 	ft_bzero(str, 1024);
 	tmp = cur;
