@@ -32,13 +32,13 @@ static int		count_selected(t_line *cur)
 
 static char		*foo_paste(t_line *cur)
 {
-	char		*str;
 	t_line		*tmp;
+	static char	str[1024];
 	int			i;
 
 	if (!count_selected(cur))
-		return (NULL);
-	str = (char *)malloc(sizeof(char) * count_selected(cur) + 1);
+		return ((char *)&str[0]);
+	ft_bzero(str, 1024);
 	tmp = cur;
 	while (tmp->prev)
 		tmp = tmp->prev;
@@ -53,18 +53,18 @@ static char		*foo_paste(t_line *cur)
 		tmp = tmp->next;
 	}
 	str[i] = 0;
-	return (str);
+	return ((char *)&str[0]);
 }
 
 static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 {
-	char	*str;
-	char	*tmp;
+	static char	*str;
+	char		*tmp;
 
-	str = foo_paste(cur);
 	if (c == 7)
 	{
 		cur = grab_mod(cur, prompt, curseur);
+		str = foo_paste(cur);
 		ft_printf_fd(STDIN_FILENO, "\033[s");
 		moove_first(cur, prompt, curseur);
 		ft_printf_fd(STDIN_FILENO, "\033[J");
@@ -74,7 +74,6 @@ static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 	}
 	else if (c == 11)
 		cur = paste_line(cur, str, prompt, curseur);
-	ft_strdel(&str);
 	return (cur);
 }
 
