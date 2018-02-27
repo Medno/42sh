@@ -6,7 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2018/02/27 17:28:34 by pchadeni         ###   ########.fr       */
+=======
 /*   Updated: 2018/02/27 15:57:15 by kyazdani         ###   ########.fr       */
+>>>>>>> 2537c395f101812a6caf73cdd85f60e788ddd43c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +33,7 @@ int	parser(t_lex *first)
 	tmp = first;
 	while (tmp->token != EOI && build)
 	{
-		if (tmp->token != WORD && tmp->token != IO_NUMBER
+		if (tmp->token != WORD && tmp->token != IO_NUMBER && !ft_strequ("&", tmp->value)
 				&& !ft_strequ(";", tmp->value) && tmp->next && tmp->next->token == EOI)
 		{
 			ft_putendl("syntax error");

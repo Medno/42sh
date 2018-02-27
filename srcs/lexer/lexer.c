@@ -6,7 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2018/02/27 17:08:49 by pchadeni         ###   ########.fr       */
+=======
 /*   Updated: 2018/02/27 15:56:53 by kyazdani         ###   ########.fr       */
+>>>>>>> 2537c395f101812a6caf73cdd85f60e788ddd43c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +188,7 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 {
 	t_lex	*new;
 	int		i;
-	char	buf[len_str];
+	char	buf[len_str + 1];
 	char	read[2];
 
 	i = 0;

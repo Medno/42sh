@@ -6,7 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2018/02/27 17:27:45 by pchadeni         ###   ########.fr       */
+=======
 /*   Updated: 2018/02/27 15:57:05 by kyazdani         ###   ########.fr       */
+>>>>>>> 2537c395f101812a6caf73cdd85f60e788ddd43c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +77,8 @@ t_ast	*io_file(t_lex **first)
 			root->left->parent = root;
 			root->right->parent = root;
 			(*first) = (*first)->next;
-//			if (*first)
-//			(*first) = (*first)->next;
+			if (*first)
+				(*first) = (*first)->next;
 			return (root);
 		}
 	}
@@ -89,7 +93,10 @@ t_ast	*io_redirect(t_lex **first)
 	if ((*first)->token == IO_NUMBER && (*first)->next->token != EOI)
 	{
 		root = init_ast();
-		root = io_redirect(&(*first)->next);
+		root->value = ft_strdup((*first)->value);
+		root->left = io_redirect(&(*first)->next);
+		if (root->left)
+			root->left->parent = root;
 		return (root);
 	}
 	root = io_file(first);
@@ -192,7 +199,7 @@ t_ast   *build_ast(t_lex *first)
 	t_lex   *sep;
 
 	//TODO : Free all the tree and t_lex
-	if (/*(sep = get_lex(first, NONE, "&")) || */(sep = get_lex(first, NONE, ";")))
+	if ((sep = get_lex(first, NONE, "&")) || (sep = get_lex(first, NONE, ";")))
 	{
 		root = init_ast();
 		root->value = ft_strdup(sep->value);
