@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/26 12:06:35 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/27 14:10:07 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_lex   *get_lex(t_lex *first, t_token token, char *value)
 	t_lex   *tmp;
 
 	tmp = first;
-	while (tmp)
+	while (tmp && tmp->token != EOI)
 	{
 		if (value && ft_strequ(value, tmp->value))
 			return (tmp);
@@ -54,7 +54,7 @@ t_ast	*io_file(t_lex **first)
 {
 	t_ast	*root;
 
-	if (*first && (*first)->next)
+	if (*first && (*first)->next->token != EOI)
 	{
 		if ((*first)->next->token != WORD)
 			return (0);
@@ -86,7 +86,7 @@ t_ast	*io_redirect(t_lex **first)
 	t_ast	*root;
 
 	root = NULL;
-	if ((*first)->token == IO_NUMBER && (*first)->next)
+	if ((*first)->token == IO_NUMBER && (*first)->next->token != EOI)
 	{
 		root = init_ast();
 		root = io_redirect(&(*first)->next);
@@ -113,7 +113,7 @@ t_ast	*command_suf(t_lex *first)
 	}
 	else
 		;//error
-	if (first && first->next)
+	if (first && first->next && first->next->token != EOI)
 	{
 		root->right = command_suf(first->next);
 		root->right->parent = root;
@@ -127,7 +127,7 @@ t_ast	*command(t_lex *first)
 
 	root = init_ast();
 	root->value = ft_strdup(first->value);
-	if (first->next)
+	if (first->next && first->next->token != EOI)
 	{
 		root->left = command_suf(first->next);
 		root->left->parent = root;
@@ -146,14 +146,17 @@ t_ast	*pipeline(t_lex *first)
 		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
-		root->left = command(sep->next);
+		if (sep->next && sep->next->token != EOI)
+			root->left = command(sep->next);
 		del_lex(sep);
 		root->right = pipeline(first);
 		root->left->parent = root;
 		root->right->parent = root;
 	}
-	else
+	else if (first->token != EOI)
 		root = command(first);
+	else
+		root = NULL;
 	return (root);
 }
 
@@ -168,10 +171,14 @@ t_ast   *and_or(t_lex *first)
 		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
-		root->left = pipeline(sep->next);
+		if (sep->next && sep->next->token != EOI)
+		{
+			root->left = pipeline(sep->next);
+			if (root->left)
+			root->left->parent = root;
+		}
 		del_lex(sep);
 		root->right = and_or(first);
-		root->left->parent = root;
 		root->right->parent = root;
 	}
 	else
@@ -192,7 +199,7 @@ t_ast   *build_ast(t_lex *first)
 		if (sep->prev)
 			sep->prev->next = NULL;
 		root->left = and_or(first);
-		if (sep->next)
+		if (sep->next && sep->next->token != EOI)
 			root->right = build_ast(sep->next);
 		del_lex(sep);
 		root->left->parent = root;

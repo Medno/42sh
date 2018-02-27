@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/26 13:27:37 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 13:15:12 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct		s_curs
 
 typedef enum		e_token
 {
-	WORD, INT, OP, QUOTE, NONE, IO_NUMBER, EOI, AND_IF, OR_IF, DSEMI,
+	NONE, WORD, OP, QUOTE, IO_NUMBER, EOI, AND_IF, OR_IF, DSEMI, NEWLINE,
 	DLESS, DGREAT, LESSAND, GREATAND, LESSGREAT, DLESSDASH, CLOBBER
 }					t_token;
 

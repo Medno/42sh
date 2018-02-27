@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/23 12:41:12 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/27 13:57:58 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int		isredir(char c)
 void	print_type(t_lex *tmp)
 {
 	ft_putstr("Type : ");
+	if (tmp->token == NONE)
+		ft_putendl("NONE");
 	if (tmp->token == WORD)
 		ft_putendl("WORD");
 	if (tmp->token == OP)
@@ -59,17 +61,11 @@ void	print_lex(t_lex *first)
 
 	tmp = first;
 	i = 1;
-	while (tmp && tmp->token != NONE)
+	while (tmp)
 	{
 		ft_printf("Token n. : %d\n", i);
 		print_type(tmp);
-		if (tmp->token != INT)
-			ft_putendl(tmp->value);
-		else if (tmp->token == INT)
-		{
-			ft_putnbr(tmp->number);
-			write(1, "\n", 1);
-		}
+		ft_putendl(tmp->value);
 		i++;
 		tmp = tmp->next;
 	}
@@ -175,12 +171,12 @@ t_lex	*categorize_token(t_lex *new)
 		else if (ft_strequ(">|", new->value))
 			new->token = CLOBBER;
 	}
-	else if (new->token == WORD)
+	else if (!new->value)
 	{
-	
+		new->token = EOI;
 	}
 	else if (ft_strequ("\n", new->value))
-		new->token = '\n';
+		new->token = NEWLINE;
 	return (new);
 }
 
@@ -188,7 +184,6 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 {
 	t_lex	*new;
 	int		i;
-	//int		quoted;
 	char	buf[len_str];
 	char	read[2];
 
@@ -271,8 +266,15 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 		new->token = EOI;
 	else
 	{
-		new->value = ft_strdup(buf);
-		new = categorize_token(new);
+		if (new->token != NONE)
+		{
+			new->value = ft_strdup(buf);
+			new = categorize_token(new);
+			new->next = init_lexer();
+			new->next->prev = new;
+			new = new->next;
+		}
+		new->token = EOI;
 	}
 }
 

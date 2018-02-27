@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
+/*   Updated: 2018/02/27 14:35:53 by pchadeni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 int	parser(t_lex *first)
@@ -7,6 +19,7 @@ int	parser(t_lex *first)
 	int		build;
 
 	build = 1;
+//		print_lex(first);
 	if (first->token != WORD)
 	{
 		if (first->token != EOI)
@@ -14,10 +27,10 @@ int	parser(t_lex *first)
 		build = 0;
 	}
 	tmp = first;
-	while (tmp && build)
+	while (tmp->token != EOI && build)
 	{
-		if (tmp->token != WORD && tmp->token != IO_NUMBER 
-				&& !ft_strequ(";", tmp->value) && !tmp->next)
+		if (tmp->token != WORD && tmp->token != IO_NUMBER
+				&& !ft_strequ(";", tmp->value) && tmp->next && tmp->next->token == EOI)
 		{
 			ft_putendl("syntax error");
 			build = 0;
@@ -28,7 +41,6 @@ int	parser(t_lex *first)
 	{
 		tmp = first;
 		ast = build_ast(tmp);
-		//print_lex(first);
 		print_ast(ast, NULL);
 		del_ast(&ast);
 	}
