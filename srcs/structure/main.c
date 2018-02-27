@@ -24,7 +24,6 @@ int				main(void)
 	int				ret;
 	int				len_prompt;
 
-//	logger_init(D_TRACE, "/tmp/out.log");
 	if (!init_termcaps())
 		return (0);
 	tcgetattr(STDIN_FILENO, &current);

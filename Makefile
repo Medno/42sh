@@ -86,7 +86,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : makelib $(NAME)
 
 $(NAME) : $(OBJ)
-		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS) logger/liblogger.a
+		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS)
 		@echo "\033[35m***** done *****\033[0m"
 
 %.o:%.c

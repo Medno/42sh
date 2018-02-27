@@ -14,9 +14,6 @@
 
 void	print_ast(t_ast *root, char *pos)
 {
-	t_ast	*tmp;
-
-	tmp = root;
 	if (root->value)
 	{
 		if (pos)

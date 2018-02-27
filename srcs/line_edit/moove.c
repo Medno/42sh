@@ -52,9 +52,6 @@ t_line		*moove_down(t_line *cur, int prompt, t_curs *curseur)
 
 t_line		*moove_left(t_line *cur, int prompt, t_curs *curseur)
 {
-	int		i;
-
-	i = -1;
 	check_ynx(curseur, prompt, cur->index);
 	if (cur->prev)
 	{

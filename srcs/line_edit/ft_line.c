@@ -14,10 +14,25 @@
 
 static int	read_end(char **line, t_line *elm, t_hist **histo)
 {
+	char	*tmp;
+
+
 	handle_history_ret(elm, histo);
-	*line = line_to_str(elm);
+	if (!*line)
+		*line = line_to_str(elm);
+	else
+	{
+		tmp = *line;
+		*line = ft_strjoin(*line, line_to_str(elm));
+		ft_strdel(&tmp);
+	}
 	free_dblist(elm);
 	write(STDIN_FILENO, "\n", 1);
+	if (g_quote)
+	{
+		ft_printf_fd(STDIN_FILENO, "{tred}\{eoc} ");
+		return (ft_line_edition(line, 2, histo));
+	}
 	return (1);
 }
 
@@ -71,8 +86,6 @@ int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
 	{
 		if (c == 4 && !(*current)->next && !(*current)->prev)
 			return (0);//HANDLE_CTRLD_exit
-		else if (c == 12)
-			;//mooves everything to top of screen
 		else if (c == '\n')
 		{
 			(*current) = moove_last((*current), prompt_len, &curseur);

@@ -27,8 +27,6 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-# include "logger.h" // to remove
-
 # define LEFT(x) ft_printf("\033[%dD", x)
 # define RIGHT(x) ft_printf("\033[%dC", x)
 # define DOWN(x) ft_printf("\033[%dB", x)
