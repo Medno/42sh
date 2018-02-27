@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 12:02:56 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:52:27 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "line_edit.h"
 
 t_line	*completion(t_line *cur, int prompt, t_curs *curseur)
 {

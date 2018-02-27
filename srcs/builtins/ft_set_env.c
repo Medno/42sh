@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:15:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/31 13:01:29 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:53:45 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 static t_env	*new_env(char *name, char *content)
 {

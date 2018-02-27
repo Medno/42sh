@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 11:13:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/26 13:43:42 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:56:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "line_edit.h"
 
 t_line		*moove_first(t_line *cur, int prompt, t_curs *curseur)
 {

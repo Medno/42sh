@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 17:50:29 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/31 13:45:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:52:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 int		put_path(t_env **env)
 {

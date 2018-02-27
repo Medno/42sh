@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 09:33:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/26 14:23:42 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:54:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "line_edit.h"
 
 char	*line_to_str(t_line *cur)
 {

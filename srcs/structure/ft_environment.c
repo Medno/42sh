@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 18:00:40 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/05 10:35:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:52:50 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 t_env	*create_env(char **arr)
 {

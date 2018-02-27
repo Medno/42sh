@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:01:28 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/31 13:01:11 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:53:33 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 void	ft_echo(t_env **env, char **str)
 {

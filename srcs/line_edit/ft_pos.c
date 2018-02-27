@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 10:11:51 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/10 10:05:20 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:55:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "line_edit.h"
 
 void	check_ynx(t_curs *curseur, int prompt, int index)
 {

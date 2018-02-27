@@ -6,11 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:47:01 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/26 13:36:42 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:55:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "line_edit.h"
 
 t_line		*moove_up(t_line *cur, int prompt, t_curs *curseur)
 {

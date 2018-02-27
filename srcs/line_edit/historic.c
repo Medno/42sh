@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 08:28:30 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/26 14:23:28 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:55:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "line_edit.h"
 
 void	init_hist(t_hist **histo)
 {

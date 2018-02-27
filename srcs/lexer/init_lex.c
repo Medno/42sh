@@ -6,11 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 12:09:07 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/23 12:09:08 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:56:44 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 t_lex	*init_lexer(void)
 {

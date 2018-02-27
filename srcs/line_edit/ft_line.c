@@ -6,16 +6,15 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/26 14:31:56 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:58:32 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "line_edit.h"
 
 static int	read_end(char **line, t_line *elm, t_hist **histo)
 {
 	char	*tmp;
-
 
 	handle_history_ret(elm, histo);
 	if (!*line)
@@ -28,11 +27,6 @@ static int	read_end(char **line, t_line *elm, t_hist **histo)
 	}
 	free_dblist(elm);
 	write(STDIN_FILENO, "\n", 1);
-	if (g_quote)
-	{
-		ft_printf_fd(STDIN_FILENO, "{tred}\{eoc} ");
-		return (ft_line_edition(line, 2, histo));
-	}
 	return (1);
 }
 
@@ -107,7 +101,6 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
 {
 	t_line			*current;
 
-	g_quote = 0;
 	current = create_elem(0);
 	init_hist(histo);
 	if (read_line(line, &current, prompt_len, histo))

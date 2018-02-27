@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 11:40:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/12 17:25:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:52:45 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 t_hist			*create_hist(char *str)
 {

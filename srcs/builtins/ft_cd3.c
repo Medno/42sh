@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 11:38:51 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/05 10:28:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:53:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 char	**delete_and_paste(char **arr, int i)
 {

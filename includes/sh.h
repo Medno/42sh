@@ -6,12 +6,12 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 13:15:12 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:59:02 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XXI_SH_H
-# define XXI_SH_H
+#ifndef SH_H
+# define SH_H
 
 # include <fcntl.h>
 # include <limits.h>
@@ -26,12 +26,7 @@
 # include <termios.h>
 # include "libft.h"
 # include "ft_printf.h"
-
-# define LEFT(x) ft_printf("\033[%dD", x)
-# define RIGHT(x) ft_printf("\033[%dC", x)
-# define DOWN(x) ft_printf("\033[%dB", x)
-# define UP(x) ft_printf("\033[%dA", x)
-# define NL ft_printf("\033E")
+# include "line_edit.h"
 
 typedef struct		s_env
 {
@@ -39,31 +34,6 @@ typedef struct		s_env
 	char			*content;
 	struct s_env	*next;
 }					t_env;
-
-typedef struct		s_hist
-{
-	char			*line;
-	struct s_hist	*next;
-	struct s_hist	*prev;
-}					t_hist;
-
-typedef struct		s_line
-{
-	char			c;
-	int				index;
-	int				select;
-	struct s_line	*next;
-	struct s_line	*prev;
-}					t_line;
-
-typedef struct		s_curs
-{
-	int				x;
-	int				y;
-	int				xmax;
-	int				ymax;
-	struct winsize	screen;
-}					t_curs;
 
 typedef enum		e_token
 {
@@ -88,7 +58,7 @@ typedef struct		s_ast
 	struct s_ast	*right;
 }					t_ast;
 
-char				g_quote;
+int		g_quote;
 
 /*
 ** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -117,79 +87,10 @@ void				insert_env_start(t_env **env);
 */
 int					put_path(t_env **env);
 /*
-** historic >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-*/
-t_hist				*new_hist(void);
-void				hist_to_file(t_hist *historic);
-/*
 ** attrs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 void				ft_cfmakeraw(struct termios *my_state);
 void				ft_cfmakedefault(struct termios *my_state);
-/*
-**  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-*/
-int					ft_line_edition(char **line, int prompt_len,
-					t_hist **histo);
-t_line				*ft_line_usual(t_line *current, char c, int prompt,
-					t_curs *curseur);
-t_line				*line_delone(t_line *cur, int prompt, t_curs *curseur);
-t_line				*del_next(t_line *cur);
-/*
-** copy
-*/
-t_line				*grab_mod(t_line *current, int prompt, t_curs *curseur);
-t_line				*paste_line(t_line *cur, char *str, int prompt, t_curs *curseur);
-/*
-** historic
-*/
-t_line				*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur);
-t_line				*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur);
-t_hist				*create_hist(char *str);
-char				*line_to_str(t_line *cur);
-void				init_hist(t_hist **histo);
-void				handle_history_ret(t_line *cur, t_hist **histo);
-/*
-** list checkups
-*/
-void				increment_all(t_line *current, char c);
-int					dblist_len(t_line *first);
-int					full_list_len(t_line *el);
-t_line				*create_elem(char c);
-void				free_dblist(t_line *el);
-/*
-** deletion
-*/
-void				del_one_elem(t_line *del);
-void				del_elem(t_line *first);
-/*
-** adding and mooving
-*/
-t_line				*push_new(t_line *current, char c, int prompt,
-					t_curs *curseur);
-t_line				*moove_left(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_right(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_up(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_down(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_first(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_last(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_rword(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_lword(t_line *cur, int prompt, t_curs *curseur);
-/*
-** ft_pos
-*/
-void				check_ynx(t_curs *curseur, int prompt, int index);
-void				check_max(t_curs *curseur, int len);
-void				init_curs(t_curs *curseur, int prompt);
-/*
-**
-*/
-t_line				*completion(t_line *cur, int prompt, t_curs *curseur);
-/*
-** termcaps setup
-*/
-char				*get_ttyname(void);
-int					init_termcaps(void);
 /*
 ** lexer manipulation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
