@@ -36,7 +36,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 ### LINE EDIT ###
 LINE_NAME = ft_line.c init_terms.c dblist.c moove.c del_char.c add_elem.c \
 			ft_pos.c moove2.c completion.c dblist2.c historic.c ft_line2.c \
-			pasting.c ft_grab.c
+			ft_grab.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
