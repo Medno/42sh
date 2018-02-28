@@ -59,6 +59,45 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 	return (cur);
 }
 
+static void	moove_curseur(t_curs *curseur)
+{
+	if (curseur->y < curseur->ymax)
+		UP(curseur->ymax - curseur->y);
+	if (curseur->x > curseur->xmax)
+	{
+		if (!curseur->xmax)
+		{
+			NL;
+			UP(1);
+		}
+		RIGHT(curseur->x - curseur->xmax);
+	}
+	else
+		LEFT(curseur->xmax - curseur->x);
+}
+
+static void	print_line(t_line *new, int len_end, t_curs *curseur)
+{
+	char	buf[len_end];
+	int		i;
+	t_line	*tmp;
+
+	i = 0;
+	tmp = new;
+	ft_bzero(buf, len_end);
+	while (tmp->next)
+	{
+		buf[i] = tmp->c;
+		tmp = tmp->next;
+		i++;
+	}
+	write(STDIN_FILENO, &buf, len_end);
+	if (!new->next->next && !curseur->x)
+		NL;
+	else if (new->next->next)
+		moove_curseur(curseur);
+}
+
 int			read_line(char **line, t_line **current, int prompt_len,
 			t_hist **histo)
 {
@@ -86,6 +125,11 @@ int			read_line(char **line, t_line **current, int prompt_len,
 			(*current) = hist_up((*current), histo, prompt_len, &curseur);
 		else if (c == 27)
 			(*current) = ft_line_esc((*current), prompt_len, &curseur, histo);
+		else if (c == 9)
+		{
+			t_line *tmp = *current; while (tmp) {ft_printf("[%c][%d][%d]", tmp->c, tmp->index, tmp->select); tmp = tmp->next;}
+			print_line(*current, dblist_len(*current), &curseur);
+		}
 		else
 			(*current) = ft_line_usual((*current), c, prompt_len, &curseur);
 	}

@@ -28,6 +28,7 @@
 # include "ft_printf.h"
 # include "line_edit.h"
 # include "types.h"
+# include "completion.h"
 
 int		g_quote;
 

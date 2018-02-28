@@ -40,6 +40,20 @@ LINE_NAME = ft_line.c init_terms.c dblist.c move.c del_char.c add_elem.c \
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
+### COMPLETION ###
+COMP_NAME =	clean_comp.c 				\
+			comp.c 						\
+			comp_check_duplicate.c		\
+			comp_get_dir_to_open.c		\
+			comp_get_word_to_complete.c	\
+			comp_sort_alphab.c			\
+			comp_tools.c				\
+			completion.c				\
+			get_potential_cmd.c			\
+			get_potential_directory.c
+COMP_PATH = completion/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(COMP_PATH), $(COMP_NAME)))
+
 ### LEXER ###
 LEXER_NAME = lexer.c init_lex.c
 LEXER_PATH = lexer/

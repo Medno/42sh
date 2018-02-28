@@ -100,5 +100,6 @@ void				reset_ft_opt(void);
 char				**ft_addstr_tab(char **array, char *str);
 void				ft_freetab(char **array);
 int					ft_inputchar(int c);
+char				*ft_strjoin_infinite(int i, char *format, ...);
 
 #endif
