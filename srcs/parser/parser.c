@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/28 18:13:19 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/28 19:38:38 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_redir(t_lex *tmp)
 
 int	check_first(t_lex *first)
 {
-	if (first->token != WORD && !is_redir(first))
+	if (first->token != WORD && !is_redir(first) && first->token != QUOTE)
 	{
 		if (first->token != EOI)
 		{
