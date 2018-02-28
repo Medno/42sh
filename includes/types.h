@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:10:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:27:01 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct		s_lex
 {
 	t_token			token;
 	char			*value;
-	int				number;
 	struct s_lex	*next;
 	struct s_lex	*prev;
 }					t_lex;

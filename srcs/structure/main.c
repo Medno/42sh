@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 15:16:33 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/02/28 16:30:57 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int				main(int ac, char **av, char **environ)
 		{
 			g_quote = 0;
 			init.lex = lexer(init.str);
-			quote_again = parser(init.lex, &init.historic, &(init.str), init.current);
+			quote_again = parser(&init);
+//			quote_again = parser(init.lex, &init.historic, &(init.str), init.current);
 		}
 		ft_strdel(&init.str);
 	}
