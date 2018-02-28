@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:59:02 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 11:10:13 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "line_edit.h"
-
-typedef struct		s_env
-{
-	char			*name;
-	char			*content;
-	struct s_env	*next;
-}					t_env;
-
-typedef enum		e_token
-{
-	NONE, WORD, OP, QUOTE, IO_NUMBER, EOI, AND_IF, OR_IF, DSEMI, NEWLINE,
-	DLESS, DGREAT, LESSAND, GREATAND, LESSGREAT, DLESSDASH, CLOBBER
-}					t_token;
-
-typedef struct		s_lex
-{
-	t_token			token;
-	char			*value;
-	int				number;
-	struct s_lex	*next;
-	struct s_lex	*prev;
-}					t_lex;
-
-typedef struct		s_ast
-{
-	char			*value;
-	struct s_ast	*parent;
-	struct s_ast	*left;
-	struct s_ast	*right;
-}					t_ast;
+# include "types.h"
 
 int		g_quote;
 

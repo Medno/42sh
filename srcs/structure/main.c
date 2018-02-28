@@ -6,49 +6,55 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:53:02 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 11:13:48 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-extern char	**environ;
-
-int				main(void)
+void			init_all(char **env, t_init *init)
 {
 	t_lex			*lex;
 	t_env			*new_env;
 	t_hist			*historic;
-	struct termios	current;
 	char			*str;
-	int				ret;
-	int				len_prompt;
+	struct termios	current;
 
-	if (!init_termcaps())
-		return (0);
 	tcgetattr(STDIN_FILENO, &current);
-	new_env = create_env(environ);
+	new_env = create_env(env);
 	insert_env_start(&new_env);
 	historic = NULL;
 	historic = new_hist();
 	str = NULL;
-	while (1)
+	init->str = str;
+	lex = NULL;
+	init->lex = lex;
+	init->new_env = new_env;
+	init->historic = historic;
+	init->current = current;
+}
+
+int				main(int ac, char **av, char **environ)
+{
+	int				ret;
+	int				len_prompt;
+	t_init			init;
+
+	if (!init_termcaps())
+		return (0);
+	init_all(environ, &init);
+	while (42)
 	{
-		len_prompt = put_path(&new_env);
-		ft_cfmakeraw(&current);
-		ret = ft_line_edition(&str, len_prompt, &historic);
-		if (ft_strequ("exit", str))
-		{
-			ft_cfmakedefault(&current);
-			break ;
-		}
-		ft_cfmakedefault(&current);
-		lex = lexer(str);
-		parser(lex);
-		ft_strdel(&str);
-		if (!ret)
-			break ;
+		len_prompt = put_path(&init.new_env);
+		ft_cfmakeraw(&init.current);
+		ret = ft_line_edition(&init.str, len_prompt, &init.historic);
+		ft_cfmakedefault(&init.current);
+		init.lex = lexer(init.str);
+		parser(init.lex);
+		ft_strdel(&init.str);
 	}
-	hist_to_file(historic);
+	hist_to_file(init.historic);
+	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)
+	(void)av;
 	return (0);
 }

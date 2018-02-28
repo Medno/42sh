@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:58:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/27 16:03:47 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 	return (cur);
 }
 
-int			read_line(char **line, t_line **current, int prompt_len, t_hist **histo)
+int			read_line(char **line, t_line **current, int prompt_len,
+			t_hist **histo)
 {
 	char	c;
 	t_curs	curseur;

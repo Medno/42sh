@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:57:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 11:12:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,7 @@
 # define LINE_EDIT_H
 
 # include "sh.h"
-
-# define LEFT(x) ft_printf("\033[%dD", x)
-# define RIGHT(x) ft_printf("\033[%dC", x)
-# define DOWN(x) ft_printf("\033[%dB", x)
-# define UP(x) ft_printf("\033[%dA", x)
-# define NL ft_printf("\033E")
-
-typedef struct		s_hist
-{
-	char			*line;
-	struct s_hist	*next;
-	struct s_hist	*prev;
-}					t_hist;
-
-typedef struct		s_line
-{
-	char			c;
-	int				index;
-	int				select;
-	struct s_line	*next;
-	struct s_line	*prev;
-}					t_line;
-
-typedef struct		s_curs
-{
-	int				x;
-	int				y;
-	int				xmax;
-	int				ymax;
-	struct winsize	screen;
-}					t_curs;
+# include "types.h"
 
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
