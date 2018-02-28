@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 16:03:47 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 11:59:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,8 @@
 
 static int	read_end(char **line, t_line *elm, t_hist **histo)
 {
-	char	*tmp;
-
 	handle_history_ret(elm, histo);
-	if (!*line)
-		*line = line_to_str(elm);
-	else
-	{
-		tmp = *line;
-		*line = ft_strjoin(*line, line_to_str(elm));
-		ft_strdel(&tmp);
-	}
+	*line = line_to_str(elm);
 	free_dblist(elm);
 	write(STDIN_FILENO, "\n", 1);
 	return (1);
