@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/28 11:13:31 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 14:44:17 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,6 @@ void	print_lex(t_lex *first)
 		tmp = tmp->next;
 	}
 }
-/*
-t_lex	*treat_char(t_lex *new, char *str, int *i)
-{
-	if (isredir(str[*i]))
-		new = lex_copy_redir(new, str, i);
-	else if (str[*i] == '#')
-		while (str[*i])
-			(*i)++;
-	else if (str[*i] == '\'' || str[*i] == '\"' || str[*i] == '`')
-		new = lex_copy_quote(new, str, i, ft_strlen(&str[*i]));
-	else if (ft_isdigit(str[*i]))
-		new = lex_copy_int(new, str, i);
-	else
-		new = lex_copy_str(new, str, i);
-	return (new);
-}
-*/
-
 
 int		is_op(char c, char buf[])
 {
@@ -172,11 +154,13 @@ t_lex	*categorize_token(t_lex *new)
 			new->token = CLOBBER;
 	}
 	else if (!new->value)
-	{
 		new->token = EOI;
-	}
 	else if (ft_strequ("\n", new->value))
 		new->token = NEWLINE;
+	if (new->token == WORD && g_quote)
+		new->token = QUOTE;
+	else if (new->token == QUOTE && !g_quote)
+		new->token = WORD;
 	return (new);
 }
 
@@ -190,7 +174,6 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 	i = 0;
 	*first = init_lexer();
 	new = *first;
-	g_quote = 0;
 	read[1] = '\0';
 	ft_bzero(buf, len_str);
 	while (str[i])
@@ -245,7 +228,7 @@ void	build_lexer(t_lex **first, char *str, int len_str)
 				new = new->next;
 			}
 		}
-		else if (new->token == WORD || str[i] == g_quote)
+		else if (new->token == WORD || new->token == QUOTE || str[i] == g_quote)
 		{
 			if (str[i] == g_quote)
 				g_quote = 0;
@@ -282,7 +265,6 @@ t_lex	*lexer(char *str)
 {
 	t_lex	*first;
 
-	g_quote = 0;
 	if (!str)
 		return (NULL);
 	build_lexer(&first, str, ft_strlen(str));

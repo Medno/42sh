@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:13:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 15:16:33 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			init_all(char **env, t_init *init)
 int				main(int ac, char **av, char **environ)
 {
 	int				ret;
+	int				quote_again;
 	int				len_prompt;
 	t_init			init;
 
@@ -45,12 +46,17 @@ int				main(int ac, char **av, char **environ)
 	init_all(environ, &init);
 	while (42)
 	{
+		quote_again = 1;
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
 		ret = ft_line_edition(&init.str, len_prompt, &init.historic);
 		ft_cfmakedefault(&init.current);
-		init.lex = lexer(init.str);
-		parser(init.lex);
+		while (quote_again)
+		{
+			g_quote = 0;
+			init.lex = lexer(init.str);
+			quote_again = parser(init.lex, &init.historic, &(init.str), init.current);
+		}
 		ft_strdel(&init.str);
 	}
 	hist_to_file(init.historic);

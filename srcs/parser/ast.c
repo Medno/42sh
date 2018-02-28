@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/28 10:22:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 14:40:55 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,12 +149,14 @@ t_ast	*pipeline(t_lex *first)
 		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
+		root->left = command(first);
 		if (sep->next && sep->next->token != EOI)
-			root->left = command(sep->next);
+			root->right = pipeline(sep->next);
 		del_lex(sep);
-		root->right = pipeline(first);
-		root->left->parent = root;
-		root->right->parent = root;
+		if (root->left)
+			root->left->parent = root;
+		if (root->right)
+			root->right->parent = root;
 	}
 	else if (first->token != EOI)
 		root = command(first);
@@ -174,14 +176,13 @@ t_ast   *and_or(t_lex *first)
 		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
+		root->left = pipeline(first);
 		if (sep->next && sep->next->token != EOI)
-		{
-			root->left = pipeline(sep->next);
-			if (root->left)
-			root->left->parent = root;
-		}
+			root->right = and_or(sep->next);
 		del_lex(sep);
-		root->right = and_or(first);
+		if (root->left)
+			root->left->parent = root;
+		if (root->right)
 		root->right->parent = root;
 	}
 	else
@@ -194,7 +195,6 @@ t_ast   *build_ast(t_lex *first)
 	t_ast   *root;
 	t_lex   *sep;
 
-	//TODO : Free all the tree and t_lex
 	if ((sep = get_lex(first, NONE, "&")) || (sep = get_lex(first, NONE, ";")))
 	{
 		root = init_ast();

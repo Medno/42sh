@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:10:13 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 14:57:17 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void				print_lex(t_lex *first);
 /*
 ** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-int					parser(t_lex *first);
+int					parser(t_lex *first, t_hist **histo, char **line, struct termios cur);
 t_ast				*build_ast(t_lex *first);
 t_ast				*init_ast(void);
 void				del_ast(t_ast **root);

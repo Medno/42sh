@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:59:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/02/28 15:18:57 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int			read_line(char **line, t_line **current, int prompt_len,
 	t_curs	curseur;
 
 	if (prompt_len == -1)
+	{
 		prompt_len = 2;
+		ft_printf("{tred}> {eoc}");
+	}
 	init_curs(&curseur, prompt_len);
 	while (read(STDIN_FILENO, &c, 1))
 	{
