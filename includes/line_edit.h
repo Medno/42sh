@@ -72,7 +72,7 @@ void				init_curs(t_curs *curseur, int prompt);
 /*
 **
 */
-t_line				*completion(t_line *cur, int prompt, t_curs *curseur);
+t_line				*completion(t_edit *edit);
 /*
 ** termcaps setup
 */

@@ -93,7 +93,7 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 	if (c == 127 || c == 8)
 		*(edit->current) = line_delone(*(edit->current), edit->prompt_len, &(edit->curseur));
 	else if (c == '\t')// || (c == 4 && !(*(edit->current)->next != NULL)))
-		*(edit->current) = completion(*(edit->current), edit->prompt_len, &(edit->curseur));
+		*(edit->current) = completion(edit);
 	else if (c == 4)
 		*(edit->current) = del_next(*(edit->current));
 	else if (c == 1)

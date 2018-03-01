@@ -19,7 +19,7 @@
 /*
 ** POUR COMPLETION
 */
-void				do_completion(t_comp *comp);
+void				do_completion(t_comp *comp, t_env *env);
 void				get_word_to_complete(t_comp *comp);
 void				comp_get_pot_cmd(t_comp *comp);
 void				comp_get_pot_dir(t_comp *comp);

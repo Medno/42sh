@@ -27,15 +27,14 @@ static void	from_list_to_comp(t_line *cur, t_comp *comp)
 
 t_line	*completion(t_edit *edit)
 {
-	if (*(edit->current)->c == '0' && *(edit->current)->prev == NULL)
-		return (cur);
-	from_list_to_comp(*(edit->current), edit->comp);
-	do_completion(comp, edit->new_env);
-	ft_printf("Ma string en sortie : [%s]\n", comp->cmd);
-//	from_comp_to_list(cur, comp);
-	
-	(void)prompt;
-	(void)curseur;
+	t_line *tmp;
 
-	return (cur);
+	tmp = *(edit->current);
+	if (tmp->c == '0' && tmp->prev == NULL)
+		return (*(edit->current));
+	from_list_to_comp(*(edit->current), edit->comp);
+	do_completion(edit->comp, edit->env);
+	ft_printf("Ma string en sortie : [%s]\n", edit->comp->cmd);
+//	from_comp_to_list(cur, comp);
+	return (*(edit->current));
 }
