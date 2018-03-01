@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/02/27 16:01:57 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/01 14:40:03 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,12 +55,12 @@ COMP_PATH = completion/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(COMP_PATH), $(COMP_NAME)))
 
 ### LEXER ###
-LEXER_NAME = lexer.c init_lex.c
+LEXER_NAME = lexer.c init_lex.c print_lex.c is_lex.c
 LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 
 ### PARSER ###
-PARSER_NAME = ast.c init_ast.c parser.c
+PARSER_NAME = ast.c init_ast.c parser.c redir_ast.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 

@@ -6,96 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/28 18:53:31 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/01 14:40:49 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-void	print_ast(t_ast *root, char *pos)
-{
-	if (root->value)
-	{
-		if (pos)
-			ft_putendl(pos);
-		if (!root->parent)
-			ft_putendl("Racine");
-		else
-		{
-			ft_putstr("Fils de : ");
-			ft_putendl(root->parent->value);
-		}
-		ft_putendl(root->value);
-		if (root->left)
-			print_ast(root->left, "Fils Gauche");
-		if (root->right)
-			print_ast(root->right, "Fils Droit");
-	}
-}
-
-t_lex	*get_lex(t_lex *first, t_token token, char *value)
-{
-	t_lex	*tmp;
-
-	tmp = first;
-	while (tmp && tmp->token != EOI)
-	{
-		if (value && ft_strequ(value, tmp->value))
-			return (tmp);
-		if (!value && token != NONE)
-			if (token == tmp->token)
-				return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-t_ast	*io_file(t_lex **first)
-{
-	t_ast	*root;
-	t_lex	*tmp;
-
-	if ((*first)->next && (*first)->next->token != WORD)
-		return (0);
-	if (*first && (*first)->next && (*first)->next->token != EOI &&
-			is_redir(*first))
-	{
-		root = init_ast();
-		root->value = ft_strdup("io");
-		root->left = init_ast();
-		root->left->value = ft_strdup((*first)->value);
-		root->right = init_ast();
-		root->right->value = ft_strdup((*first)->next->value);
-		root->left->parent = root;
-		root->right->parent = root;
-		tmp = *first;
-		(*first) = (*first)->next;
-		del_one_lex(tmp);
-		tmp = *first;
-		(*first) = (*first)->next;
-		del_one_lex(tmp);
-		return (root);
-	}
-	return (NULL);
-}
-
-t_ast	*io_redirect(t_lex **first)
-{
-	t_ast	*root;
-
-	root = NULL;
-	if ((*first)->token == IO_NUMBER && (*first)->next->token != EOI)
-	{
-		root = init_ast();
-		root->value = ft_strdup((*first)->value);
-		root->left = io_redirect(&(*first)->next);
-		if (root->left)
-			root->left->parent = root;
-		return (root);
-	}
-	root = io_file(first);
-	return (root);
-}
 
 t_ast	*command_suf(t_lex *first)
 {

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 12:09:07 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/28 18:28:30 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/01 14:02:01 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,21 @@ void	del_lex(t_lex *lex)
 		del_one_lex(lex);
 		lex = tmp;
 	}
+}
+
+t_lex	*get_lex(t_lex *first, t_token token, char *value)
+{
+	t_lex	*tmp;
+
+	tmp = first;
+	while (tmp && tmp->token != EOI)
+	{
+		if (value && ft_strequ(value, tmp->value))
+			return (tmp);
+		if (!value && token != NONE)
+			if (token == tmp->token)
+				return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }

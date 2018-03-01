@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/28 19:38:38 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/01 14:02:12 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ int	check_first(t_lex *first)
 	if (first->token != WORD && !is_redir(first) && first->token != QUOTE)
 	{
 		if (first->token != EOI)
-		{
 			ft_putendl("syntax error");
-			del_lex(first);
-			return (1);
-		}
+		del_lex(first);
+		return (1);
 	}
 	return (0);
 }
