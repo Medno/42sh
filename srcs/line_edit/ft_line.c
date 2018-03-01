@@ -69,7 +69,7 @@ int			edit_line(char **line, t_edit *edit)
 		edit->prompt_len = 2;
 		ft_printf("{tred}> {eoc}");
 	}
-	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
+	while (/*reset_completion(c, edit->comp) && */read(STDIN_FILENO, &c, 1))
 	{
 		if (c == 4 && !(*(edit->current))->next && !(*(edit->current))->prev)
 			return (0);//HANDLE_CTRLD_exit
@@ -90,16 +90,37 @@ int			edit_line(char **line, t_edit *edit)
 	return (0);
 }
 
+void	ft_clean_edit(t_edit *edit)
+{
+	if (edit)
+	{
+		ft_strdel(&(edit->comp->dir));
+		ft_strdel(&(edit->comp->str));
+		ft_strdel(&(edit->comp->cmd));
+		edit->comp->current = NULL;
+		if (edit->comp->list)
+		{
+			ft_clean_lcomp_list(edit->comp->list);
+			edit->comp->list = NULL;
+		}
+		free(edit->comp);
+		edit->comp = NULL;
+		free(edit);
+		edit = NULL;
+	}
+}
+
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env)
 {
 	t_edit			*edit;
 	t_line			*current;
-	t_curs			curseur;	
+	t_curs			curseur;
+	int				ret;	
 
+	ret = 0;
 	current = create_elem(0);
 	init_hist(histo);
 	init_curs(&curseur, prompt_len);
-
 	edit = ft_memalloc(sizeof(t_edit));
 	if (edit)
 	{
@@ -107,12 +128,13 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env)
 		edit->histo = histo;
 		edit->prompt_len = prompt_len;
 		edit->curseur = curseur;
-		edit->comp = init_t_comp();
+ 		edit->comp = init_t_comp();
 		edit->env = env;
 	}
 	if (edit_line(line, edit))
-		return (1);
-	return (0);
+		ret = 1;
+	ft_clean_edit(edit);
+	return (ret);
 }
 
 

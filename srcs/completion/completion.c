@@ -167,7 +167,7 @@ void	do_completion(t_comp *comp, t_env *env)
 	if (comp->cmd == NULL || *(comp->cmd) == 0)
 		return ;
 
-(void)env;
+	(void)env;
 	ft_printf("\nEn entree :\n");
 	ft_printf("cmd = [%s]\npos = [%d]\n", comp->cmd, comp->pos);
 //	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
