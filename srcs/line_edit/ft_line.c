@@ -12,7 +12,7 @@
 
 #include "line_edit.h"
 
-static int	read_end(char **line, t_line *elm, t_hist **histo)
+static int	edit_end(char **line, t_line *elm, t_hist **histo)
 {
 	handle_history_ret(elm, histo);
 	*line = line_to_str(elm);
@@ -59,90 +59,83 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 	return (cur);
 }
 
-static void	moove_curseur(t_curs *curseur)
-{
-	if (curseur->y < curseur->ymax)
-		UP(curseur->ymax - curseur->y);
-	if (curseur->x > curseur->xmax)
-	{
-		if (!curseur->xmax)
-		{
-			NL;
-			UP(1);
-		}
-		RIGHT(curseur->x - curseur->xmax);
-	}
-	else
-		LEFT(curseur->xmax - curseur->x);
-}
-
-static void	print_line(t_line *new, int len_end, t_curs *curseur)
-{
-	char	buf[len_end];
-	int		i;
-	t_line	*tmp;
-
-	i = 0;
-	tmp = new;
-	ft_bzero(buf, len_end);
-	while (tmp->next)
-	{
-		buf[i] = tmp->c;
-		tmp = tmp->next;
-		i++;
-	}
-	write(STDIN_FILENO, &buf, len_end);
-	if (!new->next->next && !curseur->x)
-		NL;
-	else if (new->next->next)
-		moove_curseur(curseur);
-}
-
-int			read_line(char **line, t_line **current, int prompt_len,
-			t_hist **histo)
+int			edit_line(char **line, t_edit *edit)
 {
 	char	c;
-	t_curs	curseur;
 
-	if (prompt_len == -1)
+	c = 0;
+	if (edit->prompt_len == -1)
 	{
-		prompt_len = 2;
+		edit->prompt_len = 2;
 		ft_printf("{tred}> {eoc}");
 	}
-	init_curs(&curseur, prompt_len);
-	while (read(STDIN_FILENO, &c, 1))
+	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 4 && !(*current)->next && !(*current)->prev)
+		if (c == 4 && !(*(edit->current))->next && !(*(edit->current))->prev)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == '\n')
 		{
-			(*current) = moove_last((*current), prompt_len, &curseur);
-			return (read_end(line, (*current), histo));
+			(*(edit->current)) = moove_last((*(edit->current)), edit->prompt_len, &(edit->curseur));
+			return (edit_end(line, (*(edit->current)), edit->histo));
 		}
 		else if (c == 14)
-			(*current) = hist_down((*current), histo, prompt_len, &curseur);
+			(*(edit->current)) = hist_down((*(edit->current)), edit->histo, edit->prompt_len, &(edit->curseur));
 		else if (c == 16)
-			(*current) = hist_up((*current), histo, prompt_len, &curseur);
+			(*(edit->current)) = hist_up((*(edit->current)), edit->histo, edit->prompt_len, &(edit->curseur));
 		else if (c == 27)
-			(*current) = ft_line_esc((*current), prompt_len, &curseur, histo);
-		else if (c == 9)
-		{
-			t_line *tmp = *current; while (tmp) {ft_printf("[%c][%d][%d]", tmp->c, tmp->index, tmp->select); tmp = tmp->next;}
-			print_line(*current, dblist_len(*current), &curseur);
-		}
+			(*(edit->current)) = ft_line_esc((*(edit->current)), edit->prompt_len, &(edit->curseur), edit->histo);
 		else
-			(*current) = ft_line_usual((*current), c, prompt_len, &curseur);
+			(*(edit->current)) = ft_line_usual(edit, c);
 	}
 	return (0);
 }
 
-int			ft_line_edition(char **line, int prompt_len, t_hist **histo)
+int			ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env)
 {
+	t_edit			*edit;
 	t_line			*current;
+	t_curs			curseur;	
 
 	current = create_elem(0);
 	init_hist(histo);
-	if (read_line(line, &current, prompt_len, histo))
+	init_curs(&curseur, prompt_len);
+
+	edit = ft_memalloc(sizeof(t_edit));
+	if (edit)
+	{
+		edit->current = &current;
+		edit->histo = histo;
+		edit->prompt_len = prompt_len;
+		edit->curseur = curseur;
+		edit->comp = init_t_comp();
+		edit->env = env;
+	}
+	if (edit_line(line, edit))
 		return (1);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,10 +19,8 @@
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-int					ft_line_edition(char **line, int prompt_len,
-					t_hist **histo);
-t_line				*ft_line_usual(t_line *current, char c, int prompt,
-					t_curs *curseur);
+int					ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env);
+t_line				*ft_line_usual(t_edit *edit, char c);
 t_line				*line_delone(t_line *cur, int prompt, t_curs *curseur);
 t_line				*del_next(t_line *cur);
 /*

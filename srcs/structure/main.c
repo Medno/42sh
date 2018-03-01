@@ -49,7 +49,7 @@ int				main(int ac, char **av, char **environ)
 		quote_again = 1;
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
-		ret = ft_line_edition(&init.str, len_prompt, &init.historic);
+		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
 		ft_cfmakedefault(&init.current);
 		while (quote_again)
 		{

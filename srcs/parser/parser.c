@@ -68,7 +68,7 @@ int	repeat_line_edition(t_init *init, t_lex *tmp)
 			  tmp->token == DLESSDASH)))
 	{
 		ft_cfmakeraw(&(init->current));
-		ft_line_edition(&line_tmp, -1, &(init->historic));
+		ft_line_edition(&line_tmp, -1, &(init->historic), init->new_env);
 		ft_cfmakedefault(&(init->current));
 		if ((tmp->token == QUOTE && g_quote))
 			init->str = ft_strjoindel(init->str, "\n");

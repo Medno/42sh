@@ -29,7 +29,14 @@ t_lcomp	*init_t_lcomp(void)
 {
 	t_lcomp *new;
 
-	if ((new = ft_memalloc(sizeof(t_lcomp))))
-		return (new);
-	return (NULL);
+	new = ft_memalloc(sizeof(t_comp));
+	return (new);
+}
+
+t_comp	*init_t_comp(void)
+{
+	t_comp *new;
+
+	new = ft_memalloc(sizeof(t_comp));
+	return (new);
 }

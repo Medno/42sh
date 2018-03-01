@@ -12,16 +12,21 @@
 
 #include "completion.h"
 
-void	reset_completion(t_comp *comp)
+int		reset_completion(char c, t_comp *comp)
 {
-	ft_strdel(&(comp->dir));
-	ft_strdel(&(comp->str));
-	comp->current = NULL;
-	if (comp->list)
+	if (c != '\t')
 	{
-		ft_clean_lcomp_list(comp->list);
-		comp->list = NULL;
-	}	
+		ft_strdel(&(comp->dir));
+		ft_strdel(&(comp->str));
+		ft_strdel(&(comp->cmd));
+		comp->current = NULL;
+		if (comp->list)
+		{
+			ft_clean_lcomp_list(comp->list);
+			comp->list = NULL;
+		}
+	}
+	return (1);	
 }
 
 void	ft_clean_lcomp(t_lcomp *elm)

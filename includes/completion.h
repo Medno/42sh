@@ -16,27 +16,10 @@
 # include "sh.h"
 # include "types.h"
 
-typedef struct	s_lcomp
-{
-	char			*cmd;
-	struct s_lcomp	*next;
-
-}				t_lcomp;
-
-typedef struct	s_comp 
-{
-	char		*cmd;
-	int			pos;
-	t_lcomp		*list;
-	t_lcomp		*current;
-	char		*str;
-	char		*dir;
-}				t_comp;
-
 /*
 ** POUR COMPLETION
 */
-int					do_completion(t_comp *comp);
+void				do_completion(t_comp *comp);
 void				get_word_to_complete(t_comp *comp);
 void				comp_get_pot_cmd(t_comp *comp);
 void				comp_get_pot_dir(t_comp *comp);
@@ -54,9 +37,10 @@ int					comp_has_slash(char *str);
 
 t_lcomp				*lcomp_push_back(t_lcomp *list, t_lcomp *new);
 t_lcomp				*init_t_lcomp(void);
+t_comp				*init_t_comp(void);
 void				ft_clean_lcomp(t_lcomp *elm);
 void				ft_clean_lcomp_list(t_lcomp *list);
-void				reset_completion(t_comp *comp);
+int					reset_completion(char c, t_comp *comp);
 char				*comp_go_to_last_slash(char *str);
 
 #endif

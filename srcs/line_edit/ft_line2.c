@@ -88,26 +88,25 @@ static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 	return (cur);
 }
 
-t_line			*ft_line_usual(t_line *current, char c, int prompt,
-				t_curs *curseur)
+t_line			*ft_line_usual(t_edit *edit, char c)
 {
 	if (c == 127 || c == 8)
-		current = line_delone(current, prompt, curseur);
-	else if (c == '\t' || (c == 4 && !current->next))
-		current = completion(current, prompt, curseur);
+		*(edit->current) = line_delone(*(edit->current), edit->prompt_len, &(edit->curseur));
+	else if (c == '\t')// || (c == 4 && !(*(edit->current)->next != NULL)))
+		*(edit->current) = completion(*(edit->current), edit->prompt_len, &(edit->curseur));
 	else if (c == 4)
-		current = del_next(current);
+		*(edit->current) = del_next(*(edit->current));
 	else if (c == 1)
-		current = moove_first(current, prompt, curseur);
+		*(edit->current) = moove_first(*(edit->current), edit->prompt_len, &(edit->curseur));
 	else if (c == 2)
-		current = moove_left(current, prompt, curseur);
+		*(edit->current) = moove_left(*(edit->current), edit->prompt_len, &(edit->curseur));
 	else if (c == 5)
-		current = moove_last(current, prompt, curseur);
+		*(edit->current) = moove_last(*(edit->current), edit->prompt_len, &(edit->curseur));
 	else if (c == 6)
-		current = moove_right(current, prompt, curseur);
+		*(edit->current) = moove_right(*(edit->current), edit->prompt_len, &(edit->curseur));
 	else if (c >= 32 && c <= 126)
-		current = push_new(current, c, prompt, curseur);
+		*(edit->current) = push_new(*(edit->current), c, edit->prompt_len, &(edit->curseur));
 	else
-		current = ft_grabb(current, c, prompt, curseur);
-	return (current);
+		*(edit->current) = ft_grabb(*(edit->current), c, edit->prompt_len, &(edit->curseur));
+	return (*(edit->current));
 }

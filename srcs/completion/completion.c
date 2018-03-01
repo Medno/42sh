@@ -135,9 +135,9 @@ void	do_new_completion(t_comp *comp)
 	t_lcomp *tmp = comp->list;
 	while (tmp) { ft_printf("[%s]-> ", tmp->cmd); tmp = tmp->next; }
 	ft_putchar('\n');
-
-	comp_sort_alphab(comp);
-	comp_check_duplicate(comp);
+	ft_putchar('A');
+	comp_sort_alphab(comp);	ft_putchar('B');
+	comp_check_duplicate(comp);	ft_putchar('C');
 	comp->current = comp->list;
 }
 
@@ -162,31 +162,33 @@ void	put_current_to_next(t_comp *comp)
 **	S'il y a un seul choix, on ajoute un ' ' ou un '/'
 */
 
-int		do_completion(t_comp *comp)
+void	do_completion(t_comp *comp)
 {
 	if (comp->cmd == NULL || *(comp->cmd) == 0)
-		return (1);
+		return ;
 
-	ft_printf("\nEn entree : ");
-	ft_printf("dir = [%s] ", comp->dir);
-	ft_printf("string = [%s]\n", comp->str);
-
+	ft_printf("\nEn entree :\n");
+	ft_printf("cmd = [%s]\npos = [%d]\n", comp->cmd, comp->pos);
+//	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
+	
 	get_word_to_complete(comp);
 	
 	ft_printf("\nApres get word : ");
-	ft_printf("dir = [%s] ", comp->dir);
-	ft_printf("string = [%s]\n", comp->str);
+	ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
 	
 	comp_get_dir_to_open(comp);
 	
 	ft_printf("\nApres get dir : ");
-	ft_printf("dir = [%s] ", comp->dir);
-	ft_printf("string = [%s]\n", comp->str);
+	ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str)
+	;
 	if (comp->current == NULL)
 		do_new_completion(comp);
 	else
 		put_current_to_next(comp);
 
+	ft_printf("\nApres new_comp : ");
+	if (comp->current && comp->list)
+	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
 // On modifie remplace str par current dans cmd si on a reussit a remplir pot_list
 	if (comp->list)
 		comp_modify_cmd(comp);
@@ -197,7 +199,6 @@ int		do_completion(t_comp *comp)
 	// if (comp->current && comp->current->next == NULL
 	// 	&& comp->current == comp->list)
 	// 	comp_validate_choice(comp);
-	return (1);
 }
 
 
