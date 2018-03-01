@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/01 14:40:49 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/01 16:50:35 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 t_ast	*command_suf(t_lex *first)
 {
 	t_ast	*root;
-	t_lex	*tmp;
 
 	root = init_ast();
-	tmp = first;
 	if (first->token == WORD)
 		root->value = ft_strdup(first->value);
-	else if ((root->left = io_redirect(&tmp)))
+	else if ((root->left = io_redirect(first)))
 	{
+		if (first->token == IO_NUMBER)
+			first = first->next;
+		first = first->next;
 		root->left->parent = root;
 		root->value = ft_strdup("io_redirect");
-		first = tmp;
 	}
 	if (first && first->next && first->next->token != EOI)
 	{
