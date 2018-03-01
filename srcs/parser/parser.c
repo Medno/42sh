@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/01 14:02:12 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/01 17:27:09 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int	repeat_line_edition(t_init *init, t_lex *tmp)
 {
 	char	*line_tmp;
 
-	if ((tmp->token == QUOTE && g_quote) || 
+	if ((tmp->token == QUOTE && g_quote) ||
 			(tmp->next && tmp->next->token == EOI && (tmp->token == AND_IF
-			  || tmp->token == OR_IF || ft_strequ(tmp->value, "|") ||
-			  tmp->token == DLESSDASH)))
+			|| tmp->token == OR_IF || ft_strequ(tmp->value, "|") ||
+			tmp->token == DLESSDASH)))
 	{
 		ft_cfmakeraw(&(init->current));
 		ft_line_edition(&line_tmp, -1, &(init->historic), init->new_env);
@@ -85,9 +85,9 @@ int	parser(t_init *init)
 	t_lex	*tmp;
 	t_ast	*ast;
 
-	print_lex(init->lex);
 	if (check_first(init->lex))
 		return (0);
+//	print_lex(init->lex);
 	tmp = init->lex;
 	while (tmp->token != EOI)
 	{
@@ -104,46 +104,3 @@ int	parser(t_init *init)
 	del_lex(init->lex);
 	return (0);
 }
-/*
-   int	parser(t_lex *first, t_hist **histo, char **line, struct termios cur)
-   {
-   t_lex	*tmp;
-   t_ast	*ast;
-   int		build;
-   char	*line_tmp;
-
-   print_lex(first);
-   build = check_first(first);
-   tmp = first;
-   while (tmp->token != EOI && !build)
-   {
-   if (err_pars(tmp))
-   {
-   ft_putendl("syntax error");
-   build = 1;
-   }
-   if ((tmp->token == QUOTE && g_quote) || 
-   (tmp->next && tmp->next->token == EOI && (tmp->token == AND_IF
-   || tmp->token == OR_IF || ft_strequ(tmp->value, "|"))))
-   {
-   ft_cfmakeraw(&cur);
-   ft_line_edition(&line_tmp, -1, histo);
-   ft_cfmakedefault(&cur);
-   if ((tmp->token == QUOTE && g_quote))
- *line = ft_strjoindel(*line, "\n");
- *line = ft_strjoindel(*line, line_tmp);
- del_lex(first);
- return (1);
- }
- tmp = tmp->next;
- }
- if (!build)
- {
- tmp = first;
- ast = build_ast(tmp);
- print_ast(ast, NULL);
- del_ast(&ast);
- }
- del_lex(first);
- return (0);
- }*/
