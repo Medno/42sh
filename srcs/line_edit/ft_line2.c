@@ -6,66 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 13:44:34 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:31:37 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
-
-t_line			*paste_line(t_line *cur, char *str, int prompt,
-				t_curs *curseur)
-{
-	while (str && *str)
-	{
-		cur = push_new(cur, *str, prompt, curseur);
-		str++;
-	}
-	return (cur);
-}
-
-static int		count_selected(t_line *cur)
-{
-	t_line	*tmp;
-	int		i;
-
-	tmp = cur;
-	i = 0;
-	while (tmp->prev)
-		tmp = tmp->prev;
-	while (tmp)
-	{
-		if (tmp->select)
-			i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
-
-static char		*foo_paste(t_line *cur)
-{
-	t_line		*tmp;
-	static char	str[1024];
-	int			i;
-
-	if (!count_selected(cur) || count_selected(cur) > 1024)
-		return ((char *)&str[0]);
-	ft_bzero(str, 1024);
-	tmp = cur;
-	while (tmp->prev)
-		tmp = tmp->prev;
-	i = 0;
-	while (tmp)
-	{
-		if (tmp->select)
-		{
-			str[i] = tmp->c;
-			i++;
-		}
-		tmp = tmp->next;
-	}
-	str[i] = 0;
-	return ((char *)&str[0]);
-}
 
 static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 {
@@ -116,4 +61,42 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 	else
 		return (*edit->current = ft_grabb(*edit->current, c, edit->prompt_len,
 				&edit->curseur));
+}
+
+t_line		*ft_line_esc_2(t_line *cur, int prompt, t_curs *curseur, char *buf)
+{
+	if (ft_strequ(buf, "[1;2A"))
+		cur = moove_up(cur, prompt, curseur);
+	else if (ft_strequ(buf, "[1;2B"))
+		cur = moove_down(cur, prompt, curseur);
+	else if (ft_strequ(buf, "[1;2C"))
+		cur = moove_rword(cur, prompt, curseur);
+	else if (ft_strequ(buf, "[1;2D"))
+		cur = moove_lword(cur, prompt, curseur);
+	return (cur);
+}
+
+t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
+{
+	char	buf[8];
+
+	ft_bzero(&buf, 8);
+	read(STDIN_FILENO, &buf, 8);
+	if (ft_strequ(buf, "[A"))
+		cur = hist_up(cur, histo, len, curseur);
+	else if (ft_strequ(buf, "[B"))
+		cur = hist_down(cur, histo, len, curseur);
+	else if (ft_strequ(buf, "[C"))
+		cur = moove_right(cur, len, curseur);
+	else if (ft_strequ(buf, "[D"))
+		cur = moove_left(cur, len, curseur);
+	else if (ft_strequ(buf, "[H"))
+		cur = moove_first(cur, len, curseur);
+	else if (ft_strequ(buf, "[F"))
+		cur = moove_last(cur, len, curseur);
+	else if (ft_strequ(buf, "[3~"))
+		cur = del_next(cur);
+	else
+		cur = ft_line_esc_2(cur, len, curseur, buf);
+	return (cur);
 }
