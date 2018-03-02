@@ -69,7 +69,7 @@ int			edit_line(char **line, t_edit *edit)
 		edit->prompt_len = 2;
 		ft_printf("{tred}> {eoc}");
 	}
-	while (/*reset_completion(c, edit->comp) && */read(STDIN_FILENO, &c, 1))
+	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
 		if (c == 4 && !(*(edit->current))->next && !(*(edit->current))->prev)
 			return (0);//HANDLE_CTRLD_exit
@@ -128,7 +128,7 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env)
 		edit->histo = histo;
 		edit->prompt_len = prompt_len;
 		edit->curseur = curseur;
- 		edit->comp = init_t_comp();
+		edit->comp = init_t_comp();
 		edit->env = env;
 	}
 	if (edit_line(line, edit))

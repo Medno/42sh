@@ -193,8 +193,6 @@ void	do_completion(t_comp *comp, t_env *env)
 // On modifie remplace str par current dans cmd si on a reussit a remplir pot_list
 	if (comp->list)
 		comp_modify_cmd(comp);
-	ft_strdel(&(comp->str));
-	ft_strdel(&(comp->dir));
 
 //	Si on a un seul choix, on valide et on met current à NULL
 	// if (comp->current && comp->current->next == NULL
