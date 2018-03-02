@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 09:52:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:20:02 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_line	*completion(t_edit *edit)
 		return (*edit->current);
 	from_list_to_comp(*edit->current, edit->comp);
 	do_completion(edit->comp, edit->env);
-	ft_printf("Ma string en sortie : [%s]\n", edit->comp->cmd);
+//	ft_printf("Ma string en sortie : [%s]\n", edit->comp->cmd);
 //	from_comp_to_list(cur, comp);
-	return (*(edit->current));
+	return (*edit->current);
 }

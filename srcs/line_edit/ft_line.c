@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 11:09:31 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:35:25 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			edit_line(char **line, t_edit *edit)
 	if (edit->prompt_len == -1)
 	{
 		edit->prompt_len = 2;
-		ft_putstr_fd("{tred}> {eoc}", STDERR_FILENO);
+		ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}");
 	}
 	while (/*reset_completion(c, edit->comp) && */read(STDIN_FILENO, &c, 1))
 	{

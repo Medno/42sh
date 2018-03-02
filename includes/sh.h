@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/01 16:49:53 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/02 12:28:08 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int					is_number(char buf[]);
 /*
 ** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
+void				paste_last_hist(t_hist **histo);
 int					parser(t_init *init);
 t_ast				*build_ast(t_lex *first);
 t_ast				*init_ast(void);

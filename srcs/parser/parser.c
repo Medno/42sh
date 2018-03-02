@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/02 11:12:42 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 12:36:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,17 @@ int	err_pars(t_lex *tmp, t_lex *del)
 
 int	repeat_line_edition(t_init *init, t_lex *tmp)
 {
-	char	*line_tmp;
+	char		*line_tmp;
+	static int	checkout = 0;
 
+	if (checkout)
+		paste_last_hist(&init->historic);
 	if ((tmp->token == QUOTE && g_quote) ||
 			(tmp->next && tmp->next->token == EOI && (tmp->token == AND_IF
 			|| tmp->token == OR_IF || ft_strequ(tmp->value, "|") ||
 			tmp->token == DLESSDASH)))
 	{
+		checkout = 1;
 		ft_cfmakeraw(&init->current);
 		ft_line_edition(&line_tmp, -1, &init->historic, init->new_env);
 		ft_cfmakedefault(&init->current);
@@ -77,6 +81,7 @@ int	repeat_line_edition(t_init *init, t_lex *tmp)
 		ft_strdel(&line_tmp);
 		return (1);
 	}
+	checkout = 0;
 	return (0);
 }
 
