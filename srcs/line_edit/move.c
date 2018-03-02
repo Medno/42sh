@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:47:01 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/02 10:32:47 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:00:33 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-void	ansi(char *str, int x, int fd)
+void		ansi(char *str, int x, int fd)
 {
 	if (ft_strequ(str, "UP"))
 		ft_printf_fd(fd, "\033[%dA", x);

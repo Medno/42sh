@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/02 09:56:17 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:12:42 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	repeat_line_edition(t_init *init, t_lex *tmp)
 			|| tmp->token == OR_IF || ft_strequ(tmp->value, "|") ||
 			tmp->token == DLESSDASH)))
 	{
-		ft_cfmakeraw(&(init->current));
-		ft_line_edition(&line_tmp, -1, &(init->historic), init->new_env);
-		ft_cfmakedefault(&(init->current));
+		ft_cfmakeraw(&init->current);
+		ft_line_edition(&line_tmp, -1, &init->historic, init->new_env);
+		ft_cfmakedefault(&init->current);
 		if ((tmp->token == QUOTE && g_quote))
 			init->str = ft_strjoindel(init->str, "\n");
 		init->str = ft_strjoindel(init->str, line_tmp);
