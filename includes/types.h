@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 10:15:04 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:19:42 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,24 @@ typedef struct		s_init
 	t_hist			*historic;
 	struct termios	current;
 }					t_init;
+
+typedef struct		s_redir
+{
+	int				fd_in;
+	int				fd_out;
+	char			*token;
+	char			*file;
+	struct s_redir	*next;
+}					t_redir;
+
+typedef struct		s_cmd
+{
+	char			*cmd;
+	char			**arg;
+	t_redir			*redir;
+	char			*separ;
+	struct s_cmd	*next;
+	struct s_cmd	*next_semi;
+}					t_cmd;
 
 #endif
