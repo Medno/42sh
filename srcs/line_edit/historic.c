@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 08:28:30 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:55:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 09:50:02 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 
 	while ((*histo)->next)
 		*histo = (*histo)->next;
+	ft_strdel(&(*histo)->line);
 	if (!cur->next && !cur->prev && !cur->c)
 	{
 		if (!(*histo)->prev)
@@ -49,10 +50,7 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 		}
 	}
 	else
-	{
-		ft_strdel(&(*histo)->line);
 		(*histo)->line = line_to_str(cur);
-	}
 }
 
 t_line	*str_to_line(char *str, int prompt, t_curs *curseur)

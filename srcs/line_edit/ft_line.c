@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 15:18:57 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/02 09:50:33 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int			edit_line(char **line, t_edit *edit)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == '\n')
 		{
-			(*(edit->current)) = moove_last((*(edit->current)), edit->prompt_len, &(edit->curseur));
-			return (edit_end(line, (*(edit->current)), edit->histo));
+			*(edit->current) = moove_last(*(edit->current), edit->prompt_len, &edit->curseur);
+			return (edit_end(line, *(edit->current), edit->histo));
 		}
 		else if (c == 14)
 			(*(edit->current)) = hist_down((*(edit->current)), edit->histo, edit->prompt_len, &(edit->curseur));
@@ -136,28 +136,3 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env)
 	ft_clean_edit(edit);
 	return (ret);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
