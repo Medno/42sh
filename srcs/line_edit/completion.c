@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 11:20:02 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:03:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 	if (edit->comp->current == NULL)
 		return (cur);
 
-
 	to_del = go_to_start_of_str(cur, ft_strlen(edit->comp->str));
 	ret = cur;
 	to_del = to_del->prev;
@@ -90,6 +89,7 @@ static t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 		to_del->next = cur;
 	cur->prev = to_del;
 	return (ret);
+
 }
 
 

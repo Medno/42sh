@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 11:17:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:33:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 
 void				ansi(char *str, int x, int fd);
 void				ft_clean_edit(t_edit *edit);
+t_line				*paste_line(t_line *cur, char *str, int prompt,
+					t_curs *curseur);
+int					count_selected(t_line *cur);
+char				*foo_paste(t_line *cur);
+t_line				*ft_line_esc(t_line *cur, int len, t_curs *curseur,
+					t_hist **histo);
+t_line				*ft_line_esc_2(t_line *cur, int prompt, t_curs *curseur,
+	   				char *buf);	
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
