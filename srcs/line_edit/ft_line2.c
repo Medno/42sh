@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 10:59:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 13:44:34 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 		ansi("CL_END", 0, STDIN_FILENO);
 		tmp = line_to_str(cur);
 		write(0, tmp, ft_strlen(tmp));
+		ft_strdel(&tmp);
 		ansi("REST", 0, STDIN_FILENO);
 	}
 	else if (c == 11)
