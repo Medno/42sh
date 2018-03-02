@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:15:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 10:15:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 static void	moove_curseur(t_curs *curseur)
 {
 	if (curseur->y < curseur->ymax)
-		UP(curseur->ymax - curseur->y);
+		ansi("UP", curseur->ymax - curseur->y, STDIN_FILENO);
 	if (curseur->x > curseur->xmax)
 	{
 		if (!curseur->xmax)
 		{
-			NL;
-			UP(1);
+			ansi("NL", 0, STDIN_FILENO);
+			ansi("UP", 1, STDIN_FILENO);
 		}
-		RIGHT(curseur->x - curseur->xmax);
+		ansi("RI", curseur->x - curseur->xmax, STDIN_FILENO);
 	}
 	else
-		LEFT(curseur->xmax - curseur->x);
+		ansi("LE", curseur->xmax - curseur->x, STDIN_FILENO);
 }
 
 static void	print_line(t_line *new, int len_end, t_curs *curseur)
@@ -46,7 +46,7 @@ static void	print_line(t_line *new, int len_end, t_curs *curseur)
 	}
 	write(STDIN_FILENO, &buf, len_end);
 	if (!new->next->next && !curseur->x)
-		NL;
+		ansi("NL", 0, STDIN_FILENO);
 	else if (new->next->next)
 		moove_curseur(curseur);
 }

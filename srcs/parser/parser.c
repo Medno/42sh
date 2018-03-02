@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/01 17:27:09 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/02 09:56:17 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_first(t_lex *first)
 	if (first->token != WORD && !is_redir(first) && first->token != QUOTE)
 	{
 		if (first->token != EOI)
-			ft_putendl("syntax error");
+			ft_putendl_fd("syntax error", STDERR_FILENO);
 		del_lex(first);
 		return (1);
 	}
@@ -41,7 +41,7 @@ int	err_pars(t_lex *tmp, t_lex *del)
 	{
 		if (tmp->next && tmp->next->token != WORD)
 		{
-			ft_putendl("syntax error");
+			ft_putendl_fd("syntax error", STDERR_FILENO);
 			del_lex(del);
 			return (1);
 		}
@@ -51,7 +51,7 @@ int	err_pars(t_lex *tmp, t_lex *del)
 		if (tmp->next->token != EOI && tmp->next->token != WORD &&
 				tmp->next->token != QUOTE)
 		{
-			ft_putendl("syntax error");
+			ft_putendl_fd("syntax error", STDERR_FILENO);
 			del_lex(del);
 			return (1);
 		}
@@ -87,7 +87,6 @@ int	parser(t_init *init)
 
 	if (check_first(init->lex))
 		return (0);
-//	print_lex(init->lex);
 	tmp = init->lex;
 	while (tmp->token != EOI)
 	{

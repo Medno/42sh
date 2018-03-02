@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:59:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 10:21:29 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
 	{
 		cur = grab_mod(cur, prompt, curseur);
 		str = foo_paste(cur);
-		ft_printf_fd(STDIN_FILENO, "\033[s");
+		ansi("SAVE", 0, STDIN_FILENO);
 		moove_first(cur, prompt, curseur);
-		ft_printf_fd(STDIN_FILENO, "\033[J");
+		ansi("CL_END", 0, STDIN_FILENO);
 		tmp = line_to_str(cur);
 		write(0, tmp, ft_strlen(tmp));
-		ft_printf_fd(STDIN_FILENO, "\033[u");
+		ansi("REST", 0, STDIN_FILENO);
 	}
 	else if (c == 11)
 		cur = paste_line(cur, str, prompt, curseur);

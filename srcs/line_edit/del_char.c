@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:33 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/27 15:54:38 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 10:35:30 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static void	print_del(t_line *cur, int len)
 		tmp = tmp->next;
 		i++;
 	}
-	ft_printf("\033[s");
+	ansi("SAVE", 0, STDIN_FILENO);
 	write(STDIN_FILENO, &buf, i);
-	ft_printf("\033[u");
+	ansi("REST", 0, STDIN_FILENO);
 }
 
 t_line		*del_next(t_line *cur)
@@ -45,7 +45,7 @@ t_line		*del_next(t_line *cur)
 			del->prev->next = cur;
 		del_one_elem(del);
 		increment_all(cur, -1);
-		ft_printf("\033[J");
+		ansi("CL_END", 0, STDIN_FILENO);
 		print_del(cur, dblist_len(cur));
 	}
 	return (cur);

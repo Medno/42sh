@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 08:28:30 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 09:50:02 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 10:22:15 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_line	*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 	if (!*histo || !(*histo)->prev)
 		return (cur);
 	cur = moove_first(cur, prompt, curseur);
-	ft_printf("\033[J");
+	ansi("CL_END", 0, STDIN_FILENO);
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);
 	free_dblist(cur);
@@ -86,7 +86,7 @@ t_line	*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 	if (!*histo || !(*histo)->next)
 		return (cur);
 	cur = moove_first(cur, prompt, curseur);
-	ft_printf("\033[J");
+	ansi("CL_END", 0, STDIN_FILENO);
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);
 	free_dblist(cur);

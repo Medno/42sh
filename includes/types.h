@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 09:47:49 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 10:15:04 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 # include "sh.h"
 # include "line_edit.h"
-
-# define LEFT(x) ft_printf("\033[%dD", x)
-# define RIGHT(x) ft_printf("\033[%dC", x)
-# define DOWN(x) ft_printf("\033[%dB", x)
-# define UP(x) ft_printf("\033[%dA", x)
-# define NL ft_printf("\033E")
 
 typedef struct		s_line
 {
