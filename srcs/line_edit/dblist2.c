@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 09:33:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:54:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:09:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,22 @@ void	free_dblist(t_line *el)
 	while (el->prev)
 		el = el->prev;
 	del_elem(el);
+}
+
+void	ft_clean_edit(t_edit *edit)
+{
+	if (edit)
+	{
+		ft_strdel(&(edit->comp->dir));
+		ft_strdel(&(edit->comp->str));
+		ft_strdel(&(edit->comp->cmd));
+		edit->comp->current = NULL;
+		if (edit->comp->list)
+		{
+			ft_clean_lcomp_list(edit->comp->list);
+			edit->comp->list = NULL;
+		}
+		free(edit->comp);
+		edit->comp = NULL;
+	}
 }

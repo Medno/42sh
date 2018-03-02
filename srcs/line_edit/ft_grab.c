@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:10:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:54:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 10:26:52 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		print(t_line *cur, int prompt, t_curs *curseur)
 	t_line		*tmp;
 
 	tmp = cur;
-	ft_printf_fd(STDIN_FILENO, "\033[s");
+	ansi("SAVE", 0, STDIN_FILENO);
 	while (tmp->prev)
 		tmp = moove_left(tmp, prompt, curseur);
 	while (tmp)
@@ -31,7 +31,7 @@ static void		print(t_line *cur, int prompt, t_curs *curseur)
 		write(STDIN_FILENO, &tmp->c, 1);
 		tmp = tmp->next;
 	}
-	ft_printf_fd(STDIN_FILENO, "\033[u");
+	ansi("REST", 0, STDIN_FILENO);
 }
 
 static void		srprint(t_line *cur, t_line *first, int prompt, t_curs *curseur)
@@ -59,7 +59,7 @@ static void		srprint(t_line *cur, t_line *first, int prompt, t_curs *curseur)
 
 static void		underline(t_line *current, int check)
 {
-	ft_printf_fd(STDIN_FILENO, "\033[s");
+	ansi("SAVE", 0, STDIN_FILENO);
 	if (current->select == 1)
 		ft_putstr_fd("\033[32m", STDIN_FILENO);
 	else if (current->select == 2)
@@ -67,13 +67,13 @@ static void		underline(t_line *current, int check)
 	else
 		ft_putstr_fd("\033[0m", STDIN_FILENO);
 	if (check)
-		ft_printf_fd(STDIN_FILENO, "\033[4m");
+		ft_putstr_fd("\033[4m", STDIN_FILENO);
 	if (!current->c)
 		write(STDIN_FILENO, " ", 1);
 	else
 		write(STDIN_FILENO, &current->c, 1);
-	ft_printf_fd(STDIN_FILENO, "\033[0m");
-	ft_printf_fd(STDIN_FILENO, "\033[u");
+	ft_putstr_fd("\033[0m", STDIN_FILENO);
+	ansi("REST", 0, STDIN_FILENO);
 }
 
 static t_line	*escape_mod(t_line *cur, int prompt, t_curs *curseur)
@@ -107,7 +107,7 @@ t_line			*grab_mod(t_line *current, int prompt, t_curs *curseur)
 	t_line	*tmp;
 
 	tmp = current;
-	ft_printf_fd(STDIN_FILENO, "\033[?25l");
+	ansi("CUR_OFF", 0, STDIN_FILENO);
 	underline(current, 1);
 	while (read(STDIN_FILENO, &c, 1))
 	{
@@ -119,7 +119,7 @@ t_line			*grab_mod(t_line *current, int prompt, t_curs *curseur)
 		}
 		else if (c == 10)
 		{
-			ft_printf_fd(STDIN_FILENO, "\033[?25h");
+			ansi("CUR_ON", 0, STDIN_FILENO);
 			return (current);
 		}
 		underline(current, 1);

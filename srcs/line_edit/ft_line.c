@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 15:18:57 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:35:25 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,97 +67,53 @@ int			edit_line(char **line, t_edit *edit)
 	if (edit->prompt_len == -1)
 	{
 		edit->prompt_len = 2;
-		ft_printf("{tred}> {eoc}");
+		ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}");
 	}
 	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 4 && !(*(edit->current))->next && !(*(edit->current))->prev)
+		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
 			return (0);//HANDLE_CTRLD_exit
 		else if (c == '\n')
 		{
-			(*(edit->current)) = moove_last((*(edit->current)), edit->prompt_len, &(edit->curseur));
-			return (edit_end(line, (*(edit->current)), edit->histo));
+			*edit->current = moove_last(*edit->current,
+					edit->prompt_len, &edit->curseur);
+			return (edit_end(line, *edit->current, edit->histo));
 		}
 		else if (c == 14)
-			(*(edit->current)) = hist_down((*(edit->current)), edit->histo, edit->prompt_len, &(edit->curseur));
+			*edit->current = hist_down(*edit->current, edit->histo,
+					edit->prompt_len, &edit->curseur);
 		else if (c == 16)
-			(*(edit->current)) = hist_up((*(edit->current)), edit->histo, edit->prompt_len, &(edit->curseur));
+			*edit->current = hist_up(*edit->current, edit->histo,
+					edit->prompt_len, &edit->curseur);
 		else if (c == 27)
-			(*(edit->current)) = ft_line_esc((*(edit->current)), edit->prompt_len, &(edit->curseur), edit->histo);
+			*edit->current = ft_line_esc(*edit->current, edit->prompt_len,
+					&edit->curseur, edit->histo);
 		else
-			(*(edit->current)) = ft_line_usual(edit, c);
+			*edit->current = ft_line_usual(edit, c);
 	}
 	return (0);
 }
 
-void	ft_clean_edit(t_edit *edit)
+int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
+			t_env *env)
 {
-	if (edit)
-	{
-		ft_strdel(&(edit->comp->dir));
-		ft_strdel(&(edit->comp->str));
-		ft_strdel(&(edit->comp->cmd));
-		edit->comp->current = NULL;
-		if (edit->comp->list)
-		{
-			ft_clean_lcomp_list(edit->comp->list);
-			edit->comp->list = NULL;
-		}
-		free(edit->comp);
-		edit->comp = NULL;
-		free(edit);
-		edit = NULL;
-	}
-}
-
-int			ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env)
-{
-	t_edit			*edit;
+	t_edit			edit;
 	t_line			*current;
 	t_curs			curseur;
-	int				ret;	
+	int				ret;
 
 	ret = 0;
 	current = create_elem(0);
 	init_hist(histo);
 	init_curs(&curseur, prompt_len);
-	edit = ft_memalloc(sizeof(t_edit));
-	if (edit)
-	{
-		edit->current = &current;
-		edit->histo = histo;
-		edit->prompt_len = prompt_len;
-		edit->curseur = curseur;
-		edit->comp = init_t_comp();
-		edit->env = env;
-	}
-	if (edit_line(line, edit))
+	edit.current = &current;
+	edit.histo = histo;
+	edit.prompt_len = prompt_len;
+	edit.curseur = curseur;
+	edit.comp = init_t_comp();
+	edit.env = env;
+	if (edit_line(line, &edit))
 		ret = 1;
-	ft_clean_edit(edit);
+	ft_clean_edit(&edit);
 	return (ret);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

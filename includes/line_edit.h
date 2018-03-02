@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:12:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:17:32 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "sh.h"
 # include "types.h"
 
+void				ansi(char *str, int x, int fd);
+void				ft_clean_edit(t_edit *edit);
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
@@ -76,7 +78,6 @@ t_line				*completion(t_edit *edit);
 /*
 ** termcaps setup
 */
-char				*get_ttyname(void);
 int					init_termcaps(void);
 /*
 ** historic >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

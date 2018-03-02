@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:12:29 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 11:20:02 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,12 @@ t_line	*completion(t_edit *edit)
 	first = *(edit->current);
 	while (first->prev) { first = first->prev; }
 
-	tmp = *(edit->current);
+	tmp = *edit->current;
 	if (tmp->c == '0' && tmp->prev == NULL)
-		return (*(edit->current));
-	from_list_to_comp(*(edit->current), edit->comp);
+		return (*edit->current);
+	from_list_to_comp(*edit->current, edit->comp);
 	do_completion(edit->comp, edit->env);
-	first = from_comp_to_list(*(edit->current), edit);
-	print_line(first, dblist_len(first), &(edit->curseur));
-
-	return (*(edit->current));
+//	ft_printf("Ma string en sortie : [%s]\n", edit->comp->cmd);
+//	from_comp_to_list(cur, comp);
+	return (*edit->current);
 }
