@@ -45,6 +45,8 @@ void	comp_modify_cmd(t_comp *comp)
 	if (comp->cmd)
 		ft_strdel(&(comp->cmd));
 	comp->cmd = ft_strjoin_infinite(3, prefix, comp->current->cmd, suffix);
+	ft_strdel(&prefix);
+	ft_strdel(&suffix);
 }
 
 void	comp_modify_cur_string_for_display(t_comp *comp)
@@ -128,16 +130,15 @@ void	do_new_completion(t_comp *comp)
 	}
 	else
 	{
-//		ft_printf("do_3\n");
 		comp_get_pot_dir(comp);
 	}
 
-	t_lcomp *tmp = comp->list;
+// t_lcomp *tmp = comp->list;
 //	while (tmp) { ft_printf("[%s]-> ", tmp->cmd); tmp = tmp->next; }
 //	ft_putchar('\n');
 //	ft_putchar('A');
-//	comp_sort_alphab(comp);	ft_putchar('B');
-//	comp_check_duplicate(comp);	ft_putchar('C');
+	comp_sort_alphab(comp);
+	comp_check_duplicate(comp);
 	comp->current = comp->list;
 }
 
@@ -168,32 +169,28 @@ void	do_completion(t_comp *comp, t_env *env)
 		return ;
 
 	(void)env;
-//	ft_printf("\nEn entree :\n");
-//	ft_printf("cmd = [%s]\npos = [%d]\n", comp->cmd, comp->pos);
-//	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
-	
+	// ft_printf("\nEn entree :\n");
+	// ft_printf("cmd = [%s]\npos = [%d]\n", comp->cmd, comp->pos);
+	// if (comp->list)
+	// 	ft_printf("current = [%s]\nlist = [%s]\n", comp->current->cmd, comp->list ? comp->list->cmd : 0);
 	get_word_to_complete(comp);
 	
-//	ft_printf("\nApres get word : ");
-//	ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
-	
+	// ft_printf("\nApres get word : ");
+	// ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
 	comp_get_dir_to_open(comp);
 	
-//	ft_printf("\nApres get dir : ");
-//	ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str)
-	;
+	// ft_printf("\nApres get dir : ");
+	// ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
 	if (comp->current == NULL)
 		do_new_completion(comp);
 	else
 		put_current_to_next(comp);
-
 //	ft_printf("\nApres new_comp : ");
 //	if (comp->current && comp->list)
 //	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
 // On modifie remplace str par current dans cmd si on a reussit a remplir pot_list
 	if (comp->list)
 		comp_modify_cmd(comp);
-
 //	Si on a un seul choix, on valide et on met current à NULL
 	// if (comp->current && comp->current->next == NULL
 	// 	&& comp->current == comp->list)

@@ -16,9 +16,6 @@ int		reset_completion(char c, t_comp *comp)
 {
 	if (c != '\t')
 	{
-		ft_strdel(&(comp->dir));
-		ft_strdel(&(comp->str));
-		ft_strdel(&(comp->cmd));
 		comp->current = NULL;
 		if (comp->list)
 		{
@@ -26,6 +23,9 @@ int		reset_completion(char c, t_comp *comp)
 			comp->list = NULL;
 		}
 	}
+	ft_strdel(&(comp->dir));
+	ft_strdel(&(comp->str));
+	ft_strdel(&(comp->cmd));
 	return (1);	
 }
 

@@ -57,14 +57,14 @@ void		comp_get_dir_to_open(t_comp *comp)
 
 	if (comp->str && *(comp->str) && *(comp->str) == '/')
 	{
-		ft_printf("do_A\n");
+		// ft_printf("do_A\n");
 		comp->dir = get_absolute_path(comp);
 	}
 	else
 	{
-		if (comp_has_slash(comp->str) == 1)
+		if (comp_has_slash(comp->str) == 1 || comp_is_first_word(comp) == 0)
 		{
-			ft_printf("do_B\n");
+			// ft_printf("do_B\n");
 			cwd = NULL;
 			cwd = getcwd(cwd, 0);
 			suffix = get_path_suffix(comp);
@@ -72,6 +72,6 @@ void		comp_get_dir_to_open(t_comp *comp)
 			ft_strdel(&cwd);
 			ft_strdel(&suffix);
 		}
-		ft_printf("do_C\n");
+		// ft_printf("do_C\n");
 	}
 }

@@ -102,7 +102,7 @@ char	**comp_get_all_path(void)
 	i = 0;
 	while (i < ft_nbr_path(tmp))
 	{
-		tabl[i] = ft_strdup(get_next_path(tmp));
+		tabl[i] = get_next_path(tmp);
 		if (*tmp && *tmp == ':')
 			tmp++;
 		while (*tmp && *tmp != ':')
@@ -155,8 +155,10 @@ void	comp_get_pot_cmd(t_comp *comp)
 				comp->list = lcomp_push_back(comp->list, new);
 			}
 		}
+		closedir(dir);
 		i++;
 	}
+	ft_freetab(all_path);
 	comp_add_pot_builtin(comp);
 }
 

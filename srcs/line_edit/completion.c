@@ -31,118 +31,67 @@ static t_line 	*go_to_start_of_str(t_line *cur, int len)
 	return (tmp);
 }
 
-static void		del_after_str(t_line *elm, int len)
+void	del_one_t_line(t_line **del)
 {
-	t_line *tmp;
-
-	if (elm && elm->prev)
-		elm->prev->next = NULL;	
-	while (elm && len > 0)
+	if (del && *del)
 	{
-		tmp = elm;
-		elm = elm->next;
-		ft_printf("Je vais tuer tmp = [%c]\n", tmp->c);
-		del_one_elem(tmp);
-		len--;
+	 	(*del)->next = NULL;
+	 	(*del)->prev = NULL;
+		free(*del);
+		*del = NULL;
 	}
 }
 
-static t_line	*add_to_last(t_line *new, t_line *line)
+void		del_after_str(t_line **elm, int len)
 {
-	t_line *tmp;
+	t_line **tmp;
 
-	if (line == NULL)
-		return (new);
-	tmp = line;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->prev = tmp;
-	return (line);
-}
-
-static t_line	*go_to_last(t_line *line)
-{
-	t_line *tmp;
-
-	tmp = line;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
+	tmp = elm;
+	while (len > 0)
+	{
+		elm = &((*elm)->next);
+		ft_printf("Je vais del [%c]\n", (*tmp)->c);
+		del_one_t_line(tmp);
+		len--;
+		ft_printf("Ca degage! len = [%d]\n", len);
+		tmp = elm;
+	}
 }
 
 static t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 {
-	t_line *first;
-
-	first = *(edit->current);
-	while (first->prev) { first = first->prev; }
-
 	t_line *to_del;
+	t_line *ret;
+
+	if (edit->comp->current == NULL)
+		return (cur);
+
+
 	to_del = go_to_start_of_str(cur, ft_strlen(edit->comp->str));
+	ret = cur;
+	to_del = to_del->prev;
+	char *str;
+	int i;
 
-	t_line *suffix;
-	suffix = cur;
-
-	del_after_str(to_del, ft_strlen(edit->comp->str));
-
-	char *tmp; tmp = edit->comp->current->cmd;
-	t_line *new;
-	while (tmp && *tmp)
-	{
-		new = create_elem(*tmp);
-		first = add_to_last(new, first);
-		tmp++;
-	}
-
-	 t_line *last;
-	 last = go_to_last(first);
-	 last->next = suffix;
-	 suffix->prev = last;
-	 return (first);
-}
-
-static void	move_curseur(t_curs *curseur)
-{
-	if (curseur->y < curseur->ymax)
-		UP(curseur->ymax - curseur->y);
-	if (curseur->x > curseur->xmax)
-	{
-		if (!curseur->xmax)
-		{
-			NL;
-			UP(1);
-		}
-		RIGHT(curseur->x - curseur->xmax);
-	}
-	else
-		LEFT(curseur->xmax - curseur->x);
-}
-
-static void	print_line(t_line *new, int len_end, t_curs *curseur)
-{
-	char	*str;
-	int		i;
-	t_line	*tmp;
-
+	str = edit->comp->current->cmd;
 	i = 0;
-	tmp = new;
-	str = ft_strnew(len_end);
-	ft_printf("str = [%s] de taille [%d]\n", str, len_end);
-	while (tmp->next)
-	{
-		str[i] = tmp->c;
-		tmp = tmp->next;
+	while (str && str[i] && str[i + 1])
 		i++;
+	t_line *new;
+	while (i >= 0)
+	{
+		new = create_elem(str[i]);
+		cur->prev = new;
+		new->next = cur;
+		cur = new;
+		i--;
 	}
-	ft_printf("str = [%s] de taille [%d]\n", str, len_end);
-	ft_putstr_fd(str, STDIN_FILENO);
-//	write(STDIN_FILENO, &str, len_end);
-	if (!new->next->next && !curseur->x)
-		NL;
-	else if (new->next->next)
-		move_curseur(curseur);
+	if (to_del)
+		to_del->next = cur;
+	cur->prev = to_del;
+	return (ret);
 }
+
 
 /*
 **	On creer le t_comp
@@ -156,15 +105,15 @@ t_line	*completion(t_edit *edit)
 	t_line *tmp;
 	t_line *first;
 
-	first = *(edit->current);
-	while (first->prev) { first = first->prev; }
-
 	tmp = *edit->current;
 	if (tmp->c == '0' && tmp->prev == NULL)
 		return (*edit->current);
 	from_list_to_comp(*edit->current, edit->comp);
 	do_completion(edit->comp, edit->env);
-//	ft_printf("Ma string en sortie : [%s]\n", edit->comp->cmd);
-//	from_comp_to_list(cur, comp);
+	*edit->current = from_comp_to_list(*edit->current, edit);
+	
+	first = *edit->current; while (first->prev) { first = first->prev; }
+	int i = 0;
+	t_line *t = first; ft_printf("List a afficher = "); while (t) {ft_printf("[%c]", t->c ); t->index = i++; t = t->next;} ft_putchar('\n');
 	return (*edit->current);
 }
