@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 11:20:02 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:03:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,7 @@ static t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 
 static void	move_curseur(t_curs *curseur)
 {
-	if (curseur->y < curseur->ymax)
-		UP(curseur->ymax - curseur->y);
-	if (curseur->x > curseur->xmax)
-	{
-		if (!curseur->xmax)
-		{
-			NL;
-			UP(1);
-		}
-		RIGHT(curseur->x - curseur->xmax);
-	}
-	else
-		LEFT(curseur->xmax - curseur->x);
+	;
 }
 
 static void	print_line(t_line *new, int len_end, t_curs *curseur)
@@ -139,7 +127,7 @@ static void	print_line(t_line *new, int len_end, t_curs *curseur)
 	ft_putstr_fd(str, STDIN_FILENO);
 //	write(STDIN_FILENO, &str, len_end);
 	if (!new->next->next && !curseur->x)
-		NL;
+		;
 	else if (new->next->next)
 		move_curseur(curseur);
 }
