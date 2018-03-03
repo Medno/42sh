@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "parser.h"
 
 void	paste_last_hist(t_hist **histo)
 {

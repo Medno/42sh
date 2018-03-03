@@ -28,6 +28,8 @@
 # include "ft_printf.h"
 # include "line_edit.h"
 # include "types.h"
+# include "lexer.h"
+# include "parser.h"
 # include "completion.h"
 # include "exec.h"
 
@@ -64,29 +66,4 @@ int					put_path(t_env **env);
 */
 void				ft_cfmakeraw(struct termios *my_state);
 void				ft_cfmakedefault(struct termios *my_state);
-/*
-** lexer manipulation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-*/
-t_lex				*lexer(char *str);
-t_lex				*init_lexer(void);
-void				del_one_lex(t_lex *tmp);
-void				del_lex(t_lex *first);
-void				print_lex(t_lex *first);
-t_lex				*get_lex(t_lex *first, t_token token, char *value);
-int					isredir(char c);
-int					is_op(char c, char buf[]);
-int					is_esc(char c);
-int					is_number(char buf[]);
-/*
-** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-*/
-void				paste_last_hist(t_hist **histo);
-int					parser(t_init *init);
-t_ast				*build_ast(t_lex *first);
-t_ast				*init_ast(void);
-t_ast				*io_file(t_lex *first);
-t_ast				*io_redirect(t_lex *first);
-void				del_ast(t_ast **root);
-void				print_ast(t_ast *root, char *pos);
-int					is_redir(t_lex *tmp);
 #endif
