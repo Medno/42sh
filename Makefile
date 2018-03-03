@@ -64,6 +64,14 @@ PARSER_NAME = ast.c init_ast.c parser.c redir_ast.c edit_history.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 
+### EXEC ###
+EXEC_NAME =	fill_cmd.c		\
+			init_exec.c 	\
+			struct_cmd.c	\
+			struct_redir.c	
+EXEC_PATH = exec/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(EXEC_PATH), $(EXEC_NAME)))
+
 ### LIBFT ###
 LIBINC = ./libft
 INC += -I$(LIBINC)/includes

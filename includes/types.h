@@ -125,4 +125,10 @@ typedef struct		s_cmd
 	struct s_cmd	*next_semi;
 }					t_cmd;
 
+typedef struct		s_type
+{
+	int			value;
+	int			(*f)(t_cmd *cmd, t_lex *lex);
+}					t_type;
+
 #endif

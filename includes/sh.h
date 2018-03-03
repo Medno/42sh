@@ -29,6 +29,7 @@
 # include "line_edit.h"
 # include "types.h"
 # include "completion.h"
+# include "exec.h"
 
 int		g_quote;
 
