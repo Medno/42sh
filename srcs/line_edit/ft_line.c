@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 14:41:23 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/04 16:34:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,18 @@ int			edit_line(char **line, t_edit *edit)
 	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
 		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
-			return (0);//HANDLE_CTRLD_exit
+		{
+			edit_end(line, edit);
+			return (0);
+		}
 		else if (c == '\n')
 			return (edit_end(line, edit));
 		else if (c == 14)
-			*edit->current = hist_down(*edit->current, edit->histo, edit->prompt_len, &edit->curseur);
+			*edit->current = hist_down(*edit->current, edit->histo,
+					edit->prompt_len, &edit->curseur);
 		else if (c == 16)
-			*edit->current = hist_up(*edit->current, edit->histo, edit->prompt_len, &edit->curseur);
+			*edit->current = hist_up(*edit->current, edit->histo,
+					edit->prompt_len, &edit->curseur);
 		else if (c == 27)
 			*edit->current = ft_line_esc(*edit->current, edit->prompt_len,
 					&edit->curseur, edit->histo);
@@ -45,7 +50,7 @@ int			edit_line(char **line, t_edit *edit)
 	}
 	return (0);
 }
-// index replaced. Need to edit all func above
+
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 			t_env *env)
 {
@@ -54,7 +59,6 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	t_curs			curseur;
 	int				ret;
 
-	ret = 0;
 	if (prompt_len == -1)
 	{
 		prompt_len = 2;
@@ -69,8 +73,7 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	edit.curseur = curseur;
 	edit.comp = init_t_comp();
 	edit.env = env;
-	if (edit_line(line, &edit))
-		ret = 1;
+	ret = edit_line(line, &edit);
 	ft_clean_edit(&edit);
 	return (ret);
 }

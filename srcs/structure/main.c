@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 16:30:57 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/04 16:34:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int				main(int ac, char **av, char **environ)
 		quote_again = 1;
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
-		ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
+		if (!ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env))
+			break ; // edition de ligne renvoie 0 dans le cas d'un CTRL-D si aucun caractere! BREAK TEMPORAIRE, envoyer la fonction exit quand le tout sera fait
 		ft_cfmakedefault(&init.current);
 		while (quote_again)
 		{
