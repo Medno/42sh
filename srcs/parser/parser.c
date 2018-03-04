@@ -90,6 +90,7 @@ int	parser(t_init *init)
 {
 	t_lex	*tmp;
 	t_ast	*ast;
+	t_cmd	*cmd;
 
 	if (check_first(init->lex))
 		return (0);
@@ -104,9 +105,10 @@ int	parser(t_init *init)
 	}
 	tmp = init->lex;
 	ast = build_ast(tmp);
-	t_cmd	*cmd;
+//	print_ast(ast, NULL);
 	cmd = ast_to_struct(ast);
-	//print_cmd(cmd);
+	print_cmd(cmd);
+	ft_clean_cmd(cmd);
 	del_ast(&ast);
 	del_lex(init->lex);
 	return (0);

@@ -24,12 +24,12 @@ void	ft_clean_cmd(t_cmd *cmd)
 		next_phrase = tmp->next_semi;
 		while (tmp)
 		{
-			cmd = cmd->next;
-			ft_strdel(&(tmp->v_cmd));		
+			ft_strdel(&(tmp->v_cmd));
+			ft_strdel(&(tmp->separ));
 			ft_freetab(tmp->arg);
 			ft_clean_redir(tmp->redir);
 			free(tmp);
-			tmp = cmd;
+			tmp = tmp->next;
 		}
 		tmp = next_phrase;
 	}

@@ -7,8 +7,6 @@ t_cmd	*init_cmd_p(void)
 	if (!(cmd = (t_cmd *)malloc(sizeof(t_cmd))))
 		return (NULL);
 	cmd->v_cmd = NULL;
-	if (!(cmd->arg = (char **)malloc(sizeof(cmd->arg))))
-		return (NULL);
 	cmd->arg = NULL;
 	cmd->redir = NULL;
 	cmd->separ = NULL;
@@ -20,27 +18,54 @@ t_cmd	*init_cmd_p(void)
 void	print_cmd(t_cmd *cmd)
 {
 	int	i;
+	t_cmd	*tmp;
+	t_cmd	*tmp_2;
+	t_redir	*leak;
 
-	i = 0;
-	if (cmd->v_cmd)
-		ft_printf("Commande : |%s|\n", cmd->v_cmd);
-	if (cmd->arg)
+	tmp = cmd;
+	while (tmp)
 	{
-		while (cmd->arg[i])
+		tmp_2 = tmp;
+		while(tmp_2)
 		{
-			ft_printf("Parametre %d : |%s|\n", i, cmd->arg[i]);
-			i++;
+			i = 0;
+			if (tmp_2->v_cmd)
+			{
+				ft_putstr("Commande : ");
+				ft_putendl(tmp_2->v_cmd);
+			}
+			if (tmp_2->arg)
+			{
+				while (tmp_2->arg[i])
+				{
+					ft_putstr("Parametre : ");
+					ft_putendl(tmp_2->arg[i]);
+					i++;
+				}
+			}
+			if (tmp_2->separ)
+			{
+				ft_putstr("Separateur : ");
+				ft_putendl(tmp_2->separ);
+			}
+			leak = tmp_2->redir;
+			while (leak)
+			{
+				ft_putstr("fd_in : ");
+				ft_putnbr(tmp_2->redir->fd_in);
+				ft_putstr("\ntoken : ");
+				ft_putendl(tmp_2->redir->token);
+				ft_putstr("fd_out : ");
+				if (tmp_2->redir->file)
+					ft_putstr(tmp_2->redir->file);
+				else
+					ft_putnbr(tmp_2->redir->fd_out);
+				ft_putchar('\n');
+				leak = leak->next;
+			}
+			tmp_2 = tmp_2->next;
 		}
-	}
-	while (cmd->redir)
-	{
-		ft_printf("Valeur du fd_in : |%d|\n", cmd->redir->fd_in);
-		ft_printf("Valeur du token : |%s|\n", cmd->redir->token);
-		if (cmd->redir->file)
-			ft_printf("Valeur du fd_out : |%s|\n", cmd->redir->fd_out);
-		else
-			ft_printf("Valeur du fd_out : |%d|\n", cmd->redir->fd_out);
-		cmd->redir = cmd->redir->next;
+		tmp = tmp->next_semi;
 	}
 }
 
@@ -48,41 +73,33 @@ t_redir	*put_redir(t_ast *ast)
 {
 	t_redir	*redir;
 
+	redir = init_redir();
 	if (!ast)
 		return (NULL);
-	redir = init_redir();
 	if (ft_strequ(ast->value, "io"))
 	{
-		redir->token = ft_strdup(ast->left->value);
 		if (ast->left->value[0] == '>')
 			redir->fd_in = 1;
 		else
 			redir->fd_in = 0;
-		if (is_number(ast->right->value))
-			redir->fd_out = ft_atoi(ast->right->value);
-		else
-			redir->file = ft_strdup(ast->right->value);
 	}
 	else
 	{
-		redir->token = ft_strdup(ast->left->left->value);
 		redir->fd_in = ft_atoi(ast->value);
-		if (is_number(ast->left->right->value))
-			redir->fd_out = ft_atoi(ast->left->right->value);
-		else
-			redir->file = ft_strdup(ast->left->right->value);
-		
+		ast = ast->left;
 	}
+	redir->token = ft_strdup(ast->left->value);
+	if (is_number(ast->right->value))
+		redir->fd_out = ft_atoi(ast->right->value);
+	else
+		redir->file = ft_strdup(ast->right->value);
 	return (redir);
 }
 
 t_cmd	*ast_to_sentence(t_cmd *cmd, t_ast *ast)
 {
-	int	sep;
-
 	if (!ast)
 		return (cmd);
-	sep = (ft_strequ(ast->value, "&&") || ft_strequ(ast->value, "||")) ? 1 : 0;
 	if (ft_strequ(ast->value, "io_redirect"))
 	{
 		if (cmd->redir)
@@ -91,20 +108,18 @@ t_cmd	*ast_to_sentence(t_cmd *cmd, t_ast *ast)
 			cmd->redir = put_redir(ast->right);
 		return ((cmd = ast_to_sentence(cmd, ast->left)));
 	}
-	else if (sep)
+	else if (ft_strequ(ast->value, "&&") || ft_strequ(ast->value, "||"))
 	{
 		cmd->separ = ft_strdup(ast->value);
 		cmd = ast_to_sentence(cmd, ast->left);
 		cmd->next = init_cmd_p();
 		cmd->next = ast_to_sentence(cmd->next, ast->right);
+		return (cmd);
 	}
-	if (!sep)
-	{
-		if (!cmd->v_cmd)
-			cmd->v_cmd = ft_strdup(ast->value);
-		else
-			cmd->arg = ft_addstr_tab(cmd->arg, ast->value);
-	}
+	if (!cmd->v_cmd)
+		cmd->v_cmd = ft_strdup(ast->value);
+	else
+		cmd->arg = ft_addstr_tab(cmd->arg, ast->value);
 	return ((cmd = ast_to_sentence(cmd, ast->left)));
 }
 
@@ -116,7 +131,10 @@ t_cmd	*ast_to_struct(t_ast *ast)
 		return (NULL);
 	cmd = init_cmd_p();
 	if (ft_strequ(ast->value, ";") || ft_strequ(ast->value, "&"))
+	{
 		cmd->next_semi = ast_to_struct(ast->right);
+		cmd = ast_to_sentence(cmd, ast->left);
+	}
 	else
 		cmd = ast_to_sentence(cmd, ast);
 	return (cmd);
