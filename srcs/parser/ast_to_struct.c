@@ -4,7 +4,7 @@ t_cmd	*init_cmd_p(void)
 {
 	t_cmd	*cmd;
 
-	if (!(cmd = (t_cmd *)malloc(sizeof(cmd))))
+	if (!(cmd = (t_cmd *)malloc(sizeof(t_cmd))))
 		return (NULL);
 	cmd->v_cmd = NULL;
 	if (!(cmd->arg = (char **)malloc(sizeof(cmd->arg))))

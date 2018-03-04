@@ -46,7 +46,7 @@ t_line		*moove_up(t_line *cur, int prompt, t_curs *curseur)
 	{
 		if (!(curseur->y - 1))
 		{
-			if (curseur->x < prompt)
+			if (curseur->x < prompt + 1)
 				return (cur);
 		}
 		ansi("UP", 1, STDIN_FILENO);
@@ -79,7 +79,12 @@ t_line		*moove_left(t_line *cur, t_curs *curseur)
 	check_ynx(curseur, cur->index);
 	if (cur->prev)
 	{
-		if (curseur->x == 1 && curseur->y)
+		if (cur->prev->c == '\n')
+		{
+			ansi("UP", 1, STDIN_FILENO);
+			ansi("RI", curseur->screen.ws_col - (cur->index - cur->prev->index), STDIN_FILENO);
+		}
+		else if (curseur->x == 1 && curseur->y)
 		{
 			ansi("UP", 1, STDIN_FILENO);
 			ansi("RI", curseur->screen.ws_col - 1, STDIN_FILENO);
@@ -96,7 +101,7 @@ t_line		*moove_right(t_line *cur, t_curs *curseur)
 	check_ynx(curseur, cur->index);
 	if (cur->next)
 	{
-		if (!curseur->x)
+		if (!curseur->x || cur->c == '\n')
 			ansi("NL", 0, STDIN_FILENO);
 		else
 			ansi("RI", 1, STDIN_FILENO);

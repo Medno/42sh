@@ -25,7 +25,7 @@ void	ft_clean_cmd(t_cmd *cmd)
 		while (tmp)
 		{
 			cmd = cmd->next;
-			ft_strdel(&(tmp->cmd));		
+			ft_strdel(&(tmp->v_cmd));		
 			ft_freetab(tmp->arg);
 			ft_clean_redir(tmp->redir);
 			free(tmp);
