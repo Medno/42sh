@@ -79,7 +79,7 @@ static t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 	t_line *new;
 	while (i >= 0)
 	{
-		new = create_elem(str[i]);
+		new = create_elem(str[i], cur->index);
 		cur->prev = new;
 		new->next = cur;
 		cur = new;

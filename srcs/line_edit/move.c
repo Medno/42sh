@@ -40,28 +40,28 @@ t_line		*moove_up(t_line *cur, int prompt, t_curs *curseur)
 {
 	int		i;
 
-	check_ynx(curseur, prompt, cur->index);
+	check_ynx(curseur, cur->index);
 	i = curseur->screen.ws_col;
 	if (curseur->y)
 	{
 		if (!(curseur->y - 1))
 		{
-			if (curseur->x < prompt + 1)
+			if (curseur->x < prompt)
 				return (cur);
 		}
 		ansi("UP", 1, STDIN_FILENO);
-		while (--i >= 0)
+		while (--i >= 0 && cur->prev)
 			cur = cur->prev;
 	}
 	return (cur);
 }
 
-t_line		*moove_down(t_line *cur, int prompt, t_curs *curseur)
+t_line		*moove_down(t_line *cur, t_curs *curseur)
 {
 	int		i;
 
-	check_ynx(curseur, prompt, cur->index);
-	check_max(curseur, prompt + full_list_len(cur));
+	check_ynx(curseur, cur->index);
+	check_max(curseur, last_index(cur));
 	i = -1;
 	if (curseur->y < curseur->ymax)
 	{
@@ -74,9 +74,9 @@ t_line		*moove_down(t_line *cur, int prompt, t_curs *curseur)
 	return (cur);
 }
 
-t_line		*moove_left(t_line *cur, int prompt, t_curs *curseur)
+t_line		*moove_left(t_line *cur, t_curs *curseur)
 {
-	check_ynx(curseur, prompt, cur->index);
+	check_ynx(curseur, cur->index);
 	if (cur->prev)
 	{
 		if (curseur->x == 1 && curseur->y)
@@ -91,9 +91,9 @@ t_line		*moove_left(t_line *cur, int prompt, t_curs *curseur)
 	return (cur);
 }
 
-t_line		*moove_right(t_line *cur, int prompt, t_curs *curseur)
+t_line		*moove_right(t_line *cur, t_curs *curseur)
 {
-	check_ynx(curseur, prompt, cur->index);
+	check_ynx(curseur, cur->index);
 	if (cur->next)
 	{
 		if (!curseur->x)

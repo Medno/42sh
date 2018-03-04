@@ -55,22 +55,22 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 
 t_line	*str_to_line(char *str, int prompt, t_curs *curseur)
 {
-	t_line	*new;
+	t_line	*cur;
 
-	new = create_elem(0);
+	cur = create_elem(0, prompt + 1);
 	while (str && *str)
 	{
-		push_new(new, *str, prompt, curseur);
+		push_new(cur, *str, curseur);
 		str++;
 	}
-	return (new);
+	return (cur);
 }
 
 t_line	*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 {
 	if (!*histo || !(*histo)->prev)
 		return (cur);
-	cur = moove_first(cur, prompt, curseur);
+	cur = moove_first(cur, curseur);
 	ansi("CL_END", 0, STDIN_FILENO);
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);
@@ -85,7 +85,7 @@ t_line	*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 {
 	if (!*histo || !(*histo)->next)
 		return (cur);
-	cur = moove_first(cur, prompt, curseur);
+	cur = moove_first(cur, curseur);
 	ansi("CL_END", 0, STDIN_FILENO);
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);

@@ -18,26 +18,24 @@
 
 void				ansi(char *str, int x, int fd);
 void				ft_clean_edit(t_edit *edit);
-t_line				*paste_line(t_line *cur, char *str, int prompt,
-					t_curs *curseur);
+
 int					count_selected(t_line *cur);
 char				*foo_paste(t_line *cur);
 t_line				*ft_line_esc(t_line *cur, int len, t_curs *curseur,
 					t_hist **histo);
-t_line				*ft_line_esc_2(t_line *cur, int prompt, t_curs *curseur,
-	   				char *buf);	
+t_line				*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf);
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 int					ft_line_edition(char **line, int prompt_len, t_hist **histo, t_env *env);
 t_line				*ft_line_usual(t_edit *edit, char c);
-t_line				*line_delone(t_line *cur, int prompt, t_curs *curseur);
+t_line				*line_delone(t_line *cur, t_curs *curseur);
 t_line				*del_next(t_line *cur);
 /*
 ** copy
 */
 t_line				*grab_mod(t_line *current, int prompt, t_curs *curseur);
-t_line				*paste_line(t_line *cur, char *str, int prompt, t_curs *curseur);
+t_line				*paste_line(t_line *cur, char *str, t_curs *curseur);
 /*
 ** historic
 */
@@ -50,10 +48,10 @@ void				handle_history_ret(t_line *cur, t_hist **histo);
 /*
 ** list checkups
 */
-void				increment_all(t_line *current, char c);
-int					dblist_len(t_line *first);
-int					full_list_len(t_line *el);
-t_line				*create_elem(char c);
+void				increment_all(t_line *current, int c);
+int					line_len(t_line *first);
+int					last_index(t_line *el);
+t_line				*create_elem(char c, int len);
 void				free_dblist(t_line *el);
 /*
 ** deletion
@@ -63,30 +61,25 @@ void				del_elem(t_line *first);
 /*
 ** adding and mooving
 */
-t_line				*push_new(t_line *current, char c, int prompt,
-					t_curs *curseur);
-t_line				*moove_left(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_right(t_line *cur, int prompt, t_curs *curseur);
+t_line				*push_new(t_line *current, char c, t_curs *curseur);
+t_line				*moove_left(t_line *cur, t_curs *curseur);
+t_line				*moove_right(t_line *cur, t_curs *curseur);
 t_line				*moove_up(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_down(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_first(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_last(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_rword(t_line *cur, int prompt, t_curs *curseur);
-t_line				*moove_lword(t_line *cur, int prompt, t_curs *curseur);
+t_line				*moove_down(t_line *cur, t_curs *curseur);
+t_line				*moove_first(t_line *cur, t_curs *curseur);
+t_line				*moove_last(t_line *cur, t_curs *curseur);
+t_line				*moove_rword(t_line *cur, t_curs *curseur);
+t_line				*moove_lword(t_line *cur, t_curs *curseur);
 /*
 ** ft_pos
 */
-void				check_ynx(t_curs *curseur, int prompt, int index);
+void				check_ynx(t_curs *curseur, int index);
 void				check_max(t_curs *curseur, int len);
 void				init_curs(t_curs *curseur, int prompt);
 /*
 **
 */
 t_line				*completion(t_edit *edit);
-/*
-** termcaps setup
-*/
-int					init_termcaps(void);
 /*
 ** historic >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */

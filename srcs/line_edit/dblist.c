@@ -12,14 +12,14 @@
 
 #include "line_edit.h"
 
-t_line	*create_elem(char c)
+t_line	*create_elem(char c, int len)
 {
 	t_line	*new;
 
 	if (!(new = (t_line *)malloc(sizeof(t_line))))
 		return (NULL);
 	new->c = c;
-	new->index = 0;
+	new->index = len;
 	new->select = 0;
 	new->next = NULL;
 	new->prev = NULL;
@@ -49,7 +49,7 @@ void	del_elem(t_line *first)
 	}
 }
 
-int		full_list_len(t_line *el)
+int		line_len(t_line *el)
 {
 	int		i;
 	t_line	*tmp;
@@ -66,17 +66,12 @@ int		full_list_len(t_line *el)
 	return (i);
 }
 
-int		dblist_len(t_line *first)
+int		last_index(t_line *el)
 {
-	int		i;
 	t_line	*tmp;
 
-	i = 0;
-	tmp = first;
-	while (tmp)
-	{
+	tmp = el;
+	while (tmp->next)
 		tmp = tmp->next;
-		i++;
-	}
-	return (i);
+	return (tmp->index);
 }

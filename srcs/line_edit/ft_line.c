@@ -14,8 +14,7 @@
 
 static int	edit_end(char **line, t_edit *edit)
 {
-	*edit->current = moove_last(*edit->current, edit->prompt_len,
-			&edit->curseur);
+	*edit->current = moove_last(*edit->current, &edit->curseur);
 	handle_history_ret(*edit->current, edit->histo);
 	*line = line_to_str(*edit->current);
 	free_dblist(*edit->current);
@@ -35,11 +34,9 @@ int			edit_line(char **line, t_edit *edit)
 		else if (c == '\n')
 			return (edit_end(line, edit));
 		else if (c == 14)
-			*edit->current = hist_down(*edit->current, edit->histo,
-					edit->prompt_len, &edit->curseur);
+			*edit->current = hist_down(*edit->current, edit->histo, edit->prompt_len, &edit->curseur);
 		else if (c == 16)
-			*edit->current = hist_up(*edit->current, edit->histo,
-					edit->prompt_len, &edit->curseur);
+			*edit->current = hist_up(*edit->current, edit->histo, edit->prompt_len, &edit->curseur);
 		else if (c == 27)
 			*edit->current = ft_line_esc(*edit->current, edit->prompt_len,
 					&edit->curseur, edit->histo);
@@ -48,7 +45,7 @@ int			edit_line(char **line, t_edit *edit)
 	}
 	return (0);
 }
-
+// index replaced. Need to edit all func above
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 			t_env *env)
 {
@@ -58,20 +55,20 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	int				ret;
 
 	ret = 0;
-	current = create_elem(0);
+	if (prompt_len == -1)
+	{
+		prompt_len = 2;
+		ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}");
+	}
+	edit.prompt_len = prompt_len;
+	current = create_elem(0, prompt_len + 1);
 	init_hist(histo);
 	init_curs(&curseur, prompt_len);
 	edit.current = &current;
 	edit.histo = histo;
-	edit.prompt_len = prompt_len;
 	edit.curseur = curseur;
 	edit.comp = init_t_comp();
 	edit.env = env;
-	if (edit.prompt_len == -1)
-	{
-		edit.prompt_len = 2;
-		ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}");
-	}
 	if (edit_line(line, &edit))
 		ret = 1;
 	ft_clean_edit(&edit);

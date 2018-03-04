@@ -36,12 +36,11 @@ void			init_all(char **env, t_init *init)
 
 int				main(int ac, char **av, char **environ)
 {
-	int				ret;
 	int				quote_again;
 	int				len_prompt;
 	t_init			init;
 
-	if (!init_termcaps())
+	if (!isatty(STDIN_FILENO))
 		return (0);
 	init_all(environ, &init);
 	while (42)
@@ -49,14 +48,13 @@ int				main(int ac, char **av, char **environ)
 		quote_again = 1;
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
-		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
+		ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
 		ft_cfmakedefault(&init.current);
 		while (quote_again)
 		{
 			g_quote = 0;
 			init.lex = lexer(init.str);
 			quote_again = parser(&init);
-//			quote_again = parser(init.lex, &init.historic, &(init.str), init.current);
 		}
 		ft_strdel(&init.str);
 	}

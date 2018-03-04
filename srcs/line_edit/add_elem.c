@@ -51,14 +51,16 @@ static void	print_line(t_line *new, int len_end, t_curs *curseur)
 		moove_curseur(curseur);
 }
 
-t_line		*push_new(t_line *current, char c, int prompt, t_curs *curseur)
+t_line		*push_new(t_line *current, char c, t_curs *curseur)
 {
 	t_line	*new;
 
-	if (!(new = create_elem(c)))
+	if (!(new = create_elem(c, current->index)))
 		return (NULL);
-	new->index = current->index;
-	increment_all(current, 1);
+	if (c == '\n')
+		increment_all(current, curseur->screen.ws_col - curseur->x);
+	else
+		increment_all(current, 1);
 	new->next = current;
 	if (current->prev)
 	{
@@ -66,8 +68,8 @@ t_line		*push_new(t_line *current, char c, int prompt, t_curs *curseur)
 		current->prev->next = new;
 	}
 	current->prev = new;
-	check_ynx(curseur, prompt, new->index);
-	check_max(curseur, prompt + full_list_len(new));
-	print_line(new, dblist_len(new), curseur);
+	check_ynx(curseur, new->index);
+	check_max(curseur, last_index(new));
+	print_line(new, last_index(new) - new->index, curseur);
 	return (current);
 }

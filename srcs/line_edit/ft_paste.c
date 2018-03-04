@@ -12,12 +12,11 @@
 
 #include "line_edit.h"
 
-t_line			*paste_line(t_line *cur, char *str, int prompt,
-				t_curs *curseur)
+t_line			*paste_line(t_line *cur, char *str, t_curs *curseur)
 {
 	while (str && *str)
 	{
-		cur = push_new(cur, *str, prompt, curseur);
+		cur = push_new(cur, *str, curseur);
 		str++;
 	}
 	return (cur);

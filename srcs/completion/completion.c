@@ -196,18 +196,3 @@ void	do_completion(t_comp *comp, t_env *env)
 	// 	&& comp->current == comp->list)
 	// 	comp_validate_choice(comp);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

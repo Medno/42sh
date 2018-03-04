@@ -46,15 +46,15 @@ t_line		*del_next(t_line *cur)
 		del_one_elem(del);
 		increment_all(cur, -1);
 		ansi("CL_END", 0, STDIN_FILENO);
-		print_del(cur, dblist_len(cur));
+		print_del(cur, last_index(cur) - cur->index);
 	}
 	return (cur);
 }
 
-t_line		*line_delone(t_line *cur, int prompt, t_curs *curseur)
+t_line		*line_delone(t_line *cur, t_curs *curseur)
 {
 	if (!cur->prev)
 		return (cur);
-	cur = moove_left(cur, prompt, curseur);
+	cur = moove_left(cur, curseur);
 	return (del_next(cur));
 }

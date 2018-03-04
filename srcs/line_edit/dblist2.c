@@ -17,7 +17,7 @@ char	*line_to_str(t_line *cur)
 	char	*str;
 	int		i;
 
-	if (!(str = malloc(sizeof(char) * full_list_len(cur) + 1)))
+	if (!(str = malloc(sizeof(char) * line_len(cur) + 1)))
 		return (NULL);
 	i = 0;
 	while (cur->prev)
@@ -32,7 +32,7 @@ char	*line_to_str(t_line *cur)
 	return (str);
 }
 
-void	increment_all(t_line *current, char c)
+void	increment_all(t_line *current, int c)
 {
 	t_line	*tmp;
 

@@ -12,14 +12,14 @@
 
 #include "line_edit.h"
 
-static void		print(t_line *cur, int prompt, t_curs *curseur)
+static void		print(t_line *cur, t_curs *curseur)
 {
 	t_line		*tmp;
 
 	tmp = cur;
 	ansi("SAVE", 0, STDIN_FILENO);
 	while (tmp->prev)
-		tmp = moove_left(tmp, prompt, curseur);
+		tmp = moove_left(tmp, curseur);
 	while (tmp)
 	{
 		if (tmp->select == 1)
@@ -34,7 +34,7 @@ static void		print(t_line *cur, int prompt, t_curs *curseur)
 	ansi("REST", 0, STDIN_FILENO);
 }
 
-static void		srprint(t_line *cur, t_line *first, int prompt, t_curs *curseur)
+static void		srprint(t_line *cur, t_line *first, t_curs *curseur)
 {
 	t_line	*tmp;
 
@@ -54,7 +54,7 @@ static void		srprint(t_line *cur, t_line *first, int prompt, t_curs *curseur)
 		tmp = tmp->next;
 	}
 	first->select = 2;
-	print(cur, prompt, curseur);
+	print(cur, curseur);
 }
 
 static void		underline(t_line *current, int check)
@@ -85,19 +85,19 @@ static t_line	*escape_mod(t_line *cur, int prompt, t_curs *curseur)
 	if (ft_strequ(buf, "[1;2A"))
 		cur = moove_up(cur, prompt, curseur);
 	else if (ft_strequ(buf, "[1;2B"))
-		cur = moove_down(cur, prompt, curseur);
+		cur = moove_down(cur, curseur);
 	else if (ft_strequ(buf, "[1;2C"))
-		cur = moove_rword(cur, prompt, curseur);
+		cur = moove_rword(cur, curseur);
 	else if (ft_strequ(buf, "[1;2D"))
-		cur = moove_lword(cur, prompt, curseur);
+		cur = moove_lword(cur, curseur);
 	else if (ft_strequ(buf, "[C"))
-		cur = moove_right(cur, prompt, curseur);
+		cur = moove_right(cur, curseur);
 	else if (ft_strequ(buf, "[D"))
-		cur = moove_left(cur, prompt, curseur);
+		cur = moove_left(cur, curseur);
 	else if (ft_strequ(buf, "[H"))
-		cur = moove_first(cur, prompt, curseur);
+		cur = moove_first(cur, curseur);
 	else if (ft_strequ(buf, "[F"))
-		cur = moove_last(cur, prompt, curseur);
+		cur = moove_last(cur, curseur);
 	return (cur);
 }
 
@@ -115,7 +115,7 @@ t_line			*grab_mod(t_line *current, int prompt, t_curs *curseur)
 		if (c == 27)
 		{
 			current = escape_mod(current, prompt, curseur);
-			srprint(current, tmp, prompt, curseur);
+			srprint(current, tmp, curseur);
 		}
 		else if (c == 10)
 		{

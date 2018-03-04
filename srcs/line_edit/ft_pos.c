@@ -12,11 +12,11 @@
 
 #include "line_edit.h"
 
-void	check_ynx(t_curs *curseur, int prompt, int index)
+void	check_ynx(t_curs *curseur, int index)
 {
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &(curseur->screen));
-	curseur->y = (prompt + index + 1) / curseur->screen.ws_col;
-	curseur->x = (prompt + index + 1) % curseur->screen.ws_col;
+	curseur->y = index / curseur->screen.ws_col;
+	curseur->x = index % curseur->screen.ws_col;
 }
 
 void	check_max(t_curs *curseur, int len)
