@@ -15,5 +15,7 @@ t_ast				*io_redirect(t_lex *first);
 void				del_ast(t_ast **root);
 void				print_ast(t_ast *root, char *pos);
 int					is_redir(t_lex *tmp);
+t_cmd				*ast_to_struct(t_ast *ast);
+void				print_cmd(t_cmd *cmd);
 
 #endif

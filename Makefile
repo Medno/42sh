@@ -60,7 +60,8 @@ LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 
 ### PARSER ###
-PARSER_NAME = ast.c init_ast.c parser.c redir_ast.c edit_history.c
+PARSER_NAME = ast.c init_ast.c parser.c redir_ast.c edit_history.c \
+			  ast_to_struct.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 

@@ -19,18 +19,18 @@ t_ast	*command_suf(t_lex *first)
 	root = init_ast();
 	if (first->token == WORD)
 		root->value = ft_strdup(first->value);
-	else if ((root->left = io_redirect(first)))
+	else if ((root->right = io_redirect(first)))
 	{
 		if (first->token == IO_NUMBER)
 			first = first->next;
 		first = first->next;
-		root->left->parent = root;
+		root->right->parent = root;
 		root->value = ft_strdup("io_redirect");
 	}
 	if (first && first->next && first->next->token != EOI)
 	{
-		root->right = command_suf(first->next);
-		root->right->parent = root;
+		root->left = command_suf(first->next);
+		root->left->parent = root;
 	}
 	return (root);
 }
@@ -39,12 +39,20 @@ t_ast	*command(t_lex *first)
 {
 	t_ast	*root;
 
-	root = init_ast();
-	root->value = ft_strdup(first->value);
+	if (first->token == WORD)
+	{
+		root = init_ast();
+		root->value = ft_strdup(first->value);
+	}
 	if (first->next && first->next->token != EOI)
 	{
-		root->left = command_suf(first->next);
-		root->left->parent = root;
+		if (first->token != WORD)
+			root = command_suf(first);
+		else
+		{
+			root->left = command_suf(first->next);
+			root->left->parent = root;
+		}
 	}
 	return (root);
 }
@@ -110,10 +118,10 @@ t_ast	*build_ast(t_lex *first)
 	if ((sep = get_lex(first, NONE, "&")) ||
 			(sep = get_lex(first, NONE, ";")))
 	{
-		root = init_ast();
-		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
+		root = init_ast();
+		root->value = ft_strdup(sep->value);
 		root->left = and_or(first);
 		if (sep->next && sep->next->token != EOI)
 			root->right = build_ast(sep->next);

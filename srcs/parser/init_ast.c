@@ -43,7 +43,7 @@ void	del_ast(t_ast **root)
 
 void	print_ast(t_ast *root, char *pos)
 {
-	if (root->value)
+	if (root)
 	{
 		if (pos)
 			ft_putendl(pos);

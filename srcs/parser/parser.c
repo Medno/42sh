@@ -25,7 +25,8 @@ int	is_redir(t_lex *tmp)
 
 int	check_first(t_lex *first)
 {
-	if (first->token != WORD && !is_redir(first) && first->token != QUOTE)
+	if (first->token != WORD && !is_redir(first) && first->token != QUOTE &&
+			first->token != IO_NUMBER)
 	{
 		if (first->token != EOI)
 			ft_putendl_fd("syntax error", STDERR_FILENO);
@@ -103,7 +104,10 @@ int	parser(t_init *init)
 	}
 	tmp = init->lex;
 	ast = build_ast(tmp);
-	print_ast(ast, NULL);
+//	print_ast(ast, NULL);
+	t_cmd	*cmd;
+	cmd = ast_to_struct(ast);
+	print_cmd(cmd);
 	del_ast(&ast);
 	del_lex(init->lex);
 	return (0);
