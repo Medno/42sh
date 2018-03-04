@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:10:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 10:26:52 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/04 16:31:04 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ static void		underline(t_line *current, int check)
 	ansi("REST", 0, STDIN_FILENO);
 }
 
-static t_line	*escape_mod(t_line *cur, int prompt, t_curs *curseur)
+static t_line	*escape_mod(t_line *cur, t_curs *curseur)
 {
 	char	buf[8];
 
 	ft_bzero(&buf, 8);
 	read(STDIN_FILENO, &buf, 8);
 	if (ft_strequ(buf, "[1;2A"))
-		cur = moove_up(cur, prompt, curseur);
+		cur = moove_up(cur, curseur);
 	else if (ft_strequ(buf, "[1;2B"))
 		cur = moove_down(cur, curseur);
 	else if (ft_strequ(buf, "[1;2C"))
@@ -101,7 +101,7 @@ static t_line	*escape_mod(t_line *cur, int prompt, t_curs *curseur)
 	return (cur);
 }
 
-t_line			*grab_mod(t_line *current, int prompt, t_curs *curseur)
+t_line			*grab_mod(t_line *current, t_curs *curseur)
 {
 	char	c;
 	t_line	*tmp;
@@ -114,7 +114,7 @@ t_line			*grab_mod(t_line *current, int prompt, t_curs *curseur)
 		underline(current, 0);
 		if (c == 27)
 		{
-			current = escape_mod(current, prompt, curseur);
+			current = escape_mod(current, curseur);
 			srprint(current, tmp, curseur);
 		}
 		else if (c == 10)

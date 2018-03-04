@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 14:33:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/04 16:31:24 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_line				*del_next(t_line *cur);
 /*
 ** copy
 */
-t_line				*grab_mod(t_line *current, int prompt, t_curs *curseur);
+t_line				*grab_mod(t_line *current, t_curs *curseur);
 t_line				*paste_line(t_line *cur, char *str, t_curs *curseur);
 /*
 ** historic
@@ -64,7 +64,7 @@ void				del_elem(t_line *first);
 t_line				*push_new(t_line *current, char c, t_curs *curseur);
 t_line				*moove_left(t_line *cur, t_curs *curseur);
 t_line				*moove_right(t_line *cur, t_curs *curseur);
-t_line				*moove_up(t_line *cur, int prompt, t_curs *curseur);
+t_line				*moove_up(t_line *cur, t_curs *curseur);
 t_line				*moove_down(t_line *cur, t_curs *curseur);
 t_line				*moove_first(t_line *cur, t_curs *curseur);
 t_line				*moove_last(t_line *cur, t_curs *curseur);

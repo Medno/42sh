@@ -6,20 +6,20 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 14:31:37 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/04 16:31:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-static t_line	*ft_grabb(t_line *cur, char c, int prompt, t_curs *curseur)
+static t_line	*ft_grabb(t_line *cur, char c, t_curs *curseur)
 {
 	static char	*str;
 	char		*tmp;
 
 	if (c == 7)
 	{
-		cur = grab_mod(cur, prompt, curseur);
+		cur = grab_mod(cur, curseur);
 		str = foo_paste(cur);
 		ansi("SAVE", 0, STDIN_FILENO);
 		moove_first(cur, curseur);
@@ -38,7 +38,7 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 {
 	if (c == 127 || c == 8)
 		return (line_delone(*edit->current, &edit->curseur));
-	else if (c == '\t')// || (c == 4 && !(*(edit->current)->next != NULL)))
+	else if (c == '\t')
 		return (completion(edit));
 	else if (c == 4)
 		return (del_next(*edit->current));
@@ -53,7 +53,7 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 	else if (c >= 32 && c <= 126)
 		return (push_new(*edit->current, c, &edit->curseur));
 	else
-		return (ft_grabb(*edit->current, c, edit->prompt_len, &edit->curseur));
+		return (ft_grabb(*edit->current, c, &edit->curseur));
 }
 
 t_line		*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf)
@@ -89,7 +89,7 @@ t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
 	else if (ft_strequ(buf, "[3~"))
 		return (del_next(cur));
 	else if (ft_strequ(buf, "[1;2A"))
-		return (moove_up(cur, len, curseur));
+		return (moove_up(cur, curseur));
 	else
 		return (ft_line_esc_2(cur, curseur, buf));
 }
