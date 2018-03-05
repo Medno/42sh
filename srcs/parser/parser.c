@@ -42,8 +42,7 @@ int	err_pars(t_lex *tmp, t_lex *del)
 	{
 		if (tmp->next && tmp->next->token != WORD)
 		{
-			ft_printf_fd(STDERR_FILENO, "-42sh: syntax error near unexpected");
-			ft_printf_fd(STDERR_FILENO, " token \'newline\'\n", tmp->value);
+			ft_printf_fd(STDERR_FILENO, "-42sh: syntax error near unexpected token '%s'\n", tmp->value);
 			del_lex(del);
 			return (1);
 		}
@@ -55,8 +54,7 @@ int	err_pars(t_lex *tmp, t_lex *del)
 		if ((tmp->next->token != EOI && tmp->next->token != WORD &&
 				tmp->next->token != QUOTE) || tmp->token == DSEMI)
 		{
-			ft_printf_fd(STDERR_FILENO, "-42sh: syntax error near unexpected");
-			ft_printf_fd(STDERR_FILENO, " token \'%s\'\n", tmp->value);
+			ft_printf_fd(STDERR_FILENO, "-42sh: syntax error near unexpected token '%s'\n", tmp->value);
 			del_lex(del);
 			return (1);
 		}
