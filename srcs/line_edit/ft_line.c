@@ -31,10 +31,7 @@ int			edit_line(char **line, t_edit *edit)
 	{
 		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev
 				&& !g_quote)
-		{
-			edit_end(line, edit);
 			return (0);
-		}
 		else if (c == '\n')
 			return (edit_end(line, edit));
 		else if (c == 14)
