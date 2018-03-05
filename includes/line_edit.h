@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/04 16:31:24 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 13:49:41 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char				*foo_paste(t_line *cur);
 t_line				*ft_line_esc(t_line *cur, int len, t_curs *curseur,
 					t_hist **histo);
 t_line				*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf);
+t_line				*clearscreen(t_edit *edit);
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */

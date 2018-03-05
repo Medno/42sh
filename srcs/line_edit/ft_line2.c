@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/04 16:31:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 13:49:53 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 		return (moove_last(*edit->current, &edit->curseur));
 	else if (c == 6)
 		return (moove_right(*edit->current, &edit->curseur));
+	else if (c == 12)
+		return (clearscreen(edit));
 	else if (c >= 32 && c <= 126)
 		return (push_new(*edit->current, c, &edit->curseur));
 	else

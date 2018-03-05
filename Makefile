@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/05 10:46:04 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/05 13:49:08 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 ### LINE EDIT ###
 LINE_NAME = ft_line.c dblist.c move.c del_char.c add_elem.c \
 			ft_pos.c move2.c completion.c dblist2.c historic.c ft_line2.c \
-			ft_grab.c ft_paste.c
+			ft_grab.c ft_paste.c control_l.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
