@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/05 10:38:59 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/05 10:46:04 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,9 +118,11 @@ all : makelib $(NAME)
 $(NAME) : $(OBJ)
 		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS)
 		@echo "\033[K\033[35m***** done *****\033[0m"
+		@echo "\033[?25h\c"
 
 %.o:%.c
 		@$(CC) $(FLAGS) $(INC) -o $@ -c $<
+		@echo "\033[?25l\c"
 		@echo "\033[38;2;255;95;30m\c"
 		@echo " [$@] > compiled\033[0m\033[K\c"
 		@echo "\033[70D\c"
