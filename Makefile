@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/05 15:32:45 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/05 16:34:38 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,11 @@ PARSER_NAME = ast.c init_ast.c	\
 			  ast_to_struct.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
+
+### REDIRECTION ###
+REDIR_NAME = redirection.c handle_redir.c error_redir.c
+REDIR_PATH = redirection/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(REDIR_PATH), $(REDIR_NAME)))
 
 ### EXEC ###
 EXEC_NAME =	fill_cmd.c		\

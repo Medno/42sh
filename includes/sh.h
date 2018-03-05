@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 14:42:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 16:35:13 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "types.h"
 # include "lexer.h"
 # include "parser.h"
+# include "redir.h"
 # include "completion.h"
 # include "exec.h"
 
