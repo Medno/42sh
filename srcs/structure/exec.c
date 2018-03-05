@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:01:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 15:43:31 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_builtins(char **entry, t_init *init)
 	int		check;
 
 	check = 0;
-	if (ft_strequ("cd", entry[0]) && (check = 1)) // CUI LA ET TOU BON
+	if (ft_strequ("cd", *entry) && (check = 1)) // CUI LA ET TOU BON
 		ft_cd(&init->new_env, entry, ft_tablen(entry));
 	else if (ft_strequ("echo", *entry) && (check = 1)) // A MODIFIER (NO GESTION DAFFICHAGE DE VARIABLE >> LEXER?PARSER
 		ft_echo(&init->new_env, &entry[1]);

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 13:16:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:53:52 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 15:40:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_unsetenv_2(t_env **list, t_env *tmp)
 	else
 		tmp2->next = tmp->next;
 	tmp->next = NULL;
-	free(tmp);
+	ft_memdel((void **)&tmp);
 }
 
 void		ft_unsetenv(t_env **list, char *name)

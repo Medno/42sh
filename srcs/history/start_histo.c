@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:23:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:23:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 15:34:19 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			hist_to_file(t_hist *historic)
 	int		fd;
 	t_hist	*tmp;
 
-	fd = open("./srcs/structure/.history", O_CREAT | O_WRONLY, 0600);
+	fd = open("./srcs/history/.history", O_CREAT | O_WRONLY, 0600);
 	while (historic->prev)
 		historic = historic->prev;
 	while (historic)

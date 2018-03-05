@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 18:00:40 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:14:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 15:45:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_getenv(t_env **env, char *elem)
 	t_env	*tmp;
 
 	tmp = *env;
-	while (tmp && !ft_strstr(tmp->name, elem))
+	while (tmp && !ft_strequ(tmp->name, elem))
 		tmp = tmp->next;
 	if (!tmp)
 		return (NULL);
