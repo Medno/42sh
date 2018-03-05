@@ -29,7 +29,8 @@ int	check_first(t_lex *first)
 			first->token != IO_NUMBER)
 	{
 		if (first->token != EOI)
-			ft_putendl_fd("syntax error", STDERR_FILENO);
+			ft_printf_fd(STDERR_FILENO,
+			"42sh: syntax error near unexpected token '%s'\n", first->value);
 		del_lex(first);
 		return (1);
 	}
@@ -56,7 +57,7 @@ int	err_pars(t_lex *tmp, t_lex *del)
 				tmp->next->token != QUOTE) || tmp->token == DSEMI)
 		{
 			ft_printf_fd(STDERR_FILENO,
-			"-42sh: syntax error near unexpected token '%s'\n", tmp->value);
+			"42sh: syntax error near unexpected token '%s'\n", tmp->value);
 			del_lex(del);
 			return (1);
 		}
