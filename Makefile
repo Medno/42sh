@@ -6,15 +6,13 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/05 14:45:25 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/05 15:32:45 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 42sh
 
 CC = gcc 
-
-SRC_NAME = main.c
 
 ### PATH SRCS ### 
 PATHFS = ./srcs/
@@ -33,15 +31,24 @@ STRUC_NAME = addons.c			\
 			 ft_environment.c	\
 			 main.c				\
 			 init_attrs.c		\
-			 edit_historic.c	\
 			 exec.c
 STRUC_PATH = structure/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
 ### LINE EDIT ###
-LINE_NAME = ft_line.c dblist.c move.c del_char.c add_elem.c \
-			ft_pos.c move2.c completion.c dblist2.c historic.c ft_line2.c \
-			ft_grab.c ft_paste.c control_l.c
+LINE_NAME = ft_line.c		\
+			ft_line2.c 		\
+			dblist.c		\
+			dblist2.c		\
+			move.c			\
+			move2.c			\
+			add_elem.c		\
+			del_char.c		\
+			ft_pos.c		\
+			completion.c	\
+			ft_grab.c		\
+			ft_paste.c		\
+			control_l.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
@@ -59,6 +66,13 @@ COMP_NAME =	clean_comp.c 				\
 COMP_PATH = completion/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(COMP_PATH), $(COMP_NAME)))
 
+### HISTORIC ###
+HIST_NAME = start_histo.c			\
+			edit_histo.c			\
+			paste_quote_history.c	
+HIST_PATH = history/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(HIST_PATH), $(HIST_NAME)))
+
 ### LEXER ###
 LEXER_NAME = lexer.c init_lex.c print_lex.c is_lex.c
 LEXER_PATH = lexer/
@@ -68,7 +82,6 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 PARSER_NAME = ast.c init_ast.c	\
 			  parser.c			\
 			  redir_ast.c		\
-			  edit_history.c	\
 			  ast_to_struct.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
@@ -132,7 +145,7 @@ makelib :
 		@make -C $(LIBINC) NOERR=$(NOERR) DEV=$(DEV) SAN=$(SAN)
 
 hist :
-		@/bin/rm -f ./srcs/structure/.history
+		@/bin/rm -f ./srcs/history/.history
 
 clean : cleanlib
 		@/bin/rm -rf $(OBJ)
