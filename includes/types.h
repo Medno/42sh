@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 14:19:42 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/05 10:23:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,21 @@ typedef struct		s_hist
 	struct s_hist	*prev;
 }					t_hist;
 
-typedef struct	s_lcomp
+typedef struct		s_lcomp
 {
 	char			*cmd;
 	struct s_lcomp	*next;
+}					t_lcomp;
 
-}				t_lcomp;
-
-typedef struct	s_comp 
+typedef struct		s_comp 
 {
-	char		*cmd;
-	int			pos;
-	t_lcomp		*list;
-	t_lcomp		*current;
-	char		*str;
-	char		*dir;
-}				t_comp;
+	char			*cmd;
+	int				pos;
+	t_lcomp			*list;
+	t_lcomp			*current;
+	char			*str;
+	char			*dir;
+}					t_comp;
 
 typedef struct		s_env
 {
@@ -87,15 +86,15 @@ typedef struct		s_ast
 	struct s_ast	*right;
 }					t_ast;
 
-typedef struct	s_edit
+typedef struct		s_edit
 {
-	t_line		**current;
-	t_hist		**histo;
-	t_curs		curseur;
-	t_comp		*comp;
-	t_env		*env;
-	int			prompt_len;
-}				t_edit;
+	t_line			**current;
+	t_hist			**histo;
+	t_curs			curseur;
+	t_comp			*comp;
+	t_env			*env;
+	int				prompt_len;
+}					t_edit;
 
 typedef struct		s_init
 {
@@ -127,8 +126,8 @@ typedef struct		s_cmd
 
 typedef struct		s_type
 {
-	int			value;
-	int			(*f)(t_cmd *cmd, t_lex *lex);
+	int				value;
+	int				(*f)(t_cmd *cmd, t_lex *lex);
 }					t_type;
 
 #endif

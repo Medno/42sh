@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/02 14:30:36 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/05 10:38:59 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +20,20 @@ SRC_NAME = main.c
 PATHFS = ./srcs/
 
 ### BUILTINS ###
-BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c \
-		   ft_echo.c \
-		   ft_env.c \
-		   ft_set_env.c \
+BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
+		   ft_echo.c					\
+		   ft_env.c						\
+		   ft_set_env.c					\
 		   ft_unsetenv.c
 BUI_PATH = builtins/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(BUI_PATH), $(BUI_NAME)))
 
 ### STRUCTURE ###
-STRUC_NAME = addons.c ft_environment.c main.c init_attrs.c edit_historic.c
+STRUC_NAME = addons.c			\
+			 ft_environment.c	\
+			 main.c				\
+			 init_attrs.c		\
+			 edit_historic.c
 STRUC_PATH = structure/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
@@ -60,7 +64,10 @@ LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 
 ### PARSER ###
-PARSER_NAME = ast.c init_ast.c parser.c redir_ast.c edit_history.c \
+PARSER_NAME = ast.c init_ast.c	\
+			  parser.c			\
+			  redir_ast.c		\
+			  edit_history.c	\
 			  ast_to_struct.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
@@ -110,12 +117,13 @@ all : makelib $(NAME)
 
 $(NAME) : $(OBJ)
 		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS)
-		@echo "\033[35m***** done *****\033[0m"
+		@echo "\033[K\033[35m***** done *****\033[0m"
 
 %.o:%.c
 		@$(CC) $(FLAGS) $(INC) -o $@ -c $<
 		@echo "\033[38;2;255;95;30m\c"
-		@echo " [$@] > compiled\033[0m"
+		@echo " [$@] > compiled\033[0m\033[K\c"
+		@echo "\033[70D\c"
 
 makelib :
 		@make -C $(LIBINC) NOERR=$(NOERR) DEV=$(DEV) SAN=$(SAN)
