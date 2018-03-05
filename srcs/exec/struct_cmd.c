@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 14:41:23 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 13:47:23 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_clean_cmd(t_cmd *cmd)
 		next_phrase = tmp->next_semi;
 		while (tmp)
 		{
-			ft_strdel(&(tmp->v_cmd));
 			ft_strdel(&(tmp->separ));
 			ft_freetab(tmp->arg);
 			ft_clean_redir(tmp->redir);

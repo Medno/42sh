@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_to_struct.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/05 11:18:45 by pchadeni          #+#    #+#             */
+/*   Updated: 2018/03/05 13:24:44 by pchadeni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 t_cmd	*init_cmd_p(void)
@@ -6,7 +18,6 @@ t_cmd	*init_cmd_p(void)
 
 	if (!(cmd = (t_cmd *)malloc(sizeof(t_cmd))))
 		return (NULL);
-	cmd->v_cmd = NULL;
 	cmd->arg = NULL;
 	cmd->redir = NULL;
 	cmd->separ = NULL;
@@ -25,41 +36,29 @@ void	print_cmd(t_cmd *cmd)
 	tmp = cmd;
 	while (tmp)
 	{
+		ft_printf("Nouvelle commande :\n");
 		tmp_2 = tmp;
 		while(tmp_2)
 		{
 			i = 0;
-			if (tmp_2->v_cmd)
-			{
-				ft_putstr("Commande : ");
-				ft_putendl(tmp_2->v_cmd);
-			}
 			if (tmp_2->arg)
 			{
 				while (tmp_2->arg[i])
 				{
-					ft_putstr("Parametre : ");
-					ft_putendl(tmp_2->arg[i]);
+					ft_printf("Parametre %d : |%s|\n", i, tmp_2->arg[i]);
 					i++;
 				}
 			}
 			if (tmp_2->separ)
-			{
-				ft_putstr("Separateur : ");
-				ft_putendl(tmp_2->separ);
-			}
+				ft_printf("Separateur : |%s|\n", tmp_2->separ);
 			leak = tmp_2->redir;
 			while (leak)
 			{
-				ft_putstr("fd_in : ");
-				ft_putnbr(tmp_2->redir->fd_in);
-				ft_putstr("\ntoken : ");
-				ft_putendl(tmp_2->redir->token);
-				ft_putstr("fd_out : ");
-				if (tmp_2->redir->file)
-					ft_putstr(tmp_2->redir->file);
+				ft_printf("fd_in : |%d|\ntoken : |%s|\nfd_out : ", leak->fd_in, leak->token);
+				if (leak->file)
+					ft_putstr(leak->file);
 				else
-					ft_putnbr(tmp_2->redir->fd_out);
+					ft_putnbr(leak->fd_out);
 				ft_putchar('\n');
 				leak = leak->next;
 			}
@@ -108,7 +107,7 @@ t_cmd	*ast_to_sentence(t_cmd *cmd, t_ast *ast)
 			cmd->redir = put_redir(ast->right);
 		return ((cmd = ast_to_sentence(cmd, ast->left)));
 	}
-	else if (ft_strequ(ast->value, "&&") || ft_strequ(ast->value, "||"))
+	else if (ft_strequ(ast->value, "&&") || ft_strequ(ast->value, "||") || ft_strequ(ast->value, "|"))
 	{
 		cmd->separ = ft_strdup(ast->value);
 		cmd = ast_to_sentence(cmd, ast->left);
@@ -116,10 +115,7 @@ t_cmd	*ast_to_sentence(t_cmd *cmd, t_ast *ast)
 		cmd->next = ast_to_sentence(cmd->next, ast->right);
 		return (cmd);
 	}
-	if (!cmd->v_cmd)
-		cmd->v_cmd = ft_strdup(ast->value);
-	else
-		cmd->arg = ft_addstr_tab(cmd->arg, ast->value);
+	cmd->arg = ft_addstr_tab(cmd->arg, ast->value);
 	return ((cmd = ast_to_sentence(cmd, ast->left)));
 }
 
