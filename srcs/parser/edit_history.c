@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 12:18:25 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 12:05:50 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 13:29:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ void	paste_last_hist(t_hist **histo)
 		tmp->line = NULL;
 		tmp->next = NULL;
 		tmp->prev = *histo;
+		tmp->nb = (*histo)->nb + 1;
 		(*histo)->next = tmp;
 	}
-	else if (!ft_strchr((*histo)->prev->line, '\n'))
-		;
 	else
 	{
 		(*histo) = (*histo)->prev;

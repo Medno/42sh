@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 08:28:30 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 12:07:03 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 12:30:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ void	init_hist(t_hist **histo)
 
 	new = create_hist("");
 	if (!*histo)
+	{
 		*histo = new;
+		new->nb = 1;
+	}
 	else
 	{
 		while ((*histo)->next)
 			*histo = (*histo)->next;
 		new->prev = *histo;
+		new->nb = (*histo)->nb + 1;
 		(*histo)->next = new;
 		*histo = new;
 	}
@@ -44,9 +48,8 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 		{
 			*histo = (*histo)->prev;
 			tmp = (*histo)->next;
-			(*histo)->next = NULL;
-			tmp->prev = NULL;
-			ft_memdel((void **)&tmp);
+			tmp->line = NULL;
+			tmp->nb = (*histo)->nb + 1;
 		}
 	}
 	else

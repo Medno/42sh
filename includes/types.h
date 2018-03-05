@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 10:23:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 12:22:14 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_curs
 typedef struct		s_hist
 {
 	char			*line;
+	int				nb;
 	struct s_hist	*next;
 	struct s_hist	*prev;
 }					t_hist;

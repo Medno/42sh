@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 11:40:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:13:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 12:22:04 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,20 @@ t_hist			*new_hist(void)
 	t_hist	*new;
 	t_hist	*list;
 	int		fd;
+	int		i;
 	char	*line;
 
 	if ((fd = open("./srcs/structure/.history", O_RDONLY)) < 0)
 		return (NULL);
 	line = NULL;
 	list = NULL;
+	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		new = NULL;
 		if ((new = create_hist(line)))
 			append_new(&list, new);
+		new->nb = ++i;
 		ft_strdel(&line);
 	}
 	close(fd);
