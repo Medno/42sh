@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:47:01 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/04 16:05:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 10:19:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_line		*moove_left(t_line *cur, t_curs *curseur)
 		if (cur->prev->c == '\n')
 		{
 			ansi("UP", 1, STDIN_FILENO);
-			ansi("RI", curseur->screen.ws_col -
+			if (cur->prev->prev->c != '\n')
+				ansi("RI", curseur->screen.ws_col -
 					(cur->index - cur->prev->index), STDIN_FILENO);
 		}
 		else if (curseur->x == 1 && curseur->y)
