@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 11:13:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 16:01:35 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 13:56:52 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ t_line		*moove_last(t_line *cur, t_curs *curseur)
 
 t_line		*moove_lword(t_line *cur, t_curs *curseur)
 {
-	while (cur->prev && cur->c != ' ')
+	while (cur->prev && cur->c != ' ' && cur->c != '\n')
 		cur = moove_left(cur, curseur);
-	while (cur->prev && cur->c == ' ')
+	while (cur->prev && (cur->c == ' ' || cur->c == '\n'))
 		cur = moove_left(cur, curseur);
-	while (cur->prev && cur->prev->c != ' ')
+	while (cur->prev && cur->prev->c != ' ' && cur->prev->c != '\n')
 		cur = moove_left(cur, curseur);
 	return (cur);
 }
 
 t_line		*moove_rword(t_line *cur, t_curs *curseur)
 {
-	while (cur->next && cur->c != ' ')
+	while (cur->next && cur->c != ' ' && cur->c != '\n')
 		cur = moove_right(cur, curseur);
-	while (cur->next && cur->c == ' ')
+	while (cur->next && (cur->c == ' ' || cur->c == '\n'))
 		cur = moove_right(cur, curseur);
 	return (cur);
 }

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:36:04 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:53:40 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 14:59:27 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	print_env_tab(char **arr)
 	return (1);
 }
 
-//static void check_fun to do again (fork and all)
+//check_fun_env a faire (pour launch binaire, check et toutout)
 
 static void	ft_env_2(t_env *env, char **str, int opt_i)
 {

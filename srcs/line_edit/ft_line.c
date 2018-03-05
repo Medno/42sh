@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/04 16:34:07 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 14:10:33 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int			edit_line(char **line, t_edit *edit)
 	c = 0;
 	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
+		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev
+				&& !g_quote)
 		{
 			edit_end(line, edit);
 			return (0);

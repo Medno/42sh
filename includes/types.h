@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 13:46:31 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/05 14:21:32 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,6 @@ typedef struct		s_edit
 	int				prompt_len;
 }					t_edit;
 
-typedef struct		s_init
-{
-	char			*str;
-	t_lex			*lex;
-	t_env			*new_env;
-	t_hist			*historic;
-	struct termios	current;
-}					t_init;
-
 typedef struct		s_redir
 {
 	int				fd_in;
@@ -123,6 +114,16 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*next_semi;
 }					t_cmd;
+
+typedef struct		s_init
+{
+	char			*str;
+	t_lex			*lex;
+	t_env			*new_env;
+	t_hist			*historic;
+	t_cmd			*cmd;
+	struct termios	current;
+}					t_init;
 
 typedef struct		s_type
 {

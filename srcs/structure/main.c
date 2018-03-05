@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/04 16:34:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 14:48:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,35 @@
 
 void			init_all(char **env, t_init *init)
 {
-	t_lex			*lex;
-	t_env			*new_env;
-	t_hist			*historic;
-	char			*str;
 	struct termios	current;
 
 	tcgetattr(STDIN_FILENO, &current);
-	new_env = create_env(env);
-	insert_env_start(&new_env);
-	historic = NULL;
-	historic = new_hist();
-	str = NULL;
-	init->str = str;
-	lex = NULL;
-	init->lex = lex;
-	init->new_env = new_env;
-	init->historic = historic;
+	init->str = NULL;
+	init->lex = NULL; 
+	init->cmd = NULL;
+	init->new_env = create_env(env);
+	insert_env_start(&init->new_env);
+	init->historic = new_hist();
 	init->current = current;
+}
+
+int				step_2(t_init *init)
+{
+	int				quote_again;
+
+	quote_again = 1;
+	while (quote_again)
+	{
+		g_quote = 0;
+		init->lex = lexer(init->str);
+		quote_again = parser(init);
+	}
+	exec_start(init);
+	return (1);
 }
 
 int				main(int ac, char **av, char **environ)
 {
-	int				quote_again;
 	int				len_prompt;
 	t_init			init;
 
@@ -45,18 +51,12 @@ int				main(int ac, char **av, char **environ)
 	init_all(environ, &init);
 	while (42)
 	{
-		quote_again = 1;
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
 		if (!ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env))
 			break ; // edition de ligne renvoie 0 dans le cas d'un CTRL-D si aucun caractere! BREAK TEMPORAIRE, envoyer la fonction exit quand le tout sera fait
 		ft_cfmakedefault(&init.current);
-		while (quote_again)
-		{
-			g_quote = 0;
-			init.lex = lexer(init.str);
-			quote_again = parser(&init);
-		}
+		step_2(&init);
 		ft_strdel(&init.str);
 	}
 	hist_to_file(init.historic);

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/02 14:09:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/05 14:23:14 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,9 @@ int	parser(t_init *init)
 	ast = build_ast(tmp);
 //	print_ast(ast, NULL);
 	cmd = ast_to_struct(ast);
-	print_cmd(cmd);
-	ft_clean_cmd(cmd);
+	//print_cmd(cmd);
+	//ft_clean_cmd(cmd);
+	init->cmd = cmd;
 	del_ast(&ast);
 	del_lex(init->lex);
 	return (0);
