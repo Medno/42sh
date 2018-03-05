@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/05 16:27:16 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/05 18:10:14 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ t_redir	*handle_simplefd(t_redir *redir)
 		redir->fd_out = TOCLOSE;
 		return (redir);
 	}
-	if (fstat(redir->fd_out, buf) == -1)
+	if (redir->file)
+		return (handle_simple(redir));
+	if (redir->fd_out > 1 && fstat(redir->fd_out, buf) == -1)
 	{
 		redir->fd_out = BADFD;
 		return (redir);
@@ -64,6 +66,30 @@ t_redir	*handle_back(t_redir *redir)
 	int		fd;
 
 	ft_putendl("back redir");
+	if ((fd = open(redir->file, O_RDONLY)) == -1)
+	{
+		redir->fd_out = file_error(redir->file);
+		return (redir);
+	}
+	redir->fd_in = fd;
+	return (redir);
+}
+
+t_redir	*handle_backfd(t_redir *redir)
+{
+	int		fd;
+
+	ft_putendl("back redir");
+	if (redir->file && ft_strequ(redir->file, "-"))
+	{
+		redir->fd_out = TOCLOSE;
+		return (redir);
+	}
+	if (redir->file)
+	{
+		redir->fd_out = AMBIGOUS;
+		return (redir);
+	}
 	if ((fd = open(redir->file, O_RDONLY)) == -1)
 	{
 		redir->fd_out = file_error(redir->file);
