@@ -42,17 +42,21 @@ int	err_pars(t_lex *tmp, t_lex *del)
 	{
 		if (tmp->next && tmp->next->token != WORD)
 		{
-			ft_putendl_fd("syntax error", STDERR_FILENO);
+			ft_printf_fd(STDERR_FILENO, "-42sh: syntax error near unexpected");
+			ft_printf_fd(STDERR_FILENO, " token \'newline\'\n", tmp->value);
 			del_lex(del);
 			return (1);
 		}
 	}
 	if (tmp->next && (tmp->token == AND_IF || tmp->token == OR_IF ||
-				ft_strequ(tmp->value, "|") || tmp->token == DLESSDASH))
-		if (tmp->next->token != EOI && tmp->next->token != WORD &&
-				tmp->next->token != QUOTE)
+				ft_strequ(tmp->value, "|") || tmp->token == DLESSDASH ||
+				ft_strequ(tmp->value, ";") || tmp->token == DSEMI)
+			)
+		if ((tmp->next->token != EOI && tmp->next->token != WORD &&
+				tmp->next->token != QUOTE) || tmp->token == DSEMI)
 		{
-			ft_putendl_fd("syntax error", STDERR_FILENO);
+			ft_printf_fd(STDERR_FILENO, "-42sh: syntax error near unexpected");
+			ft_printf_fd(STDERR_FILENO, " token \'%s\'\n", tmp->value);
 			del_lex(del);
 			return (1);
 		}

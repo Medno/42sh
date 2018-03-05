@@ -128,7 +128,8 @@ t_cmd	*ast_to_struct(t_ast *ast)
 	cmd = init_cmd_p();
 	if (ft_strequ(ast->value, ";") || ft_strequ(ast->value, "&"))
 	{
-		cmd->next_semi = ast_to_struct(ast->right);
+		if (ast->right)
+			cmd->next_semi = ast_to_struct(ast->right);
 		cmd = ast_to_sentence(cmd, ast->left);
 	}
 	else
