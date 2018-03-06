@@ -58,6 +58,7 @@ int					ft_unsetenv(t_env **list, char *name);
 int					ft_history(t_hist **histo, char **str, int len);
 int					free_history(t_hist **histo);
 int					free_offset_hist(t_hist **histo, char *offset);
+void				ft_exit(t_cmd *cmd, t_init *init);
 /*
 ** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */

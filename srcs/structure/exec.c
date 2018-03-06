@@ -40,6 +40,8 @@ int		check_cmd(t_cmd *cmd, t_init *init)
 {
 	int	ret;
 
+	if (ft_strequ("exit", *cmd->arg))
+		ft_exit(cmd, init);
 	if ((ret = check_builtins(cmd->arg, init)) >= 0)
 		return (ret);
 	else
