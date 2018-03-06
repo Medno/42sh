@@ -46,7 +46,7 @@ t_lex	*all_steps(t_lex *new, char *str, int *i, char buf[])
 	else if (!g_quote && is_op(str[*i], buf))
 		new = new_op(new, str, *i, buf);
 	else if (!g_quote && (str[*i] == '\n' || str[*i] == ' '))
-		new = close_new(new, str, *i, buf);
+		new = close_new(new, buf);
 	else if (new->token == WORD || new->token == QUOTE || str[*i] == g_quote)
 		concat_char(str, *i, buf);
 	else if (str[*i] == '#')
