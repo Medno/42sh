@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:13:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/05 20:25:25 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/06 17:28:17 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,29 @@ int		file_error(char *file)
 	return (OPENFAIL);
 }
 
-int		which_error(int error)
+void	which_error(int error, char *err_file)
 {
+	ft_putstr_fd("Error: ", STDERR_FILENO);
 	if (error == BADFD)
 	{
-		ft_putendl_fd("Error: Bad file descriptor", STDERR_FILENO);
-		return (1);
+		ft_putstr_fd(err_file, STDERR_FILENO);
+		ft_putendl_fd(": Bad file descriptor", STDERR_FILENO);
 	}
 	else if (error == NOSUCHFILE)
 	{
-		ft_putendl_fd("Error: No such file or directory", STDERR_FILENO);
-		return (1);
+		ft_putstr_fd(err_file, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 	}
 	else if (error == NOPERM)
 	{
-		ft_putendl_fd("Error: Permission denied", STDERR_FILENO);	
-		return (1);
-	}
-	else if (error == AMBIGOUS)
-	{
-		ft_putendl_fd("Error: file number expected", STDERR_FILENO);
-		return (1);
+		ft_putstr_fd(err_file, STDERR_FILENO);
+		ft_putendl_fd(": Permission denied", STDERR_FILENO);
 	}
 	else if (error == OPENFAIL)
 	{
-		ft_putendl_fd("Error: file number expected", STDERR_FILENO);
-		return (1);
+		ft_putstr_fd(err_file, STDERR_FILENO);
+		ft_putendl_fd(": failed to open", STDERR_FILENO);
 	}
-	return (0);
+	else
+		ft_putendl_fd("File number expected", STDERR_FILENO);
 }

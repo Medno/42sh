@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/06 10:22:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/06 17:08:00 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ t_redir	*handle_simple(t_redir *redir)
 {
 	int		fd;
 
-	ft_putendl("simple redir");
+	if (!redir->file)
+		redir->file = ft_itoa(redir->fd_out);
 	if ((fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 	{
-		which_error(file_error(redir->file));
+		which_error(file_error(redir->file), redir->file);
 		return (NULL);
 	}
 	dup2(fd, redir->fd_in);
@@ -31,13 +32,12 @@ t_redir	*handle_double(t_redir *redir)
 {
 	int		fd;
 
-	ft_putendl("double redir");
-	if ((fd = open(redir->file, O_RDONLY | O_CREAT | O_APPEND, 0644)) == -1)
+	if ((fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644)) == -1)
 	{
-		which_error(file_error(redir->file));
+		which_error(file_error(redir->file), redir->file);
 		return (NULL);
 	}
-	dup2(fd, redir->fd_in);
+	dup2(fd, STDOUT_FILENO);
 	redir->fd_out = fd;
 	return (redir);
 }
@@ -45,22 +45,26 @@ t_redir	*handle_double(t_redir *redir)
 t_redir	*handle_simplefd(t_redir *redir)
 {
 	struct stat	*buf;
+	char		*tmp;
 
-	ft_putendl("simplefd redir");
 	buf = NULL;
 	if (redir->file && ft_strequ(redir->file, "-"))
 	{
+		redir->fd_in = (redir->fd_in == -1) ? 1 : redir->fd_in;
 		close(redir->fd_in);
 		redir->fd_out = TOCLOSE;
 		return (redir);
 	}
 	if (redir->file)
 		return (handle_simple(redir));
-	if (redir->fd_out > 1 && fstat(redir->fd_out, buf) == -1)
+	if (redir->fd_out > 2 && fstat(redir->fd_out, buf) == -1)
 	{
-		which_error(BADFD);
+		tmp = ft_itoa(redir->fd_out);
+		which_error(BADFD, tmp);
+		ft_strdel(&tmp);
 		return (NULL);
 	}
+	dup2(redir->fd_out, redir->fd_in);
 	return (redir);
 }
 
@@ -68,10 +72,9 @@ t_redir	*handle_back(t_redir *redir)
 {
 	int		fd;
 
-	ft_putendl("back redir");
 	if ((fd = open(redir->file, O_RDONLY)) == -1)
 	{
-		which_error(file_error(redir->file));
+		which_error(file_error(redir->file), redir->file);
 		return (NULL);
 	}
 	redir->fd_in = fd;
@@ -82,7 +85,6 @@ t_redir	*handle_backfd(t_redir *redir)
 {
 	int		fd;
 
-	ft_putendl("back redir");
 	if (redir->file && ft_strequ(redir->file, "-"))
 	{
 		redir->fd_out = TOCLOSE;
@@ -91,12 +93,12 @@ t_redir	*handle_backfd(t_redir *redir)
 	}
 	if (redir->file)
 	{
-		which_error(AMBIGOUS);
+		which_error(AMBIGOUS, NULL);
 		return (NULL);
 	}
 	if ((fd = open(redir->file, O_RDONLY)) == -1)
 	{
-		which_error(file_error(redir->file));
+		which_error(file_error(redir->file), redir->file);
 		return (NULL);
 	}
 	redir->fd_out = fd;
@@ -107,5 +109,27 @@ t_redir	*handle_backfd(t_redir *redir)
 t_redir	*handle_heredoc(t_redir *redir)
 {
 	ft_putendl("heredoc");
+	return (redir);
+}
+
+t_redir	*handle_redirall(t_redir *redir)
+{
+	int		fd;
+
+	if (!redir->file)
+		redir->file = ft_itoa(redir->fd_out);
+	if (ft_strequ(redir->file, "-"))
+	{
+		close(STDOUT_FILENO);
+		close(STDERR_FILENO);
+		return (redir);
+	}
+	if ((fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	{
+		which_error(file_error(redir->file), redir->file);
+		return (NULL);
+	}
+	dup2(fd, STDOUT_FILENO);
+	dup2(fd, STDERR_FILENO);
 	return (redir);
 }
