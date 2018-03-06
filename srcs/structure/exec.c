@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:43:31 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:54:03 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		exec_start(t_init *init)
 {
 	t_cmd	*tmp;
 	t_cmd	*tmp2;
+	int		std_fd[3];
 
 	tmp2 = init->cmd;
 	while (tmp2)
@@ -58,8 +59,12 @@ int		exec_start(t_init *init)
 		tmp = tmp2;
 		while (tmp)
 		{
+			saving_fd(std_fd);
+			if (!redirection(tmp))
+				return (2);
 			check_cmd(tmp, init);
 			tmp = tmp->next;
+			reset_fd(std_fd);
 		}
 		tmp2 = tmp2->next_semi;
 	}

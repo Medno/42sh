@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/05 17:59:33 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/06 10:17:57 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,29 +71,14 @@ t_redir	*handle_redir(t_redir *redir)
 	return (redir);
 }
 
-t_cmd	*redirection(t_cmd *cmd)
+int		redirection(t_cmd *cmd)
 {
-	t_cmd	*tmp1;
-	t_cmd	*tmp2;
-	t_redir	*tmp_redir;
-
-	tmp1 = cmd;
-	while (tmp1)
+	while (cmd && cmd->redir)
 	{
-		tmp2 = tmp1;
-		while (tmp2)
-		{
-			tmp_redir = tmp2->redir;
-			while (tmp2->redir)
-			{
-				tmp2->redir = handle_redir(tmp2->redir);
-				tmp2->redir = tmp2->redir->next;
-			}
-			tmp2->redir = tmp_redir;
-			tmp2 = tmp2->next;
-		}
-		tmp1 = tmp1->next_semi;
+		cmd->redir = handle_redir(cmd->redir);
+		if (!cmd->redir)
+			return (0);
+		cmd->redir = cmd->redir->next;
 	}
-	print_cmd2(cmd);
-	return (cmd);
+	return (1);
 }
