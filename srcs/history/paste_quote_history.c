@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:29:48 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 11:07:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:35:23 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_last_char(char *str)
 		return (0);
 }
 
-void	paste_last_hist(t_hist **histo)
+void		paste_last_hist(t_hist **histo)
 {
 	t_hist	*tmp;
 

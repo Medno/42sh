@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:25:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 11:14:37 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:35:52 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 			if (g_quote)
 			{
 				(*histo)->line = ft_strdup("\n");
-				return; 
+				return ;
 			}
 			tmp = *histo;
 			*histo = (*histo)->prev;

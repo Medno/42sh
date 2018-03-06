@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:23:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 11:11:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:34:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,12 @@ t_hist			*new_hist(void)
 	while (get_next_line(fd, &line) > 0)
 	{
 		new = NULL;
-		if ((new = create_hist(line)))
-			append_new(&list, new);
-		new->nb = ++i;
+		if (*line)
+		{
+			if ((new = create_hist(line)))
+				append_new(&list, new);
+			new->nb = ++i;
+		}
 		ft_strdel(&line);
 	}
 	close(fd);
