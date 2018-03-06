@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 11:54:03 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/06 12:32:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		check_builtins(char **entry, t_init *init)
 	else if (ft_strequ("export", *entry) && (check = 1)) // A FAIRE
 		;
 	else if (ft_strequ("history", *entry) && (check = 1)) // JMEN OCCUPE (kiyan)
-		;
+		ft_history(&init->historic, entry, ft_tablen(entry));
 	return (check);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 16:35:13 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/06 12:59:14 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void				ft_echo(t_env **env, char **str);
 void				ft_env(t_env *env, char **entry);
 void				ft_setenv(t_env **list, char *name, char *content);
 void				ft_unsetenv(t_env **list, char *name);
+int					ft_history(t_hist **histo, char **str, int len);
 /*
 ** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
