@@ -28,7 +28,7 @@ static int	print_env_tab(char **arr)
 
 //check_fun_env a faire (pour launch binaire, check et toutout)
 
-static void	ft_env_2(t_env *env, char **str, int opt_i)
+static int	ft_env_2(t_env *env, char **str, int opt_i)
 {
 	char	**new_tab;
 	char	**pathlist;
@@ -44,15 +44,16 @@ static void	ft_env_2(t_env *env, char **str, int opt_i)
 	if (!str[i] && print_env_tab(new_tab))
 	{
 		ft_freetab(new_tab);
-		return ;
+		return (1);
 	}
 	pathlist = ft_strsplit(ft_getenv(&env, "PATH"), ':');
 //	check_fun_env(pathlist, new_tab, &str[i]);
 	ft_freetab(new_tab);
 	ft_freetab(pathlist);
+	return (0);
 }
 
-void		ft_env(t_env *env, char **entry)
+int			ft_env(t_env *env, char **entry)
 {
 	t_env	*tmp;
 	int		c;
@@ -68,9 +69,9 @@ void		ft_env(t_env *env, char **entry)
 	{
 		if (c == '?' && write(STDERR_FILENO,
 			"usage: env [-i] [name=value ...] [utility [argument ...]]\n", 58))
-			return ;
+			return (1);
 		else if (c == 'i')
 			i = 1;
 	}
-	ft_env_2(tmp, &entry[g_optind], i);
+	return (ft_env_2(tmp, &entry[g_optind], i));
 }

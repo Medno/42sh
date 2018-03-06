@@ -60,6 +60,7 @@ int				main(int ac, char **av, char **environ)
 		ft_strdel(&init.str);
 	}
 	hist_to_file(init.historic);
+	ft_cfmakedefault(&init.current);
 	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)
 	(void)av;
 	return (0);

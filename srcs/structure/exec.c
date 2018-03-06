@@ -19,32 +19,38 @@
 */
 int		check_builtins(char **entry, t_init *init)
 {
-	int		check;
-
-	check = 0;
-	if (ft_strequ("cd", *entry) && (check = 1)) // CUI LA ET TOU BON
-		ft_cd(&init->new_env, entry, ft_tablen(entry));
-	else if (ft_strequ("echo", *entry) && (check = 1)) // A MODIFIER (NO GESTION DAFFICHAGE DE VARIABLE >> LEXER?PARSER
-		ft_echo(&init->new_env, &entry[1]);
-	else if (ft_strequ("env", *entry) && (check = 1)) // A FINIR / MODIFIER
-		ft_env(init->new_env, entry);
-	else if (ft_strequ("setenv", *entry) && (check = 1)) // A MODIFIER OU VIRER A VOIR
-		ft_setenv(&init->new_env, entry[1], entry[2]);
-	else if (ft_strequ("unsetenv", *entry) && (check = 1))  // A RECHECK
-		ft_unsetenv(&init->new_env, entry[1]);
-	else if (ft_strequ("export", *entry) && (check = 1)) // A FAIRE
-		;
-	else if (ft_strequ("history", *entry) && (check = 1)) // JMEN OCCUPE (kiyan)
-		ft_history(&init->historic, entry, ft_tablen(entry));
-	return (check);
+	if (ft_strequ("cd", *entry))
+		return (ft_cd(&init->new_env, entry, ft_tablen(entry)));
+	else if (ft_strequ("echo", *entry))
+		return (ft_echo(&entry[1]));
+	else if (ft_strequ("env", *entry)) 
+		return (ft_env(init->new_env, entry));
+	else if (ft_strequ("setenv", *entry)) 
+		return (ft_setenv(&init->new_env, entry[1], entry[2]));
+	else if (ft_strequ("unsetenv", *entry))
+		return (ft_unsetenv(&init->new_env, entry[1]));
+	else if (ft_strequ("export", *entry)) 
+		return 0;
+	else if (ft_strequ("history", *entry))
+		return (ft_history(&init->historic, entry, ft_tablen(entry)));
+	return (-1);
 }
 
 int		check_cmd(t_cmd *cmd, t_init *init)
 {
-	if (check_builtins(cmd->arg, init))
-		return (1);
+	int	ret;
+
+	if ((ret = check_builtins(cmd->arg, init)) >= 0)
+		return (ret);
 	else
+	{
+		//check_paths
+		//if path
+		//exec return exec return
+		//else
+		//error command not found return 1
 		return (0);
+	}
 }
 
 int		exec_start(t_init *init)

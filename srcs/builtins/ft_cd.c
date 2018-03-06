@@ -107,7 +107,7 @@ static void		ft_cd_2(t_env **env, char *dir, int p)
 		ft_cd_l(env, curpath, dir);
 }
 
-void			ft_cd(t_env **env, char **str, int len)
+int				ft_cd(t_env **env, char **str, int len)
 {
 	int		opt_p;
 	int		c;
@@ -118,7 +118,7 @@ void			ft_cd(t_env **env, char **str, int len)
 	while ((c = ft_getopt(len, str, "LP")) != -1)
 	{
 		if (c == '?' && write(STDERR_FILENO, "cd: usage: cd [-LP] [dir]\n", 26))
-			return ;
+			return (1);
 		else if (c == 'P')
 			opt_p = 1;
 		else if (c == 'L')
@@ -128,9 +128,10 @@ void			ft_cd(t_env **env, char **str, int len)
 	{
 		if (!ft_getenv(env, "HOME")
 			&& write(STDERR_FILENO, "cd: HOME not set\n", 17))
-			return ;
+			return (1);
 		do_move(ft_getenv(env, "HOME"), env);
 	}
 	else
 		ft_cd_2(env, str[g_optind], opt_p);
+	return (0);
 }
