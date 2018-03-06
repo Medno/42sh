@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/06 16:56:30 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/06 17:36:03 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,8 @@ PARSER_NAME = ast.c init_ast.c	\
 			  parser.c			\
 			  redir_ast.c		\
 			  ast_to_struct.c	\
+			  struct_cmd.c		\
+			  struct_redir.c	\
 			  print_smtg.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
@@ -99,14 +101,6 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 REDIR_NAME = redirection.c handle_redir.c error_redir.c setup_fd.c
 REDIR_PATH = redirection/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(REDIR_PATH), $(REDIR_NAME)))
-
-### EXEC ###
-EXEC_NAME =	fill_cmd.c		\
-			init_exec.c 	\
-			struct_cmd.c	\
-			struct_redir.c	
-EXEC_PATH = exec/
-SRCS += $(addprefix $(PATHFS), $(addprefix $(EXEC_PATH), $(EXEC_NAME)))
 
 ### LIBFT ###
 LIBINC = ./libft

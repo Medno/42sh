@@ -17,5 +17,7 @@ void				print_ast(t_ast *root, char *pos);
 int					is_redir(t_lex *tmp);
 t_cmd				*ast_to_struct(t_ast *ast);
 void				print_cmd(t_cmd *cmd);
+void				ft_clean_redir(t_redir *redir);
+void				ft_clean_cmd(t_cmd *cmd);
 
 #endif

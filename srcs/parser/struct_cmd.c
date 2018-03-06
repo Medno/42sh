@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 13:47:23 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/06 17:33:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,4 @@ void	ft_clean_cmd(t_cmd *cmd)
 		}
 		tmp = next_phrase;
 	}
-}
-
-t_cmd	*cmd_push_back(t_cmd *cmd, t_cmd *new)
-{
-	t_cmd *tmp;
-
-	if (!cmd)
-		return (new);
-	tmp = cmd;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-	return (cmd);
-}
-
-t_cmd	*init_cmd(void)
-{
-	t_cmd	*ret;
-
-	ret = ft_memalloc(sizeof(t_cmd));
-	return (ret);
 }
