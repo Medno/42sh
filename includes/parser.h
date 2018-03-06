@@ -20,5 +20,6 @@ void				print_cmd(t_cmd *cmd);
 void				quote_remove(t_init *init);
 void				ft_clean_redir(t_redir *redir);
 void				ft_clean_cmd(t_cmd *cmd);
+t_redir				*init_redir(void);
 
 #endif

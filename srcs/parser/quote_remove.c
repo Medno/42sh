@@ -6,15 +6,17 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 17:42:24 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/06 17:55:31 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-char	*clear_str(char *str, i)
+char	*clear_str(char *str, int i)
 {
-	
+	(void)str;
+	(void)i;
+	return (NULL);
 }
 
 char	*new_str(char *str, int len_str)

@@ -6,11 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 17:33:23 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/06 17:53:47 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "parser.h"
 
 void	ft_clean_cmd(t_cmd *cmd)
 {

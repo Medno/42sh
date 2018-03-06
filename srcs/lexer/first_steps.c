@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:30:13 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 16:36:54 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/06 17:53:05 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,8 @@ t_lex		*new_op(t_lex *new, char *str, int i, char buf[])
 	return (new);
 }
 
-t_lex		*close_new(t_lex *new, char *str, int i, char buf[])
+t_lex		*close_new(t_lex *new, char buf[])
 {
-	char	read[2];
-
-	read[0] = str[i];
-	read[1] = '\0';
 	if (new->token != NONE)
 		new = put_in_new(new, buf);
 	return (new);
