@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/05 14:23:14 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:57:00 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	is_redir(t_lex *tmp)
 			tmp->token == GREATAND || tmp->token == LESSAND ||
 			tmp->token == DGREAT || tmp->token == DLESS ||
 			tmp->token == CLOBBER || tmp->token == DLESSDASH ||
-			tmp->token == LESSGREAT)
+			tmp->token == LESSGREAT || tmp->token == ANDLESS ||
+			tmp->token == ANDGREAT)
 		return (1);
 	return (0);
 }
@@ -51,8 +52,7 @@ int	err_pars(t_lex *tmp, t_lex *del)
 	}
 	if (tmp->next && (tmp->token == AND_IF || tmp->token == OR_IF ||
 				ft_strequ(tmp->value, "|") || tmp->token == DLESSDASH ||
-				ft_strequ(tmp->value, ";") || tmp->token == DSEMI)
-			)
+				ft_strequ(tmp->value, ";") || tmp->token == DSEMI))
 		if ((tmp->next->token != EOI && tmp->next->token != WORD &&
 				tmp->next->token != QUOTE) || tmp->token == DSEMI)
 		{
@@ -112,7 +112,7 @@ int	parser(t_init *init)
 	ast = build_ast(tmp);
 //	print_ast(ast, NULL);
 	cmd = ast_to_struct(ast);
-	//print_cmd(cmd);
+//	print_cmd(cmd);
 	//ft_clean_cmd(cmd);
 	init->cmd = cmd;
 	del_ast(&ast);

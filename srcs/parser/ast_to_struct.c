@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:18:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/05 13:24:44 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:50:39 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ t_redir	*put_redir(t_ast *ast)
 		return (NULL);
 	if (ft_strequ(ast->value, "io"))
 	{
-		if (ast->left->value[0] == '>')
+		if (ast->left->value[0] == '>' && !ast->left->value[1])
 			redir->fd_in = 1;
-		else
+		else if (ast->left->value[0] == '<' && !ast->left->value[1])
 			redir->fd_in = 0;
+		else
+			redir->fd_in = -1;
 	}
 	else
 	{
@@ -107,7 +109,8 @@ t_cmd	*ast_to_sentence(t_cmd *cmd, t_ast *ast)
 			cmd->redir = put_redir(ast->right);
 		return ((cmd = ast_to_sentence(cmd, ast->left)));
 	}
-	else if (ft_strequ(ast->value, "&&") || ft_strequ(ast->value, "||") || ft_strequ(ast->value, "|"))
+	else if (ft_strequ(ast->value, "&&") || ft_strequ(ast->value, "||")
+			|| ft_strequ(ast->value, "|"))
 	{
 		cmd->separ = ft_strdup(ast->value);
 		cmd = ast_to_sentence(cmd, ast->left);

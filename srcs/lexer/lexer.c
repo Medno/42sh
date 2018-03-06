@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/02 12:02:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:55:29 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int		cat_op(char c, char buf[])
 	if (buf[0] == '>' && !buf[1])
 		if (c == '>' || c == '&' || c == '|')
 			return (1);
-	if (buf[0] == '&' && !buf[1] && c == '&')
-		return (1);
+	if (buf[0] == '&' && !buf[1])
+		if (c == '&' || c == '<' || c == '>')
+			return (1);
 	if (buf[0] == ';' && !buf[1] && c == ';')
 		return (1);
 	if (buf[0] == '|' && !buf[1] && c == '|')
@@ -52,6 +53,10 @@ t_lex	*categorize_op(t_lex *new)
 		new->token = LESSAND;
 	else if (ft_strequ(">&", new->value))
 		new->token = GREATAND;
+	else if (ft_strequ("&<", new->value))
+		new->token = ANDLESS;
+	else if (ft_strequ("&>", new->value))
+		new->token = ANDGREAT;
 	else if (ft_strequ("<>", new->value))
 		new->token = LESSGREAT;
 	else if (ft_strequ("<<-", new->value))

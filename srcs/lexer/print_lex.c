@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 14:26:37 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/01 14:27:25 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/06 13:37:39 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	print_type(t_lex *tmp)
 		ft_putendl("LESSAND");
 	if (tmp->token == GREATAND)
 		ft_putendl("GREATAND");
+	if (tmp->token == ANDLESS)
+		ft_putendl("ANDLESS");
+	if (tmp->token == ANDGREAT)
+		ft_putendl("ANDGREAT");
 	if (tmp->token == LESSGREAT)
 		ft_putendl("LESSGREAT");
 	if (tmp->token == DLESSDASH)
