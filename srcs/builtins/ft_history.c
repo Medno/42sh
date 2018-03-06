@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 13:01:28 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 14:33:44 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,42 @@ static int	check_bits(int fl)
 	return (0);
 }
 
+static int		print_history(t_hist **histo)
+{
+	t_hist	*tmp;
+
+	tmp = *histo;
+	while (tmp->prev)
+		tmp = tmp->prev;
+	while (tmp)
+	{
+		ft_printf("%d %s\n", tmp->nb, tmp->line);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 static int		step_2(t_hist **histo, char **str, int flags)
 {
-	(void)histo;
 	(void)str;
-	(void)flags;
+	if (!flags)
+		return (print_history(histo));
+	if (64 & flags)
+		return (free_history(histo));
+	if (1 & flags)
+		;//append whats been in history in file since launching binary > if no str, file is .history
+	else if (2 & flags)
+		;//w
+	else if (4 & flags)
+		;//r
+	else if (8 & flags)
+		;//n
+	if (16 & flags)
+		;//p
+	if (32 & flags)
+		;//s
+	if (128 & flags)
+		return (free_offset_hist(histo, g_optarg));
 	return (0);
 }
 

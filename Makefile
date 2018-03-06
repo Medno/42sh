@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/06 12:27:16 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/06 14:18:40 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
 		   ft_env.c						\
 		   ft_set_env.c					\
 		   ft_unsetenv.c				\
-		   ft_history.c
+		   ft_history.c					\
+		   ft_history2.c
 BUI_PATH = builtins/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(BUI_PATH), $(BUI_NAME)))
 
