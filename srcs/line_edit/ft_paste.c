@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:28:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 14:28:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 15:45:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-t_line			*paste_line(t_line *cur, char *str, t_curs *curseur)
+t_line	*paste_line(t_line *cur, char *str, t_curs *curseur)
 {
 	while (str && *str)
 	{
@@ -40,7 +40,7 @@ int		count_selected(t_line *cur)
 	return (i);
 }
 
-char		*foo_paste(t_line *cur)
+char	*foo_paste(t_line *cur)
 {
 	t_line		*tmp;
 	static char	str[1024];
