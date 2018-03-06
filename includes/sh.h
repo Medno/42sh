@@ -45,19 +45,20 @@ int					check_builtins(char **entry, t_init *init);
 /*
 ** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-void				ft_cd(t_env **env, char **str, int len);
+int					ft_cd(t_env **env, char **str, int len);
 void				ft_cd_l(t_env **env, char *curpath, char *dir);
 char				**delete_and_paste(char **arr, int i);
 char				*paste_strs(char *str, char *new);
 char				*paste_path(char *s1, char *s2);
 void				handle_cd_error(char *str);
-void				ft_echo(t_env **env, char **str);
-void				ft_env(t_env *env, char **entry);
-void				ft_setenv(t_env **list, char *name, char *content);
-void				ft_unsetenv(t_env **list, char *name);
+int					ft_echo(char **str);
+int					ft_env(t_env *env, char **entry);
+int					ft_setenv(t_env **list, char *name, char *content);
+int					ft_unsetenv(t_env **list, char *name);
 int					ft_history(t_hist **histo, char **str, int len);
 int					free_history(t_hist **histo);
 int					free_offset_hist(t_hist **histo, char *offset);
+void				ft_exit(t_cmd *cmd, t_init *init);
 /*
 ** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */

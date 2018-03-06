@@ -27,7 +27,7 @@ static t_env	*new_env(char *name, char *content)
 	return (new_elem);
 }
 
-void			ft_setenv(t_env **list, char *name, char *content)
+int				ft_setenv(t_env **list, char *name, char *content)
 {
 	t_env	*tmp;
 
@@ -35,7 +35,7 @@ void			ft_setenv(t_env **list, char *name, char *content)
 	while (tmp && tmp->next && ft_strcmp(name, tmp->name))
 		tmp = tmp->next;
 	if (!content)
-		return ;
+		return (1);
 	if (tmp && !ft_strcmp(name, tmp->name))
 	{
 		free(tmp->content);
@@ -48,4 +48,5 @@ void			ft_setenv(t_env **list, char *name, char *content)
 		else
 			tmp->next = new_env(name, content);
 	}
+	return (0);
 }

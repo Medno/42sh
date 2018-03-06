@@ -24,7 +24,8 @@ BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
 		   ft_set_env.c					\
 		   ft_unsetenv.c				\
 		   ft_history.c					\
-		   ft_history2.c
+		   ft_history2.c				\
+		   ft_exit.c
 BUI_PATH = builtins/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(BUI_PATH), $(BUI_NAME)))
 

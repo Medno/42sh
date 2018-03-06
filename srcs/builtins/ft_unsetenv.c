@@ -12,7 +12,7 @@
 
 #include "sh.h"
 
-static void	ft_unsetenv_2(t_env **list, t_env *tmp)
+static int	ft_unsetenv_2(t_env **list, t_env *tmp)
 {
 	t_env	*tmp2;
 
@@ -27,9 +27,10 @@ static void	ft_unsetenv_2(t_env **list, t_env *tmp)
 		tmp2->next = tmp->next;
 	tmp->next = NULL;
 	ft_memdel((void **)&tmp);
+	return (0);
 }
 
-void		ft_unsetenv(t_env **list, char *name)
+int			ft_unsetenv(t_env **list, char *name)
 {
 	t_env	*tmp;
 
@@ -37,12 +38,14 @@ void		ft_unsetenv(t_env **list, char *name)
 	if (!name)
 	{
 		ft_putendl_fd("unsetenv: usage: unsetenv [variable]", STDERR_FILENO);
-		return ;
+		return (1);
 	}
 	while (tmp && ft_strcmp(name, tmp->name))
 		tmp = tmp->next;
 	if (!tmp)
+	{
 		ft_putendl_fd("unsetenv: no matches found", STDERR_FILENO);
-	else
-		ft_unsetenv_2(list, tmp);
+		return (1);
+	}
+	return (ft_unsetenv_2(list, tmp));
 }
