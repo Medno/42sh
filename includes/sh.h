@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 14:34:13 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 17:42:52 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include "parser.h"
 # include "redir.h"
 # include "completion.h"
-# include "exec.h"
 
 int		g_quote;
 
