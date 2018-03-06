@@ -6,34 +6,32 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:29:48 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:29:50 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:07:09 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+static int	check_last_char(char *str)
+{
+	while (*str)
+		str++;
+	str--;
+	if (*str == '\n')
+		return (1);
+	else
+		return (0);
+}
+
 void	paste_last_hist(t_hist **histo)
 {
 	t_hist	*tmp;
 
-	tmp = NULL;
-	if (!(*histo)->prev)
-	{
-		tmp = malloc(sizeof(t_hist));
-		tmp->line = NULL;
-		tmp->next = NULL;
-		tmp->prev = *histo;
-		tmp->nb = (*histo)->nb + 1;
-		(*histo)->next = tmp;
-	}
-	else
-	{
-		(*histo) = (*histo)->prev;
-		tmp = (*histo)->next;
-	}
-	(*histo)->line = ft_strjoindel((*histo)->line, "\n");
-	if (tmp && tmp->line)
-		(*histo)->line = ft_strjoindel((*histo)->line, tmp->line);
+	(*histo) = (*histo)->prev;
+	if (!check_last_char((*histo)->line))
+		(*histo)->line = ft_strjoindel((*histo)->line, "\n");
+	tmp = (*histo)->next;
+	(*histo)->line = ft_strjoindel((*histo)->line, tmp->line);
 	(*histo)->next = NULL;
 	ft_strdel(&tmp->line);
 	ft_memdel((void **)&tmp);

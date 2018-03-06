@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:25:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:25:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:14:37 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,15 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 			ft_memdel((void **)histo);
 		else
 		{
+			if (g_quote)
+			{
+				(*histo)->line = ft_strdup("\n");
+				return; 
+			}
+			tmp = *histo;
 			*histo = (*histo)->prev;
-			tmp = (*histo)->next;
-			tmp->line = NULL;
-			tmp->nb = (*histo)->nb + 1;
+			(*histo)->next = NULL;
+			ft_memdel((void **)&tmp);
 		}
 	}
 	else

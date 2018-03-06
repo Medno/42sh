@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:23:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:34:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 11:11:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_hist			*new_hist(void)
 	int		i;
 	char	*line;
 
-	if ((fd = open("./srcs/structure/.history", O_RDONLY)) < 0)
+	if ((fd = open("./srcs/history/.history", O_RDONLY)) < 0)
 		return (NULL);
 	line = NULL;
 	list = NULL;
