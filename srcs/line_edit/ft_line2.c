@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 13:49:53 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/06 15:44:23 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 		return (ft_grabb(*edit->current, c, &edit->curseur));
 }
 
-t_line		*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf)
+t_line			*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf)
 {
-
 	if (ft_strequ(buf, "[1;2B"))
 		cur = moove_down(cur, curseur);
 	else if (ft_strequ(buf, "[1;2C"))
@@ -70,7 +69,8 @@ t_line		*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf)
 	return (cur);
 }
 
-t_line		*ft_line_esc(t_line *cur, int len, t_curs *curseur, t_hist **histo)
+t_line			*ft_line_esc(t_line *cur, int len, t_curs *curseur,
+				t_hist **histo)
 {
 	char	buf[8];
 

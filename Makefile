@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/06 16:33:32 by pchadeni         ###   ########.fr        #
+#    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
+#    Updated: 2018/03/06 16:41:17 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
 		   ft_env.c						\
 		   ft_set_env.c					\
 		   ft_unsetenv.c				\
-		   ft_history.c
+		   ft_history.c					\
+		   ft_history2.c
 BUI_PATH = builtins/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(BUI_PATH), $(BUI_NAME)))
 
@@ -75,8 +76,13 @@ HIST_PATH = history/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(HIST_PATH), $(HIST_NAME)))
 
 ### LEXER ###
-LEXER_NAME = lexer.c init_lex.c print_lex.c is_lex.c categorize_token.c \
-			 first_steps.c last_steps.c
+LEXER_NAME = lexer.c \
+			 init_lex.c \
+			 print_lex.c \
+			 is_lex.c \
+			 categorize_token.c \
+			 first_steps.c \
+			 last_steps.c
 LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 
