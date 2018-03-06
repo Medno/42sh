@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:18:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 13:50:39 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/06 16:57:53 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,48 +24,6 @@ t_cmd	*init_cmd_p(void)
 	cmd->next = NULL;
 	cmd->next_semi = NULL;
 	return (cmd);
-}
-
-void	print_cmd(t_cmd *cmd)
-{
-	int	i;
-	t_cmd	*tmp;
-	t_cmd	*tmp_2;
-	t_redir	*leak;
-
-	tmp = cmd;
-	while (tmp)
-	{
-		ft_printf("Nouvelle commande :\n");
-		tmp_2 = tmp;
-		while(tmp_2)
-		{
-			i = 0;
-			if (tmp_2->arg)
-			{
-				while (tmp_2->arg[i])
-				{
-					ft_printf("Parametre %d : |%s|\n", i, tmp_2->arg[i]);
-					i++;
-				}
-			}
-			if (tmp_2->separ)
-				ft_printf("Separateur : |%s|\n", tmp_2->separ);
-			leak = tmp_2->redir;
-			while (leak)
-			{
-				ft_printf("fd_in : |%d|\ntoken : |%s|\nfd_out : ", leak->fd_in, leak->token);
-				if (leak->file)
-					ft_putstr(leak->file);
-				else
-					ft_putnbr(leak->fd_out);
-				ft_putchar('\n');
-				leak = leak->next;
-			}
-			tmp_2 = tmp_2->next;
-		}
-		tmp = tmp->next_semi;
-	}
 }
 
 t_redir	*put_redir(t_ast *ast)

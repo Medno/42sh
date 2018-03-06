@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/06 14:18:40 by kyazdani         ###   ########.fr        #
+#    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
+#    Updated: 2018/03/06 16:56:30 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,13 @@ HIST_PATH = history/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(HIST_PATH), $(HIST_NAME)))
 
 ### LEXER ###
-LEXER_NAME = lexer.c init_lex.c print_lex.c is_lex.c
+LEXER_NAME = lexer.c			\
+			 init_lex.c			\
+			 print_lex.c		\
+			 is_lex.c			\
+			 categorize_token.c	\
+			 first_steps.c 		\
+			 last_steps.c
 LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 
@@ -84,7 +90,8 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 PARSER_NAME = ast.c init_ast.c	\
 			  parser.c			\
 			  redir_ast.c		\
-			  ast_to_struct.c
+			  ast_to_struct.c	\
+			  print_smtg.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 

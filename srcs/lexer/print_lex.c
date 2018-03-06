@@ -6,31 +6,14 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 14:26:37 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 13:37:39 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/06 16:35:23 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	print_type(t_lex *tmp)
+static void	print_type_2(t_lex *tmp)
 {
-	ft_putstr("Type : ");
-	if (tmp->token == NONE)
-		ft_putendl("NONE");
-	if (tmp->token == WORD)
-		ft_putendl("WORD");
-	if (tmp->token == OP)
-		ft_putendl("OP");
-	if (tmp->token == IO_NUMBER)
-		ft_putendl("IO_NUMBER");
-	if (tmp->token == EOI)
-		ft_putendl("EOI");
-	if (tmp->token == AND_IF)
-		ft_putendl("AND_IF");
-	if (tmp->token == OR_IF)
-		ft_putendl("OR_IF");
-	if (tmp->token == DSEMI)
-		ft_putendl("DSEMI");
 	if (tmp->token == DLESS)
 		ft_putendl("DLESS");
 	if (tmp->token == DGREAT)
@@ -51,7 +34,29 @@ void	print_type(t_lex *tmp)
 		ft_putendl("CLOBBER");
 }
 
-void	print_lex(t_lex *first)
+static void	print_type(t_lex *tmp)
+{
+	ft_putstr("Type : ");
+	if (tmp->token == NONE)
+		ft_putendl("NONE");
+	if (tmp->token == WORD)
+		ft_putendl("WORD");
+	if (tmp->token == OP)
+		ft_putendl("OP");
+	if (tmp->token == IO_NUMBER)
+		ft_putendl("IO_NUMBER");
+	if (tmp->token == EOI)
+		ft_putendl("EOI");
+	if (tmp->token == AND_IF)
+		ft_putendl("AND_IF");
+	if (tmp->token == OR_IF)
+		ft_putendl("OR_IF");
+	if (tmp->token == DSEMI)
+		ft_putendl("DSEMI");
+	print_type_2(tmp);
+}
+
+void		print_lex(t_lex *first)
 {
 	t_lex	*tmp;
 	int		i;
