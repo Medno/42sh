@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/07 13:24:51 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/07 16:19:34 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int		redirection(t_cmd *cmd)
 		}
 		tmp1->redir = tmp1->redir->next;
 	}
-	ft_putendl_fd("Ceci est la sortie standard", STDOUT_FILENO);
-	ft_putendl_fd("Ceci est la sortie d'erreur", STDERR_FILENO);
 	cmd->redir = tmp;
 	tmp1->redir = tmp;
 	return (1);

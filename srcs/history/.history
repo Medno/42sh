@@ -63,3 +63,8 @@ se
 se
  f
 exit
+ls
+ls -R
+ls /
+pwd
+exit

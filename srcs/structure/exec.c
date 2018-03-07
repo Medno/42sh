@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 08:49:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 16:18:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,43 @@ int		check_builtins(char **entry, t_init *init)
 	return (-1);
 }
 
+int		fork_cmd(t_init *init, char *path)
+{
+	char	**envir;
+	int		ret;
+	pid_t	father;
+
+	//signal a faire (ctrl C)
+	ret = 0;
+	if ((father = fork()) > 0)
+		wait(&ret);
+	if (!father)
+	{
+		envir = put_in_tab(&init->new_env);
+		execve(path, init->cmd->arg, envir);
+		ft_freetab(envir);
+		ft_strdel(&path);
+	}
+	return (ret);
+}
+
 int		check_cmd(t_cmd *cmd, t_init *init)
 {
-	int	ret;
+	int		ret;
+	char	*path;
 
 	if ((ret = check_builtins(cmd->arg, init)) >= 0)
 		return (ret);
 	else
 	{
-		//check_paths
-		//if path
-		//exec return exec return value
-		//else
-		//error command not found return 1
+		if (!check_path(cmd->arg[0], &init->new_env, &path))
+			return (fork_cmd(init, path));
+		else
+		{
+			if (ret == 1)
+				ft_printf_fd(2, "42sh: %s: command not found\n", cmd->arg[0]);
+			return (1);
+		}
 		return (0);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/07 14:04:11 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/07 16:05:12 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ STRUC_NAME = addons.c			\
 			 ft_environment.c	\
 			 main.c				\
 			 init_attrs.c		\
-			 exec.c
+			 exec.c				\
+			 ft_check_path.c
 STRUC_PATH = structure/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
