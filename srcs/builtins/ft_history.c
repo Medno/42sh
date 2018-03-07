@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 10:34:40 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 10:38:31 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,14 @@ static int		check_num(char *str)
 {
 	while (*str)
 	{
-		if (!ft_isdigt(*str))
-			;
+		if (!ft_isdigit(*str))
+		{
+			ft_printf_fd(2, "42sh: history: numeric argument required");
+			return (-1);
+		}
+		str++;
 	}
+	return (ft_atoi(str));
 }
 
 static int		step_2(t_hist **histo, char **str, int flags)
