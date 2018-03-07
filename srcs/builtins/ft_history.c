@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 13:02:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 15:00:42 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ static int		step_2(t_hist **histo, char **str, int flags)
 	if (128 & flags)
 		return (free_offset_hist(histo, g_optarg));
 	if (1 & flags)
-		;
+		return (0);//a
 	else if (2 & flags)
 		return (full_hist_file(histo, *str));
 	else if (4 & flags)
 		return (append_to_list(histo, *str));
 	else if (8 & flags)
-		;//n
+		return (0);//n
 	if (32 & flags)
 		return (replace_w_arg(histo, str));
 	if (16 & flags)
-		;//p
+		return (0);//p
 	return (0);
 }
 

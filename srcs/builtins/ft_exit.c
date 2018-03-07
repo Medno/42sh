@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 09:57:14 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 14:57:38 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	final_exit(t_init *init, unsigned char x)
 	hist_to_file(init->historic);
 	ft_strdel(&init->str);
 	free_list(&init->new_env);
+	getchar();
 	exit(x);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 13:01:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 14:55:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int				full_hist_file(t_hist **histo, char *str)
 	if (str)
 		fd = open(str, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	else
-		fd = open("./srcs/history/.history", O_CREAT | O_WRONLY | O_TRUNC, 0600);
+		fd = open("./srcs/history/.history",
+		O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	tmp = *histo;
 	while (tmp->prev)
 		tmp = tmp->prev;
@@ -83,15 +84,13 @@ int		print_history(t_hist **histo, char **str)
 	nb = -1;
 	if (*str)
 	{
-		nb = check_num(*str);
+		if (!(nb = check_num(*str)))
+			return (0);
 		if (nb < 0)
 			return (1);
 		str++;
-		if (*str)
-		{
-			ft_printf_fd(2, "42sh: history: too many arguments\n");
+		if (*str && ft_printf_fd(2, "42sh: history: too many arguments\n"))
 			return (1);
-		}
 	}
 	tmp = *histo;
 	while (tmp->prev && --nb)
