@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 14:33:44 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 10:17:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ static int	set_bits(int c, int fl)
 	else if (c == 'p')
 		fl |= 16;
 	else if (c == 's')
+	{
 		fl |= 32;
+		if (fl & 16)
+			fl ^= 16;
+	}
 	else if (c == 'c')
 		fl |= 64;
 	else if (c == 'd')
@@ -47,26 +51,10 @@ static int	check_bits(int fl)
 	return (0);
 }
 
-static int		print_history(t_hist **histo)
-{
-	t_hist	*tmp;
-
-	tmp = *histo;
-	while (tmp->prev)
-		tmp = tmp->prev;
-	while (tmp)
-	{
-		ft_printf("%d %s\n", tmp->nb, tmp->line);
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
 static int		step_2(t_hist **histo, char **str, int flags)
 {
-	(void)str;
 	if (!flags)
-		return (print_history(histo));
+		return (print_history(histo, str[0]));
 	if (64 & flags)
 		return (free_history(histo));
 	if (1 & flags)
@@ -79,8 +67,8 @@ static int		step_2(t_hist **histo, char **str, int flags)
 		;//n
 	if (16 & flags)
 		;//p
-	if (32 & flags)
-		;//s
+	else if (32 & flags)
+		;
 	if (128 & flags)
 		return (free_offset_hist(histo, g_optarg));
 	return (0);

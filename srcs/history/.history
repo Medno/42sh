@@ -1,4 +1,6 @@
-ls
-lR 
+history
 exit
-
+echo $LALA
+exi
+exit
+exit 128

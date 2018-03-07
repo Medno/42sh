@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 17:42:52 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/07 10:09:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int					ft_unsetenv(t_env **list, char *name);
 int					ft_history(t_hist **histo, char **str, int len);
 int					free_history(t_hist **histo);
 int					free_offset_hist(t_hist **histo, char *offset);
-void				ft_exit(t_cmd *cmd, t_init *init);
+int					print_history(t_hist **histo, char *str);
+void				ft_exit(t_init *init);
 /*
 ** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */

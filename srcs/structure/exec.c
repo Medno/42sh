@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 12:32:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 08:49:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		check_builtins(char **entry, t_init *init)
 		return 0;
 	else if (ft_strequ("history", *entry))
 		return (ft_history(&init->historic, entry, ft_tablen(entry)));
+	else if (ft_strequ("exit", *entry))
+		ft_exit(init);
 	return (-1);
 }
 
@@ -40,15 +42,13 @@ int		check_cmd(t_cmd *cmd, t_init *init)
 {
 	int	ret;
 
-	if (ft_strequ("exit", *cmd->arg))
-		ft_exit(cmd, init);
 	if ((ret = check_builtins(cmd->arg, init)) >= 0)
 		return (ret);
 	else
 	{
 		//check_paths
 		//if path
-		//exec return exec return
+		//exec return exec return value
 		//else
 		//error command not found return 1
 		return (0);
@@ -76,5 +76,5 @@ int		exec_start(t_init *init)
 		}
 		tmp2 = tmp2->next_semi;
 	}
-	return (1);
+	return (0);
 }

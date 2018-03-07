@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/06 17:44:04 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/07 10:09:26 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
 		   ft_unsetenv.c				\
 		   ft_history.c					\
 		   ft_history2.c				\
+		   ft_history3.c				\
 		   ft_exit.c
 BUI_PATH = builtins/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(BUI_PATH), $(BUI_NAME)))
@@ -100,7 +101,10 @@ PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 
 ### REDIRECTION ###
-REDIR_NAME = redirection.c handle_redir.c error_redir.c setup_fd.c
+REDIR_NAME = redirection.c		\
+			 handle_redir.c		\
+			 error_redir.c		\
+			 setup_fd.c
 REDIR_PATH = redirection/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(REDIR_PATH), $(REDIR_NAME)))
 
@@ -129,9 +133,6 @@ ifeq ($(SAN),yes)
 FLAGS += -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
 endif
 
-# termcap linker
-TERMS = -ltermcap
-
 # libft.a
 LIB = ./libft/libft.a
 
@@ -140,7 +141,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : makelib $(NAME)
 
 $(NAME) : $(OBJ)
-		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) $(TERMS)
+		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB)
 		@echo "\033[K\033[35m***** done *****\033[0m"
 
 %.o:%.c
