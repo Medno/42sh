@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/06 17:08:00 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/07 11:29:40 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ t_redir	*handle_simple(t_redir *redir)
 		which_error(file_error(redir->file), redir->file);
 		return (NULL);
 	}
-	dup2(fd, redir->fd_in);
+	if (redir->fd_in == -1)
+	{
+		dup2(fd, STDOUT_FILENO);
+		dup2(fd, STDERR_FILENO);
+	}
+	else
+		dup2(fd, redir->fd_in);
 	redir->fd_out = fd;
 	return (redir);
 }
@@ -42,6 +48,41 @@ t_redir	*handle_double(t_redir *redir)
 	return (redir);
 }
 
+t_redir	*handle_allfd(t_redir *redir)
+{
+	int		fd;
+
+	if ((fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	{
+		which_error(file_error(redir->file), redir->file);
+		return (NULL);
+	}
+	dup2(fd, STDOUT_FILENO);
+	dup2(fd, STDERR_FILENO);
+	redir->fd_out = fd;
+	return (redir);
+}
+
+t_redir	*handle_closingfd(t_redir *redir)
+{
+	struct stat	*buf;
+	char		*tmp;
+
+	buf = NULL;
+	redir->fd_out = ft_atoi(redir->file);
+	if (redir->fd_out > 2 && fstat(redir->fd_out, buf) == -1)
+	{
+		tmp = ft_itoa(redir->fd_out);
+		ft_putendl(tmp);
+		which_error(BADFD, tmp);
+		ft_strdel(&tmp);
+		return (NULL);
+	}
+	dup2(redir->fd_out, redir->fd_in);
+	close(redir->fd_out);
+	return (redir);
+}
+
 t_redir	*handle_simplefd(t_redir *redir)
 {
 	struct stat	*buf;
@@ -55,8 +96,10 @@ t_redir	*handle_simplefd(t_redir *redir)
 		redir->fd_out = TOCLOSE;
 		return (redir);
 	}
-	if (redir->file)
-		return (handle_simple(redir));
+	if (redir->file && !ft_isdigit(*redir->file))
+		return (handle_allfd(redir));
+	if (redir->file && ft_isdigit(*redir->file) && ft_strchr(redir->file, '-'))
+		return (handle_closingfd(redir));
 	if (redir->fd_out > 2 && fstat(redir->fd_out, buf) == -1)
 	{
 		tmp = ft_itoa(redir->fd_out);
@@ -118,7 +161,7 @@ t_redir	*handle_redirall(t_redir *redir)
 
 	if (!redir->file)
 		redir->file = ft_itoa(redir->fd_out);
-	if (ft_strequ(redir->file, "-"))
+	if (ft_strequ(redir->file, "-") && redir->fd_in != -1)
 	{
 		close(STDOUT_FILENO);
 		close(STDERR_FILENO);
