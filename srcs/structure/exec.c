@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 16:18:28 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 16:32:35 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ int		exec_start(t_init *init)
 		{
 			saving_fd(std_fd);
 			if (!redirection(tmp))
-				return (2);
+				return (reset_fd(std_fd, tmp->redir));
 			check_cmd(tmp, init);
+			reset_fd(std_fd, tmp->redir);
 			tmp = tmp->next;
-			reset_fd(std_fd);
 		}
 		tmp2 = tmp2->next_semi;
 	}

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/07 11:29:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/07 16:34:15 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,7 @@ t_redir	*handle_simple(t_redir *redir)
 		which_error(file_error(redir->file), redir->file);
 		return (NULL);
 	}
-	if (redir->fd_in == -1)
-	{
-		dup2(fd, STDOUT_FILENO);
-		dup2(fd, STDERR_FILENO);
-	}
-	else
-		dup2(fd, redir->fd_in);
+	dup2(fd, redir->fd_in);
 	redir->fd_out = fd;
 	return (redir);
 }
@@ -65,15 +59,13 @@ t_redir	*handle_allfd(t_redir *redir)
 
 t_redir	*handle_closingfd(t_redir *redir)
 {
-	struct stat	*buf;
+	struct stat	buf;
 	char		*tmp;
 
-	buf = NULL;
 	redir->fd_out = ft_atoi(redir->file);
-	if (redir->fd_out > 2 && fstat(redir->fd_out, buf) == -1)
+	if (redir->fd_out > 2 && fstat(redir->fd_out, &buf) == -1)
 	{
 		tmp = ft_itoa(redir->fd_out);
-		ft_putendl(tmp);
 		which_error(BADFD, tmp);
 		ft_strdel(&tmp);
 		return (NULL);
@@ -85,10 +77,9 @@ t_redir	*handle_closingfd(t_redir *redir)
 
 t_redir	*handle_simplefd(t_redir *redir)
 {
-	struct stat	*buf;
+	struct stat	buf;
 	char		*tmp;
 
-	buf = NULL;
 	if (redir->file && ft_strequ(redir->file, "-"))
 	{
 		redir->fd_in = (redir->fd_in == -1) ? 1 : redir->fd_in;
@@ -100,7 +91,7 @@ t_redir	*handle_simplefd(t_redir *redir)
 		return (handle_allfd(redir));
 	if (redir->file && ft_isdigit(*redir->file) && ft_strchr(redir->file, '-'))
 		return (handle_closingfd(redir));
-	if (redir->fd_out > 2 && fstat(redir->fd_out, buf) == -1)
+	if (redir->fd_out > 2 && fstat(redir->fd_out, &buf) == -1)
 	{
 		tmp = ft_itoa(redir->fd_out);
 		which_error(BADFD, tmp);
@@ -121,13 +112,16 @@ t_redir	*handle_back(t_redir *redir)
 		return (NULL);
 	}
 	redir->fd_in = fd;
+	dup2(fd, redir->fd_in);
 	return (redir);
 }
 
 t_redir	*handle_backfd(t_redir *redir)
 {
-	int		fd;
+	struct stat		*buf;
+	char			*tmp;
 
+	buf = NULL;
 	if (redir->file && ft_strequ(redir->file, "-"))
 	{
 		redir->fd_out = TOCLOSE;
@@ -139,13 +133,15 @@ t_redir	*handle_backfd(t_redir *redir)
 		which_error(AMBIGOUS, NULL);
 		return (NULL);
 	}
-	if ((fd = open(redir->file, O_RDONLY)) == -1)
+	if (redir->fd_out > 2 && fstat(redir->fd_out, buf) == -1)
 	{
-		which_error(file_error(redir->file), redir->file);
+		tmp = ft_itoa(redir->fd_out);
+		which_error(BADFD, tmp);
+		ft_strdel(&tmp);
 		return (NULL);
 	}
-	redir->fd_out = fd;
-	dup2(fd, redir->fd_in);
+	redir->fd_in = (redir->fd_in == -1) ? 0 : redir->fd_in;
+	dup2(redir->fd_out, redir->fd_in);
 	return (redir);
 }
 
