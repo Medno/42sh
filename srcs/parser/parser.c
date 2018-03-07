@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/07 10:54:23 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/07 14:18:21 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ int	check_first(t_lex *first)
 		if (first->token != EOI)
 			ft_printf_fd(STDERR_FILENO,
 			"42sh: syntax error near unexpected token '%s'\n", first->value);
-		del_lex(first);
 		return (1);
 	}
 	return (0);
 }
 
-int	err_pars(t_lex *tmp, t_lex *del)
+int	err_pars(t_lex *tmp)
 {
 	if (is_redir(tmp))
 	{
@@ -46,7 +45,6 @@ int	err_pars(t_lex *tmp, t_lex *del)
 		{
 			ft_printf_fd(STDERR_FILENO,
 			"42sh: syntax error near unexpected token '%s'\n", tmp->value);
-			del_lex(del);
 			return (1);
 		}
 	}
@@ -58,7 +56,6 @@ int	err_pars(t_lex *tmp, t_lex *del)
 		{
 			ft_printf_fd(STDERR_FILENO,
 			"42sh: syntax error near unexpected token '%s'\n", tmp->value);
-			del_lex(del);
 			return (1);
 		}
 	return (0);
@@ -102,7 +99,7 @@ int	parser(t_init *init)
 	tmp = init->lex;
 	while (tmp->token != EOI)
 	{
-		if (err_pars(tmp, init->lex))
+		if (err_pars(tmp))
 			return (1);
 		if (repeat_line_edition(init, tmp))
 			return (-1);

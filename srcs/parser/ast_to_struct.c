@@ -6,25 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:18:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 16:57:53 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/07 13:54:34 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-t_cmd	*init_cmd_p(void)
-{
-	t_cmd	*cmd;
-
-	if (!(cmd = (t_cmd *)malloc(sizeof(t_cmd))))
-		return (NULL);
-	cmd->arg = NULL;
-	cmd->redir = NULL;
-	cmd->separ = NULL;
-	cmd->next = NULL;
-	cmd->next_semi = NULL;
-	return (cmd);
-}
 
 t_redir	*put_redir(t_ast *ast)
 {

@@ -6,27 +6,28 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 13:15:09 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/07 14:42:59 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	ft_clean_redir(t_redir *redir)
+void	clean_one_redir(t_redir **del)
 {
-	t_redir *tmp;
-	t_redir	*del;
-
-	tmp = redir;
-	while (tmp)
+	if (*del)
 	{
-		del = tmp;
-		tmp = tmp->next;
-		ft_strdel(&(del->file));
-		ft_strdel(&(del->token));
-		del->next = NULL;
-		ft_memdel((void **)&del);
+		ft_strdel(&(*del)->file);
+		ft_strdel(&(*del)->token);
+		(*del)->next = NULL;
+		ft_memdel((void **)del);
 	}
+}
+
+void	clean_redir(t_redir **redir)
+{
+	if (*redir && (*redir)->next)
+		clean_redir(&(*redir)->next);
+	clean_one_redir(redir);
 }
 
 t_redir	*init_redir(void)

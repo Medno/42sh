@@ -18,8 +18,9 @@ int					is_redir(t_lex *tmp);
 t_cmd				*ast_to_struct(t_ast *ast);
 void				print_cmd(t_cmd *cmd);
 void				quote_remove(t_init *init);
-void				ft_clean_redir(t_redir *redir);
-void				ft_clean_cmd(t_cmd *cmd);
+void				clean_redir(t_redir **redir);
 t_redir				*init_redir(void);
+void				clean_cmd(t_cmd **cmd);
+t_cmd				*init_cmd_p(void);
 
 #endif
