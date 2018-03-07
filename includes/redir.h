@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/07 14:01:44 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/07 18:02:57 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_redir	*handle_back(t_redir *redir);
 t_redir	*handle_backfd(t_redir *redir);
 t_redir	*handle_heredoc(t_redir *redir);
 t_redir	*handle_redirall(t_redir *redir);
+t_redir	*handle_rw(t_redir *redir);
 
 /*
 ** Error case >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
