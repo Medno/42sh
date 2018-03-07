@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/07 14:43:59 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/07 19:22:01 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int				step_2(t_init *init)
 	quote_again = exec_start(init);
 	clean_cmd(&init->cmd);
 	del_lex(init->lex);
-//	ft_clean_cmd(init->cmd);
 	return (quote_again);
 }
 
