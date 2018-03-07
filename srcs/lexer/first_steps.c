@@ -62,15 +62,12 @@ t_lex		*enter_quote(t_lex *new, char *str, int *i, char buf[])
 	new->token = WORD;
 	g_quote = str[*i];
 	ft_strcat(buf, read);
-	if (g_quote == '\\')
+	if (g_quote == '\\' && str[*i + 1])
 	{
 		(*i)++;
-		if (str[*i])
-		{
-			read[0] = str[*i];
-			ft_strcat(buf, read);
-			g_quote = 0;
-		}
+		read[0] = str[*i];
+		g_quote = 0;
+		ft_strcat(buf, read);
 	}
 	return (new);
 }
