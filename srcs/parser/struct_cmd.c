@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_line.c                                          :+:      :+:    :+:   */
+/*   struct_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 17:53:47 by pchadeni         ###   ########.fr       */
+/*   Created: 2018/03/07 13:17:33 by hlely             #+#    #+#             */
+/*   Updated: 2018/03/07 13:18:05 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_clean_cmd(t_cmd *cmd)
 			ft_strdel(&(tmp->separ));
 			ft_freetab(tmp->arg);
 			ft_clean_redir(tmp->redir);
-			free(tmp);
+			ft_memdel((void **)tmp);
 			tmp = tmp->next;
 		}
 		tmp = next_phrase;

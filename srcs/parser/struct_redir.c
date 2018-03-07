@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 17:53:55 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/07 13:15:09 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 void	ft_clean_redir(t_redir *redir)
 {
 	t_redir *tmp;
+	t_redir	*del;
 
 	tmp = redir;
 	while (tmp)
 	{
-		redir = redir->next;
-		ft_strdel(&(tmp->file));
-		ft_strdel(&(tmp->token));
-		free(tmp);
-		tmp = redir;
+		del = tmp;
+		tmp = tmp->next;
+		ft_strdel(&(del->file));
+		ft_strdel(&(del->token));
+		del->next = NULL;
+		ft_memdel((void **)&del);
 	}
 }
 
