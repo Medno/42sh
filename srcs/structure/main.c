@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 10:54:15 by pchadeni         ###   ########.fr       */
+/*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
+/*   Updated: 2018/03/07 10:56:04 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int				main(int ac, char **av, char **environ)
 		if (!ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env))
 			ft_exit(&init);
 		ft_cfmakedefault(&init.current);
-		step_2(&init);
+		if (init.str)
+			step_2(&init);
 		ft_strdel(&init.str);
 	}
 	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)
