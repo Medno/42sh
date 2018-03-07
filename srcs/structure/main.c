@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 09:59:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 10:54:15 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ int				step_2(t_init *init)
 {
 	int				quote_again;
 
-	quote_again = 1;
-	while (quote_again)
+	quote_again = -1;
+	while (quote_again == -1)
 	{
 		g_quote = 0;
 		init->lex = lexer(init->str);
 		quote_again = parser(init);
 	}
 	exec_start(init);
-	return (1);
+	return (quote_again);
 }
 
 int				main(int ac, char **av, char **environ)
