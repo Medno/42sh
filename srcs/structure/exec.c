@@ -67,7 +67,7 @@ int		check_cmd(t_cmd *cmd, t_init *init)
 		return (ret);
 	else
 	{
-		if (!check_path(cmd->arg[0], &init->new_env, &path))
+		if (!(ret = check_path(cmd->arg[0], &init->new_env, &path)))
 			return (fork_cmd(init, path));
 		else
 		{

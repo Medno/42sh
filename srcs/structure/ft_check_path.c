@@ -66,7 +66,7 @@ static int	check_bin(char *str, t_env **env, char **s_fin)
 	}
 	ft_strdel(&tmp);
 	ft_freetab(path);
-	if (ret != 0)
+	if (ret)
 		ret = 1;
 	return (ret);
 }
