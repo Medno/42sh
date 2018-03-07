@@ -18,7 +18,6 @@ static void	final_exit(t_init *init, unsigned char x)
 	hist_to_file(init->historic);
 	ft_strdel(&init->str);
 	free_list(&init->new_env);
-	getchar();
 	exit(x);
 }
 

@@ -68,3 +68,7 @@ ls -R
 ls /
 pwd
 exit
+ls
+echo $?
+env
+exit
