@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 10:33:57 by kyazdani         ###   ########.fr       */
+/*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
+/*   Updated: 2018/03/07 10:56:04 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ int				step_2(t_init *init)
 {
 	int				quote_again;
 
-	quote_again = 1;
-	while (quote_again)
+	quote_again = -1;
+	while (quote_again == -1)
 	{
 		g_quote = 0;
 		init->lex = lexer(init->str);
 		quote_again = parser(init);
 	}
-	return (1);
+	exec_start(init);
+	return (quote_again);
 }
 
 int				main(int ac, char **av, char **environ)

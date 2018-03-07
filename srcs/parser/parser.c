@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/07 10:21:29 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/07 10:54:23 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,25 +98,22 @@ int	parser(t_init *init)
 	t_cmd	*cmd;
 
 	if (check_first(init->lex))
-		return (0);
+		return (1);
 	tmp = init->lex;
 	while (tmp->token != EOI)
 	{
 		if (err_pars(tmp, init->lex))
-			return (0);
-		if (repeat_line_edition(init, tmp))
 			return (1);
+		if (repeat_line_edition(init, tmp))
+			return (-1);
 		tmp = tmp->next;
 	}
 	tmp = init->lex;
 	ast = build_ast(tmp);
-//	print_ast(ast, NULL);
 	cmd = ast_to_struct(ast);
 //	print_cmd(cmd);
-	//ft_clean_cmd(cmd);
 	init->cmd = cmd;
 //	quote_remove(init);
 	del_ast(&ast);
-	del_lex(init->lex);
 	return (0);
 }
