@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:26:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 16:29:53 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/07 10:17:34 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ static t_lex	*categorize_token(t_lex *new)
 
 t_lex			*put_in_new(t_lex *new, char *buf)
 {
+	int	len;
+
+	len = ft_strlen(buf);
 	new->value = ft_strdup(buf);
 	new = categorize_token(new);
-	ft_bzero(buf, sizeof(buf));
+	ft_bzero(buf, len);
 	new->next = init_lexer();
 	new->next->prev = new;
 	new = new->next;
