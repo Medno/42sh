@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:48:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 09:59:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 10:33:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int				step_2(t_init *init)
 		init->lex = lexer(init->str);
 		quote_again = parser(init);
 	}
-	exec_start(init);
 	return (1);
 }
 
@@ -56,7 +55,8 @@ int				main(int ac, char **av, char **environ)
 		if (!ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env))
 			ft_exit(&init);
 		ft_cfmakedefault(&init.current);
-		step_2(&init);
+		if (init.str)
+			step_2(&init);
 		ft_strdel(&init.str);
 	}
 	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)

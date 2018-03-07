@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 10:17:07 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 10:34:40 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ static int	set_bits(int c, int fl)
 	else if (c == 'p')
 		fl |= 16;
 	else if (c == 's')
-	{
 		fl |= 32;
-		if (fl & 16)
-			fl ^= 16;
-	}
 	else if (c == 'c')
 		fl |= 64;
 	else if (c == 'd')
@@ -51,6 +47,15 @@ static int	check_bits(int fl)
 	return (0);
 }
 
+static int		check_num(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigt(*str))
+			;
+	}
+}
+
 static int		step_2(t_hist **histo, char **str, int flags)
 {
 	if (!flags)
@@ -65,10 +70,10 @@ static int		step_2(t_hist **histo, char **str, int flags)
 		;//r
 	else if (8 & flags)
 		;//n
+	if (32 & flags)
+		;//s
 	if (16 & flags)
 		;//p
-	else if (32 & flags)
-		;
 	if (128 & flags)
 		return (free_offset_hist(histo, g_optarg));
 	return (0);
