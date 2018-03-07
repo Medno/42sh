@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 10:09:07 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 13:04:52 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,33 @@ int					check_builtins(char **entry, t_init *init);
 /*
 ** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
+/*
+** > cd <
+*/
 int					ft_cd(t_env **env, char **str, int len);
 void				ft_cd_l(t_env **env, char *curpath, char *dir);
 char				**delete_and_paste(char **arr, int i);
 char				*paste_strs(char *str, char *new);
 char				*paste_path(char *s1, char *s2);
 void				handle_cd_error(char *str);
+/*
+** > echo | env | exit <
+*/
 int					ft_echo(char **str);
 int					ft_env(t_env *env, char **entry);
 int					ft_setenv(t_env **list, char *name, char *content);
 int					ft_unsetenv(t_env **list, char *name);
+void				ft_exit(t_init *init);
+/*
+** > history <
+*/
 int					ft_history(t_hist **histo, char **str, int len);
 int					free_history(t_hist **histo);
 int					free_offset_hist(t_hist **histo, char *offset);
-int					print_history(t_hist **histo, char *str);
-void				ft_exit(t_init *init);
+int					print_history(t_hist **histo, char **str);
+int					replace_w_arg(t_hist **histo, char **str);
+int					append_to_list(t_hist **histo, char *str);
+int					full_hist_file(t_hist **histo, char *str);
 /*
 ** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */

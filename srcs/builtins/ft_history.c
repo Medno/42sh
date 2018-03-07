@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 10:38:31 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/07 13:02:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,40 +47,26 @@ static int	check_bits(int fl)
 	return (0);
 }
 
-static int		check_num(char *str)
-{
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-		{
-			ft_printf_fd(2, "42sh: history: numeric argument required");
-			return (-1);
-		}
-		str++;
-	}
-	return (ft_atoi(str));
-}
-
 static int		step_2(t_hist **histo, char **str, int flags)
 {
 	if (!flags)
-		return (print_history(histo, str[0]));
+		return (print_history(histo, str));
 	if (64 & flags)
 		return (free_history(histo));
+	if (128 & flags)
+		return (free_offset_hist(histo, g_optarg));
 	if (1 & flags)
-		;//append whats been in history in file since launching binary > if no str, file is .history
+		;
 	else if (2 & flags)
-		;//w
+		return (full_hist_file(histo, *str));
 	else if (4 & flags)
-		;//r
+		return (append_to_list(histo, *str));
 	else if (8 & flags)
 		;//n
 	if (32 & flags)
-		;//s
+		return (replace_w_arg(histo, str));
 	if (16 & flags)
 		;//p
-	if (128 & flags)
-		return (free_offset_hist(histo, g_optarg));
 	return (0);
 }
 
