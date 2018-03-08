@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 16:17:52 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:28:13 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int					check_path(char *str, t_env **env, char **s_fin);
 ** > cd <
 */
 int					ft_cd(t_env **env, char **str, int len);
-void				ft_cd_l(t_env **env, char *curpath, char *dir);
+int					ft_cd_l(t_env **env, char *curpath, char *dir);
 char				**delete_and_paste(char **arr, int i);
 char				*paste_strs(char *str, char *new);
 char				*paste_path(char *s1, char *s2);
-void				handle_cd_error(char *str);
+int					handle_cd_error(char *str);
 /*
 ** > echo | env | exit <
 */

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:53:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:35:45 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		do_move(char *path, t_env **env)
 
 	tmp = NULL;
 	if (chdir(path) < 0)
-		return (0);
+		return (1);
 	if (ft_strequ(path, ft_getenv(env, "OLDPWD")))
 	{
 		tmp = ft_strdup(ft_getenv(env, "PWD"));
@@ -34,25 +34,32 @@ static int		do_move(char *path, t_env **env)
 		ft_setenv(env, "PWD", tmp);
 	}
 	ft_strdel(&tmp);
-	return (1);
+	return (0);
 }
 
-void			handle_cd_error(char *str)
+int				handle_cd_error(char *str)
 {
 	struct stat	stats;
 
 	if (stat(str, &stats) < 0)
 	{
 		ft_printf_fd(STDERR_FILENO, "cd: %s: No such file or directory\n", str);
-		return ;
+		return (1);
 	}
 	if (stats.st_mode & S_IFDIR)
 	{
 		if (!(S_IXUSR & stats.st_mode))
+		{
 			ft_printf_fd(STDERR_FILENO, "cd: %s: permission denied\n", str);
+			return (1);
+		}
 	}
 	else
+	{
 		ft_printf_fd(STDERR_FILENO, "cd: %s: Not a directory\n", str);
+		return (1);
+	}
+	return (0);
 }
 
 static char		*ft_handle_cdpath(t_env **env, char *dir)
@@ -78,18 +85,18 @@ static char		*ft_handle_cdpath(t_env **env, char *dir)
 	return (curpath);
 }
 
-static void		ft_cd_2(t_env **env, char *dir, int p)
+static int		ft_cd_2(t_env **env, char *dir, int p)
 {
 	char	*curpath;
+	int		ret;
 
-	curpath = NULL;
 	if (ft_strequ(dir, "-"))
 	{
-		if (ft_getenv(env, "OLDPWD") && do_move(ft_getenv(env, "OLDPWD"), env))
+		if (ft_getenv(env, "OLDPWD") && !do_move(ft_getenv(env, "OLDPWD"), env))
 			ft_putendl_fd(ft_getenv(env, "PWD"), STDOUT_FILENO);
-		else
-			write(STDERR_FILENO, "cd: OLDPWD not set\n", 19);
-		return ;
+		else if (write(STDERR_FILENO, "cd: OLDPWD not set\n", 19))
+			return (1);
+		return (0);
 	}
 	if (*dir == '/' || (*dir == '.' && *(dir + 1) == '/') || (*dir == '.'
 		&& *(dir + 1) == '.' && (*dir + 2) == '/') || ft_strequ("/", dir) ||
@@ -99,12 +106,12 @@ static void		ft_cd_2(t_env **env, char *dir, int p)
 		curpath = ft_handle_cdpath(env, dir);
 	if (p)
 	{
-		if (!do_move(curpath, env))
+		if ((ret = do_move(curpath, env)))
 			handle_cd_error(curpath);
 		ft_strdel(&curpath);
+		return (ret);
 	}
-	else
-		ft_cd_l(env, curpath, dir);
+	return (ft_cd_l(env, curpath, dir));
 }
 
 int				ft_cd(t_env **env, char **str, int len)
@@ -129,9 +136,9 @@ int				ft_cd(t_env **env, char **str, int len)
 		if (!ft_getenv(env, "HOME")
 			&& write(STDERR_FILENO, "cd: HOME not set\n", 17))
 			return (1);
-		do_move(ft_getenv(env, "HOME"), env);
+		return (do_move(ft_getenv(env, "HOME"), env));
 	}
 	else
-		ft_cd_2(env, str[g_optind], opt_p);
+		return (ft_cd_2(env, str[g_optind], opt_p));
 	return (0);
 }

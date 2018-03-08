@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/08 10:14:49 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:39:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ int		fork_cmd(t_env **env, t_cmd *cmd, char *path)
 		signal(SIGINT, SIG_DFL);
 		envir = put_in_tab(env);
 		execve(path, cmd->arg, envir);
-		ft_freetab(envir);
-		ft_strdel(&path);
 	}
+	ft_strdel(&path);
 	return (ret);
 }
 

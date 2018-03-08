@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:53:23 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 11:42:35 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,10 @@ static char	*clear_path(char **curpath, char *dir)
 		return ("/");
 	}
 	ft_strdel(curpath);
-	if (!(new_path = paste(arr, new_path, dir)))
-		return (NULL);
-	return (new_path);
+	return (new_path = paste(arr, new_path, dir));
 }
 
-void		ft_cd_l(t_env **env, char *curpath, char *dir)
+int			ft_cd_l(t_env **env, char *curpath, char *dir)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -109,12 +107,10 @@ void		ft_cd_l(t_env **env, char *curpath, char *dir)
 		ft_strdel(&tmp2);
 	}
 	if (!(path = clear_path(&curpath, dir)))
-	{
-		ft_strdel(&path);
-		return ;
-	}
+		return (0);
 	chdir(path);
 	ft_setenv(env, "OLDPWD", ft_getenv(env, "PWD"));
 	ft_setenv(env, "PWD", path);
 	ft_strdel(&path);
+	return (0);
 }
