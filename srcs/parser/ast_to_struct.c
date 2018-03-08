@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:18:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/07 13:54:34 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/08 16:07:52 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ t_cmd	*ast_to_struct(t_ast *ast)
 	if (!ast)
 		return (NULL);
 	cmd = init_cmd_p();
-	if (ft_strequ(ast->value, ";") || ft_strequ(ast->value, "&"))
+	if (ft_strequ(ast->value, ";") || ft_strequ(ast->value, "&&") ||
+			ft_strequ(ast->value, "||"))
 	{
 		if (ast->right)
 			cmd->next_semi = ast_to_struct(ast->right);
