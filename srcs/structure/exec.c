@@ -6,17 +6,12 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/08 09:13:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 09:37:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-/*
-**
-** Ceci est une ebauche de l'execution. Nous pouvons commencer a travailler
-** sur des nouveaux builtins. Good luck >)
-**
-*/
+
 int		check_builtins(char **entry, t_init *init)
 {
 	if (ft_strequ("cd", *entry))
@@ -79,11 +74,31 @@ int		check_cmd(t_cmd *cmd, t_init *init)
 	}
 }
 
+int		check_sep(int ret, char *s)
+{
+	if (ft_strequ(s, "&&"))
+	{
+		if (!ret)
+			return (0);
+		else
+			return (1);
+	}
+	else if (ft_strequ(s, "||"))
+	{
+		if (!ret)
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
+
 int		exec_start(t_init *init)
 {
 	t_cmd	*tmp;
 	t_cmd	*tmp2;
 	int		std_fd[3];
+	int		ret;
 
 	tmp2 = init->cmd;
 	while (tmp2)
@@ -94,9 +109,12 @@ int		exec_start(t_init *init)
 			saving_fd(std_fd);
 			if (!redirection(tmp))
 				return (reset_fd(std_fd, tmp->redir));
-			check_cmd(tmp, init);
+			ret = check_cmd(tmp, init);
 			reset_fd(std_fd, tmp->redir);
-			tmp = tmp->next;
+			if (check_sep(ret, tmp->separ))
+				tmp = tmp->next;
+			if (tmp)
+				tmp = tmp->next;
 		}
 		tmp2 = tmp2->next_semi;
 	}

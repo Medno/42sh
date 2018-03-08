@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 16:20:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 09:37:34 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	is_accessible(char *str)
 		}
 		return (-2);
 	}
+	//CHECK PATHS BEFORE TELLING NO SUCH F OR DIR (if one component of a path is not accessible, access return -1...)
 	return (-1);
 }
 

@@ -7,4 +7,9 @@ ls
 ls -l && ls
 clear
 exit
-
+ls
+ls -R
+ls /
+clear
+eit
+exit
