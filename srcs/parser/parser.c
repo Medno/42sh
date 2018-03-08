@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/08 14:39:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/08 14:41:50 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	repeat_heredoc(t_init *init, t_lex *tmp)
 
 	if (checkout)
 		paste_last_hist(&init->historic);
-	while (tmp->token->IO_HERE)
+	while (tmp->token == IO_HERE)
 	{
 		checkout = 1;
 		ft_cfmakeraw(&init->current);
@@ -107,7 +107,7 @@ int	repeat_heredoc(t_init *init, t_lex *tmp)
 		if (ft_strequ(line_tmp, tmp->value))
 		{
 			tmp->token = WORD;
-			ft_strdel(tmp->value);
+			ft_strdel(&tmp->value);
 			tmp->value = ft_strdup(".tmp_heredoc1");
 			return (1);
 		}
