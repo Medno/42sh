@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/01 16:50:35 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/08 14:54:38 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_ast	*and_or(t_lex *first)
 		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
-		root->left = pipeline(first);
+		root->left = and_or(first);
 		if (sep->next && sep->next->token != EOI)
 			root->right = and_or(sep->next);
 		del_lex(sep);
