@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 14:26:37 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 16:35:23 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/08 14:03:43 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	print_type(t_lex *tmp)
 	ft_putstr("Type : ");
 	if (tmp->token == NONE)
 		ft_putendl("NONE");
+	if (tmp->token == IO_HERE)
+		ft_putendl("IO_HERE");
 	if (tmp->token == WORD)
 		ft_putendl("WORD");
 	if (tmp->token == OP)
