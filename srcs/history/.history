@@ -2,3 +2,9 @@ history -w
 history
 pwd
 exit
+ls -l
+ls
+ls -l && ls
+clear
+exit
+

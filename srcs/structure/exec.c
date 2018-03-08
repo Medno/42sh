@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 16:32:35 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/08 09:13:09 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		check_builtins(char **entry, t_init *init)
 	return (-1);
 }
 
-int		fork_cmd(t_init *init, char *path)
+int		fork_cmd(t_env **env, t_cmd *cmd, char *path)
 {
 	char	**envir;
 	int		ret;
@@ -50,8 +50,8 @@ int		fork_cmd(t_init *init, char *path)
 		wait(&ret);
 	if (!father)
 	{
-		envir = put_in_tab(&init->new_env);
-		execve(path, init->cmd->arg, envir);
+		envir = put_in_tab(env);
+		execve(path, cmd->arg, envir);
 		ft_freetab(envir);
 		ft_strdel(&path);
 	}
@@ -68,7 +68,7 @@ int		check_cmd(t_cmd *cmd, t_init *init)
 	else
 	{
 		if (!(ret = check_path(cmd->arg[0], &init->new_env, &path)))
-			return (fork_cmd(init, path));
+			return (fork_cmd(&init->new_env, cmd, path));
 		else
 		{
 			if (ret == 1)

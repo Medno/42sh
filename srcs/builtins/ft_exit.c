@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 14:57:38 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 09:15:32 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_exit(t_init *init)
 	ret = 0;
 	check = 0;
 	i = -1;
-	if (init->cmd->arg[1])
+	if (init->cmd && init->cmd->arg[1])
 	{
 		while (init->cmd->arg[1][++i])
 		{
