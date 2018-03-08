@@ -13,3 +13,55 @@ ls /
 clear
 eit
 exit
+ls -R /
+ls -R /
+cat -e
+cat -e
+cat
+make
+./42sh
+ls -R /
+make
+exit
+ls -R /
+cat -e
+2&>lala
+2&>lala
+ls
+rm -rf lala
+chmod 777 lala
+rm -r flala
+rm -rf lala
+ls
+2&>lala
+ls
+rm lala
+ls
+2&>/dev/null
+ls
+ls 2&>lala
+ls
+cat lala
+ls
+cat lala
+ls
+ls 2>lala
+cat lala
+rm lala
+ls
+ls 1>lala
+ls
+cat lala
+rm lala
+ls
+ls 2>/dev/null
+ls 2>/dev/null
+clear
+slijf islejf
+"
+
+
+
+'
+"
+

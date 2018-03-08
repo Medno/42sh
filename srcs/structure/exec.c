@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/08 09:37:16 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/08 10:14:49 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,15 @@ int		fork_cmd(t_env **env, t_cmd *cmd, char *path)
 	int		ret;
 	pid_t	father;
 
-	//signal a faire (ctrl C)
 	ret = 0;
 	if ((father = fork()) > 0)
+	{
+		signal(SIGINT, SIG_IGN);
 		wait(&ret);
+	}
 	if (!father)
 	{
+		signal(SIGINT, SIG_DFL);
 		envir = put_in_tab(env);
 		execve(path, cmd->arg, envir);
 		ft_freetab(envir);
