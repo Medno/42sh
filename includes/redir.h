@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/07 18:02:57 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/08 20:04:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 int		redirection(t_cmd *cmd);
 
+char	*create_newheredoc(char *heredoc);
+
 t_redir	*handle_simple(t_redir *redir);
 t_redir	*handle_simplefd(t_redir *redir);
 t_redir	*handle_double(t_redir *redir);
@@ -32,6 +34,8 @@ t_redir	*handle_backfd(t_redir *redir);
 t_redir	*handle_heredoc(t_redir *redir);
 t_redir	*handle_redirall(t_redir *redir);
 t_redir	*handle_rw(t_redir *redir);
+
+void	del_heredoc(void);
 
 /*
 ** Error case >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

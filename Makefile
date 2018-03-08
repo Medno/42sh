@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/07 18:14:56 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/08 17:55:55 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
 REDIR_NAME = redirection.c		\
 			 handle_redir.c		\
 			 error_redir.c		\
+			 heredoc.c			\
 			 setup_fd.c
 REDIR_PATH = redirection/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(REDIR_PATH), $(REDIR_NAME)))
