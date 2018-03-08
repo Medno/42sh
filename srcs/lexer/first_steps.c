@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:30:13 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 17:53:05 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/08 13:43:13 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ t_lex		*enter_quote(t_lex *new, char *str, int *i, char buf[])
 	read[0] = str[*i];
 	read[1] = '\0';
 	new->token = WORD;
-	g_quote = str[*i];
+	if (!g_quote)
+		g_quote = str[*i];
 	ft_strcat(buf, read);
-	if (g_quote == '\\' && str[*i + 1])
+	if (g_quote == '\"' && str[*i] == '\\' && str[*i + 1])
 	{
 		(*i)++;
 		read[0] = str[*i];
-		g_quote = 0;
 		ft_strcat(buf, read);
 	}
 	return (new);
