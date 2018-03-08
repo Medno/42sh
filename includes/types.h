@@ -80,24 +80,6 @@ typedef struct		s_lex
 	struct s_lex	*prev;
 }					t_lex;
 
-typedef struct		s_ast
-{
-	char			*value;
-	struct s_ast	*parent;
-	struct s_ast	*left;
-	struct s_ast	*right;
-}					t_ast;
-
-typedef struct		s_edit
-{
-	t_line			**current;
-	t_hist			**histo;
-	t_curs			curseur;
-	t_comp			*comp;
-	t_env			*env;
-	int				prompt_len;
-}					t_edit;
-
 typedef struct		s_redir
 {
 	int				fd_in;
@@ -115,6 +97,25 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*next_semi;
 }					t_cmd;
+
+typedef struct		s_ast
+{
+	char			*value;
+	t_cmd			*cmd;
+	struct s_ast	*parent;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
+
+typedef struct		s_edit
+{
+	t_line			**current;
+	t_hist			**histo;
+	t_curs			curseur;
+	t_comp			*comp;
+	t_env			*env;
+	int				prompt_len;
+}					t_edit;
 
 typedef struct		s_init
 {

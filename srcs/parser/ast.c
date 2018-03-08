@@ -56,7 +56,40 @@ t_ast	*command(t_lex *first)
 	}
 	return (root);
 }
+/*
+t_cmd	*put_redir(t_cmd *cmd, t_lex *tmp)
+{
+	cmd->redir = init_redir();
+	cmd->redir = put_fd_in();
+	if (is_number(tmp->value))
+		tmp = tmp->next;
+	cmd->redir->token = ft_strdup(tmp);
+	tmp = tmp->next;
+}
 
+t_cmd	*put_in_cmd(t_cmd *cmd, t_lex *tmp)
+{
+}
+
+t_ast	*command(t_lex *first)
+{
+	t_ast	*root;
+	t_lex	*tmp;
+
+	tmp = first;
+	root = init_ast();
+	root->cmd = init_cmd();
+	while (tmp)
+	{
+		if (is_redir(tmp))
+			root->cmd = put_redir(root->cmd, tmp);
+		else
+			root->cmd = put_in_cmd(root->cmd, tmp);
+	}
+	del_lex(first);
+	return (root);
+}
+*/
 t_ast	*pipeline(t_lex *first)
 {
 	t_ast	*root;

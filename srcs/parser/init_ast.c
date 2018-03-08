@@ -19,6 +19,7 @@ t_ast	*init_ast(void)
 	if (!(tmp = (t_ast *)malloc(sizeof(t_ast))))
 		return (NULL);
 	tmp->value = NULL;
+	tmp->cmd = NULL;
 	tmp->parent = NULL;
 	tmp->left = NULL;
 	tmp->right = NULL;
@@ -30,6 +31,7 @@ void	del_ast(t_ast **root)
 	if (*root && !(*root)->left && !(*root)->right)
 	{
 		ft_strdel(&((*root)->value));
+		clean_cmd(&(*root)->cmd);
 		free(*root);
 		(*root) = NULL;
 		return ;
