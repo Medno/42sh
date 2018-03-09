@@ -1,66 +1,159 @@
-history -w
-history
-pwd
-exit
-ls -l
+history -
+histo
+p
+ex
+ls 
+ls -l && 
+cle
+ex
+ls 
 ls
-ls -l && ls
-clear
-exit
-ls
+cle
+e
+ex
 ls -R
-ls /
-clear
-eit
-exit
+ls -R
+cat 
+cat 
+c
+ma
+./42
+ls -R
+ma
+ex
+ls -R
+cat 
+2&>la
+2&>la
+rm -rf la
+chmod 777 la
+rm -r fla
+rm -rf la
+2&>la
+rm la
+2&>/dev/nu
+ls 2&>la
+cat la
+cat la
+ls 2>la
+cat la
+rm la
+ls 1>la
+cat la
+rm la
+ls 2>/dev/nu
+ls 2>/dev/nu
+cle
+slijf isle
+cd p
+cd 
+l
+ls && l
+ls -l &
+c
+mkdir lala && cp -r /bin/ls ./lala && ./lal
+chmod 00
+chmod 000 
+./
+./la
+sfijie fief jsei jfsei fjseif j
+;e fij
+ef isj
+ 
+e f
+se ifjsf
+ ijef
+;seif ji;s
+ js
+ eifjse
+ sefj
+j 
+ejfs 
+js
+fsej 
+e 
+k
+l
+ls -R 
+l
+ls -R
+l
+ls
+ls
+l
+l
+ls 
+ls 
+l
+s
+s
+l
+ls -R 
+en
+env l
+env ls -R 
+l
+ls 
+ls 
+ls 
+ls 
+ls "
+"
+ls "
+aufhsuhse fkuseh sukefh jliiljij
+"
+ls
+ls "
+"
+ls
+ls "
+"
+ls "
+"
+ls"
+"
+ls "
+"
+ls "
+vj;j;i
+"
+ls
+ls "
+"
+ls "
+"
+ls
+ls "
+ls "
+"
+ls "
+"
+ls
 ls -R /
+ls
 ls -R /
-cat -e
-cat -e
 cat
-make
-./42sh
+cat -e 
 ls -R /
-make
-exit
 ls -R /
-cat -e
-2&>lala
-2&>lala
+ls -R /
 ls
-rm -rf lala
-chmod 777 lala
-rm -r flala
-rm -rf lala
+ls -R /
+cat
+cat
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
+ls -R /
 ls
-2&>lala
 ls
-rm lala
-ls
-2&>/dev/null
-ls
-ls 2&>lala
-ls
-cat lala
-ls
-cat lala
-ls
-ls 2>lala
-cat lala
-rm lala
-ls
-ls 1>lala
-ls
-cat lala
-rm lala
-ls
-ls 2>/dev/null
-ls 2>/dev/null
-clear
-slijf islejf
-"
-'
-"
-cd prout
-cd lala
 

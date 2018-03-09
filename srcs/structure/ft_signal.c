@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paste_quote_history.c                              :+:      :+:    :+:   */
+/*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/05 15:29:48 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 09:25:41 by kyazdani         ###   ########.fr       */
+/*   Created: 2018/03/09 10:14:23 by kyazdani          #+#    #+#             */
+/*   Updated: 2018/03/09 10:14:38 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "sh.h"
 
-void		paste_last_hist(t_hist **histo)
+void	sig_write_nl(int x)
 {
-	t_hist	*tmp;
-
-	(*histo) = (*histo)->prev;
-	tmp = (*histo)->next;
-	(*histo)->line = ft_strjoindel((*histo)->line, tmp->line);
-	(*histo)->next = NULL;
-	ft_strdel(&tmp->line);
-	ft_memdel((void **)&tmp);
+	(void)x;
+	write(1, "\n", 1);
+	signal(SIGINT, SIG_IGN);
 }

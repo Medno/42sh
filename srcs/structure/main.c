@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/08 20:49:17 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/09 10:39:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int				main(int ac, char **av, char **environ)
 	if (!isatty(STDIN_FILENO))
 		return (0);
 	init_all(environ, &init);
+	g_in = &init;
 	while (42)
 	{
 		len_prompt = put_path(&init.new_env);

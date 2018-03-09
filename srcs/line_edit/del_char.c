@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:33 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/02 10:35:30 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 09:44:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ static void	print_del(t_line *cur, int len)
 
 t_line		*del_next(t_line *cur)
 {
-	t_line	*del;
+	t_line	*tmp;
 
-	del = cur;
-	if (del && del->c)
+	tmp = cur;
+	if (tmp && tmp->c)
 	{
 		cur = cur->next;
-		cur->prev = del->prev;
-		if (del->prev)
-			del->prev->next = cur;
-		del_one_elem(del);
+		cur->prev = tmp->prev;
+		if (tmp->prev)
+			tmp->prev->next = cur;
+		del_one_elem(tmp);
 		increment_all(cur, -1);
 		ansi("CL_END", 0, STDIN_FILENO);
 		print_del(cur, last_index(cur) - cur->index);

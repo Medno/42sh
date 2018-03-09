@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 10:14:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 10:39:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static int	edit_end(char **line, t_edit *edit)
 {
 	*edit->current = moove_last(*edit->current, &edit->curseur);
+	*edit->current = push_new(*edit->current, '\n', &edit->curseur);
 	handle_history_ret(*edit->current, edit->histo);
 	*line = line_to_str(*edit->current);
 	free_dblist(*edit->current);
-	write(STDIN_FILENO, "\n", 1);
 	return (1);
 }
 
@@ -49,6 +49,15 @@ int			edit_line(char **line, t_edit *edit)
 	return (0);
 }
 
+void			sig_test(int x)
+{
+	ft_strdel(&g_in->str);
+	free_dblist(*g_ed->current);
+	write(0, "\n", 1);
+	x = put_path(&g_in->new_env);	
+	signal(SIGINT, (void (*)(int))sig_test);
+}
+
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 			t_env *env)
 {
@@ -57,6 +66,7 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	t_curs			curseur;
 	int				ret;
 
+	signal(SIGINT, (void (*)(int))sig_test);
 	if (prompt_len == -1)
 	{
 		prompt_len = 2;
@@ -71,6 +81,7 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	edit.curseur = curseur;
 	edit.comp = init_t_comp();
 	edit.env = env;
+	g_ed = &edit;
 	ret = edit_line(line, &edit);
 	ft_clean_edit(&edit);
 	return (ret);

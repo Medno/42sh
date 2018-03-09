@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:25:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 11:35:52 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 09:26:22 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,10 @@ void	init_hist(t_hist **histo)
 
 void	handle_history_ret(t_line *cur, t_hist **histo)
 {
-	t_hist	*tmp;
-
 	while ((*histo)->next)
 		*histo = (*histo)->next;
 	ft_strdel(&(*histo)->line);
-	if (!cur->next && !cur->prev && !cur->c)
-	{
-		if (!(*histo)->prev)
-			ft_memdel((void **)histo);
-		else
-		{
-			if (g_quote)
-			{
-				(*histo)->line = ft_strdup("\n");
-				return ;
-			}
-			tmp = *histo;
-			*histo = (*histo)->prev;
-			(*histo)->next = NULL;
-			ft_memdel((void **)&tmp);
-		}
-	}
-	else
-		(*histo)->line = line_to_str(cur);
+	(*histo)->line = line_to_str(cur);
 }
 
 t_line	*str_to_line(char *str, int prompt, t_curs *curseur)
@@ -66,7 +46,7 @@ t_line	*str_to_line(char *str, int prompt, t_curs *curseur)
 	t_line	*cur;
 
 	cur = create_elem(0, prompt + 1);
-	while (str && *str)
+	while (str && *str && *(str + 1))
 	{
 		push_new(cur, *str, curseur);
 		str++;
