@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 13:33:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:06:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,11 @@ int				step_2(t_init *init)
 	return (quote_again);
 }
 
-int				main(int ac, char **av, char **environ)
+int				step_1(t_init init)
 {
-	int				len_prompt;
-	t_init			init;
+	int		len_prompt;
 
-	if (!isatty(STDIN_FILENO))
-		return (0);
-	init_all(environ, &init);
-	g_in = &init;
+	signal(SIGINT, (void (*)(int))sigint_prompt);
 	while (42)
 	{
 		len_prompt = put_path(&init.new_env);
@@ -65,6 +61,17 @@ int				main(int ac, char **av, char **environ)
 			step_2(&init);
 		ft_strdel(&init.str);
 	}
+}
+
+int				main(int ac, char **av, char **environ)
+{
+	t_init			init;
+
+	if (!isatty(STDIN_FILENO))
+		return (0);
+	init_all(environ, &init);
+	g_in = &init;
+	step_1(init);
 	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)
 	(void)av;
 	return (0);

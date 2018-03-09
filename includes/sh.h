@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 13:32:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:05:41 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int					exec_start(t_init *init);
 int					check_cmd(t_cmd *cmd, t_init *init);
 int					check_builtins(char **entry, t_init *init);
 int					check_path(char *str, t_env **env, char **s_fin);
+int					step_1(t_init init);
 /*
 ** signals
 */
 void				sig_write_nl(int x);
+void				sigint_prompt(int x);
 /*
 ** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */

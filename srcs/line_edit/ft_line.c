@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 10:39:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:04:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ int			edit_line(char **line, t_edit *edit)
 	return (0);
 }
 
-void			sig_test(int x)
+void			sigint_prompt(int x)
 {
+	edit_end(&g_in->str, g_ed);
 	ft_strdel(&g_in->str);
-	free_dblist(*g_ed->current);
-	write(0, "\n", 1);
-	x = put_path(&g_in->new_env);	
-	signal(SIGINT, (void (*)(int))sig_test);
+	step_1(*g_in);
+	signal(SIGINT, (void (*)(int))sigint_prompt);
+	(void)x;
 }
 
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
@@ -66,12 +66,8 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	t_curs			curseur;
 	int				ret;
 
-	signal(SIGINT, (void (*)(int))sig_test);
-	if (prompt_len == -1)
-	{
+	if (prompt_len == -1 && ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}"))
 		prompt_len = 2;
-		ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}");
-	}
 	edit.prompt_len = prompt_len;
 	current = create_elem(0, prompt_len + 1);
 	init_hist(histo);
