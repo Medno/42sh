@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 14:04:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:17:23 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,6 @@ int			edit_line(char **line, t_edit *edit)
 			*edit->current = ft_line_usual(edit, c);
 	}
 	return (0);
-}
-
-void			sigint_prompt(int x)
-{
-	edit_end(&g_in->str, g_ed);
-	ft_strdel(&g_in->str);
-	step_1(*g_in);
-	signal(SIGINT, (void (*)(int))sigint_prompt);
-	(void)x;
 }
 
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
