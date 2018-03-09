@@ -10,22 +10,22 @@ int					parser(t_init *init);
 /*
 ** ast
 */
-t_ast				*build_ast(t_lex *first);
 t_ast				*init_ast(void);
-t_ast				*io_file(t_lex *first);
-t_ast				*io_redirect(t_lex *first);
 void				del_ast(t_ast **root);
-void				print_ast(t_ast *root, char *pos);
+t_ast				*build_ast(t_lex *first);
 void				paste_last_hist(t_hist **histo);
+void				print_ast(t_ast *root, char *pos);
 /*
 ** command
 */
-t_cmd				*init_cmd_p(void);
-void				clean_cmd(t_cmd **cmd);
+t_cmd				*init_cmd(void);
 t_redir				*init_redir(void);
+void				clean_cmd(t_cmd **cmd);
 void				clean_redir(t_redir **redir);
+t_redir				*put_fd_in(t_redir *redir, t_lex *tmp);
+t_cmd				*put_redir(t_cmd *cmd, t_lex *tmp, int *loop);
+t_cmd				*put_in_cmd(t_cmd *cmd, t_lex *tmp);
 int					is_redir(t_lex *tmp);
-t_cmd				*ast_to_struct(t_ast *ast);
 void				print_cmd(t_cmd *cmd);
 /*
 ** quote remove

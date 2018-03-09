@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 13:25:59 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/07 14:43:13 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:33:12 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_cmd	*init_cmd_p(void)
+t_cmd	*init_cmd(void)
 {
 	t_cmd	*cmd;
 
@@ -45,7 +45,6 @@ void	clean_next(t_cmd **cmd)
 		clean_next(&(*cmd)->next);
 	clean_one_cmd(cmd);
 }
-
 
 void	clean_cmd(t_cmd **cmd)
 {

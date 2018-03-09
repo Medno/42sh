@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:54:26 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 17:00:31 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:33:43 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	print_ast(t_ast *root, char *pos)
 			ft_putstr("Fils de : ");
 			ft_putendl(root->parent->value);
 		}
-		ft_putendl(root->value);
+		if (root->cmd)
+			print_cmd(root->cmd);
+		else if (root->value)
+			ft_putendl(root->value);
 		if (root->left)
 			print_ast(root->left, "Fils Gauche");
 		if (root->right)

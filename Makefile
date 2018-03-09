@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/09 10:16:02 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/09 14:29:26 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,13 +93,12 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 
 ### PARSER ###
 PARSER_NAME = ast.c init_ast.c	\
+			  init_cmd.c		\
+			  init_redir.c		\
+			  put_in_cmd.c		\
 			  parser.c			\
-			  redir_ast.c		\
-			  ast_to_struct.c	\
-			  struct_redir.c	\
 			  quote_esc.c		\
 			  quote_remove.c	\
-			  init_cmd.c		\
 			  print_smtg.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
