@@ -6,28 +6,31 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:13:31 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/07 18:59:26 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/09 17:15:31 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-char	*esc_backslash(char *res, char *str, int *i)
+char	*esc_backslash(char *str, int *i)
 {
+	char	*res;
 	char	read[2];
 	int		j;
 
+	res = NULL;
 	j = *i + 1;
 	read[0] = str[j];
 	read[1] = '\0';
 	if (read[0] != '\n')
-		res = ft_strjoindel(res, read);
+		res = ft_strdup(read);
 	*i = j;
 	return (res);
 }
 
-char	*esc_simple_qu(char *res, char *str, int *i, int len)
+char	*esc_simple_qu(char *str, int *i, int len)
 {
+	char	*res;
 	char	buffer[len + 1];
 	int		j;
 
@@ -38,13 +41,14 @@ char	*esc_simple_qu(char *res, char *str, int *i, int len)
 		buffer[j - *i - 1] = str[j];
 		j++;
 	}
-	res = ft_strjoindel(res, buffer);
+	res = ft_strdup(buffer);
 	*i = j;
 	return (res);
 }
 
-char	*esc_double_qu(char *res, char *str, int *i, int len)
+char	*esc_double_qu(t_init *init, char *str, int *i, int len)
 {
+	char	*res;
 	char	buffer[len + 1];
 	int		j;
 
@@ -55,7 +59,8 @@ char	*esc_double_qu(char *res, char *str, int *i, int len)
 		buffer[j - *i - 1] = str[j];
 		j++;
 	}
-	res = ft_strjoindel(res, buffer);
+	res = ft_strdup(buffer);
 	*i = j;
+	(void)init;
 	return (res);
 }

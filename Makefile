@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/09 14:39:17 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/09 18:11:58 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,6 +99,7 @@ PARSER_NAME = ast.c init_ast.c	\
 			  parser.c			\
 			  quote_esc.c		\
 			  quote_remove.c	\
+			  expansions.c		\
 			  print_smtg.c		\
 			  repeat_line.c
 PARSER_PATH = parser/

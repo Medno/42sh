@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/08 13:50:41 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/09 16:51:25 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct		s_init
 	t_lex			*lex;
 	t_env			*new_env;
 	t_hist			*historic;
-	t_cmd			*cmd;
+	t_ast			*ast;
 	struct termios	current;
 }					t_init;
 

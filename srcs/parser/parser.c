@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 14:51:31 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/09 18:07:41 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ int	parser(t_init *init)
 	}
 	tmp = init->lex;
 	ast = build_ast(tmp);
-//	print_cmd(cmd);
-//	quote_remove(init);
-	del_ast(&ast);
+//	print_ast(ast, NULL);
+	init->ast = ast;
+//	word_exp(init, init->ast);
+//	clean_ast(&ast);
 	return (0);
 }

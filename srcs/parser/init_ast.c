@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:39:27 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/06 16:55:21 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/09 16:53:32 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_ast	*init_ast(void)
 	return (tmp);
 }
 
-void	del_ast(t_ast **root)
+void	clean_ast(t_ast **root)
 {
 	if (*root && !(*root)->left && !(*root)->right)
 	{
@@ -37,8 +37,8 @@ void	del_ast(t_ast **root)
 		return ;
 	}
 	if ((*root) && (*root)->left)
-		del_ast(&(*root)->left);
+		clean_ast(&(*root)->left);
 	if ((*root) && (*root)->right)
-		del_ast(&(*root)->right);
-	del_ast(root);
+		clean_ast(&(*root)->right);
+	clean_ast(root);
 }

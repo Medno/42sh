@@ -12,7 +12,7 @@ int					repeat_line(t_init *line, t_lex *tmp);
 ** ast
 */
 t_ast				*init_ast(void);
-void				del_ast(t_ast **root);
+void				clean_ast(t_ast **root);
 t_ast				*build_ast(t_lex *first);
 void				paste_last_hist(t_hist **histo);
 void				print_ast(t_ast *root, char *pos);
@@ -31,9 +31,10 @@ void				print_cmd(t_cmd *cmd);
 /*
 ** quote remove
 */
-void				quote_remove(t_init *init);
-char				*esc_backslash(char *res, char *str, int *i);
-char				*esc_simple_qu(char *res, char *str, int *i, int len);
-char				*esc_double_qu(char *res, char *str, int *i, int len);
+void				word_exp(t_init *init, t_ast *ast);
+char				*delete_esc(t_init *init, char *str, int len);
+char				*esc_backslash(char *str, int *i);
+char				*esc_simple_qu(char *str, int *i, int len);
+char				*esc_double_qu(t_init *init, char *str, int *i, int len);
 
 #endif

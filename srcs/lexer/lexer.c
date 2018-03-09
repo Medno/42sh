@@ -6,36 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/08 13:32:59 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/09 16:21:41 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-int		cat_op(char c, char buf[])
-{
-	if (ft_strlen(buf) == 3 || buf[0] == '(' || buf[0] == ')')
-		return (0);
-	if (buf[0] == '<')
-	{
-		if (buf[1] && buf[1] == '<' && c == '-')
-			return (1);
-		if (!buf[1])
-			if (c == '>' || c == '<' || c == '&')
-				return (1);
-	}
-	if (buf[0] == '>' && !buf[1])
-		if (c == '>' || c == '&' || c == '|')
-			return (1);
-	if (buf[0] == '&' && !buf[1])
-		if (c == '&' || c == '<' || c == '>')
-			return (1);
-	if (buf[0] == ';' && !buf[1] && c == ';')
-		return (1);
-	if (buf[0] == '|' && !buf[1] && c == '|')
-		return (1);
-	return (0);
-}
 
 t_lex	*all_steps(t_lex *new, char *str, int *i, char buf[])
 {
