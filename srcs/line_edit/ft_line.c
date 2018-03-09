@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 14:17:23 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 15:48:06 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-static int	edit_end(char **line, t_edit *edit)
+int			edit_end(char **line, t_edit *edit)
 {
 	*edit->current = moove_last(*edit->current, &edit->curseur);
 	*edit->current = push_new(*edit->current, '\n', &edit->curseur);

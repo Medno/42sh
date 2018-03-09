@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 13:49:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 15:47:40 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,6 @@ t_line				*completion(t_edit *edit);
 t_hist				*new_hist(void);
 void				hist_to_file(t_hist *historic);
 
+
+int					edit_end(char **line, t_edit *edit);
 #endif
