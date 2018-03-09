@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:23:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 11:48:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 13:35:24 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,29 @@ static void		append_new(t_hist **list, t_hist *new)
 		tmp->next = new;
 		new->prev = tmp;
 	}
+}
+
+t_hist		*cleanup_nl_hist(t_hist **histo)
+{
+	t_hist	*tmp;
+	t_hist	*tmp2;
+
+	tmp = *histo;
+	if (ft_strequ(tmp->line, "\n"))
+	{
+		ft_strdel(&tmp->line);
+		if (!tmp->prev)
+		{
+			ft_memdel((void **)&tmp);
+			return (NULL);
+		}
+		tmp = tmp->prev;
+		tmp2 = tmp->next;
+		tmp->next = NULL;
+		tmp2->prev = NULL;
+		ft_memdel((void **)&tmp2);
+	}
+	return (tmp);
 }
 
 void			hist_to_file(t_hist *historic)
@@ -79,6 +102,7 @@ t_hist			*new_hist(void)
 		new = NULL;
 		if (*line)
 		{
+			line = ft_strjoindel(line, "\n");
 			if ((new = create_hist(line)))
 				append_new(&list, new);
 			new->nb = ++i;

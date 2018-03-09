@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 10:39:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 13:33:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int				step_2(t_init *init)
 		init->lex = lexer(init->str);
 		quote_again = parser(init);
 	}
+	init->historic = cleanup_nl_hist(&init->historic);
 	quote_again = exec_start(init);
 	clean_cmd(&init->cmd);
 	del_lex(init->lex);

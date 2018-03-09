@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 10:30:56 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 13:32:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int					print_history(t_hist **histo, char **str);
 int					replace_w_arg(t_hist **histo, char **str);
 int					append_to_list(t_hist **histo, char *str);
 int					full_hist_file(t_hist **histo, char *str);
+t_hist				*cleanup_nl_hist(t_hist **histo);
 /*
 ** environment >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
