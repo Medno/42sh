@@ -7,6 +7,7 @@
 ** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 int					parser(t_init *init);
+int					repeat_line(t_init *line, t_lex *tmp);
 /*
 ** ast
 */

@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/24 17:49:45 by kyazdani          #+#    #+#              #
-#    Updated: 2018/03/07 10:17:57 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/09 11:35:07 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ STR_NAME = ft_strlen.c ft_strcspn.c ft_strdup.c ft_strndup.c ft_strcpy.c \
 		   ft_atoi.c ft_strnew.c ft_strdel.c ft_strclr.c ft_striter.c \
 		   ft_striteri.c ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c \
 		   ft_strsub.c ft_strjoin.c ft_strtrim.c ft_strsplit.c ft_itoa.c \
-		   ft_itoa_base.c ft_strstrchr.c ft_strjoindel.c ft_strjoin_infinite.c
+		   ft_itoa_base.c ft_strstrchr.c ft_strjoindel.c ft_strjoin_infinite.c\
+		   ft_strnjoindel.c
 STR_PATH = ft_str/
 SRC += $(addprefix $(STR_PATH), $(STR_NAME))
 

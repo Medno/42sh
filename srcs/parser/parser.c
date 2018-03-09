@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/08 20:54:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/09 14:51:31 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,84 +64,10 @@ int	err_pars(t_lex *tmp)
 	return (0);
 }
 
-int	repeat_line_edition(t_init *init, t_lex *tmp)
-{
-	char		*line_tmp;
-	static int	checkout = 0;
-
-	if (checkout)
-		paste_last_hist(&init->historic);
-	if ((tmp->token == QUOTE && g_quote) ||
-			(tmp->next && tmp->next->token == EOI && (tmp->token == AND_IF
-			|| tmp->token == OR_IF || ft_strequ(tmp->value, "|") ||
-			tmp->token == DLESSDASH)))
-	{
-		checkout = 1;
-		ft_cfmakeraw(&init->current);
-		ft_line_edition(&line_tmp, -1, &init->historic, init->new_env);
-		ft_cfmakedefault(&init->current);
-		if ((tmp->token == QUOTE && g_quote))
-			init->str = ft_strjoindel(init->str, "\n");
-		init->str = ft_strjoindel(init->str, line_tmp);
-		del_lex(init->lex);
-		ft_strdel(&line_tmp);
-		return (1);
-	}
-	checkout = 0;
-	return (0);
-}
-
-int	repeat_heredoc(t_init *init, t_lex **tmp)
-{
-	char		*line_tmp;
-	char		*heredoc;
-	static int	checkout = 0;
-
-	if ((*tmp)->token == IO_HERE)
-		heredoc = ft_strdup("");
-	if (checkout)
-		paste_last_hist(&init->historic);
-	while ((*tmp)->token == IO_HERE)
-	{
-		ft_cfmakeraw(&init->current);
-		ft_line_edition(&line_tmp, -1, &init->historic, init->new_env);
-		ft_cfmakedefault(&init->current);
-		if (ft_strequ(line_tmp, (*tmp)->value))
-		{
-			(*tmp)->prev->token = OP;
-			ft_strdel(&(*tmp)->prev->value);
-			(*tmp)->prev->value = ft_strdup("<");
-			(*tmp)->token = WORD;
-			ft_strdel(&(*tmp)->value);
-			(*tmp)->value = create_newheredoc(heredoc);
-			ft_strdel(&line_tmp);
-			return (1);
-		}
-		if (checkout)
-			heredoc = ft_strjoindel(heredoc, "\n");
-		checkout = 1;
-		heredoc = ft_strjoindel(heredoc, line_tmp);
-		ft_strdel(&line_tmp);
-	}
-	checkout = 0;
-	return (0);
-}
-
-
-int	repeat_line(t_init *init, t_lex *tmp)
-{
-	if (repeat_line_edition(init, tmp))
-		return (1);
-	if (repeat_heredoc(init, &tmp))
-		return (0);
-	return (0);
-}
-
 int	parser(t_init *init)
 {
 	t_lex	*tmp;
 	t_ast	*ast;
-	t_cmd	*cmd;
 
 	if (check_first(init->lex))
 		return (1);
@@ -156,9 +82,7 @@ int	parser(t_init *init)
 	}
 	tmp = init->lex;
 	ast = build_ast(tmp);
-	cmd = ast_to_struct(ast);
 //	print_cmd(cmd);
-	init->cmd = cmd;
 //	quote_remove(init);
 	del_ast(&ast);
 	return (0);
