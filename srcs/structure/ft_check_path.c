@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/08 09:37:34 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/09 12:01:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int	is_accessible(char *str)
 		}
 		return (-2);
 	}
-	//CHECK PATHS BEFORE TELLING NO SUCH F OR DIR (if one component of a path is not accessible, access return -1...)
 	return (-1);
 }
 
@@ -72,22 +71,42 @@ static int	check_bin(char *str, t_env **env, char **s_fin)
 	return (ret);
 }
 
+int		check_slash(char *str, char **s_fin)
+{
+	int		i;
+	int		ret;
+	char	**path;
+
+	i = -1;
+	if (!(ret = is_accessible(str)))
+	{
+		*s_fin = ft_strdup(str);
+		return (0);
+	}
+	path = ft_strsplit(str, '/');
+	if (*str == '/')
+		*s_fin = ft_strdup("/");
+	while (path[++i])
+	{
+		if (*s_fin)
+			*s_fin = ft_strjoindel(*s_fin, path[i]);
+		else
+			*s_fin = ft_strdup(path[i]);
+		if (!(ret = is_accessible(*s_fin)) || (ret == -1))
+			break ;
+		*s_fin = ft_strjoindel(*s_fin, "/");
+	}
+	ft_freetab(path);
+	return (ret ? check_error(ret, str) : ret);
+}
+
+
 int		check_path(char *str, t_env **env, char **s_fin)
 {
-	int		ret;
-
 	if (!str)
 		return (1);
 	if (ft_strchr(str, '/'))
-	{
-		if (!(ret = is_accessible(str)))
-		{
-			*s_fin = ft_strdup(str);
-			return (0);
-		}
-		else
-			return (check_error(ret, str));
-	}
+		return (check_slash(str, s_fin));
 	else if (ft_getenv(env, "PATH"))
 		return (check_bin(str, env, s_fin));
 	else
