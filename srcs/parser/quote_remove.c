@@ -45,7 +45,7 @@ char	*delete_esc(t_init *init, char *str, int len)
 	int		i;
 
 	i = 0;
-	ft_bzero(buf, len);
+	ft_bzero(buf, len + 1);
 	res = ft_strdup("");
 	while (str[i])
 	{

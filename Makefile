@@ -102,7 +102,7 @@ PARSER_NAME = ast.c init_ast.c	\
 			  parser.c			\
 			  quote_esc.c		\
 			  quote_remove.c	\
-			  expansions.c		\
+			  tilde_exp.c		\
 			  print_smtg.c		\
 			  repeat_line.c
 PARSER_PATH = parser/

@@ -44,9 +44,19 @@ t_cmd	*put_redir(t_cmd *cmd, t_lex *tmp, int *loop)
 	return (cmd);
 }
 
-t_cmd	*put_in_cmd(t_cmd *cmd, t_lex *tmp)
+t_cmd	*put_in_cmd(t_init *init, t_cmd *cmd, t_lex *tmp)
 {
+	char	*check_expans;
+
 	if (tmp->token != EOI)
-		cmd->arg = ft_addstr_tab(cmd->arg, tmp->value);
+	{
+		check_expans = ft_strdup(tmp->value);
+		if (check_expans[0] == '~')
+			check_expans = exp_tilde(init, check_expans,
+					ft_strlen(check_expans));
+		check_expans = delete_esc(init, check_expans, ft_strlen(check_expans));
+		cmd->arg = ft_addstr_tab(cmd->arg, check_expans);
+		ft_strdel(&check_expans);
+	}
 	return (cmd);
 }

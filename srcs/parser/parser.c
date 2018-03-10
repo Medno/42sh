@@ -81,10 +81,9 @@ int	parser(t_init *init)
 		tmp = tmp->next;
 	}
 	tmp = init->lex;
-	ast = build_ast(tmp);
+	ast = build_ast(init, tmp);
 //	print_ast(ast, NULL);
 	init->ast = ast;
-//	word_exp(init, init->ast);
 //	clean_ast(&ast);
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-t_ast	*command(t_lex *first)
+t_ast	*command(t_init *init, t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*tmp;
@@ -27,7 +27,7 @@ t_ast	*command(t_lex *first)
 		if (is_redir(tmp) || tmp->token == IO_NUMBER)
 			root->cmd = put_redir(root->cmd, tmp, &loop);
 		else
-			root->cmd = put_in_cmd(root->cmd, tmp);
+			root->cmd = put_in_cmd(init, root->cmd, tmp);
 		while (loop)
 		{
 			tmp = tmp->next;
@@ -37,7 +37,7 @@ t_ast	*command(t_lex *first)
 	return (root);
 }
 
-t_ast	*pipeline(t_lex *first)
+t_ast	*pipeline(t_init *init, t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*sep;
@@ -48,9 +48,9 @@ t_ast	*pipeline(t_lex *first)
 		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
-		root->left = command(first);
+		root->left = command(init, first);
 		if (sep->next && sep->next->token != EOI)
-			root->right = pipeline(sep->next);
+			root->right = pipeline(init, sep->next);
 		del_lex(sep);
 		if (root->left)
 			root->left->parent = root;
@@ -58,13 +58,13 @@ t_ast	*pipeline(t_lex *first)
 			root->right->parent = root;
 	}
 	else if (first->token != EOI)
-		root = command(first);
+		root = command(init, first);
 	else
 		root = NULL;
 	return (root);
 }
 
-t_ast	*and_or(t_lex *first)
+t_ast	*and_or(t_init *init, t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*sep;
@@ -76,9 +76,9 @@ t_ast	*and_or(t_lex *first)
 		root->value = ft_strdup(sep->value);
 		if (sep->prev)
 			sep->prev->next = NULL;
-		root->left = and_or(first);
+		root->left = and_or(init, first);
 		if (sep->next && sep->next->token != EOI)
-			root->right = and_or(sep->next);
+			root->right = and_or(init, sep->next);
 		del_lex(sep);
 		if (root->left)
 			root->left->parent = root;
@@ -86,11 +86,11 @@ t_ast	*and_or(t_lex *first)
 			root->right->parent = root;
 	}
 	else
-		root = pipeline(first);
+		root = pipeline(init, first);
 	return (root);
 }
 
-t_ast	*build_ast(t_lex *first)
+t_ast	*build_ast(t_init *init, t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*sep;
@@ -102,15 +102,15 @@ t_ast	*build_ast(t_lex *first)
 			sep->prev->next = NULL;
 		root = init_ast();
 		root->value = ft_strdup(sep->value);
-		root->left = and_or(first);
+		root->left = and_or(init, first);
 		if (sep->next && sep->next->token != EOI)
-			root->right = build_ast(sep->next);
+			root->right = build_ast(init, sep->next);
 		del_lex(sep);
 		root->left->parent = root;
 		if (root->right)
 			root->right->parent = root;
 	}
 	else
-		root = and_or(first);
+		root = and_or(init, first);
 	return (root);
 }

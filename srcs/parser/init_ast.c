@@ -28,6 +28,8 @@ t_ast	*init_ast(void)
 
 void	clean_ast(t_ast **root)
 {
+	if (!*root)
+		return ;
 	if (*root && !(*root)->left && !(*root)->right)
 	{
 		ft_strdel(&((*root)->value));

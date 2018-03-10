@@ -14,7 +14,7 @@ char				*line_edit(int len_prompt, t_init *init);
 */
 t_ast				*init_ast(void);
 void				clean_ast(t_ast **root);
-t_ast				*build_ast(t_lex *first);
+t_ast				*build_ast(t_init *init, t_lex *first);
 void				paste_last_hist(t_hist **histo);
 void				print_ast(t_ast *root, char *pos);
 /*
@@ -26,11 +26,15 @@ void				clean_cmd(t_cmd **cmd);
 void				clean_redir(t_redir **redir);
 t_redir				*put_fd_in(t_redir *redir, t_lex *tmp);
 t_cmd				*put_redir(t_cmd *cmd, t_lex *tmp, int *loop);
-t_cmd				*put_in_cmd(t_cmd *cmd, t_lex *tmp);
+t_cmd				*put_in_cmd(t_init *init, t_cmd *cmd, t_lex *tmp);
 int					is_redir(t_lex *tmp);
 void				print_cmd(t_cmd *cmd);
 /*
-** quote remove
+** expansions
+*/
+char				*exp_tilde(t_init *init, char *str, int len);
+/*
+** quote removal
 */
 void				word_exp(t_init *init, t_ast *ast);
 char				*delete_esc(t_init *init, char *str, int len);

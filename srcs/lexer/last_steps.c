@@ -18,7 +18,8 @@ void	concat_char(char *str, int i, char buf[])
 
 	read[0] = str[i];
 	read[1] = '\0';
-	if (str[i] == g_quote || g_quote == '\\')
+	if ((str[i] == g_quote && g_quote != '\\') ||
+			(g_quote == '\\' && str[i] != '\n'))
 		g_quote = 0;
 	ft_strcat(buf, read);
 }
