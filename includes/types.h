@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 16:51:25 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/10 17:08:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct		s_init
 {
 	char			*str;
 	t_lex			*lex;
+	t_env			*loc_env;
 	t_env			*new_env;
 	t_hist			*historic;
 	t_ast			*ast;

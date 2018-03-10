@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 18:16:07 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/10 17:42:00 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void			init_all(char **env, t_init *init)
 	init->str = NULL;
 	init->lex = NULL; 
 	init->ast = NULL;
+	init->loc_env = NULL;
 	init->new_env = create_env(env);
 	insert_env_start(&init->new_env);
 	init->historic = new_hist();
