@@ -30,22 +30,22 @@ void		ft_exit(t_init *init)
 	ret = 0;
 	check = 0;
 	i = -1;
-	if (init->cmd && init->cmd->arg[1])
+	if (init->ast->cmd && init->ast->cmd->arg[1])
 	{
-		while (init->cmd->arg[1][++i])
+		while (init->ast->cmd->arg[1][++i])
 		{
-			if (!ft_isdigit(init->cmd->arg[1][i]))
+			if (!ft_isdigit(init->ast->cmd->arg[1][i]))
 			{
 				check = -1;
 				ret = 255;
 				break ;
 			}
-			ret = (unsigned char)ft_atoi(init->cmd->arg[1]);
+			ret = (unsigned char)ft_atoi(init->ast->cmd->arg[1]);
 		}
 	}
 	ft_printf("{tred}{bold}exit{eoc}\n");
 	if (check == -1)
 		ft_printf_fd(STDERR_FILENO,
-			"42sh: exit: %s: numeric argument required\n", init->cmd->arg[1]);
+			"42sh: exit: %s: numeric argument required\n", init->ast->cmd->arg[1]);
 	final_exit(init, ret);
 }

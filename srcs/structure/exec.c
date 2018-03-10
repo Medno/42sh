@@ -105,7 +105,7 @@ int		exec_start(t_init *init)
 	int		std_fd[3];
 	int		ret;
 
-	tmp2 = init->cmd;
+	tmp2 = init->ast->cmd;
 	while (tmp2)
 	{
 		tmp = tmp2;
