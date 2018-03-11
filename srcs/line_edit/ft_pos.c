@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/09 10:11:51 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:55:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/11 10:54:36 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_max(t_curs *curseur, int len)
 {
 	ioctl(STDIN_FILENO, TIOCGWINSZ, &(curseur->screen));
 	curseur->xmax = (len - 1) % curseur->screen.ws_col;
-	curseur->ymax = (len - 2) / curseur->screen.ws_col;
+	curseur->ymax = (len - 1) / curseur->screen.ws_col;
 }
 
 void	init_curs(t_curs *curseur, int prompt)

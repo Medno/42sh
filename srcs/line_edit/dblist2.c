@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 09:33:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 11:09:05 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/11 16:41:03 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*line_to_str(t_line *cur)
 	str[i] = 0;
 	return (str);
 }
+
 
 void	increment_all(t_line *current, int c)
 {

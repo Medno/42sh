@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:56:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 15:39:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/11 08:36:06 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	del_one_elem(t_line *del)
 	{
 		del->next = NULL;
 		del->prev = NULL;
-		free(del);
-		del = NULL;
+		ft_memdel((void **)&del);
 	}
 }
 

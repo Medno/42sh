@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/10 17:42:00 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 08:53:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int				step_2(t_init *init)
 		quote_again = parser(init);
 	}
 	init->historic = cleanup_nl_hist(&init->historic);
-	quote_again = exec_start(init);
+	if (init->ast)
+		quote_again = exec_start(init);
 	clean_ast(&init->ast);
 	del_lex(init->lex);
 	del_heredoc();
@@ -72,6 +73,7 @@ int				main(int ac, char **av, char **environ)
 		return (0);
 	init_all(environ, &init);
 	g_in = &init;
+	logger_init(D_TRACE, "/tmp/out.log");
 	step_1(init);
 	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)
 	(void)av;
