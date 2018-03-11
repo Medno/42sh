@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:13:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/06 17:28:17 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 14:41:36 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		file_error(char *file)
 
 void	which_error(int error, char *err_file)
 {
-	ft_putstr_fd("Error: ", STDERR_FILENO);
+	ft_putstr_fd("42sh: ", STDERR_FILENO);
 	if (error == BADFD)
 	{
 		ft_putstr_fd(err_file, STDERR_FILENO);

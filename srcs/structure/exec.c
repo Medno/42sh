@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 12:55:22 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 13:58:31 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int		check_builtins(char ***entry, t_init *init)
 		ft_exit(init);
 	else if (ft_strequ("set", **entry))
 		return (ft_set(init->loc_env, init->new_env, *entry));
+	else if (ft_strequ("unset", **entry))
+		return (ft_unset(&init->loc_env, &init->new_env, *entry));
 	return (-1);
 }
 
