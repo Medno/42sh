@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_print_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 12:59:37 by hlely            ###   ########.fr       */
+/*   Created: 2018/03/11 12:55:59 by hlely             #+#    #+#             */
+/*   Updated: 2018/03/11 12:56:54 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int			ft_env(t_env *env, char **entry)
+void	ft_print_env(t_env *env)
 {
-	(void)env;
-	(void)entry;
-	/*juste pour test */
-	ft_print_env(env);
-	return (0);
+	while (env)
+	{
+		ft_printf("%s=%s\n", env->name, env->content);
+		env = env->next;
+	}
 }

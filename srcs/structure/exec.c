@@ -6,33 +6,34 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/10 17:31:39 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 12:55:22 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		check_builtins(char **entry, t_init *init)
+int		check_builtins(char ***entry, t_init *init)
 {
-	if (ft_strequ("cd", *entry))
-		return (ft_cd(&init->new_env, entry, ft_tablen(entry)));
-	else if (ft_strequ("echo", *entry))
-		return (ft_echo(&entry[1]));
-	else if (ft_strequ("env", *entry)) 
-		return (ft_env(init->new_env, entry));
-	else if (ft_strequ("setenv", *entry)) 
-		return (ft_setenv(&init->new_env, entry[1], entry[2]));
-	else if (ft_strequ("unsetenv", *entry))
-		return (ft_unsetenv(&init->new_env, entry[1]));
-	else if (ft_strequ("export", *entry)) 
-		return (ft_export(&init->loc_env, &init->new_env, entry));
-	else if (ft_strequ("history", *entry))
-		return (ft_history(&init->historic, entry, ft_tablen(entry)));
-	else if (check_local(entry))
-		return (ft_set_local(&init->loc_env, entry));
-	else if (ft_strequ("exit", *entry))
+	if (check_local(entry))
+		return (ft_set_local(&init->loc_env, *entry));
+	else if (ft_strequ("cd", **entry))
+		return (ft_cd(&init->new_env, *entry, ft_tablen(*entry)));
+	else if (ft_strequ("echo", **entry))
+		return (ft_echo(&(*entry)[1]));
+	else if (ft_strequ("env", **entry)) 
+		return (ft_env(init->new_env, *entry));
+	else if (ft_strequ("setenv", **entry)) 
+		return (ft_setenv(&init->new_env, (*entry)[1], (*entry)[2]));
+	else if (ft_strequ("unsetenv", **entry))
+		return (ft_unsetenv(&init->new_env, (*entry)[1]));
+	else if (ft_strequ("export", **entry)) 
+		return (ft_export(&init->loc_env, &init->new_env, *entry));
+	else if (ft_strequ("history", **entry))
+		return (ft_history(&init->historic, *entry, ft_tablen(*entry)));
+	else if (ft_strequ("exit", **entry))
 		ft_exit(init);
-
+	else if (ft_strequ("set", **entry))
+		return (ft_set(init->loc_env, init->new_env, *entry));
 	return (-1);
 }
 
@@ -63,7 +64,7 @@ int		check_cmd(t_cmd *cmd, t_init *init)
 	int		ret;
 	char	*path;
 
-	if ((ret = check_builtins(cmd->arg, init)) >= 0)
+	if ((ret = check_builtins(&cmd->arg, init)) >= 0)
 		return (ret);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/10 17:36:47 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 12:57:40 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_edit	*g_ed;
 */
 int					exec_start(t_init *init);
 int					check_cmd(t_cmd *cmd, t_init *init);
-int					check_builtins(char **entry, t_init *init);
+int					check_builtins(char ***entry, t_init *init);
 int					check_path(char *str, t_env **env, char **s_fin);
 int					step_1(t_init init);
 /*
@@ -70,6 +70,7 @@ int					ft_env(t_env *env, char **entry);
 int					ft_setenv(t_env **list, char *name, char *content);
 int					ft_unsetenv(t_env **list, char *name);
 void				ft_exit(t_init *init);
+void				ft_print_env(t_env *env);
 /*
 ** > history <
 */

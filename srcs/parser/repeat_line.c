@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:26:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/09 16:53:28 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 12:31:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ int	repeat_heredoc(t_init *init, t_lex *tmp)
 	checkout ? paste_last_hist(&init->historic) : 0;
 	while (tmp->token == IO_HERE)
 	{
-		checkout = 1;
 		line_tmp = line_edit(-1, init);
 		if (ft_strequ(line_tmp, tmp->value) || !line_tmp)
 			return (return_heredoc(init, line_tmp, heredoc));
 		heredoc = (checkout) ? ft_strjoindel(heredoc, "\n") : heredoc;
+		checkout = 1;
 		heredoc = ft_strnjoindel(heredoc, line_tmp,
 				ft_strlen(heredoc) + ft_strlen(line_tmp) - 1);
 		ft_strdel(&line_tmp);

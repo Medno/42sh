@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 16:30:25 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/09 17:11:23 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 10:25:39 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,28 @@ char	*create_newheredoc(char *line)
 void	rm_here(char *heredoc)
 {
 	char	**arg;
+	pid_t	father;
 
-	//FREE ARG
 	arg = (char**)ft_memalloc(sizeof(char*) * 3);
 	arg[0] = ft_strdup("/bin/rm");
 	arg[1] = ft_strdup(heredoc);
 	arg[2] = NULL;
-	execve("/bin/rm", arg, NULL);
+	father = fork();
+	if (father)
+		wait(0);
+	else
+	{
+		execve("/bin/rm", arg, NULL);
+		exit(0);
+	}
+	ft_strdel(&arg[0]);
+	ft_strdel(&arg[1]);
+	if (arg)
+		free(arg);
 }
 
 void	del_heredoc(void)
 {
-	pid_t	father;
 	int		nb;
 	int		fd;
 	char	*wnb;
@@ -66,14 +76,7 @@ void	del_heredoc(void)
 	while ((fd = open(heredoc, O_RDONLY)) != -1)
 	{
 		close(fd);
-		father = fork();
-		if (father)
-			wait(0);
-		else
-		{
-			rm_here(heredoc);
-			exit(0);
-		}
+		rm_here(heredoc);
 		nb++;
 		ft_strdel(&heredoc);
 		heredoc = ft_strdup("/tmp/.heredoc");
