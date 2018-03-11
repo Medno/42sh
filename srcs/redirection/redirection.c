@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/07 18:22:09 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 15:35:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_redir	*handle_redir(t_redir *redir)
 		redir = handle_double(redir);
 	else if (ft_strequ(redir->token, "<"))
 		redir = handle_back(redir);
-	else if (ft_strequ(redir->token, "<<"))
-		redir = handle_heredoc(redir);
 	else if (ft_strequ(redir->token, "&>"))
 		redir = handle_redirall(redir);
 	else if (ft_strequ(redir->token, "<>"))

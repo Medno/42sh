@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/07 18:26:51 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 15:35:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,12 +158,6 @@ t_redir	*handle_backfd(t_redir *redir)
 	redir->fd_in = (redir->fd_in == -1) ? 0 : redir->fd_in;
 	dup2(redir->fd_out, redir->fd_in);
 	redir->fd_out = -1;
-	return (redir);
-}
-
-t_redir	*handle_heredoc(t_redir *redir)
-{
-	ft_putendl("heredoc");
 	return (redir);
 }
 

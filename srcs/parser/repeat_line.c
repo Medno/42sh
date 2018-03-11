@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:26:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 12:31:28 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 15:37:29 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int	repeat_line_edition(t_init *init, t_lex *tmp)
+static int	repeat_line_edition(t_init *init, t_lex *tmp)
 {
 	char		*line_tmp;
 	static int	checkout = 0;
@@ -35,7 +35,7 @@ int	repeat_line_edition(t_init *init, t_lex *tmp)
 	return (0);
 }
 
-char	*change_str(char *str, char *path)
+static char	*change_str(char *str, char *path)
 {
 	int		i;
 	char	*newstr;
@@ -57,7 +57,7 @@ char	*change_str(char *str, char *path)
 	return (newstr);
 }
 
-int	return_heredoc(t_init *init, char *to_del, char *heredoc)
+static int	return_heredoc(t_init *init, char *to_del, char *heredoc)
 {
 	char	*value;
 
@@ -68,7 +68,7 @@ int	return_heredoc(t_init *init, char *to_del, char *heredoc)
 	return (1);
 }
 
-int	repeat_heredoc(t_init *init, t_lex *tmp)
+static int	repeat_heredoc(t_init *init, t_lex *tmp)
 {
 	char		*line_tmp;
 	char		*heredoc;

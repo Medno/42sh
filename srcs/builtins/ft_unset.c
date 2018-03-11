@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:57:14 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 14:40:39 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 15:27:32 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		check_alnum(char *str)
+static int	check_alnum(char *str)
 {
 	int		j;
 	
@@ -26,16 +26,7 @@ int		check_alnum(char *str)
 	return (1);
 }
 
-int		is_in_env(t_env *env, char *name)
-{
-	while (env && !ft_strequ(name, env->name))
-		env = env->next;
-	if (!env)
-		return (0);
-	return (1);
-}
-
-int		ft_unset(t_env **loc, t_env **env, char **arg)
+int			ft_unset(t_env **loc, t_env **env, char **arg)
 {
 	int		i;
 
@@ -44,8 +35,8 @@ int		ft_unset(t_env **loc, t_env **env, char **arg)
 	{
 		if (!check_alnum(arg[i]))
 		{
-			ft_printf_fd(STDERR_FILENO, "42sh: `%s': not a valid identifier\n",
-					arg[i]);
+			ft_printf_fd(STDERR_FILENO,
+					"42sh: unset: `%s': not a valid identifier\n", arg[i]);
 			return (1);
 		}
 		if (is_in_env(*loc, arg[i]))
