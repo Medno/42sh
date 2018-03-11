@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/11 15:20:17 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/11 16:24:14 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
 		   ft_print_env.c				\
 		   ft_unset.c					\
 		   is_in_env.c					\
+		   is_valid_identifier.c		\
 		   ft_set_local.c
 BUI_PATH = builtins/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(BUI_PATH), $(BUI_NAME)))

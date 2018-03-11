@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   is_valid_identifier.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/11 13:57:14 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 16:38:32 by hlely            ###   ########.fr       */
+/*   Created: 2018/03/11 16:23:35 by hlely             #+#    #+#             */
+/*   Updated: 2018/03/11 16:37:51 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int			ft_unset(t_env **loc, t_env **env, char **arg)
+static int	check_alnum(char *str)
 {
-	int		i;
+	int		j;
 
-	i = 0;
-	while (arg[i])
+	j = 0;
+	while (str[j] && str[j] != '=')
 	{
-		if (!is_valid_identifier(arg[i], PRINT))
-		{
-			i++;
-			continue ;
-		}
-		if (is_in_env(*loc, arg[i]))
-			ft_unsetenv(loc, arg[i]);
-		else if (is_in_env(*env, arg[i]))
-			ft_unsetenv(env, arg[i]);
-		i++;
+		if (!ft_isalnum(str[j]))
+			return (0);
+		j++;
 	}
-	return (0);
+	return (1);
+}
+
+int		is_valid_identifier(char *arg, int print)
+{
+	if (!(ft_isalpha(arg[0]) && arg[0] != '_') || !check_alnum(arg))
+	{
+		if (print)
+			ft_printf_fd(STDERR_FILENO,
+					"42sh: unset: `%s': not a valid identifier\n", arg);
+		return (0);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 15:33:17 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/11 16:36:36 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		check_local(char ***arg)
 	i = 0;
 	while ((*arg)[i])
 	{
-		if (!ft_strchr((*arg)[i], '='))
+		if (!ft_strchr((*arg)[i], '=') || !is_valid_identifier((*arg)[i], NOPRINT))
 		{
 			clean_arg(arg);
 			return (0);
