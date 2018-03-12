@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 13:08:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 13:13:52 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			edit_line(char **line, t_edit *edit)
 	{
 		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
 		{
-			ft_strdel(&line);
+			ft_strdel(line);
 			return (0);
 		}
 		else if (c == '\n')
