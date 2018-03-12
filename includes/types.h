@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 14:46:53 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 20:14:12 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,16 @@ typedef struct		s_edit
 	int				prompt_len;
 }					t_edit;
 
+typedef struct		s_pid
+{
+	pid_t			pid;
+	struct s_pid	*next;
+}					t_pid;
+
 typedef struct		s_init
 {
 	char			*str;
+	t_pid			*pid_list;
 	t_lex			*lex;
 	t_env			*loc_env;
 	t_env			*new_env;

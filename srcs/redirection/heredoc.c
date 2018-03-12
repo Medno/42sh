@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 16:30:25 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 10:25:39 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 18:35:53 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	rm_here(char *heredoc)
 	char	**arg;
 	pid_t	father;
 
-	arg = (char**)ft_memalloc(sizeof(char*) * 3);
+	arg = (char**)ft_memalloc(sizeof(char*) * 4);
 	arg[0] = ft_strdup("/bin/rm");
-	arg[1] = ft_strdup(heredoc);
-	arg[2] = NULL;
+	arg[1] = ft_strdup("-rf");
+	arg[2] = ft_strdup(heredoc);
+	arg[3] = NULL;
 	father = fork();
 	if (father)
 		wait(0);
@@ -58,6 +59,7 @@ void	rm_here(char *heredoc)
 	}
 	ft_strdel(&arg[0]);
 	ft_strdel(&arg[1]);
+	ft_strdel(&arg[2]);
 	if (arg)
 		free(arg);
 }

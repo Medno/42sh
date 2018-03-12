@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 17:19:00 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 20:16:45 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		fork_cmd(t_env **env, t_cmd *cmd, char *path)
 	if ((father = fork()) > 0)
 	{
 		signal(SIGINT, (void (*)(int))sig_write_nl);
+		/* pid_list = pid_addlast(pid_list, father); */
 		wait(&ret);
 	}
 	if (!father)
@@ -82,24 +83,24 @@ int		check_cmd(t_cmd *cmd, t_init *init)
 	}
 }
 
-int		check_sep(int ret, char *s)
-{
-	if (ft_strequ(s, "&&"))
-	{
-		if (!ret)
-			return (0);
-		else
-			return (1);
-	}
-	else if (ft_strequ(s, "||"))
-	{
-		if (!ret)
-			return (1);
-		else
-			return (0);
-	}
-	return (0);
-}
+/* int		check_sep(int ret, char *s) */
+/* { */
+/* 	if (ft_strequ(s, "&&")) */
+/* 	{ */
+/* 		if (!ret) */
+/* 			return (0); */
+/* 		else */
+/* 			return (1); */
+/* 	} */
+/* 	else if (ft_strequ(s, "||")) */
+/* 	{ */
+/* 		if (!ret) */
+/* 			return (1); */
+/* 		else */
+/* 			return (0); */
+/* 	} */
+/* 	return (0); */
+/* } */
 
 int		exec_cmd(t_cmd *cmd, t_init *init)
 {
@@ -123,7 +124,9 @@ int		launch_exec(t_init *init, t_ast *ast)
 		if (ast->value == SEMI)
 		{
 			launch_exec(init, ast->left);
+			/* wait_pipe(init->pid); */
 			launch_exec(init, ast->right);
+			/* wait_pipe(init->pid); */
 		}
 		else if (ast->value == PIPE)
 			launch_pipe(init, ast);
