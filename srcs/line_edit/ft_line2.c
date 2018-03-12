@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 15:21:42 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 16:25:11 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur)
 		cur = select_all(&str, cur, curseur);
 	else if (c == 23)
 		;
-	else if (c == 11)
+	else if (c == 25)
 		cur = paste_selected_line(str, cur, curseur);
 	return (cur);
 }
