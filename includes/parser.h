@@ -9,6 +9,9 @@
 int					parser(t_init *init);
 int					repeat_line(t_init *line, t_lex *tmp);
 char				*line_edit(int len_prompt, t_init *init);
+int					check_first(t_lex *first);
+int					err_pars(t_lex *tmp);
+int					err_eof(void);
 /*
 ** ast
 */

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 13:45:09 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/02/28 13:45:40 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/12 14:13:01 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ char	*ft_strjoindel(char *s1, char *s2)
 			return (tmp);
 		}
 	}
+	else if (s1)
+		return (s1);
 	return (NULL);
 }

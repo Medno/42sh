@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:26:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 15:37:29 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 15:16:04 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static int	repeat_line_edition(t_init *init, t_lex *tmp)
 	{
 		checkout = 1;
 		line_tmp = line_edit(-1, init);
-		init->str = ft_strjoindel(init->str, line_tmp);
+		if (line_tmp)
+			init->str = ft_strjoindel(init->str, line_tmp);
+		if (!line_tmp)
+			return (err_eof());
 		del_lex(init->lex);
 		ft_strdel(&line_tmp);
 		return (1);
@@ -93,11 +96,13 @@ static int	repeat_heredoc(t_init *init, t_lex *tmp)
 	return (0);
 }
 
-int	repeat_line(t_init *init, t_lex *tmp)
+int			repeat_line(t_init *init, t_lex *tmp)
 {
-	if (repeat_heredoc(init, tmp))
+	int ret;
+
+	ret = repeat_heredoc(init, tmp);
+	if (ret)
 		return (1);
-	if (repeat_line_edition(init, tmp))
-		return (1);
-	return (0);
+	ret = repeat_line_edition(init, tmp);
+	return (ret);
 }
