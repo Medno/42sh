@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:27:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 16:38:03 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 13:14:38 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			ft_export(t_env **loc_env, t_env **env, char **arg)
 			continue ;
 		}
 		if (ft_strchr(arg[i], '='))
-			ft_set_variable(env, arg[i]);
+			ft_set_variable(loc_env, env, arg[i]);
 		else if (!swapping_env(loc_env, env, arg[i]))
 		{
 			i++;
