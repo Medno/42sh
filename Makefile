@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/12 11:30:19 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/12 14:18:01 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ STRUC_NAME = addons.c			\
 			 ft_environment.c	\
 			 main.c				\
 			 init_attrs.c		\
-			 exec.c				\
 			 ft_check_path.c	\
 			 ft_signal.c
 STRUC_PATH = structure/
@@ -119,6 +118,11 @@ REDIR_NAME = redirection.c		\
 			 setup_fd.c
 REDIR_PATH = redirection/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(REDIR_PATH), $(REDIR_NAME)))
+
+### EXECUTION ###
+EXEC_NAME = exec.c
+EXEC_PATH = exec/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(EXEC_PATH), $(EXEC_NAME)))
 
 INC += -Ilogger/incs/
 

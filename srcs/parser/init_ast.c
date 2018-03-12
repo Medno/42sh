@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:39:27 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 16:53:32 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/12 14:18:56 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_ast	*init_ast(void)
 
 	if (!(tmp = (t_ast *)malloc(sizeof(t_ast))))
 		return (NULL);
-	tmp->value = NULL;
+	tmp->value = NONE;
 	tmp->cmd = NULL;
 	tmp->parent = NULL;
 	tmp->left = NULL;
@@ -32,7 +32,6 @@ void	clean_ast(t_ast **root)
 		return ;
 	if (*root && !(*root)->left && !(*root)->right)
 	{
-		ft_strdel(&((*root)->value));
 		clean_cmd(&(*root)->cmd);
 		free(*root);
 		(*root) = NULL;

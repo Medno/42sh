@@ -6,11 +6,24 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:54:26 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 14:33:43 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/12 14:22:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+char	*which_parent(int parent)
+{
+	if (parent == AND_IF)
+		return ("&&");
+	if (parent == OR_IF)
+		return ("||");
+	if (parent == DSEMI)
+		return (";");
+	if (parent == PIPE)
+		return ("|");
+	return ("OTHER");
+}
 
 void	print_ast(t_ast *root, char *pos)
 {
@@ -23,12 +36,12 @@ void	print_ast(t_ast *root, char *pos)
 		else
 		{
 			ft_putstr("Fils de : ");
-			ft_putendl(root->parent->value);
+			ft_putendl(which_parent(root->parent->value));
 		}
 		if (root->cmd)
 			print_cmd(root->cmd);
 		else if (root->value)
-			ft_putendl(root->value);
+			ft_putendl(which_parent(root->parent->value));
 		if (root->left)
 			print_ast(root->left, "Fils Gauche");
 		if (root->right)

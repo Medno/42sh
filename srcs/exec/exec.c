@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:02:11 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 14:48:05 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,30 +101,74 @@ int		check_sep(int ret, char *s)
 	return (0);
 }
 
-int		exec_start(t_init *init)
+int		exec_cmd(t_cmd *cmd, t_init *init)
 {
-	t_cmd	*tmp;
-	t_cmd	*tmp2;
 	int		std_fd[3];
 	int		ret;
 
-	tmp2 = init->ast->cmd;
-	while (tmp2)
+	saving_fd(std_fd);
+	if (!redirection(cmd))
+		return (reset_fd(std_fd, cmd->redir));
+	ret = check_cmd(cmd, init);
+	reset_fd(std_fd, cmd->redir);
+	return (ret);
+}
+
+int		launch_exec(t_init *init, t_ast *ast)
+{
+	int		ret;
+
+	if (ast)
 	{
-		tmp = tmp2;
-		while (tmp)
+		if (ast->value == SEMI || ast->value == PIPE)
 		{
-			saving_fd(std_fd);
-			if (!redirection(tmp))
-				return (reset_fd(std_fd, tmp->redir));
-			ret = check_cmd(tmp, init);
-			reset_fd(std_fd, tmp->redir);
-			if (check_sep(ret, tmp->separ))
-				tmp = tmp->next;
-			if (tmp)
-				tmp = tmp->next;
+			launch_exec(init, ast->left);
+			launch_exec(init, ast->right);
 		}
-		tmp2 = tmp2->next_semi;
+		else if (ast->value == AND_IF)
+		{
+			if (!(ret = launch_exec(init, ast->left)))
+				launch_exec(init, ast->right);
+		}
+		else if (ast->value == OR_IF)
+		{
+			if ((ret = launch_exec(init, ast->left)))
+				launch_exec(init, ast->right);
+		}
+		else if (ast->value == CMD)
+		{
+			return (exec_cmd(ast->cmd, init));
+		}
 	}
+	return (0);
+}
+
+int		exec_start(t_init *init)
+{
+	/* t_cmd	*tmp; */
+	t_ast	*ast;
+	/* int		std_fd[3]; */
+	/* int		ret; */
+
+	ast = init->ast;
+	launch_exec(init, ast);
+	/* tmp2 = init->ast->cmd; */
+	/* while (tmp2) */
+	/* { */
+	/* 	tmp = tmp2; */
+	/* 	while (tmp) */
+	/* 	{ */
+	/* 		saving_fd(std_fd); */
+	/* 		if (!redirection(tmp)) */
+	/* 			return (reset_fd(std_fd, tmp->redir)); */
+	/* 		ret = check_cmd(tmp, init); */
+	/* 		reset_fd(std_fd, tmp->redir); */
+	/* 		if (check_sep(ret, tmp->separ)) */
+	/* 			tmp = tmp->next; */
+	/* 		if (tmp) */
+	/* 			tmp = tmp->next; */
+	/* 	} */
+	/* 	tmp2 = tmp2->next_semi; */
+	/* } */
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 14:30:32 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/12 14:47:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ t_ast	*command(t_init *init, t_lex *first)
 		if (is_redir(tmp) || tmp->token == IO_NUMBER)
 			root->cmd = put_redir(root->cmd, tmp, &loop);
 		else
+		{
+			root->value = CMD;
 			root->cmd = put_in_cmd(init, root->cmd, tmp);
+		}
 		while (loop)
 		{
 			tmp = tmp->next;
@@ -45,7 +48,7 @@ t_ast	*pipeline(t_init *init, t_lex *first)
 	if ((sep = get_lex(first, OP, "|")))
 	{
 		root = init_ast();
-		root->value = ft_strdup(sep->value);
+		root->value = PIPE;
 		if (sep->prev)
 			sep->prev->next = NULL;
 		root->left = command(init, first);
@@ -73,7 +76,7 @@ t_ast	*and_or(t_init *init, t_lex *first)
 			(sep = get_lex(first, OR_IF, NULL)))
 	{
 		root = init_ast();
-		root->value = ft_strdup(sep->value);
+		root->value = sep->token;
 		if (sep->prev)
 			sep->prev->next = NULL;
 		root->left = and_or(init, first);
@@ -101,7 +104,7 @@ t_ast	*build_ast(t_init *init, t_lex *first)
 		if (sep->prev)
 			sep->prev->next = NULL;
 		root = init_ast();
-		root->value = ft_strdup(sep->value);
+		root->value = SEMI;
 		root->left = and_or(init, first);
 		if (sep->next && sep->next->token != EOI)
 			root->right = build_ast(init, sep->next);
