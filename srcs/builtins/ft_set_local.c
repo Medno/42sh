@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 16:36:36 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 11:09:44 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		clean_arg(char ***arg)
 
 	i = 0;
 	j = 0;
-	while ((*arg)[j] && ft_strchr((*arg)[j], '='))
+	while ((*arg)[j] && is_valid_identifier((*arg)[j], NOPRINT) &&
+			ft_strchr((*arg)[j], '='))
 		j++;
 	new_arg = (char**)ft_memalloc(sizeof(char**) * (ft_tablen((*arg + j)) + 1));
 	if (!new_arg)
@@ -44,7 +45,8 @@ int		check_local(char ***arg)
 	i = 0;
 	while ((*arg)[i])
 	{
-		if (!ft_strchr((*arg)[i], '=') || !is_valid_identifier((*arg)[i], NOPRINT))
+		if (!ft_strchr((*arg)[i], '=') ||
+				!is_valid_identifier((*arg)[i], NOPRINT))
 		{
 			clean_arg(arg);
 			return (0);
@@ -68,25 +70,28 @@ int		equ_index(char *str, char c)
 	return (-1);
 }
 
-void	ft_set_variable(t_env **loc_env, char *arg)
+void	ft_set_variable(t_env **loc_env, t_env **env, char *arg)
 {
 	char	*name;
 	char	*value;
 
 	name = ft_strsub(arg, 0, equ_index(arg, '='));
 	value = ft_strchr(arg, '=') + 1;
-	ft_setenv(loc_env, name, value);
+	if (is_in_env(*env, name))
+		ft_setenv(env, name, value);
+	else
+		ft_setenv(loc_env, name, value);
 	ft_strdel(&name);
 }
 
-int		ft_set_local(t_env **loc, char **arg)
+int		ft_set_local(t_env **loc, t_env **env, char **arg)
 {
 	int		i;
 
 	i = 0;
 	while (arg[i])
 	{
-		ft_set_variable(loc, arg[i]);
+		ft_set_variable(loc, env, arg[i]);
 		i++;
 	}
 	return (0);

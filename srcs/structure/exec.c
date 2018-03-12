@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 13:58:31 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 11:02:11 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		check_builtins(char ***entry, t_init *init)
 {
 	if (check_local(entry))
-		return (ft_set_local(&init->loc_env, *entry));
+		return (ft_set_local(&init->loc_env, &init->new_env, *entry));
 	else if (ft_strequ("cd", **entry))
 		return (ft_cd(&init->new_env, *entry, ft_tablen(*entry)));
 	else if (ft_strequ("echo", **entry))
@@ -30,12 +30,12 @@ int		check_builtins(char ***entry, t_init *init)
 		return (ft_export(&init->loc_env, &init->new_env, *entry));
 	else if (ft_strequ("history", **entry))
 		return (ft_history(&init->historic, *entry, ft_tablen(*entry)));
-	else if (ft_strequ("exit", **entry))
-		ft_exit(init);
 	else if (ft_strequ("set", **entry))
 		return (ft_set(init->loc_env, init->new_env, *entry));
 	else if (ft_strequ("unset", **entry))
 		return (ft_unset(&init->loc_env, &init->new_env, *entry));
+	else if (ft_strequ("exit", **entry))
+		ft_exit(init);
 	return (-1);
 }
 
