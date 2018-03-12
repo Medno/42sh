@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:33:17 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:45:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	print_line(t_line *new, int len_end, t_curs *curseur)
 		i++;
 		tmp = tmp->next;
 	}
-	buf[i] = 0;
 	write(STDIN_FILENO, &buf, i);
 	if (!new->next->next && !curseur->x)
 		ansi("NL", 0, STDIN_FILENO);

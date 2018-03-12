@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/11 08:53:05 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 13:07:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int				step_1(t_init init)
 	{
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
-		if (!ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env))
-			ft_exit(&init);
+		ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
 		ft_cfmakedefault(&init.current);
 		if (init.str)
 			step_2(&init);

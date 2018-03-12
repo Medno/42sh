@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:06:40 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 13:08:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ int			edit_line(char **line, t_edit *edit)
 	c = 0;
 	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev
-				&& !g_quote)
+		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
+		{
+			ft_strdel(&line);
 			return (0);
+		}
 		else if (c == '\n')
 			return (edit_end(line, edit));
 		else if (c == 14)
@@ -49,13 +51,12 @@ int			edit_line(char **line, t_edit *edit)
 	return (0);
 }
 
-int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
+void		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 			t_env *env)
 {
 	t_edit			edit;
 	t_line			*current;
 	t_curs			curseur;
-	int				ret;
 
 	if (prompt_len == -1 && ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}"))
 		prompt_len = 2;
@@ -69,7 +70,6 @@ int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	edit.comp = init_t_comp();
 	edit.env = env;
 	g_ed = &edit;
-	ret = edit_line(line, &edit);
-	ft_clean_edit(&edit);
-	return (ret);
+	edit_line(line, &edit);
+	ft_clean_edit(&edit); // a modifier
 }
