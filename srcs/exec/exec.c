@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 14:48:05 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 17:19:00 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,13 @@ int		launch_exec(t_init *init, t_ast *ast)
 
 	if (ast)
 	{
-		if (ast->value == SEMI || ast->value == PIPE)
+		if (ast->value == SEMI)
 		{
 			launch_exec(init, ast->left);
 			launch_exec(init, ast->right);
 		}
+		else if (ast->value == PIPE)
+			launch_pipe(init, ast);
 		else if (ast->value == AND_IF)
 		{
 			if (!(ret = launch_exec(init, ast->left)))
@@ -135,10 +137,8 @@ int		launch_exec(t_init *init, t_ast *ast)
 			if ((ret = launch_exec(init, ast->left)))
 				launch_exec(init, ast->right);
 		}
-		else if (ast->value == CMD)
-		{
+		else if (ast->value == CMD && ast->cmd && ast->cmd->arg)
 			return (exec_cmd(ast->cmd, init));
-		}
 	}
 	return (0);
 }
@@ -147,11 +147,13 @@ int		exec_start(t_init *init)
 {
 	/* t_cmd	*tmp; */
 	t_ast	*ast;
-	/* int		std_fd[3]; */
+	int		std_fd[3];
 	/* int		ret; */
 
 	ast = init->ast;
+	saving_fd(std_fd);
 	launch_exec(init, ast);
+	reset_fd(std_fd, NULL);
 	/* tmp2 = init->ast->cmd; */
 	/* while (tmp2) */
 	/* { */
