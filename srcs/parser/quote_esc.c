@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:13:31 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 17:15:31 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/12 17:46:32 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,19 @@ char	*esc_simple_qu(char *str, int *i, int len)
 	char	*res;
 	char	buffer[len + 1];
 	int		j;
+	int		k;
 
 	j = *i + 1;
+	k = 0;
 	ft_bzero(buffer, len);
 	while (str[j] && str[j] != '\'')
 	{
-		buffer[j - *i - 1] = str[j];
+		j = (str[j] == '\\') ? j + 1 : j;
+		if (str[j])
+		{
+			buffer[k] = str[j];
+			k++;
+		}
 		j++;
 	}
 	res = ft_strdup(buffer);
@@ -51,16 +58,23 @@ char	*esc_double_qu(t_init *init, char *str, int *i, int len)
 	char	*res;
 	char	buffer[len + 1];
 	int		j;
+	int		k;
 
+	(void)init;
 	j = *i + 1;
+	k = 0;
 	ft_bzero(buffer, len);
 	while (str[j] && str[j] != '\"')
 	{
-		buffer[j - *i - 1] = str[j];
+		j = (str[j] == '\\') ? j + 1 : j;
+		if (str[j])
+		{
+			buffer[k] = str[j];
+			k++;
+		}
 		j++;
 	}
 	res = ft_strdup(buffer);
 	*i = j;
-	(void)init;
 	return (res);
 }
