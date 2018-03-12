@@ -73,7 +73,6 @@ int				main(int ac, char **av, char **environ)
 		return (0);
 	init_all(environ, &init);
 	g_in = &init;
-	logger_init(D_TRACE, "/tmp/out.log");
 	step_1(init);
 	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)
 	(void)av;

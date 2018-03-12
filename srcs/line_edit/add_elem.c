@@ -53,7 +53,6 @@ static void	print_line(t_line *new, int len_end, t_curs *curseur)
 	buf[i] = 0;
 	if (new->next->next && ft_strchr(buf, '\n') && (new->index + ft_strcspn(buf, "\n")) % curseur->screen.ws_col == 1)
 	{
-		log_success("LALA");
 		write(STDIN_FILENO, &buf, ft_strcspn(buf, "\n"));
 		write(0, "\n", 1);
 		write(STDIN_FILENO, &buf[ft_strcspn(buf, "\n") + 1], i - ft_strcspn(buf, "\n"));
@@ -120,7 +119,6 @@ t_line		*push_new(t_line *current, char c, t_curs *curseur)
 	current->prev = new;
 	check_ynx(curseur, new->index);
 	check_max(curseur, last_index(new));
-	log_success("[x:%d][xmax:%d][y:%d][ymax:%d][index:%d][last_index:%d][col:%d]", curseur->x, curseur->xmax, curseur->y, curseur->ymax, new->index, last_index(new), curseur->screen.ws_col);
 	print_line(new, count_len(current), curseur);
 	return (current);
 }
