@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 13:07:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 16:41:15 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int				step_1(t_init init)
 {
 	int		len_prompt;
 
-	signal(SIGINT, (void (*)(int))sigint_prompt);
 	while (42)
 	{
 		len_prompt = put_path(&init.new_env);

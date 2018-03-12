@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 16:23:31 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 16:34:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	t_line			*current;
 	t_curs			curseur;
 
+	signal(SIGINT, (void (*)(int))sigint_prompt);
 	if (prompt_len == -1 && ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}"))
 		prompt_len = 2;
 	edit.prompt_len = prompt_len;

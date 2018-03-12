@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 10:47:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 16:28:29 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int					step_1(t_init init);
 /*
 ** signals
 */
-void				sig_write_nl(int x);
-void				sigint_prompt(int x);
+void				sig_write_nl(void);
+void				sigint_prompt(void);
 /*
 ** builtins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
