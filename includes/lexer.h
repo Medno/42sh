@@ -22,6 +22,7 @@ int					is_number(char buf[]);
 */
 t_lex				*already_op(t_lex *new, char *str, int *i, char buf[]);
 t_lex				*enter_quote(t_lex *new, char *str, int *i, char buf[]);
+t_lex				*dollar_step(t_lex *new, char *str, int *i, char buf[]);
 t_lex				*new_op(t_lex *new, char *str, int i, char buf[]);
 t_lex				*close_new(t_lex *new, char buf[]);
 void				concat_char(char *str, int i, char buf[]);

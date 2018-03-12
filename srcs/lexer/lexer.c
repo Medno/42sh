@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 16:21:41 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/12 16:52:01 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_lex	*all_steps(t_lex *new, char *str, int *i, char buf[])
 	else if ((is_esc(str[*i]) && !g_quote) ||
 			(g_quote == '\"' && str[*i] == '\\'))
 		new = enter_quote(new, str, i, buf);
+	else if (str[*i] == '$' && !g_quote)
+		new = dollar_step(new, str, i, buf);
 	else if (!g_quote && is_op(str[*i], buf))
 		new = new_op(new, str, *i, buf);
 	else if (!g_quote && (str[*i] == '\n' || str[*i] == ' '))

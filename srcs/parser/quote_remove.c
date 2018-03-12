@@ -6,11 +6,18 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 15:50:19 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/12 16:28:59 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+int		is_quote_bslash(char c)
+{
+	if (c == '\\' || c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
 
 void	put_in_buffer(char buf[], char c)
 {
@@ -33,7 +40,7 @@ char	*treat_esc(t_init *init, char *res, char *str, int *i)
 		to_join = esc_backslash(str, i);
 	else if (str[*i] == '\'')
 		to_join = esc_simple_qu(str, i, len);
-	else
+	else if (str[*i] == '\"')
 		to_join = esc_double_qu(init, str, i, len);
 	if (to_join)
 		res = ft_strjoindel(res, to_join);
@@ -52,7 +59,7 @@ char	*delete_esc(t_init *init, char *str, int len)
 	res = ft_strdup("");
 	while (str[i])
 	{
-		if (is_esc(str[i]))
+		if (is_quote_bslash(str[i]))
 		{
 			if (buf[0])
 			{

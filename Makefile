@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/12 15:28:33 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/12 17:05:23 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ LEXER_NAME = lexer.c			\
 			 is_lex.c			\
 			 categorize_token.c	\
 			 first_steps.c 		\
+			 dollar_step.c		\
 			 last_steps.c
 LEXER_PATH = lexer/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
