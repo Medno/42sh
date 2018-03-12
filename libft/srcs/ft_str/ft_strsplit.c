@@ -29,15 +29,15 @@ static	int		count_w(const char *str, char c)
 	return (words);
 }
 
-static	size_t	count_l(const char **str, char c)
+static	size_t	count_l(const char *str, char c)
 {
 	size_t	letters;
 
 	letters = 0;
-	while (**str && **str != c)
+	while (*str && *str != c)
 	{
 		letters++;
-		(*str)++;
+		str++;
 	}
 	return (letters);
 }
@@ -58,7 +58,9 @@ char			**ft_strsplit(char const *s, char c)
 	i = -1;
 	while (*s)
 	{
-		tab[++i] = ft_strndup(s, count_l(&s, c));
+		tab[++i] = ft_strndup(s, count_l(s, c));
+		while (*s && *s != c)
+			s++;
 		while (*s && *s == c)
 			s++;
 	}
