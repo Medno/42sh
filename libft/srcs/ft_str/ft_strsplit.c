@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 11:05:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/08 11:17:28 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 13:31:17 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static	int		count_w(const char *str, char c)
 
 	words = 1;
 	i = -1;
+	if (!str)
+		return (0);
 	while (str && str[++i])
 	{
 		if (str[i] != c && i != 0 && str[i - 1] == c)
