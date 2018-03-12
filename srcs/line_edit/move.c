@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:47:01 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/11 15:54:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:08:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		ansi(char *str, int x, int fd)
 		ft_putstr_fd("\033[?25h", fd);
 }
 
-t_line		*moove_up(t_line *cur, t_curs *curseur)
+t_line		*move_up(t_line *cur, t_curs *curseur)
 {
 	int		i;
 
@@ -46,7 +46,7 @@ t_line		*moove_up(t_line *cur, t_curs *curseur)
 	{
 		while (cur->prev && ++i < curseur->screen.ws_col)
 		{
-			cur = moove_left(cur, curseur);
+			cur = move_left(cur, curseur);
 			if (cur->c == '\n')
 				i += cur->next->index - cur->index - 1;
 		}
@@ -54,7 +54,7 @@ t_line		*moove_up(t_line *cur, t_curs *curseur)
 	return (cur);
 }
 
-t_line		*moove_down(t_line *cur, t_curs *curseur)
+t_line		*move_down(t_line *cur, t_curs *curseur)
 {
 	int		i;
 
@@ -65,7 +65,7 @@ t_line		*moove_down(t_line *cur, t_curs *curseur)
 	{
 		while (cur->next && ++i < curseur->screen.ws_col)
 		{
-			cur = moove_right(cur, curseur);
+			cur = move_right(cur, curseur);
 			if (cur->c == '\n')
 				i += cur->next->index - cur->index - 1;
 		}
@@ -73,7 +73,7 @@ t_line		*moove_down(t_line *cur, t_curs *curseur)
 	return (cur);
 }
 
-t_line		*moove_left(t_line *cur, t_curs *curseur)
+t_line		*move_left(t_line *cur, t_curs *curseur)
 {
 	check_ynx(curseur, cur->index);
 	if (cur->prev)
@@ -97,7 +97,7 @@ t_line		*moove_left(t_line *cur, t_curs *curseur)
 	return (cur);
 }
 
-t_line		*moove_right(t_line *cur, t_curs *curseur)
+t_line		*move_right(t_line *cur, t_curs *curseur)
 {
 	check_ynx(curseur, cur->index);
 	if (cur->next)

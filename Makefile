@@ -6,13 +6,13 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/11 16:24:14 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/12 11:30:19 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 42sh
 
-CC = gcc 
+CC = gcc
 
 ### PATH SRCS ### 
 PATHFS = ./srcs/
@@ -52,16 +52,14 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 ### LINE EDIT ###
 LINE_NAME = ft_line.c		\
 			ft_line2.c 		\
-			dblist.c		\
-			dblist2.c		\
+			tline.c			\
+			tline2.c		\
 			move.c			\
 			move2.c			\
 			add_elem.c		\
 			del_char.c		\
 			ft_pos.c		\
 			completion.c	\
-			ft_grab.c		\
-			ft_paste.c		\
 			line_edit.c		\
 			control_l.c
 LINE_PATH = line_edit/
@@ -122,6 +120,8 @@ REDIR_NAME = redirection.c		\
 REDIR_PATH = redirection/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(REDIR_PATH), $(REDIR_NAME)))
 
+INC += -Ilogger/incs/
+
 ### LIBFT ###
 LIBINC = ./libft
 INC += -I$(LIBINC)/includes
@@ -129,8 +129,6 @@ INC += -I$(LIBINC)/includes
 ### 21 INCLUDES ###
 INCLUDES = ./includes/ 
 INC += -I$(INCLUDES)
-
-INC += -I./logger/incs/
 
 # flags
 FLAGS = -Wall -Wextra
@@ -155,7 +153,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : makelib $(NAME)
 
 $(NAME) : $(OBJ)
-		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB)
+		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) logger/liblogger.a
 		@echo "\033[K\033[35m***** done *****\033[0m"
 
 %.o:%.c

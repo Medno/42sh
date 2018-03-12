@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 12:57:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/12 10:47:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
-# include <term.h>
 # include <dirent.h>
 # include <termios.h>
 # include "libft.h"
@@ -33,6 +32,8 @@
 # include "redir.h"
 # include "completion.h"
 # include "vlocal.h"
+
+# include "logger.h"
 
 int		g_quote;
 t_init	*g_in;

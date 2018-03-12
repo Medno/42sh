@@ -6,31 +6,22 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 09:16:47 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:13:24 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-static t_line	*ft_grabb(t_line *cur, char c, t_curs *curseur)
+static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur)
 {
 	static char	*str;
-	char		*tmp;
 
+	(void)str;
+	(void)curseur;
 	if (c == 7)
-	{
-		cur = grab_mod(cur, curseur);
-		str = foo_paste(cur);
-		ansi("SAVE", 0, STDIN_FILENO);
-		moove_first(cur, curseur);
-		ansi("CL_END", 0, STDIN_FILENO);
-		tmp = line_to_str(cur);
-		write(0, tmp, ft_strlen(tmp));
-		ft_strdel(&tmp);
-		ansi("REST", 0, STDIN_FILENO);
-	}
+		;//change ctrl g to ctrl u
 	else if (c == 11)
-		cur = paste_line(cur, str, curseur);
+		;//paste
 	return (cur);
 }
 
@@ -41,31 +32,31 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 	else if (c == '\t')
 		return (completion(edit));
 	else if (c == 4)
-		return (del_next(*edit->current));
+		return (del_next(*edit->current, &edit->curseur));
 	else if (c == 1)
-		return (moove_first(*edit->current, &edit->curseur));
+		return (move_first(*edit->current, &edit->curseur));
 	else if (c == 2)
-		return (moove_left(*edit->current, &edit->curseur));
+		return (move_left(*edit->current, &edit->curseur));
 	else if (c == 5)
-		return (moove_last(*edit->current, &edit->curseur));
+		return (move_last(*edit->current, &edit->curseur));
 	else if (c == 6)
-		return (moove_right(*edit->current, &edit->curseur));
+		return (move_right(*edit->current, &edit->curseur));
 	else if (c == 12)
 		return (clearscreen(edit));
 	else if (c >= 32 && c <= 126)
 		return (push_new(*edit->current, c, &edit->curseur));
 	else
-		return (ft_grabb(*edit->current, c, &edit->curseur));
+		return (ft_copy(*edit->current, c, &edit->curseur));
 }
 
 t_line			*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf)
 {
 	if (ft_strequ(buf, "[1;2B"))
-		cur = moove_down(cur, curseur);
+		cur = move_down(cur, curseur);
 	else if (ft_strequ(buf, "[1;2C"))
-		cur = moove_rword(cur, curseur);
+		cur = move_rword(cur, curseur);
 	else if (ft_strequ(buf, "[1;2D"))
-		cur = moove_lword(cur, curseur);
+		cur = move_lword(cur, curseur);
 	return (cur);
 }
 
@@ -81,17 +72,17 @@ t_line			*ft_line_esc(t_line *cur, int len, t_curs *curseur,
 	else if (ft_strequ(buf, "[B"))
 		return (hist_down(cur, histo, len, curseur));
 	else if (ft_strequ(buf, "[C"))
-		return (moove_right(cur, curseur));
+		return (move_right(cur, curseur));
 	else if (ft_strequ(buf, "[D"))
-		return (moove_left(cur, curseur));
+		return (move_left(cur, curseur));
 	else if (ft_strequ(buf, "[H"))
-		return (moove_first(cur, curseur));
+		return (move_first(cur, curseur));
 	else if (ft_strequ(buf, "[F"))
-		return (moove_last(cur, curseur));
+		return (move_last(cur, curseur));
 	else if (ft_strequ(buf, "[3~"))
-		return (del_next(cur));
+		return (del_next(cur, curseur));
 	else if (ft_strequ(buf, "[1;2A"))
-		return (moove_up(cur, curseur));
+		return (move_up(cur, curseur));
 	else
 		return (ft_line_esc_2(cur, curseur, buf));
 }

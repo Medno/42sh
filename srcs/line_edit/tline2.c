@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dblist2.c                                          :+:      :+:    :+:   */
+/*   tline2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/12 09:33:03 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 16:41:03 by kyazdani         ###   ########.fr       */
+/*   Created: 2018/03/12 11:29:54 by kyazdani          #+#    #+#             */
+/*   Updated: 2018/03/12 11:29:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
+
+t_line	*str_to_line(char *str, int prompt, t_curs *curseur)
+{
+	t_line	*cur;
+
+	cur = create_elem(0, prompt + 1);
+	while (str && *str && *(str + 1))
+	{
+		push_new(cur, *str, curseur);
+		str++;
+	}
+	return (cur);
+}
 
 char	*line_to_str(t_line *cur)
 {
 	char	*str;
 	int		i;
 
-	if (!(str = malloc(sizeof(char) * line_len(cur) + 1)))
+	if (!(str = malloc(sizeof(char) * full_tline_len(cur) + 1)))
 		return (NULL);
 	i = 0;
 	while (cur->prev)
@@ -32,8 +45,7 @@ char	*line_to_str(t_line *cur)
 	return (str);
 }
 
-
-void	increment_all(t_line *current, int c)
+void	increment_all(t_line *current, t_curs *curseur, int c)
 {
 	t_line	*tmp;
 
@@ -41,15 +53,25 @@ void	increment_all(t_line *current, int c)
 	while (tmp)
 	{
 		tmp->index += c;
+		if (tmp->c == '\n' && tmp->index % curseur->screen.ws_col != 1)
+			break ;
+		else if (tmp->c == '\n')
+			c = curseur->screen.ws_col;
 		tmp = tmp->next;
 	}
 }
 
-void	free_dblist(t_line *el)
+int		parted_tline_len(t_line *cur)
 {
-	while (el->prev)
-		el = el->prev;
-	del_elem(el);
+	int		i;
+
+	i = 0;
+	while (cur)
+	{
+		i++;
+		cur = cur->next;
+	}
+	return (i);
 }
 
 void	ft_clean_edit(t_edit *edit)

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:25:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 09:26:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:26:22 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,16 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 	(*histo)->line = line_to_str(cur);
 }
 
-t_line	*str_to_line(char *str, int prompt, t_curs *curseur)
-{
-	t_line	*cur;
-
-	cur = create_elem(0, prompt + 1);
-	while (str && *str && *(str + 1))
-	{
-		push_new(cur, *str, curseur);
-		str++;
-	}
-	return (cur);
-}
-
 t_line	*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 {
 	if (!*histo || !(*histo)->prev)
 		return (cur);
-	cur = moove_first(cur, curseur);
+	cur = move_first(cur, curseur);
 	ansi("CL_END", 0, STDIN_FILENO);
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);
-	free_dblist(cur);
+	(*histo)->line = ft_strjoindel((*histo)->line, "\n");
+	free_tline(cur);
 	if ((*histo)->prev)
 		*histo = (*histo)->prev;
 	cur = str_to_line((*histo)->line, prompt, curseur);
@@ -73,11 +61,12 @@ t_line	*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 {
 	if (!*histo || !(*histo)->next)
 		return (cur);
-	cur = moove_first(cur, curseur);
+	cur = move_first(cur, curseur);
 	ansi("CL_END", 0, STDIN_FILENO);
 	ft_strdel(&(*histo)->line);
 	(*histo)->line = line_to_str(cur);
-	free_dblist(cur);
+	(*histo)->line = ft_strjoindel((*histo)->line, "\n");
+	free_tline(cur);
 	if ((*histo)->next)
 		*histo = (*histo)->next;
 	cur = str_to_line((*histo)->line, prompt, curseur);

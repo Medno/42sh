@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 11:12:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:06:40 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int			edit_end(char **line, t_edit *edit)
 {
-	*edit->current = moove_last(*edit->current, &edit->curseur);
+	*edit->current = move_last(*edit->current, &edit->curseur);
 	*edit->current = push_new(*edit->current, '\n', &edit->curseur);
 	handle_history_ret(*edit->current, edit->histo);
 	*line = line_to_str(*edit->current);
-	free_dblist(*edit->current);
+	free_tline(*edit->current);
 	return (1);
 }
 

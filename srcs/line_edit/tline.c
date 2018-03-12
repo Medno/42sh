@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dblist.c                                           :+:      :+:    :+:   */
+/*   tline.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/06 08:56:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 08:36:06 by kyazdani         ###   ########.fr       */
+/*   Created: 2018/03/12 11:29:48 by kyazdani          #+#    #+#             */
+/*   Updated: 2018/03/12 11:29:49 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_line	*create_elem(char c, int len)
 	return (new);
 }
 
-void	del_one_elem(t_line *del)
+void	free_one_tline(t_line *del)
 {
 	if (del)
 	{
@@ -36,19 +36,21 @@ void	del_one_elem(t_line *del)
 	}
 }
 
-void	del_elem(t_line *first)
+void	free_tline(t_line *first)
 {
 	t_line	*next;
 
+	while (first->prev)
+		first = first->prev;
 	while (first)
 	{
 		next = first->next;
-		del_one_elem(first);
+		free_one_tline(first);
 		first = next;
 	}
 }
 
-int		line_len(t_line *el)
+int		full_tline_len(t_line *el)
 {
 	int		i;
 	t_line	*tmp;

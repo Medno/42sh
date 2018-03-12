@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 14:51:33 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/11 09:17:47 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 11:10:10 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	print_del(t_line *cur, int len)
 	ansi("REST", 0, STDIN_FILENO);
 }
 
-t_line		*del_next(t_line *cur)
+t_line		*del_next(t_line *cur, t_curs *curseur)
 {
 	t_line	*tmp;
 
@@ -41,13 +41,13 @@ t_line		*del_next(t_line *cur)
 	{
 		cur = cur->next;
 		if (tmp->c == '\n')
-			increment_all(cur, tmp->index - cur->index);
+			increment_all(cur, curseur, tmp->index - cur->index);
 		else
-			increment_all(cur, -1);
+			increment_all(cur, curseur, -1);
 		cur->prev = tmp->prev;
 		if (tmp->prev)
 			tmp->prev->next = cur;
-		del_one_elem(tmp);
+		free_one_tline(tmp);
 		ansi("CL_END", 0, STDIN_FILENO);
 		print_del(cur, last_index(cur) - cur->index);
 	}
@@ -58,6 +58,6 @@ t_line		*line_delone(t_line *cur, t_curs *curseur)
 {
 	if (!cur->prev)
 		return (cur);
-	cur = moove_left(cur, curseur);
-	return (del_next(cur));
+	cur = move_left(cur, curseur);
+	return (del_next(cur, curseur));
 }
