@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:45:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 14:49:02 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ t_line		*push_new(t_line *current, char c, t_curs *curseur)
 		return (NULL);
 	new->next = current;
 	if (c == '\n')
-		increment_all(current, curseur, curseur->screen.ws_col - (new->index % curseur->screen.ws_col) + 1);
+		increment_all(current, curseur, curseur->screen.ws_col -
+				(new->index % curseur->screen.ws_col) + 1);
 	else
 		increment_all(current, curseur, 1);
 	if (current->prev)

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:13:24 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 15:21:42 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur)
 {
 	static char	*str;
 
-	(void)str;
-	(void)curseur;
-	if (c == 7)
-		;//change ctrl g to ctrl u
+	if (c == 21)
+		cur = select_all(&str, cur, curseur);
+	else if (c == 23)
+		;
 	else if (c == 11)
-		;//paste
+		cur = paste_selected_line(str, cur, curseur);
 	return (cur);
 }
 

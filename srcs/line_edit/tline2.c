@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:29:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:29:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/12 15:13:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*line_to_str(t_line *cur)
 	char	*str;
 	int		i;
 
+	if (!cur->prev && !cur->next && !cur->c)
+		return (NULL);
 	if (!(str = malloc(sizeof(char) * full_tline_len(cur) + 1)))
 		return (NULL);
 	i = 0;

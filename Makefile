@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/12 14:18:01 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/12 15:18:51 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ LINE_NAME = ft_line.c		\
 			ft_pos.c		\
 			completion.c	\
 			line_edit.c		\
-			control_l.c
+			control_l.c		\
+			ft_copy.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 
