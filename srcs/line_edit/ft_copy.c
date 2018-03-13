@@ -22,6 +22,35 @@ t_line	*paste_selected_line(char *str, t_line *cur, t_curs *curseur)
 	return (cur);
 }
 
+t_line	*select_word(char **str, t_line *cur, t_curs *curseur)
+{
+	int		len;
+	t_line	*save;
+	char	*tmp;
+
+	save = cur;
+	if (!cur->prev && !cur->next && !cur->c)
+		return (cur);
+	while (cur->prev && (cur->c == ' ' || !cur->c))
+		cur = move_left(cur, curseur);
+	while (cur->prev && cur->prev->c != ' ')
+		cur = move_left(cur, curseur);
+	len = save->index - cur->index;
+	if (!(tmp = ft_strnew(len)))
+		return (cur);
+	len = 0;
+	while (cur != save)
+	{
+		tmp[len] = cur->c;
+		cur = del_next(cur, curseur);
+		len++;
+	}
+	tmp[len] = 0;
+	ft_strdel(str);
+	*str = tmp;
+	return (cur);
+}
+
 t_line	*select_all(char **str, t_line *cur, t_curs *curseur)
 {
 	int		first;

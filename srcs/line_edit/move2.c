@@ -34,7 +34,7 @@ t_line		*move_lword(t_line *cur, t_curs *curseur)
 {
 	while (cur->prev && cur->c != ' ' && cur->c != '\n')
 		cur = move_left(cur, curseur);
-	while (cur->prev && (cur->c == ' ' || cur->c == '\n'))
+	while (cur->prev && (cur->c == ' ' || !cur->c || cur->c == '\n'))
 		cur = move_left(cur, curseur);
 	while (cur->prev && cur->prev->c != ' ' && cur->prev->c != '\n')
 		cur = move_left(cur, curseur);

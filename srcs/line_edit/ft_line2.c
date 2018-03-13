@@ -19,7 +19,7 @@ static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur)
 	if (c == 21)
 		cur = select_all(&str, cur, curseur);
 	else if (c == 23)
-		;
+		cur = select_word(&str, cur, curseur);
 	else if (c == 25)
 		cur = paste_selected_line(str, cur, curseur);
 	return (cur);

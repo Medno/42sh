@@ -32,6 +32,7 @@ t_line				*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf);
 ** copy
 */
 t_line				*grab_mod(t_line *current, t_curs *curseur);
+t_line				*select_word(char **str, t_line *cur, t_curs *curseur);
 t_line				*select_all(char **str, t_line *cur, t_curs *curseur);
 t_line				*paste_selected_line(char *str, t_line *cur, t_curs *curseur);
 /*
