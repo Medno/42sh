@@ -12,21 +12,6 @@
 
 #include "sh.h"
 
-void			sigint_prompt(void)
-{
-	int		x;
-
-	*g_ed->current = move_last(*g_ed->current, &g_ed->curseur);
-	write(0, "\n", 1);
-	x = put_path(&g_in->new_env);
-	free_tline(*g_ed->current);
-	*g_ed->current = create_elem(0, x);
-	while ((*g_ed->histo)->next)
-		*g_ed->histo = (*g_ed->histo)->next;
-	ft_strdel(&(*g_ed->histo)->line);
-	signal(SIGINT, (void (*)(int))sigint_prompt);
-}
-
 void	sig_write_nl(void)
 {
 	write(1, "\n", 1);

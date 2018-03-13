@@ -29,9 +29,19 @@ int			edit_line(char **line, t_edit *edit)
 	c = 0;
 	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
+		if (c == 3)
 		{
 			ft_strdel(line);
+			*edit->current = move_last(*edit->current, &edit->curseur);
+			write(0, "\n", 1);
+			ft_strdel(&(*edit->histo)->line);
+			//DELETE LAST HISTORY LINE
+			return (1);
+		}
+		else if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
+		{
+			ft_strdel(line);
+			ft_strdel(&(*edit->histo)->line);
 			return (0);
 		}
 		else if (c == '\n')
@@ -58,7 +68,6 @@ void		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	t_line			*current;
 	t_curs			curseur;
 
-	signal(SIGINT, (void (*)(int))sigint_prompt);
 	if (prompt_len == -1 && ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}"))
 		prompt_len = 2;
 	edit.prompt_len = prompt_len;

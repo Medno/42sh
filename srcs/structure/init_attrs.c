@@ -17,12 +17,14 @@ void	ft_cfmakeraw(struct termios *my_state)
 	my_state->c_lflag &= ~(ICANON | ECHO);
 	my_state->c_cc[VMIN] = 1;
 	my_state->c_cc[VTIME] = 0;
-	my_state->c_cc[VDSUSP] = _POSIX_VDISABLE;
+	my_state->c_cc[VSUSP] = _POSIX_VDISABLE;
+	my_state->c_cc[VINTR] = _POSIX_VDISABLE;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, my_state);
 }
 
 void	ft_cfmakedefault(struct termios *my_state)
 {
 	my_state->c_lflag |= (ICANON | ECHO);
+	my_state->c_cc[VINTR] = 3;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, my_state);
 }
