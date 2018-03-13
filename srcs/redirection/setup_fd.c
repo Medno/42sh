@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:38:00 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/07 17:16:39 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/13 16:06:53 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@ void	saving_fd(int fd[])
 	fd[2] = dup(STDERR_FILENO);
 }
 
-int		reset_fd(int fd[], t_redir *redir)
+int		reset_fd(int fd[], t_ast *ast, int flag)
 {
-	dup2(fd[0], STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
-	dup2(fd[2], STDERR_FILENO);
-	close(fd[0]);
-	close(fd[1]);
-	close(fd[2]);
-	if (redir)
-		close(redir->fd_out);
+	if (flag == RESETALL)
+	{
+		dup2(fd[0], STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+		dup2(fd[2], STDERR_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		close(fd[2]);
+	}
+	if (ast && ast->cmd && ast->cmd->redir)
+		close(ast->cmd->redir->fd_out);
 	return (2);
 }

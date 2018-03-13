@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 15:36:32 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/13 16:03:19 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "sh.h"
 
+#define RESETALL	0
+#define RESETFILE	1
 #define BADFD		-2
 #define NOSUCHFILE	-3
 #define NOPERM		-4
@@ -48,5 +50,5 @@ void	which_error(int error, char *err_file);
 */
 
 void	saving_fd(int fd[]);
-int		reset_fd(int fd[], t_redir *redir);
+int		reset_fd(int fd[], t_ast *ast, int close);
 #endif

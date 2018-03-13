@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/13 15:23:41 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/13 16:10:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,28 @@ int		exec_cmd(t_ast *ast, t_init *init)
 
 	saving_fd(std_fd);
 	if (!redirection(ast->cmd))
-		return (reset_fd(std_fd, ast->cmd->redir));
+		return (reset_fd(std_fd, ast, RESETALL));
 	ret = check_cmd(ast, init);
-	reset_fd(std_fd, ast->cmd->redir);
+	reset_fd(std_fd, ast, RESETFILE);
 	return (ret);
 }
 
 int		launch_exec(t_init *init, t_ast *ast)
 {
 	int		ret;
+	int		std_fd[3];
 
 	if (ast)
 	{
 		if (ast->value == SEMI)
 		{
+			saving_fd(std_fd);
 			launch_exec(init, ast->left);
 			wait_pipe(&init->pid_list);
+			reset_fd(std_fd, ast->left, RESETALL);
 			launch_exec(init, ast->right);
 			wait_pipe(&init->pid_list);
+			reset_fd(std_fd, ast->right, RESETALL);
 		}
 		else if (ast->value == PIPE)
 			launch_pipe(init, ast);
@@ -90,6 +94,6 @@ int		exec_start(t_init *init)
 	saving_fd(std_fd);
 	launch_exec(init, ast);
 	wait_pipe(&init->pid_list);
-	reset_fd(std_fd, NULL);
+	reset_fd(std_fd, NULL, RESETALL);
 	return (0);
 }
