@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 20:14:12 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/13 13:08:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct		s_ast
 {
 	t_token			value;
 	t_cmd			*cmd;
+	int				pipefd[2];
 	struct s_ast	*parent;
 	struct s_ast	*left;
 	struct s_ast	*right;

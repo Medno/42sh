@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 20:16:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/13 14:54:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,80 +39,125 @@ int		check_builtins(char ***entry, t_init *init)
 	return (-1);
 }
 
-int		fork_cmd(t_env **env, t_cmd *cmd, char *path)
+void	close_loop(t_ast *ast)
+{
+	while (ast->parent->parent && ast->parent->parent->value == PIPE)
+	{
+		close(ast->parent->parent->pipefd[0]);
+		ast = ast->parent;
+	}
+}
+
+void	close_pipe(t_ast *ast)
+{
+	if (ast->parent && ast->parent->value == PIPE)
+	{
+		if (ast->parent->left && ast->cmd == ast->parent->left->cmd)
+		{
+			close(ast->parent->pipefd[1]);
+		}
+		else
+		{
+			if (ast->parent->parent)
+				close_loop(ast);
+			close(ast->parent->pipefd[0]);
+		}
+	}
+}
+
+void	setup_pipe(t_ast *ast)
+{
+	if (ast->parent && ast->parent->value == PIPE)
+	{
+		if (ast->parent->left && ast->cmd == ast->parent->left->cmd)
+		{
+			if (ast->parent->parent && ast->parent->parent->value == PIPE)
+			{
+				dup2(ast->parent->parent->pipefd[0], STDIN_FILENO);
+			}
+			dup2(ast->parent->pipefd[1], STDOUT_FILENO);
+			close(ast->parent->pipefd[0]);
+		}
+		else
+		{
+			dup2(ast->parent->pipefd[0], STDIN_FILENO);
+			close(ast->parent->pipefd[1]);
+		}
+	}
+}
+
+int		fork_cmd(t_init *init, t_ast *ast, char *path)
 {
 	char	**envir;
 	int		ret;
 	pid_t	father;
 
 	ret = 0;
-	if ((father = fork()) > 0)
+	father = fork();
+	if (father > 0)
 	{
+		pid_addlast(&init->pid_list, father);
 		signal(SIGINT, (void (*)(int))sig_write_nl);
-		/* pid_list = pid_addlast(pid_list, father); */
-		wait(&ret);
+		close_pipe(ast);
 	}
 	if (!father)
 	{
 		signal(SIGINT, SIG_DFL);
-		envir = put_in_tab(env);
-		execve(path, cmd->arg, envir);
+		setup_pipe(ast);
+		envir = put_in_tab(&init->new_env);
+		execve(path, ast->cmd->arg, envir);
 	}
 	ft_strdel(&path);
 	return (ret);
 }
 
-int		check_cmd(t_cmd *cmd, t_init *init)
+int		check_cmd(t_ast *ast, t_init *init)
 {
 	int		ret;
 	char	*path;
 
-	if ((ret = check_builtins(&cmd->arg, init)) >= 0)
+	if ((ret = check_builtins(&ast->cmd->arg, init)) >= 0)
 		return (ret);
 	else
 	{
-		if (!(ret = check_path(cmd->arg[0], &init->new_env, &path)))
-			return (fork_cmd(&init->new_env, cmd, path));
+		if (!(ret = check_path(ast->cmd->arg[0], &init->new_env, &path)))
+			return (fork_cmd(init, ast, path));
 		else
 		{
 			if (ret == 1)
-				ft_printf_fd(2, "42sh: %s: command not found\n", cmd->arg[0]);
+				ft_printf_fd(2, "42sh: %s: command not found\n",
+						ast->cmd->arg[0]);
 			return (1);
 		}
 		return (0);
 	}
 }
 
-/* int		check_sep(int ret, char *s) */
-/* { */
-/* 	if (ft_strequ(s, "&&")) */
-/* 	{ */
-/* 		if (!ret) */
-/* 			return (0); */
-/* 		else */
-/* 			return (1); */
-/* 	} */
-/* 	else if (ft_strequ(s, "||")) */
-/* 	{ */
-/* 		if (!ret) */
-/* 			return (1); */
-/* 		else */
-/* 			return (0); */
-/* 	} */
-/* 	return (0); */
-/* } */
-
-int		exec_cmd(t_cmd *cmd, t_init *init)
+int		exec_cmd(t_ast *ast, t_init *init)
 {
 	int		std_fd[3];
 	int		ret;
 
 	saving_fd(std_fd);
-	if (!redirection(cmd))
-		return (reset_fd(std_fd, cmd->redir));
-	ret = check_cmd(cmd, init);
-	reset_fd(std_fd, cmd->redir);
+	if (!redirection(ast->cmd))
+		return (reset_fd(std_fd, ast->cmd->redir));
+	ret = check_cmd(ast, init);
+	reset_fd(std_fd, ast->cmd->redir);
 	return (ret);
+}
+
+void	print_pid(t_pid *pid)
+{
+	if (!pid)
+		ft_printf_fd(STDERR_FILENO, "Empty\n");
+	else
+	{
+		while (pid)
+		{
+			ft_printf_fd(STDERR_FILENO, "PID=%d\n", pid->pid);
+			pid = pid->next;
+		}
+	}
 }
 
 int		launch_exec(t_init *init, t_ast *ast)
@@ -124,12 +169,13 @@ int		launch_exec(t_init *init, t_ast *ast)
 		if (ast->value == SEMI)
 		{
 			launch_exec(init, ast->left);
-			/* wait_pipe(init->pid); */
+			wait_pipe(&init->pid_list);
 			launch_exec(init, ast->right);
-			/* wait_pipe(init->pid); */
+			wait_pipe(&init->pid_list);
 		}
 		else if (ast->value == PIPE)
-			launch_pipe(init, ast);
+			/* launch_pipe(init, ast); */
+			launch_pipe_wofork(init, ast);
 		else if (ast->value == AND_IF)
 		{
 			if (!(ret = launch_exec(init, ast->left)))
@@ -141,39 +187,20 @@ int		launch_exec(t_init *init, t_ast *ast)
 				launch_exec(init, ast->right);
 		}
 		else if (ast->value == CMD && ast->cmd && ast->cmd->arg)
-			return (exec_cmd(ast->cmd, init));
+			return (exec_cmd(ast, init));
 	}
 	return (0);
 }
 
 int		exec_start(t_init *init)
 {
-	/* t_cmd	*tmp; */
 	t_ast	*ast;
 	int		std_fd[3];
-	/* int		ret; */
 
 	ast = init->ast;
 	saving_fd(std_fd);
 	launch_exec(init, ast);
+	wait_pipe(&init->pid_list);
 	reset_fd(std_fd, NULL);
-	/* tmp2 = init->ast->cmd; */
-	/* while (tmp2) */
-	/* { */
-	/* 	tmp = tmp2; */
-	/* 	while (tmp) */
-	/* 	{ */
-	/* 		saving_fd(std_fd); */
-	/* 		if (!redirection(tmp)) */
-	/* 			return (reset_fd(std_fd, tmp->redir)); */
-	/* 		ret = check_cmd(tmp, init); */
-	/* 		reset_fd(std_fd, tmp->redir); */
-	/* 		if (check_sep(ret, tmp->separ)) */
-	/* 			tmp = tmp->next; */
-	/* 		if (tmp) */
-	/* 			tmp = tmp->next; */
-	/* 	} */
-	/* 	tmp2 = tmp2->next_semi; */
-	/* } */
 	return (0);
 }
