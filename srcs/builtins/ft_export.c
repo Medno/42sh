@@ -26,11 +26,13 @@ static int	swapping_env(t_env **loc_env, t_env **env, char *arg)
 	return (1);
 }
 
-int			ft_export(t_env **loc_env, t_env **env, char **arg)
+int			ft_export(t_init *init, char ***entry)
 {
 	int		i;
+	char	**arg;
 
 	i = 1;
+	arg = *entry;
 	while (arg[i])
 	{
 		if (!is_valid_identifier(arg[i], PRINT))
@@ -39,8 +41,8 @@ int			ft_export(t_env **loc_env, t_env **env, char **arg)
 			continue ;
 		}
 		if (ft_strchr(arg[i], '='))
-			ft_set_variable(loc_env, env, arg[i]);
-		else if (!swapping_env(loc_env, env, arg[i]))
+			ft_set_variable(&init->loc_env, &init->new_env, arg[i]);
+		else if (!swapping_env(&init->loc_env, &init->new_env, arg[i]))
 		{
 			i++;
 			continue ;

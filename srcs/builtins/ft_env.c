@@ -12,11 +12,11 @@
 
 #include "sh.h"
 
-int			ft_env(t_env *env, char **entry)
+int			ft_env(t_init *init, char ***entry)
 {
-	(void)env;
+	(void)init;
 	(void)entry;
 	/*juste pour test */
-	ft_print_env(env);
+	ft_print_env(init->new_env);
 	return (0);
 }

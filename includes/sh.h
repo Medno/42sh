@@ -39,6 +39,7 @@
 int		g_quote;
 t_init	*g_in;
 t_edit	*g_ed;
+
 /*
 ** execs
 */
@@ -57,7 +58,7 @@ void				sigint_prompt(void);
 /*
 ** > cd <
 */
-int					ft_cd(t_env **env, char **str, int len);
+int					ft_cd(t_init *init, char ***entry);
 int					ft_cd_l(t_env **env, char *curpath, char *dir);
 char				**delete_and_paste(char **arr, int i);
 char				*paste_strs(char *str, char *new);
@@ -66,16 +67,18 @@ int					handle_cd_error(char *str);
 /*
 ** > echo | env | exit <
 */
-int					ft_echo(char **str);
-int					ft_env(t_env *env, char **entry);
-int					ft_setenv(t_env **list, char *name, char *content);
+int					ft_echo(t_init *init, char ***entry);
+int					ft_env(t_init *init, char ***entry);
+int					ft_bisetenv(t_init *init, char ***entry);
+int					ft_setenv(t_env **env,  char *name, char *content);
+int					ft_biunsetenv(t_init *init, char ***entry);
 int					ft_unsetenv(t_env **list, char *name);
-void				ft_exit(t_init *init);
+int					ft_exit(t_init *init, char ***entry);
 void				ft_print_env(t_env *env);
 /*
 ** > history <
 */
-int					ft_history(t_hist **histo, char **str, int len);
+int					ft_history(t_init *init, char ***entry);
 int					free_history(t_hist **histo);
 int					free_offset_hist(t_hist **histo, char *offset);
 int					print_history(t_hist **histo, char **str);

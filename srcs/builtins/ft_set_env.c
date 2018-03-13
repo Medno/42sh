@@ -27,11 +27,11 @@ static t_env	*new_env(char *name, char *content)
 	return (new_elem);
 }
 
-int				ft_setenv(t_env **list, char *name, char *content)
+int				ft_setenv(t_env **env, char *name, char *content)
 {
 	t_env	*tmp;
 
-	tmp = *list;
+	tmp = *env;
 	while (tmp && tmp->next && ft_strcmp(name, tmp->name))
 		tmp = tmp->next;
 	if (!content)
@@ -43,10 +43,17 @@ int				ft_setenv(t_env **list, char *name, char *content)
 	}
 	else
 	{
-		if (!*list)
-			*list = new_env(name, content);
+		if (!*env)
+			*env = new_env(name, content);
 		else
 			tmp->next = new_env(name, content);
 	}
+	return (0);
+}
+
+int				ft_bisetenv(t_init *init, char ***entry)
+{
+	ft_setenv(&init->new_env, (*entry)[1], (*entry)[2]);
+
 	return (0);
 }

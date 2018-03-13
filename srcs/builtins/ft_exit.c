@@ -12,16 +12,18 @@
 
 #include "sh.h"
 
-static void	final_exit(t_init *init, unsigned char x)
+static int	final_exit(t_init *init, unsigned char x, char ***entry)
 {
+	(void)entry;
 	ft_cfmakedefault(&init->current);
 	hist_to_file(init->historic);
 	ft_strdel(&init->str);
 	free_list(&init->new_env);
 	exit(x);
+	return (0);
 }
 
-void		ft_exit(t_init *init)
+int		ft_exit(t_init *init, char ***entry)
 {
 	unsigned char	ret;
 	int				i;
@@ -47,5 +49,5 @@ void		ft_exit(t_init *init)
 	if (check == -1)
 		ft_printf_fd(STDERR_FILENO,
 			"42sh: exit: %s: numeric argument required\n", init->ast->cmd->arg[1]);
-	final_exit(init, ret);
+	return (final_exit(init, ret, entry));
 }

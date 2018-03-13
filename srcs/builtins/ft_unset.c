@@ -12,11 +12,13 @@
 
 #include "sh.h"
 
-int			ft_unset(t_env **loc, t_env **env, char **arg)
+int			ft_unset(t_init *init, char ***entry)
 {
 	int		i;
+	char	**arg;
 
 	i = 0;
+	arg = *entry;
 	while (arg[i])
 	{
 		if (!is_valid_identifier(arg[i], PRINT))
@@ -24,10 +26,10 @@ int			ft_unset(t_env **loc, t_env **env, char **arg)
 			i++;
 			continue ;
 		}
-		if (is_in_env(*loc, arg[i]))
-			ft_unsetenv(loc, arg[i]);
-		else if (is_in_env(*env, arg[i]))
-			ft_unsetenv(env, arg[i]);
+		if (is_in_env(*(&init->loc_env), arg[i]))
+			ft_unsetenv(&init->loc_env, arg[i]);
+		else if (is_in_env(*(&init->new_env), arg[i]))
+			ft_unsetenv(&init->new_env, arg[i]);
 		i++;
 	}
 	return (0);

@@ -12,10 +12,14 @@
 
 #include "sh.h"
 
-int		ft_echo(char **str)
+int		ft_echo(t_init *init, char ***entry)
 {
+	char	**str;
 	int		i;
 
+	(void)init;
+	str = *entry;
+	str++;
 	i = -1;
 	if (str[0] && !ft_strcmp(str[0], "-n"))
 		i = 0;

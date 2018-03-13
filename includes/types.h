@@ -142,4 +142,10 @@ typedef struct		s_type
 	int				(*f)(t_cmd *cmd, t_lex *lex);
 }					t_type;
 
+typedef struct		s_builtin
+{
+	const char		*value;
+	int				(*f)(t_init *init, char ***entry);
+}					t_builtin;
+
 #endif

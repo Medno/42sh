@@ -114,7 +114,7 @@ static int		ft_cd_2(t_env **env, char *dir, int p)
 	return (ft_cd_l(env, curpath, dir));
 }
 
-int				ft_cd(t_env **env, char **str, int len)
+int				ft_cd(t_init *init, char ***entry)
 {
 	int		opt_p;
 	int		c;
@@ -122,7 +122,7 @@ int				ft_cd(t_env **env, char **str, int len)
 	opt_p = 0;
 	c = 0;
 	reset_ft_opt();
-	while ((c = ft_getopt(len, str, "LP")) != -1)
+	while ((c = ft_getopt(ft_tablen(*entry), *entry, "LP")) != -1)
 	{
 		if (c == '?' && write(STDERR_FILENO, "cd: usage: cd [-LP] [dir]\n", 26))
 			return (1);
@@ -131,14 +131,14 @@ int				ft_cd(t_env **env, char **str, int len)
 		else if (c == 'L')
 			opt_p = 0;
 	}
-	if (!str[g_optind])
+	if (!(*entry)[g_optind])
 	{
-		if (!ft_getenv(env, "HOME")
+		if (!ft_getenv(&init->new_env, "HOME")
 			&& write(STDERR_FILENO, "cd: HOME not set\n", 17))
 			return (1);
-		return (do_move(ft_getenv(env, "HOME"), env));
+		return (do_move(ft_getenv(&init->new_env, "HOME"), &init->new_env));
 	}
 	else
-		return (ft_cd_2(env, str[g_optind], opt_p));
+		return (ft_cd_2(&init->new_env, (*entry)[g_optind], opt_p));
 	return (0);
 }

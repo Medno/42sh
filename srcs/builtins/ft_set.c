@@ -12,15 +12,18 @@
 
 #include "sh.h"
 
-int		ft_set(t_env *loc_env, t_env *new_env, char **arg)
+int		ft_set(t_init *init, char ***entry)
 {
+	char **arg;
+
+	arg = *entry;
 	if (!arg[1])
 	{
-		ft_print_env(new_env);
-		ft_print_env(loc_env);
+		ft_print_env(init->new_env);
+		ft_print_env(init->loc_env);
 	}
 	else if (ft_strequ(arg[1], "--loc"))
-		ft_print_env(loc_env);
+		ft_print_env(init->loc_env);
 	else
 	{
 		ft_printf_fd(STDERR_FILENO, "SET is not supporting option yet\n");

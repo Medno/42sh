@@ -70,7 +70,7 @@ static int		step_2(t_hist **histo, char **str, int flags)
 	return (0);
 }
 
-int		ft_history(t_hist **histo, char **str, int len)
+int		ft_history(t_init *init, char ***entry)
 {
 	int		flags;
 	int		c;
@@ -78,7 +78,7 @@ int		ft_history(t_hist **histo, char **str, int len)
 	flags = 0;
 	c = 0;
 	reset_ft_opt();
-	while ((c = ft_getopt(len, str, "carnpswd:")) != -1)
+	while ((c = ft_getopt(ft_tablen(*entry), *entry, "carnpswd:")) != -1)
 	{
 		if (ft_strchr("carnpswd", (char)c))
 			flags = set_bits(c, flags);
@@ -95,5 +95,5 @@ history -awrn [filename] or history -ps arg [arg...]\n", STDERR_FILENO);
 		return (1);
 	}
 	else
-		return (step_2(histo, &str[g_optind], flags));
+		return (step_2(&init->historic, &((*entry)[g_optind]), flags));
 }

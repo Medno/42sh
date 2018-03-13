@@ -49,3 +49,8 @@ int			ft_unsetenv(t_env **list, char *name)
 	}
 	return (ft_unsetenv_2(list, tmp));
 }
+
+int			ft_biunsetenv(t_init *init, char ***entry)
+{
+	return (ft_unsetenv(&init->new_env, (*entry)[1]));
+}
