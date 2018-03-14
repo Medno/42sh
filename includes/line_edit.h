@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 15:21:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:08:08 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /*
 **  line_edit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-void				ft_line_edition(char **line, int prompt_len,
+int					ft_line_edition(char **line, int prompt_len,
 					t_hist **histo, t_env *env);
 t_line				*ft_line_usual(t_edit *edit, char c);
 t_line				*line_delone(t_line *cur, t_curs *curseur);

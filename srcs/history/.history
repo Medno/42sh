@@ -1,0 +1,43 @@
+ls '
+
+ls \
+
+ls \ 
+
+ls \
+
+ls \
+
+echo ~
+
+~/
+
+unset env HOME
+
+~
+
+~
+
+~
+
+$
+
+$lala
+
+${HOME}
+
+${PATH}
+
+exit
+
+`
+
+
+
+
+`
+
+`ls`
+
+exit
+

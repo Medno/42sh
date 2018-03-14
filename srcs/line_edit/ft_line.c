@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 09:05:50 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:07:48 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			edit_end(char **line, t_edit *edit)
 	handle_history_ret(*edit->current, edit->histo);
 	*line = line_to_str(*edit->current);
 	free_tline(*edit->current);
-	return (1);
+	return (0);
 }
 
 int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
@@ -36,7 +36,7 @@ int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
 	{
 		ft_strdel(line);
 		ft_strdel(&(*edit->histo)->line);
-		return (0);
+		return (1);
 	}
 }
 
@@ -68,12 +68,13 @@ int			edit_line(char **line, t_edit *edit)
 	return (0);
 }
 
-void		ft_line_edition(char **line, int prompt_len, t_hist **histo,
+int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
 			t_env *env)
 {
 	t_edit			edit;
 	t_line			*current;
 	t_curs			curseur;
+	int				ret;
 
 	if (prompt_len == -1 && ft_printf_fd(STDERR_FILENO, "{tred}> {eoc}"))
 		prompt_len = 2;
@@ -87,6 +88,7 @@ void		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	edit.comp = init_t_comp();
 	edit.env = env;
 	g_ed = &edit;
-	edit_line(line, &edit);
+	ret = edit_line(line, &edit);
 	ft_clean_edit(&edit);
+	return (ret);
 }
