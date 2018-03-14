@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/13 13:08:26 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 12:12:48 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_curs
 	int				y;
 	int				xmax;
 	int				ymax;
+	int				nl;
 	struct winsize	screen;
 }					t_curs;
 

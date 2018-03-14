@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 09:56:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 12:22:22 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_line		*push_new(t_line *current, char c, t_curs *curseur)
 		current->prev->next = new;
 	}
 	current->prev = new;
-	check_ynx(curseur, new->index);
+	check_ynx_nl(curseur, new);
 	check_max(curseur, last_index(new));
 	print_line(new, parted_tline_len(current), curseur);
 	return (current);

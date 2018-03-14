@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/11 08:33:10 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 11:49:50 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	final_exit(t_init *init, unsigned char x, char ***entry)
 {
 	(void)entry;
-	ft_cfmakedefault(&init->current);
+	ft_cfmakeinit(&init->current);
 	hist_to_file(init->historic);
 	ft_strdel(&init->str);
 	free_list(&init->new_env);
