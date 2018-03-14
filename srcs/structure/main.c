@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/14 09:42:02 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:39:24 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,20 @@ int				step_2(t_init *init)
 
 int				step_1(t_init init)
 {
+	int		ret;
 	int		len_prompt;
 
 	while (42)
 	{
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
-		ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
+		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
 		ft_cfmakedefault(&init.current);
 		init.historic = cleanup_nl_hist(&init.historic);
-		if (init.str)
+		if (!ret && init.str)
 			step_2(&init);
+		else if (ret == 1)
+			ft_exit(&init, NULL);
 		ft_strdel(&init.str);
 	}
 }
