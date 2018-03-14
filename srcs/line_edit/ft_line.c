@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 10:07:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:33:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
 	{
 		ft_strdel(line);
 		ft_strdel(&(*edit->histo)->line);
-		*edit->current = move_last(*edit->current, &edit->curseur);
+		if ((*edit->current)->next)
+			*edit->current = move_last(*edit->current, &edit->curseur);
 		write(0, "\n", 1);
 		return (3);
 	}
