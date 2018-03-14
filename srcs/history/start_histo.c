@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:23:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 09:46:14 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:53:17 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		append_new(t_hist **list, t_hist *new)
 	}
 }
 
-t_hist		*cleanup_nl_hist(t_hist **histo)
+t_hist			*cleanup_nl_hist(t_hist **histo)
 {
 	t_hist	*tmp;
 	t_hist	*tmp2;
