@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 15:08:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 12:22:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:24:42 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	moove_curseur(t_curs *curseur)
 {
-	if (curseur->y < curseur->ymax && !curseur->xmax)
+	if (!curseur->xmax)
 	{
 		ansi("NL", 0, STDIN_FILENO);
 		ansi("UP", curseur->ymax - curseur->y, STDIN_FILENO);
@@ -22,31 +22,38 @@ static void	moove_curseur(t_curs *curseur)
 	}
 	else if (!curseur->x)
 	{
-		ansi("REST", 0, STDIN_FILENO);
-		ansi("DO", 1, STDIN_FILENO);
-		ansi("LE", curseur->screen.ws_col - 1, STDIN_FILENO);
+		ansi("LE", curseur->xmax, STDIN_FILENO);
+		if (curseur->ymax != curseur->y)
+			ansi("UP", curseur->ymax - curseur->y, STDIN_FILENO);
 	}
 	else
 	{
-		ansi("REST", 0, STDIN_FILENO);
-		ansi("RI", 1, STDIN_FILENO);
+		if (curseur->ymax != curseur->y)
+			ansi("UP", curseur->ymax - curseur->y, STDIN_FILENO);
+		ansi("LE", curseur->xmax, STDIN_FILENO);
+		ansi("RI", curseur->x, STDIN_FILENO);
 	}
 }
 
 static void	print_line(t_line *new, int len_end, t_curs *curseur)
 {
-	char	buf[len_end];
+	char	buf[len_end + 1];
 	int		i;
 	t_line	*tmp;
 
 	i = 0;
 	tmp = new;
-	ft_bzero(buf, len_end);
-	ansi("SAVE", 0, STDIN_FILENO);
+	ft_bzero(buf, len_end + 1);
 	ansi("CL_END", 0, STDIN_FILENO);
 	while (tmp->next)
 	{
 		buf[i] = tmp->c;
+		if (tmp->c == '\n' && tmp->prev && tmp->index % curseur->screen.ws_col
+				== 1 && tmp->prev->c != '\n')
+		{
+			buf[i] = '\n';
+			buf[++i] = '\n';
+		}
 		i++;
 		tmp = tmp->next;
 	}
@@ -75,7 +82,7 @@ t_line		*push_new(t_line *current, char c, t_curs *curseur)
 		current->prev->next = new;
 	}
 	current->prev = new;
-	check_ynx_nl(curseur, new);
+	check_ynx(curseur, new->index);
 	check_max(curseur, last_index(new));
 	print_line(new, parted_tline_len(current), curseur);
 	return (current);
