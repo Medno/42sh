@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 15:24:41 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 15:51:37 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	exec_cmd(t_init *init, t_ast *ast, char *path)
 	{
 		envir = put_in_tab(&init->new_env);
 		execve(path, ast->cmd->arg, envir);
+		error_execve();
 	}
 	else
 		exit_error(ret, ast->cmd->arg[0]);
