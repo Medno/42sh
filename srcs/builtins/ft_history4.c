@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:05:57 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 13:05:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 09:37:36 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ int			append_to_list(t_hist **histo, char *str)
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (*line)
+		{
+			line = ft_strjoindel(line, "\n");
 			if ((new = create_hist(line)))
 				append_new(histo, new);
+		}
 		ft_strdel(&line);
 	}
 	close(fd);

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:23:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 14:07:15 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 09:46:14 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_hist		*cleanup_nl_hist(t_hist **histo)
 	t_hist	*tmp2;
 
 	tmp = *histo;
-	if (ft_strequ(tmp->line, "\n"))
+	if (!tmp->line || ft_strequ(tmp->line, "\n"))
 	{
 		ft_strdel(&tmp->line);
 		if (!tmp->prev)

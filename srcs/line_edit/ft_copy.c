@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 14:51:32 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 16:25:13 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 08:47:43 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_line	*select_word(char **str, t_line *cur, t_curs *curseur)
 		cur = del_next(cur, curseur);
 		len++;
 	}
-	tmp[len] = 0;
 	ft_strdel(str);
 	*str = tmp;
 	return (cur);

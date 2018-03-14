@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 16:09:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 16:23:23 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 08:42:40 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_cfmakeraw(struct termios *my_state)
 	my_state->c_lflag &= ~(ICANON | ECHO);
 	my_state->c_cc[VMIN] = 1;
 	my_state->c_cc[VTIME] = 0;
-	my_state->c_cc[VSUSP] = _POSIX_VDISABLE;
+	my_state->c_cc[VDSUSP] = _POSIX_VDISABLE;
 	my_state->c_cc[VINTR] = _POSIX_VDISABLE;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, my_state);
 }

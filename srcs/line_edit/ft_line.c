@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 16:34:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 09:05:50 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ int			edit_end(char **line, t_edit *edit)
 	return (1);
 }
 
+int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
+{
+	if (i)
+	{
+		ft_strdel(line);
+		ft_strdel(&(*edit->histo)->line);
+		*edit->current = move_last(*edit->current, &edit->curseur);
+		write(0, "\n", 1);
+		return (3);
+	}
+	else
+	{
+		ft_strdel(line);
+		ft_strdel(&(*edit->histo)->line);
+		return (0);
+	}
+}
+
 int			edit_line(char **line, t_edit *edit)
 {
 	char	c;
@@ -30,20 +48,9 @@ int			edit_line(char **line, t_edit *edit)
 	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
 		if (c == 3)
-		{
-			ft_strdel(line);
-			*edit->current = move_last(*edit->current, &edit->curseur);
-			write(0, "\n", 1);
-			ft_strdel(&(*edit->histo)->line);
-			//DELETE LAST HISTORY LINE
-			return (1);
-		}
+			return (handle_ctrl_d_c(edit, line, 1));
 		else if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
-		{
-			ft_strdel(line);
-			ft_strdel(&(*edit->histo)->line);
-			return (0);
-		}
+			return (handle_ctrl_d_c(edit, line, 0));
 		else if (c == '\n')
 			return (edit_end(line, edit));
 		else if (c == 14)
@@ -81,5 +88,5 @@ void		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	edit.env = env;
 	g_ed = &edit;
 	edit_line(line, &edit);
-	ft_clean_edit(&edit); // a modifier
+	ft_clean_edit(&edit);
 }
