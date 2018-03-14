@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 11:49:50 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:45:54 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	final_exit(t_init *init, unsigned char x, char ***entry)
 {
-	(void)entry;
+	if (entry && *entry)
+		ft_freetab(*entry);
 	ft_cfmakeinit(&init->current);
 	hist_to_file(init->historic);
 	ft_strdel(&init->str);
