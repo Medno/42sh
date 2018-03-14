@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:13:31 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 17:46:32 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:46:24 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@ char	*esc_simple_qu(char *str, int *i, int len)
 	ft_bzero(buffer, len);
 	while (str[j] && str[j] != '\'')
 	{
-		j = (str[j] == '\\') ? j + 1 : j;
-		if (str[j])
-		{
-			buffer[k] = str[j];
-			k++;
-		}
+		buffer[k] = str[j];
+		k++;
 		j++;
 	}
 	res = ft_strdup(buffer);

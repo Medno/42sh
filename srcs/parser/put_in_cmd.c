@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:23:29 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/14 14:36:09 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/14 18:30:43 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ t_cmd	*put_in_cmd(t_init *init, t_cmd *cmd, t_lex *tmp)
 		if (check_expans[0] == '~')
 			check_expans = exp_tilde(init, check_expans,
 					ft_strlen(check_expans));
+//		if (ft_strchr(check_expans, '$'))
+//			check_expans = dollar_exp(init, check_expans,
+//					ft_strlen(check_expans));
 		check_expans = delete_esc(init, check_expans, ft_strlen(check_expans));
 		if (check_expans)
 			cmd->arg = ft_addstr_tab(cmd->arg, check_expans);
