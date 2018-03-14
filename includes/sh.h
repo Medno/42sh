@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 12:13:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 12:43:04 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_edit	*g_ed;
 ** execs
 */
 int					exec_start(t_init *init);
-int					check_path(char *str, t_env **env, char **s_fin);
 int					step_1(t_init init);
 /*
 ** signals

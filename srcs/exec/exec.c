@@ -6,15 +6,30 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 11:00:27 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 15:24:41 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
+void	exec_cmd(t_init *init, t_ast *ast, char *path)
+{
+	int		ret;
+	char	**envir;
+
+	if (is_builtin(ast->cmd->arg[0]) || check_local(&ast->cmd->arg, CLEAN))
+		exit(check_builtins(&ast->cmd->arg, ast->cmd, init));
+	if (!(ret = check_path(ast->cmd->arg, &init->new_env, &path, PRINT)))
+	{
+		envir = put_in_tab(&init->new_env);
+		execve(path, ast->cmd->arg, envir);
+	}
+	else
+		exit_error(ret, ast->cmd->arg[0]);
+}
+
 int		fork_cmd(t_init *init, t_ast *ast, char *path)
 {
-	char	**envir;
 	int		ret;
 	pid_t	father;
 
@@ -32,20 +47,9 @@ int		fork_cmd(t_init *init, t_ast *ast, char *path)
 		setup_pipe(ast);
 		if (!redirection(ast->cmd))
 			exit(EXIT_FAILURE);
-		if (is_builtin(ast->cmd->arg[0]))
-			exit(check_builtins(&ast->cmd->arg, ast->cmd, init));
-		envir = put_in_tab(&init->new_env);
-		execve(path, ast->cmd->arg, envir);
+		exec_cmd(init, ast, path);
 	}
 	ft_strdel(&path);
-	return (ret);
-}
-
-int		exec_cmd(t_ast *ast, t_init *init)
-{
-	int		ret;
-
-	ret = check_cmd(ast, init);
 	return (ret);
 }
 
@@ -62,7 +66,7 @@ int		launch_exec(t_init *init, t_ast *ast, int std_fd[])
 		else if (ast->value == OR_IF)
 			launch_or(init, ast, std_fd);
 		else if (ast->value == CMD && ast->cmd && ast->cmd->arg)
-			return (exec_cmd(ast, init));
+			return (check_cmd(ast, init));
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 10:51:24 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 14:44:20 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		check_builtins(char ***entry, t_cmd *cmd, t_init *init)
 
 	if (!redirection(cmd))
 		return (1);
-	if (check_local(entry))
+	if (check_local(entry, CLEAN))
 		return (ft_set_local(&init->loc_env, &init->new_env, *entry));
 	i = 0;
 	while (g_builtin[i].value)
@@ -64,21 +64,16 @@ int		check_cmd(t_ast *ast, t_init *init)
 	int		ret;
 	char	*path;
 
-	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent)  &&
-			is_builtin(ast->cmd->arg[0]) &&
-			(ret = check_builtins(&ast->cmd->arg, ast->cmd, init)) >= 0)
+	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
+			(is_builtin(ast->cmd->arg[0]) ||
+			check_local(&ast->cmd->arg, CLEAN))
+			&& (ret = check_builtins(&ast->cmd->arg, ast->cmd, init)) >= 0)
 		return (ret);
 	else
 	{
-		if (!(ret = check_path(ast->cmd->arg[0], &init->new_env, &path)))
-			return (fork_cmd(init, ast, path));
-		else
-		{
-			if (ret == 1)
-				ft_printf_fd(2, "42sh: %s: command not found\n",
-						ast->cmd->arg[0]);
-			return (1);
-		}
+		path = NULL;
+		check_path(ast->cmd->arg, &init->new_env, &path, NOPRINT);
+		fork_cmd(init, ast, path);
 		return (0);
 	}
 }

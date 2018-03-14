@@ -6,22 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 09:40:50 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 14:48:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-static int	check_error(int ret, char *str)
-{
-	if (ret == -1)
-		ft_printf_fd(2, "42sh: %s: No such file or directory\n", str);
-	else if (ret == -2)
-		ft_printf_fd(2, "42sh: %s: Permission denied\n", str);
-	else if (ret == -3)
-		ft_printf_fd(2, "42sh: %s: is a directory\n", str);
-	return (ret);
-}
 
 static int	is_accessible(char *str)
 {
@@ -71,7 +60,7 @@ static int	check_bin(char *str, t_env **env, char **s_fin)
 	return (ret);
 }
 
-int		check_slash(char *str, char **s_fin)
+int			check_slash(char *str, char **s_fin, int print)
 {
 	int		i;
 	int		ret;
@@ -97,23 +86,22 @@ int		check_slash(char *str, char **s_fin)
 		*s_fin = ft_strjoindel(*s_fin, "/");
 	}
 	ft_freetab(path);
-	return (ret ? check_error(ret, str) : ret);
+	return (ret ? check_error(ret, str, print) : ret);
 }
 
-
-int		check_path(char *str, t_env **env, char **s_fin)
+int			check_path(char **arg, t_env **env, char **s_fin, int print)
 {
-	if (!str)
+	if (!*arg)
 		return (1);
-	if (is_builtin(str))
+	if (is_builtin(*arg) || check_local(&arg, NOCLEAN))
 	{
 		*s_fin = NULL;
 		return (0);
 	}
-	if (ft_strchr(str, '/'))
-		return (check_slash(str, s_fin));
+	if (ft_strchr(*arg, '/'))
+		return (check_slash(*arg, s_fin, print));
 	else if (ft_getenv(env, "PATH"))
-		return (check_bin(str, env, s_fin));
+		return (check_bin(*arg, env, s_fin));
 	else
-		return (check_error(-1, str));
+		return (check_error(-1, *arg, print));
 }
