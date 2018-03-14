@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 14:51:44 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 15:53:48 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void		pid_addlast(t_pid **pid, pid_t proc);
 
 int			check_error(int ret, char *str, int print);
 void		exit_error(int ret, char *str);
+void		error_execve(void);
 #endif
