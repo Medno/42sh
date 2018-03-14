@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 10:34:04 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 11:00:27 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		fork_cmd(t_init *init, t_ast *ast, char *path)
 		if (!redirection(ast->cmd))
 			exit(EXIT_FAILURE);
 		if (is_builtin(ast->cmd->arg[0]))
-			exit(check_builtins(&ast->cmd->arg, init));
+			exit(check_builtins(&ast->cmd->arg, ast->cmd, init));
 		envir = put_in_tab(&init->new_env);
 		execve(path, ast->cmd->arg, envir);
 	}
