@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:26:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/12 15:16:04 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/14 13:49:12 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	repeat_line_edition(t_init *init, t_lex *tmp)
 {
+	int			ret;
 	char		*line_tmp;
 	static int	checkout = 0;
 
@@ -24,12 +25,17 @@ static int	repeat_line_edition(t_init *init, t_lex *tmp)
 				|| tmp->token == OR_IF || ft_strequ(tmp->value, "|") ||
 				tmp->token == DLESSDASH)))
 	{
+		line_tmp = NULL;
 		checkout = 1;
-		line_tmp = line_edit(-1, init);
-		if (line_tmp)
+		ret = line_edit(&line_tmp, -1, init);
+		if (!ret)
 			init->str = ft_strjoindel(init->str, line_tmp);
-		if (!line_tmp)
+		else if (ret == 1 && g_quote == '\\')
+			init->str = delete_esc(init, init->str, ft_strlen(init->str));
+		else if (ret == 1 && g_quote != '\\')
 			return (err_eof());
+		else if (ret == 3)
+			return (-1);
 		del_lex(init->lex);
 		ft_strdel(&line_tmp);
 		return (1);
@@ -83,7 +89,8 @@ static int	repeat_heredoc(t_init *init, t_lex *tmp)
 	checkout ? paste_last_hist(&init->historic) : 0;
 	while (tmp->token == IO_HERE)
 	{
-		line_tmp = line_edit(-1, init);
+		line_tmp = NULL;
+		line_edit(&line_tmp, -1, init);
 		if (ft_strequ(line_tmp, tmp->value) || !line_tmp)
 			return (return_heredoc(init, line_tmp, heredoc));
 		heredoc = (checkout) ? ft_strjoindel(heredoc, "\n") : heredoc;

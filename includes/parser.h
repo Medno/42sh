@@ -8,7 +8,7 @@
 */
 int					parser(t_init *init);
 int					repeat_line(t_init *line, t_lex *tmp);
-char				*line_edit(int len_prompt, t_init *init);
+int					line_edit(char **line, int len_prompt, t_init *init);
 int					check_first(t_lex *first);
 int					err_pars(t_lex *tmp);
 int					err_eof(void);
@@ -28,7 +28,7 @@ t_redir				*init_redir(void);
 void				clean_cmd(t_cmd **cmd);
 void				clean_redir(t_redir **redir);
 t_redir				*put_fd_in(t_redir *redir, t_lex *tmp);
-t_cmd				*put_redir(t_cmd *cmd, t_lex *tmp, int *loop);
+void				put_redir(t_cmd *cmd, t_lex *tmp, int *loop);
 t_cmd				*put_in_cmd(t_init *init, t_cmd *cmd, t_lex *tmp);
 int					is_redir(t_lex *tmp);
 void				print_cmd(t_cmd *cmd);

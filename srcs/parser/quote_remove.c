@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 16:28:59 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/14 13:49:48 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ char	*treat_esc(t_init *init, char *res, char *str, int *i)
 
 	to_join = NULL;
 	len = ft_strlen(str);
-	if (str[*i] == '\\' && str[*i + 1] && str[*i + 1] == '\n' && !str[*i + 2])
+	if (!*i && str[*i] == '\\' && str[*i + 1] && str[*i + 1] == '\n' &&
+			!str[*i + 2])
 		ft_strdel(&res);
 	else if (str[*i] == '\\')
 		to_join = esc_backslash(str, i);

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:23:29 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 15:43:43 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:36:09 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,40 @@ t_redir	*put_fd_in(t_redir *redir, t_lex *tmp)
 	return (redir);
 }
 
-t_cmd	*put_redir(t_cmd *cmd, t_lex *tmp, int *loop)
+void	redir_pushback(t_cmd *cmd, t_redir *redir)
 {
+	t_cmd	*cmd_tmp;
+
+	if (!cmd->redir)
+		cmd->redir = redir;
+	else
+	{
+		cmd_tmp = cmd;
+		while (cmd->redir && cmd->redir->next)
+			cmd->redir = cmd->redir->next;
+		cmd->redir->next = redir;
+		cmd = cmd_tmp;
+	}
+}
+
+void	put_redir(t_cmd *cmd, t_lex *tmp, int *loop)
+{
+	t_redir	*redir;
+
 	*loop = 2;
-	cmd->redir = init_redir();
-	cmd->redir = put_fd_in(cmd->redir, tmp);
+	redir = init_redir();
+	redir = put_fd_in(redir, tmp);
 	if (tmp->token == IO_NUMBER)
 	{
 		tmp = tmp->next;
 		(*loop)++;
 	}
-	cmd->redir->token = ft_strdup(tmp->value);
+	redir->token = ft_strdup(tmp->value);
 	if (is_number(tmp->next->value))
-		cmd->redir->fd_out = ft_atoi(tmp->next->value);
+		redir->fd_out = ft_atoi(tmp->next->value);
 	else
-		cmd->redir->file = ft_strdup(tmp->next->value);
-	return (cmd);
+		redir->file = ft_strdup(tmp->next->value);
+	redir_pushback(cmd, redir);
 }
 
 t_cmd	*put_in_cmd(t_init *init, t_cmd *cmd, t_lex *tmp)
