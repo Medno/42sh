@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 11:13:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:08:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:13:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ t_line		*move_last(t_line *cur, t_curs *curseur)
 
 t_line		*move_lword(t_line *cur, t_curs *curseur)
 {
-	while (cur->prev && cur->c != ' ' && cur->c != '\n')
+	if (cur->prev)
 		cur = move_left(cur, curseur);
-	while (cur->prev && (cur->c == ' ' || !cur->c || cur->c == '\n'))
+	while (cur->prev && (cur->c == ' ' || !cur->c))
 		cur = move_left(cur, curseur);
-	while (cur->prev && cur->prev->c != ' ' && cur->prev->c != '\n')
+	while (cur->prev && cur->prev->c != ' ')
 		cur = move_left(cur, curseur);
 	return (cur);
 }
