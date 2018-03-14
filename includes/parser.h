@@ -42,6 +42,7 @@ char				*dollar_exp(t_init *init, char *str, int len);
 ** quote removal
 */
 int					is_quote_bslash(char c);
+void				put_in_buffer(char buffer[], char c);
 void				word_exp(t_init *init, t_ast *ast);
 char				*delete_esc(t_init *init, char *str, int len);
 char				*esc_backslash(char *str, int *i);
