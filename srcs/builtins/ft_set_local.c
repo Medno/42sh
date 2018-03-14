@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 15:41:09 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 16:40:08 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_set_variable(t_env **loc_env, t_env **env, char *arg, int where)
 
 	name = ft_strsub(arg, 0, equ_index(arg, '='));
 	value = ft_strchr(arg, '=') + 1;
-	if (is_in_env(*env, name) || where == ENV)
+	if (is_in_env(*env, name) && (where == ENV || where == BOTH))
 		ft_setenv(env, name, value);
 	else
 		ft_setenv(loc_env, name, value);
@@ -92,7 +92,7 @@ int		ft_set_local(t_env **loc, t_env **env, char **arg)
 	i = 0;
 	while (arg[i])
 	{
-		ft_set_variable(loc, env, arg[i], BOTH);
+		ft_set_variable(loc, env, arg[i], LOC);
 		i++;
 	}
 	return (0);

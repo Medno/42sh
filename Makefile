@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/14 16:56:37 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/14 17:18:05 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
 		   ft_history3.c				\
 		   ft_history4.c				\
 		   ft_export.c					\
+		   ft_export_error.c			\
 		   ft_exit.c					\
 		   ft_set.c						\
 		   ft_print_env.c				\
