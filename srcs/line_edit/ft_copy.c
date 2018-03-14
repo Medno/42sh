@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 14:51:32 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 08:47:43 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 10:14:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ t_line	*select_word(char **str, t_line *cur, t_curs *curseur)
 	save = cur;
 	if (!cur->prev && !cur->next && !cur->c)
 		return (cur);
-	while (cur->prev && (cur->c == ' ' || !cur->c))
-		cur = move_left(cur, curseur);
-	while (cur->prev && cur->prev->c != ' ')
-		cur = move_left(cur, curseur);
+	cur = move_lword(cur, curseur);
 	len = save->index - cur->index;
 	if (!(tmp = ft_strnew(len)))
 		return (cur);
