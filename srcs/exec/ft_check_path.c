@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/09 12:01:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/14 09:40:50 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ int		check_path(char *str, t_env **env, char **s_fin)
 {
 	if (!str)
 		return (1);
+	if (is_builtin(str))
+	{
+		*s_fin = NULL;
+		return (0);
+	}
 	if (ft_strchr(str, '/'))
 		return (check_slash(str, s_fin));
 	else if (ft_getenv(env, "PATH"))

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/13 16:10:28 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 10:34:04 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int		fork_cmd(t_init *init, t_ast *ast, char *path)
 	{
 		signal(SIGINT, SIG_DFL);
 		setup_pipe(ast);
+		if (!redirection(ast->cmd))
+			exit(EXIT_FAILURE);
+		if (is_builtin(ast->cmd->arg[0]))
+			exit(check_builtins(&ast->cmd->arg, init));
 		envir = put_in_tab(&init->new_env);
 		execve(path, ast->cmd->arg, envir);
 	}
@@ -39,46 +43,24 @@ int		fork_cmd(t_init *init, t_ast *ast, char *path)
 
 int		exec_cmd(t_ast *ast, t_init *init)
 {
-	int		std_fd[3];
 	int		ret;
 
-	saving_fd(std_fd);
-	if (!redirection(ast->cmd))
-		return (reset_fd(std_fd, ast, RESETALL));
 	ret = check_cmd(ast, init);
-	reset_fd(std_fd, ast, RESETFILE);
 	return (ret);
 }
 
-int		launch_exec(t_init *init, t_ast *ast)
+int		launch_exec(t_init *init, t_ast *ast, int std_fd[])
 {
-	int		ret;
-	int		std_fd[3];
-
 	if (ast)
 	{
 		if (ast->value == SEMI)
-		{
-			saving_fd(std_fd);
-			launch_exec(init, ast->left);
-			wait_pipe(&init->pid_list);
-			reset_fd(std_fd, ast->left, RESETALL);
-			launch_exec(init, ast->right);
-			wait_pipe(&init->pid_list);
-			reset_fd(std_fd, ast->right, RESETALL);
-		}
+			launch_semi(init, ast, std_fd);
 		else if (ast->value == PIPE)
-			launch_pipe(init, ast);
+			launch_pipe(init, ast, std_fd);
 		else if (ast->value == AND_IF)
-		{
-			if (!(ret = launch_exec(init, ast->left)))
-				launch_exec(init, ast->right);
-		}
+			launch_and(init, ast, std_fd);
 		else if (ast->value == OR_IF)
-		{
-			if ((ret = launch_exec(init, ast->left)))
-				launch_exec(init, ast->right);
-		}
+			launch_or(init, ast, std_fd);
 		else if (ast->value == CMD && ast->cmd && ast->cmd->arg)
 			return (exec_cmd(ast, init));
 	}
@@ -92,7 +74,7 @@ int		exec_start(t_init *init)
 
 	ast = init->ast;
 	saving_fd(std_fd);
-	launch_exec(init, ast);
+	launch_exec(init, ast, std_fd);
 	wait_pipe(&init->pid_list);
 	reset_fd(std_fd, NULL, RESETALL);
 	return (0);

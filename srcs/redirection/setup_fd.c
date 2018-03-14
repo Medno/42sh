@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:38:00 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/13 16:06:53 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 09:35:47 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int		reset_fd(int fd[], t_ast *ast, int flag)
 		close(fd[1]);
 		close(fd[2]);
 	}
-	if (ast && ast->cmd && ast->cmd->redir)
-		close(ast->cmd->redir->fd_out);
+	(void)ast;
+	/* if (ast && ast->cmd && ast->cmd->redir) */
+	/* 	close(ast->cmd->redir->fd_out); */
 	return (2);
 }

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:43:53 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/13 15:23:49 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 10:24:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	setup_pipe(t_ast *ast)
 	}
 }
 
-void	launch_pipe(t_init *init, t_ast *ast)
+void	launch_pipe(t_init *init, t_ast *ast, int std_fd[])
 {
 	pipe(ast->pipefd);
-	launch_exec(init, ast->left);
-	launch_exec(init, ast->right);
+	launch_exec(init, ast->left, std_fd);
+	launch_exec(init, ast->right, std_fd);
 }
 
 void	wait_pipe(t_pid **pid)

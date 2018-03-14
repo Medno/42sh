@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/13 15:17:48 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 10:51:24 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ int		is_builtin(char *str)
 	return (0);
 }
 
-int		check_builtins(char ***entry, t_init *init)
+int		check_builtins(char ***entry, t_cmd *cmd, t_init *init)
 {
 	int i;
 
+	if (!redirection(cmd))
+		return (1);
 	if (check_local(entry))
 		return (ft_set_local(&init->loc_env, &init->new_env, *entry));
 	i = 0;
@@ -62,7 +64,9 @@ int		check_cmd(t_ast *ast, t_init *init)
 	int		ret;
 	char	*path;
 
-	if ((ret = check_builtins(&ast->cmd->arg, init)) >= 0)
+	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent)  &&
+			is_builtin(ast->cmd->arg[0]) &&
+			(ret = check_builtins(&ast->cmd->arg, ast->cmd, init)) >= 0)
 		return (ret);
 	else
 	{
