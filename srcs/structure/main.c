@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/14 16:39:24 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:09:23 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void			init_all(char **env, t_init *init)
 
 	tcgetattr(STDIN_FILENO, &current);
 	init->str = NULL;
+	init->stop = 0;
 	init->lex = NULL; 
 	init->ast = NULL;
 	init->loc_env = NULL;
@@ -62,7 +63,7 @@ int				step_1(t_init init)
 		init.historic = cleanup_nl_hist(&init.historic);
 		if (!ret && init.str)
 			step_2(&init);
-		else if (ret == 1)
+		if (ret == 1 || init.stop)
 			ft_exit(&init, NULL);
 		ft_strdel(&init.str);
 	}
