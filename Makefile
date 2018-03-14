@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/14 15:48:21 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/14 16:56:37 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,9 @@ PARSER_NAME = ast.c init_ast.c	\
 			  quote_esc.c		\
 			  quote_remove.c	\
 			  tilde_exp.c		\
+			  dollar_exp.c		\
 			  print_smtg.c		\
+			  repeat_heredoc.c	\
 			  repeat_line.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))

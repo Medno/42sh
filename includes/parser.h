@@ -7,6 +7,7 @@
 ** parser >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 int					parser(t_init *init);
+int					repeat_heredoc(t_init *init, t_lex *tmp);
 int					repeat_line(t_init *line, t_lex *tmp);
 int					line_edit(char **line, int len_prompt, t_init *init);
 int					check_first(t_lex *first);
@@ -36,9 +37,11 @@ void				print_cmd(t_cmd *cmd);
 ** expansions
 */
 char				*exp_tilde(t_init *init, char *str, int len);
+char				*dollar_exp(t_init *init, char *str, int len);
 /*
 ** quote removal
 */
+int					is_quote_bslash(char c);
 void				word_exp(t_init *init, t_ast *ast);
 char				*delete_esc(t_init *init, char *str, int len);
 char				*esc_backslash(char *str, int *i);
