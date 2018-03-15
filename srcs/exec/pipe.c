@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:43:53 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 14:00:15 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 14:38:49 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		wait_pipe(t_pid **pid)
 	while (*pid)
 	{
 		waitpid((*pid)->pid, &status, 0);
+		if (!WIFEXITED(status) && WIFSIGNALED(status))
+			signal_error(status, (*pid)->pid);
 		*pid = (*pid)->next;
 	}
 	*pid = tmp;

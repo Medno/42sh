@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 13:53:52 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 14:40:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ int			check_error(int ret, char *str, int print);
 int			path_error(char *str);
 void		exit_error(int ret, char *str);
 void		error_execve(void);
+void		signal_error(int signal, int pid);
 #endif

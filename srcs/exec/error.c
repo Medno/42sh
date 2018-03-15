@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:47:26 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 10:14:07 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 14:42:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,23 @@ void	error_execve(void)
 {
 	ft_printf_fd(STDERR_FILENO, "42sh: error with execve\n");
 	exit(EXIT_FAILURE);
+}
+
+void	signal_error(int status, pid_t pid)
+{
+	int		signal;
+
+	signal = WTERMSIG(status);
+	if (signal == SIGFPE)
+		ft_printf_fd(STDERR_FILENO,
+				"%d	Floating point exception: %d\n", pid, signal);
+	else if (signal == SIGSEGV)
+		ft_printf_fd(STDERR_FILENO,
+				"%d	Segmentation fault: %d\n", pid, signal);
+	else if (signal == SIGABRT)
+		ft_printf_fd(STDERR_FILENO,
+				"%d	Abort trap: %d\n", pid, signal);
+	else if (signal == SIGBUS)
+		ft_printf_fd(STDERR_FILENO,
+				"%d	Bus error: %d\n", pid, signal);
 }
