@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 16:10:15 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:23:32 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ int		exec_start(t_ast *ast, t_init *init)
 	saving_fd(std_fd);
 	launch_exec(init, ast, std_fd);
 	wait_pipe(&init->pid_list);
-	reset_fd(std_fd, NULL, RESETALL);
+	reset_fd(std_fd);
 	return (0);
 }
