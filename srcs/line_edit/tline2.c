@@ -6,34 +6,47 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:29:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 14:54:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 15:25:20 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
+t_line	*push_noprint(t_line *current, char c, t_curs *curseur)
+{
+	t_line	*new;
+
+	if (!(new = create_elem(c, current->index)))
+		return (NULL);
+	new->next = current;
+	if (c == '\n')
+		increment_all(current, curseur, curseur->screen.ws_col -
+				(new->index % curseur->screen.ws_col) + 1);
+	else
+		increment_all(current, curseur, 1);
+	if (current->prev)
+	{
+		new->prev = current->prev;
+		current->prev->next = new;
+	}
+	current->prev = new;
+	check_ynx(curseur, new->index);
+	check_max(curseur, last_index(new));
+	return (current);
+}
+
 t_line	*str_to_line(char *str, int prompt, t_curs *curseur)
 {
 	t_line	*cur;
-	t_line	*tmp;
 
-	if (!str)
-		return (create_elem(0, prompt + 1));
-	cur = create_elem(*str, prompt + 1);
-	str++;
+	cur = create_elem(0, prompt + 1);
 	while (str && *str && *(str + 1))
 	{
-		tmp = create_elem(*str, cur->index);
-		cur->next = tmp;
-		tmp->prev = cur;
-		cur = cur->next;
-		increment_all(cur, curseur, 1);
+		cur = push_noprint(cur, *str, curseur);
 		str++;
 	}
-	tmp = create_elem(0, cur->index + 1);
-	cur->next = tmp;
-	tmp->prev = cur;
-	cur = cur->next;
+	while (cur->next)
+		cur = cur->next;
 	return (cur);
 }
 

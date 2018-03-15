@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 16:33:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 15:44:30 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
 		ft_strdel(&(*edit->histo)->line);
 		if ((*edit->current)->next)
 			*edit->current = move_last(*edit->current, &edit->curseur);
+		free_tline(*edit->current);
 		write(0, "\n", 1);
 		return (3);
 	}
@@ -37,6 +38,7 @@ int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
 	{
 		ft_strdel(line);
 		ft_strdel(&(*edit->histo)->line);
+		free_tline(*edit->current);
 		return (1);
 	}
 }
@@ -70,7 +72,7 @@ int			edit_line(char **line, t_edit *edit)
 }
 
 int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
-			t_env *env)
+		t_env *env)
 {
 	t_edit			edit;
 	t_line			*current;
