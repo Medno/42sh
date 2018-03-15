@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 18:04:49 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 18:10:33 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 16:53:47 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		init_all(char **env, t_init *init)
 	tcgetattr(STDIN_FILENO, &current);
 	init->str = NULL;
 	init->stop = 0;
+	init->dollar = 0;
 	init->lex = NULL;
 	init->ast = NULL;
 	init->loc_env = NULL;

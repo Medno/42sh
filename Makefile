@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/14 18:10:26 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/15 16:51:18 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,15 +106,20 @@ PARSER_NAME = ast.c init_ast.c	\
 			  error_pars.c		\
 			  put_in_cmd.c		\
 			  parser.c			\
-			  quote_esc.c		\
-			  quote_remove.c	\
-			  tilde_exp.c		\
-			  dollar_exp.c		\
 			  print_smtg.c		\
 			  repeat_heredoc.c	\
 			  repeat_line.c
 PARSER_PATH = parser/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(PARSER_PATH), $(PARSER_NAME)))
+
+### EXPANSION ###
+EXPANS_NAME = expansion.c		\
+			  quote_esc.c		\
+			  quote_remove.c	\
+			  tilde_exp.c		\
+			  dollar_exp.c
+EXPANS_PATH = expansion/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(EXPANS_PATH), $(EXPANS_NAME)))
 
 ### REDIRECTION ###
 REDIR_NAME = redirection.c		\

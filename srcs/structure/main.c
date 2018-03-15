@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 16:13:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:45:07 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ int				step_2(t_init *init)
 	{
 		while (init->ast && init->ast->value == SEMI)
 		{
-			//expansion/script/...
+			init->ast->left->cmd = begin_expansion(init, init->ast->left->cmd);
 			quote_again = exec_start(init->ast->left, init);
 			init->ast = init->ast->right;
 		}
 		if (init->ast && init->ast->value != SEMI)
 		{
+			init->ast->cmd = begin_expansion(init, init->ast->cmd);
 			//expansion/script/...
 			quote_again = exec_start(init->ast, init);
 		}
@@ -51,6 +52,7 @@ int				step_1(t_init init)
 
 	while (42)
 	{
+		init.dollar = 0;
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
 		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);

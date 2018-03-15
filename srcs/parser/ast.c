@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/14 14:23:46 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:33:08 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_ast	*command(t_init *init, t_lex *first)
+t_ast	*command(t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*tmp;
@@ -29,7 +29,7 @@ t_ast	*command(t_init *init, t_lex *first)
 		else
 		{
 			root->value = CMD;
-			root->cmd = put_in_cmd(init, root->cmd, tmp);
+			root->cmd = put_in_cmd(root->cmd, tmp);
 		}
 		while (loop)
 		{
@@ -40,7 +40,7 @@ t_ast	*command(t_init *init, t_lex *first)
 	return (root);
 }
 
-t_ast	*pipeline(t_init *init, t_lex *first)
+t_ast	*pipeline(t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*sep;
@@ -51,9 +51,9 @@ t_ast	*pipeline(t_init *init, t_lex *first)
 		root->value = PIPE;
 		if (sep->prev)
 			sep->prev->next = NULL;
-		root->left = command(init, first);
+		root->left = command(first);
 		if (sep->next && sep->next->token != EOI)
-			root->right = pipeline(init, sep->next);
+			root->right = pipeline(sep->next);
 		del_lex(sep);
 		if (root->left)
 			root->left->parent = root;
@@ -61,13 +61,13 @@ t_ast	*pipeline(t_init *init, t_lex *first)
 			root->right->parent = root;
 	}
 	else if (first->token != EOI)
-		root = command(init, first);
+		root = command(first);
 	else
 		root = NULL;
 	return (root);
 }
 
-t_ast	*and_or(t_init *init, t_lex *first)
+t_ast	*and_or(t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*sep;
@@ -79,9 +79,9 @@ t_ast	*and_or(t_init *init, t_lex *first)
 		root->value = sep->token;
 		if (sep->prev)
 			sep->prev->next = NULL;
-		root->left = and_or(init, first);
+		root->left = and_or(first);
 		if (sep->next && sep->next->token != EOI)
-			root->right = and_or(init, sep->next);
+			root->right = and_or(sep->next);
 		del_lex(sep);
 		if (root->left)
 			root->left->parent = root;
@@ -89,11 +89,11 @@ t_ast	*and_or(t_init *init, t_lex *first)
 			root->right->parent = root;
 	}
 	else
-		root = pipeline(init, first);
+		root = pipeline(first);
 	return (root);
 }
 
-t_ast	*build_ast(t_init *init, t_lex *first)
+t_ast	*build_ast(t_lex *first)
 {
 	t_ast	*root;
 	t_lex	*sep;
@@ -105,15 +105,15 @@ t_ast	*build_ast(t_init *init, t_lex *first)
 			sep->prev->next = NULL;
 		root = init_ast();
 		root->value = SEMI;
-		root->left = and_or(init, first);
+		root->left = and_or(first);
 		if (sep->next && sep->next->token != EOI)
-			root->right = build_ast(init, sep->next);
+			root->right = build_ast(sep->next);
 		del_lex(sep);
 		root->left->parent = root;
 		if (root->right)
 			root->right->parent = root;
 	}
 	else
-		root = and_or(init, first);
+		root = and_or(first);
 	return (root);
 }

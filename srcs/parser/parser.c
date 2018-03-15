@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 15:18:49 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:34:03 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	parser(t_init *init)
 		tmp = tmp->next;
 	}
 	tmp = init->lex;
-	ast = build_ast(init, tmp);
+	ast = build_ast(tmp);
 //	print_ast(ast, NULL);
 	init->ast = ast;
 //	clean_ast(&ast);

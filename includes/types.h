@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 17:01:54 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:57:37 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct		s_init
 {
 	char			*str;
 	int				stop;
+	int				dollar;
 	t_pid			*pid_list;
 	t_lex			*lex;
 	t_env			*loc_env;
