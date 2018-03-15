@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:29:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 16:40:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 14:54:09 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,25 @@
 t_line	*str_to_line(char *str, int prompt, t_curs *curseur)
 {
 	t_line	*cur;
+	t_line	*tmp;
 
-	cur = create_elem(0, prompt + 1);
+	if (!str)
+		return (create_elem(0, prompt + 1));
+	cur = create_elem(*str, prompt + 1);
+	str++;
 	while (str && *str && *(str + 1))
 	{
-		push_new(cur, *str, curseur);
+		tmp = create_elem(*str, cur->index);
+		cur->next = tmp;
+		tmp->prev = cur;
+		cur = cur->next;
+		increment_all(cur, curseur, 1);
 		str++;
 	}
+	tmp = create_elem(0, cur->index + 1);
+	cur->next = tmp;
+	tmp->prev = cur;
+	cur = cur->next;
 	return (cur);
 }
 

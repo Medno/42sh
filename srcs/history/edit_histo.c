@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:25:37 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 11:26:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 15:04:50 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	handle_history_ret(t_line *cur, t_hist **histo)
 
 t_line	*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 {
+	char	*tmp;
+
 	if (!*histo || !(*histo)->prev)
 		return (cur);
 	cur = move_first(cur, curseur);
@@ -54,11 +56,16 @@ t_line	*hist_up(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 	if ((*histo)->prev)
 		*histo = (*histo)->prev;
 	cur = str_to_line((*histo)->line, prompt, curseur);
+	tmp = line_to_str(cur);
+	ft_putstr_fd(tmp, STDIN_FILENO);
+	ft_strdel(&tmp);
 	return (cur);
 }
 
 t_line	*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 {
+	char	*tmp;
+
 	if (!*histo || !(*histo)->next)
 		return (cur);
 	cur = move_first(cur, curseur);
@@ -70,5 +77,8 @@ t_line	*hist_down(t_line *cur, t_hist **histo, int prompt, t_curs *curseur)
 	if ((*histo)->next)
 		*histo = (*histo)->next;
 	cur = str_to_line((*histo)->line, prompt, curseur);
+	tmp = line_to_str(cur);
+	ft_putstr_fd(tmp, STDIN_FILENO);
+	ft_strdel(&tmp);
 	return (cur);
 }
