@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 10:47:51 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 11:02:52 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,17 @@ int		clean_arg(char ***arg)
 	while ((*arg)[j] && is_valid_identifier((*arg)[j], NOPRINT) &&
 			ft_strchr((*arg)[j], '='))
 		j++;
-	/* ft_putnbr(j); */
-	/* ft_putendl(**arg); */
-	if (j == 1 && is_uid(**arg))
+	new_arg = (char**)ft_memalloc(sizeof(char**) *
+			(ft_tablen((*arg + j)) + 1));
+	if (!new_arg)
+		return (0);
+	while ((*arg)[j])
 	{
-		ft_putendl("here");
-		new_arg = NULL;
+		new_arg[i] = ft_strdup((*arg)[j]);
+		j++;
+		i++;
 	}
-	else
-	{
-		new_arg = (char**)ft_memalloc(sizeof(char**) *
-				(ft_tablen((*arg + j)) + 1));
-		if (!new_arg)
-			return (0);
-		while ((*arg)[j])
-		{
-			new_arg[i] = ft_strdup((*arg)[j]);
-			j++;
-			i++;
-		}
-		new_arg[i] = NULL;
-	}
+	new_arg[i] = NULL;
 	ft_freetab(*arg);
 	*arg = new_arg;
 	return (1);

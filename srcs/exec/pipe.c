@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:43:53 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 10:24:01 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 14:38:49 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,21 @@ void	launch_pipe(t_init *init, t_ast *ast, int std_fd[])
 	launch_exec(init, ast->right, std_fd);
 }
 
-void	wait_pipe(t_pid **pid)
+int		wait_pipe(t_pid **pid)
 {
 	t_pid	*tmp;
+	int		status;
 
 	tmp = *pid;
+	status = -1;
 	while (*pid)
 	{
-		waitpid((*pid)->pid, NULL, 0);
+		waitpid((*pid)->pid, &status, 0);
+		if (!WIFEXITED(status) && WIFSIGNALED(status))
+			signal_error(status, (*pid)->pid);
 		*pid = (*pid)->next;
 	}
 	*pid = tmp;
 	del_pid(pid);
+	return (status);
 }
