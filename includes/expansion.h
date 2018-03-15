@@ -21,6 +21,7 @@
 t_cmd	*begin_expansion(t_init *init, t_cmd *cmd);
 char	*exp_tilde(t_init *init, char *str, int len);
 char	*dollar_exp(t_init *init, char *str);
+char	*err_dollar(t_init *init, char *str);
 /*
 ** quote removal
 */

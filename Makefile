@@ -117,7 +117,8 @@ EXPANS_NAME = expansion.c		\
 			  quote_esc.c		\
 			  quote_remove.c	\
 			  tilde_exp.c		\
-			  dollar_exp.c
+			  dollar_exp.c		\
+			  err_exp.c
 EXPANS_PATH = expansion/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(EXPANS_PATH), $(EXPANS_NAME)))
 
