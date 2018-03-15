@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 10:25:58 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 17:50:23 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 10:00:06 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void		launch_or(t_init *init, t_ast *ast, int std_fd[])
+void		launch_and(t_init *init, t_ast *ast, int std_fd[])
 {
 	int		ret;
 
@@ -26,7 +26,7 @@ void		launch_or(t_init *init, t_ast *ast, int std_fd[])
 	}
 }
 
-void		launch_and(t_init *init, t_ast *ast, int std_fd[])
+void		launch_or(t_init *init, t_ast *ast, int std_fd[])
 {
 	int		ret;
 

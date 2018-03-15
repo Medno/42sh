@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 14:48:07 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/14 19:24:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			check_slash(char *str, char **s_fin, int print)
 
 int			check_path(char **arg, t_env **env, char **s_fin, int print)
 {
-	if (!*arg)
+	if (!arg || !*arg)
 		return (1);
 	if (is_builtin(*arg) || check_local(&arg, NOCLEAN))
 	{

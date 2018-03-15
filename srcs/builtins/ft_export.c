@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:27:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 17:44:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 10:47:13 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			export_equal(t_init *init, char *arg, int whereto)
 		if (is_in_env(init->new_env, name))
 			ft_unsetenv(&init->new_env, name);
 	}
+	ft_strdel(&name);
 	return (0);
 }
 

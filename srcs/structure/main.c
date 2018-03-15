@@ -6,28 +6,11 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/14 17:09:23 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/14 18:05:15 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-void			init_all(char **env, t_init *init)
-{
-	struct termios	current;
-
-	tcgetattr(STDIN_FILENO, &current);
-	init->str = NULL;
-	init->stop = 0;
-	init->lex = NULL; 
-	init->ast = NULL;
-	init->loc_env = NULL;
-	init->pid_list = NULL;
-	init->new_env = create_env(env);
-	insert_env_start(&init->new_env);
-	init->historic = new_hist();
-	init->current = current;
-}
 
 int				step_2(t_init *init)
 {
