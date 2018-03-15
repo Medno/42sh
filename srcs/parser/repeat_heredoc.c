@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:55:05 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/14 16:55:31 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:43:02 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,18 @@ static int	return_heredoc(t_init *init, char *to_del, char *heredoc)
 	return (1);
 }
 
+static int	no_heredoc(t_init *init, char *to_del, char *heredoc)
+{
+	ft_strdel(&init->str);
+	ft_strdel(&heredoc);
+	ft_strdel(&to_del);
+	del_lex(init->lex);
+	return (-1);
+}
+
 int			repeat_heredoc(t_init *init, t_lex *tmp)
 {
+	int			ret;
 	char		*line_tmp;
 	char		*heredoc;
 	static int	checkout = 0;
@@ -58,7 +68,9 @@ int			repeat_heredoc(t_init *init, t_lex *tmp)
 	while (tmp->token == IO_HERE)
 	{
 		line_tmp = NULL;
-		line_edit(&line_tmp, -1, init);
+		ret = line_edit(&line_tmp, -1, init);
+		if (ret == 3)
+			return (no_heredoc(init, line_tmp, heredoc));
 		if (ft_strequ(line_tmp, tmp->value) || !line_tmp)
 			return (return_heredoc(init, line_tmp, heredoc));
 		heredoc = (checkout) ? ft_strjoindel(heredoc, "\n") : heredoc;
