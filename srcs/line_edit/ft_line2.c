@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/12 16:25:11 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:25:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur)
+static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur, int checked)
 {
 	static char	*str;
 
@@ -20,13 +20,17 @@ static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur)
 		cur = select_all(&str, cur, curseur);
 	else if (c == 23)
 		cur = select_word(&str, cur, curseur);
-	else if (c == 25)
+	else if (c == 25 && !checked)
 		cur = paste_selected_line(str, cur, curseur);
 	return (cur);
 }
 
 t_line			*ft_line_usual(t_edit *edit, char c)
 {
+	int		checked;
+
+	check_screen(&edit->curseur);
+	checked = last_index(*edit->current) >= edit->curseur.screen.ws_col * edit->curseur.screen.ws_row ? 1 : 0;
 	if (c == 127 || c == 8)
 		return (line_delone(*edit->current, &edit->curseur));
 	else if (c == '\t')
@@ -43,10 +47,10 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 		return (move_right(*edit->current, &edit->curseur));
 	else if (c == 12)
 		return (clearscreen(edit));
-	else if (c >= 32 && c <= 126)
+	else if (c >= 32 && c <= 126 && !checked)
 		return (push_new(*edit->current, c, &edit->curseur));
 	else
-		return (ft_copy(*edit->current, c, &edit->curseur));
+		return (ft_copy(*edit->current, c, &edit->curseur, checked));
 }
 
 t_line			*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf)

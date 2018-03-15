@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 14:51:32 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 10:14:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:28:06 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 t_line	*paste_selected_line(char *str, t_line *cur, t_curs *curseur)
 {
-	while (str && *str)
+	int		a;
+	int		b;
+
+	a = curseur->screen.ws_col * curseur->screen.ws_row;
+	b = last_index(cur);
+	while (str && *str && b < a)
 	{
 		cur = push_new(cur, *str, curseur);
 		str++;
+		b++;
 	}
 	return (cur);
 }

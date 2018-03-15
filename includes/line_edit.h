@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 12:13:16 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/15 09:23:43 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_line				*clearscreen(t_edit *edit);
 void				check_ynx(t_curs *curseur, int index);
 void				check_ynx_nl(t_curs *curseur, t_line *cur);
 void				check_max(t_curs *curseur, int len);
+void				check_screen(t_curs *curseur);
 void				init_curs(t_curs *curseur, int prompt);
 /*
 **
