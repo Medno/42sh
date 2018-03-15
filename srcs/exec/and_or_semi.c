@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 10:25:58 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 14:22:44 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 16:11:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,4 @@ void		launch_or(t_init *init, t_ast *ast, int std_fd[])
 		reset_fd(std_fd, ast->right, RESETALL);
 		wait_pipe(&init->pid_list);
 	}
-}
-
-void		launch_semi(t_init *init, t_ast *ast, int std_fd[])
-{
-	launch_exec(init, ast->left, std_fd);
-	wait_pipe(&init->pid_list);
-	reset_fd(std_fd, ast->left, RESETALL);
-	launch_exec(init, ast->right, std_fd);
-	wait_pipe(&init->pid_list);
-	reset_fd(std_fd, ast->right, RESETALL);
 }

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 13:52:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 16:10:15 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ int		launch_exec(t_init *init, t_ast *ast, int std_fd[])
 {
 	if (ast)
 	{
-		if (ast->value == SEMI)
-			launch_semi(init, ast, std_fd);
-		else if (ast->value == PIPE)
+		if (ast->value == PIPE)
 			launch_pipe(init, ast, std_fd);
 		else if (ast->value == AND_IF)
 			launch_and(init, ast, std_fd);
@@ -69,12 +67,10 @@ int		launch_exec(t_init *init, t_ast *ast, int std_fd[])
 	return (0);
 }
 
-int		exec_start(t_init *init)
+int		exec_start(t_ast *ast, t_init *init)
 {
-	t_ast	*ast;
 	int		std_fd[3];
 
-	ast = init->ast;
 	saving_fd(std_fd);
 	launch_exec(init, ast, std_fd);
 	wait_pipe(&init->pid_list);

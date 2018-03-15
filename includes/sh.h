@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 18:05:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/15 16:12:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ t_init	*g_in;
 t_edit	*g_ed;
 
 void				init_all(char **env, t_init *init);
-/*
-** execs
-*/
-int					exec_start(t_init *init);
 int					step_1(t_init init);
 /*
 ** signals
