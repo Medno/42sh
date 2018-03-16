@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 17:45:16 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:28:45 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*do_expansion(t_init *init, char *str)
 				ft_strlen(check_expans));
 	if (ft_strchr(check_expans, '$'))
 		check_expans = dollar_exp(init, check_expans);
-	check_expans = delete_esc(init, check_expans, ft_strlen(check_expans));
+	check_expans = delete_esc(check_expans, ft_strlen(check_expans));
 	ft_strdel(&str);
 	return (check_expans);
 }

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 16:32:04 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:28:37 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	put_in_buffer(char buf[], char c)
 	buf[len] = c;
 }
 
-char	*treat_esc(t_init *init, char *res, char *str, int *i)
+char	*treat_esc(char *res, char *str, int *i)
 {
 	char	*to_join;
 	int		len;
@@ -42,14 +42,14 @@ char	*treat_esc(t_init *init, char *res, char *str, int *i)
 	else if (str[*i] == '\'')
 		to_join = esc_simple_qu(str, i, len);
 	else if (str[*i] == '\"')
-		to_join = esc_double_qu(init, str, i, len);
+		to_join = esc_double_qu(str, i, len);
 	if (to_join)
 		res = ft_strjoindel(res, to_join);
 	ft_strdel(&to_join);
 	return (res);
 }
 
-char	*delete_esc(t_init *init, char *str, int len)
+char	*delete_esc(char *str, int len)
 {
 	char	*res;
 	char	buf[len + 1];
@@ -67,7 +67,7 @@ char	*delete_esc(t_init *init, char *str, int len)
 				res = ft_strjoindel(res, buf);
 				ft_bzero(buf, len);
 			}
-			res = treat_esc(init, res, str, &i);
+			res = treat_esc(res, str, &i);
 		}
 		else
 			put_in_buffer(buf, str[i]);
