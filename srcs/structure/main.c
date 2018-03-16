@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 17:45:07 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 11:01:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int				step_2(t_init *init)
 {
-	int				quote_again;
+	int			quote_again;
+	t_ast		*ast;
 
 	quote_again = -1;
 	while (quote_again == -1)
@@ -26,6 +27,7 @@ int				step_2(t_init *init)
 	init->historic = cleanup_nl_hist(&init->historic);
 	if (init->ast)
 	{
+		ast = init->ast;
 		while (init->ast && init->ast->value == SEMI)
 		{
 			init->ast->left->cmd = begin_expansion(init, init->ast->left->cmd);
@@ -39,7 +41,7 @@ int				step_2(t_init *init)
 			quote_again = exec_start(init->ast, init);
 		}
 	}
-	clean_ast(&init->ast);
+	clean_ast(&ast);
 	del_lex(init->lex);
 	del_heredoc();
 	return (quote_again);

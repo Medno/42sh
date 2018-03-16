@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 13:25:59 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/09 14:33:12 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:51:35 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ t_cmd	*init_cmd(void)
 		return (NULL);
 	cmd->arg = NULL;
 	cmd->redir = NULL;
-	cmd->separ = NULL;
-	cmd->next = NULL;
-	cmd->next_semi = NULL;
 	return (cmd);
 }
 
@@ -30,25 +27,8 @@ void	clean_one_cmd(t_cmd **tmp)
 {
 	if (*tmp)
 	{
-		ft_strdel(&(*tmp)->separ);
 		ft_freetab((*tmp)->arg);
 		clean_redir(&(*tmp)->redir);
-		(*tmp)->next = NULL;
-		(*tmp)->next_semi = NULL;
 		ft_memdel((void **)tmp);
 	}
-}
-
-void	clean_next(t_cmd **cmd)
-{
-	if (*cmd && (*cmd)->next)
-		clean_next(&(*cmd)->next);
-	clean_one_cmd(cmd);
-}
-
-void	clean_cmd(t_cmd **cmd)
-{
-	if (*cmd && (*cmd)->next_semi)
-		clean_cmd(&(*cmd)->next_semi);
-	clean_next(cmd);
 }

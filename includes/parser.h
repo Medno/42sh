@@ -26,7 +26,7 @@ void				print_ast(t_ast *root, char *pos);
 */
 t_cmd				*init_cmd(void);
 t_redir				*init_redir(void);
-void				clean_cmd(t_cmd **cmd);
+void				clean_one_cmd(t_cmd **cmd);
 void				clean_redir(t_redir **redir);
 t_redir				*put_fd_in(t_redir *redir, t_lex *tmp);
 void				put_redir(t_cmd *cmd, t_lex *tmp, int *loop);

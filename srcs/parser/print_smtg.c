@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:54:26 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/13 11:54:57 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 10:58:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,15 @@ void	print_cmd(t_cmd *cmd)
 {
 	int		i;
 	t_cmd	*tmp;
-	t_cmd	*tmp_2;
 
 	tmp = cmd;
-	while (tmp)
-	{
-		ft_printf("Nouvelle commande :\n");
-		tmp_2 = tmp;
-		while (tmp_2)
+	ft_printf("Nouvelle commande :\n");
+	i = 0;
+	if (tmp->arg)
+		while (tmp->arg[i])
 		{
-			i = 0;
-			if (tmp_2->arg)
-				while (tmp_2->arg[i])
-				{
-					ft_printf("Parametre %d : |%s|\n", i, tmp_2->arg[i]);
-					i++;
-				}
-			if (tmp_2->separ)
-				ft_printf("Separateur : |%s|\n", tmp_2->separ);
-			print_redir(tmp_2);
-			tmp_2 = tmp_2->next;
+			ft_printf("Parametre %d : |%s|\n", i, tmp->arg[i]);
+			i++;
 		}
-		tmp = tmp->next_semi;
-	}
+	print_redir(tmp);
 }

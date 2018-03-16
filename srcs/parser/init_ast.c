@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:39:27 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/14 09:43:33 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:51:51 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	clean_ast(t_ast **root)
 		return ;
 	if (*root && !(*root)->left && !(*root)->right)
 	{
-		clean_cmd(&(*root)->cmd);
+		clean_one_cmd(&(*root)->cmd);
 		free(*root);
 		(*root) = NULL;
 		return ;

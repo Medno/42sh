@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 16:57:37 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:50:18 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,6 @@ typedef struct		s_cmd
 {
 	char			**arg;
 	t_redir			*redir;
-	char			*separ;
-	struct s_cmd	*next;
-	struct s_cmd	*next_semi;
 }					t_cmd;
 
 typedef struct		s_ast
