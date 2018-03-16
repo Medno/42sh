@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:32:13 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 14:57:01 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 14:05:16 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	concat_char(char *str, int i, char buf[])
 
 	read[0] = str[i];
 	read[1] = '\0';
-	if ((str[i] == g_quote && g_quote != '\\') ||
+	if ((is_closing(str[i]) && g_quote != '\\') ||
 			(g_quote == '\\' && str[i] != '\n'))
 		g_quote = 0;
 	if (g_quote == '\\' && str[i + 1])

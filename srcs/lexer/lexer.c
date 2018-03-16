@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 17:41:00 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 14:08:38 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_lex	*all_steps(t_lex *new, char *str, int *i, char buf[])
 		new = new_op(new, str, *i, buf);
 	else if (!g_quote && (str[*i] == '\n' || str[*i] == ' '))
 		new = close_new(new, buf);
-	else if (new->token == WORD || new->token == QUOTE || str[*i] == g_quote)
+	else if (new->token == WORD || new->token == QUOTE || is_closing(str[*i]))
 		concat_char(str, *i, buf);
 	else if (str[*i] == '#')
 		while (str[*i] != '\n')

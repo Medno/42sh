@@ -17,6 +17,7 @@ int					isredir(char c);
 int					is_op(char c, char buf[]);
 int					is_esc(char c);
 int					is_number(char buf[]);
+int					is_closing(char c);
 /*
 ** All the steps for the lexer
 */

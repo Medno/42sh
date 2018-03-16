@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/01 14:27:50 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 16:23:45 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 13:55:40 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,27 @@ int		is_op(char c, char buf[])
 	return (0);
 }
 
+int		is_closing(char c)
+{
+	if (g_quote == '{' && c == '}')
+		return (1);
+	if (g_quote == '[' && c == ']')
+		return (1);
+	if (g_quote == '(' && c == ')')
+		return (1);
+	if (g_quote == '\'' && c == '\'')
+		return (1);
+	if (g_quote == '\"' && c == '\"')
+		return (1);
+	if (g_quote == '`' && c == '`')
+		return (1);
+	return (0);
+}
+
 int		is_esc(char c)
 {
-	if (c == '\\' || c == '\'' || c == '\"' || c == '`')
+	if (c == '\\' || c == '\'' || c == '\"' || c == '`' || c == '{' ||
+			c == '(' || c == '[')
 		return (1);
 	return (0);
 }

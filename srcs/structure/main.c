@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 11:01:26 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 14:45:58 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,25 @@ int				step_2(t_init *init)
 		quote_again = parser(init);
 	}
 	init->historic = cleanup_nl_hist(&init->historic);
-	if (init->ast)
+	ast = init->ast;
+	if (ast)
 	{
-		ast = init->ast;
-		while (init->ast && init->ast->value == SEMI)
+		while (ast && ast->value == SEMI)
 		{
-			init->ast->left->cmd = begin_expansion(init, init->ast->left->cmd);
-			quote_again = exec_start(init->ast->left, init);
-			init->ast = init->ast->right;
+			ast->left->cmd = begin_expansion(init, ast->left->cmd);
+			if (!init->dollar)
+				quote_again = exec_start(ast->left, init);
+			ast = ast->right;
 		}
-		if (init->ast && init->ast->value != SEMI)
+		if (ast && ast->value != SEMI)
 		{
-			init->ast->cmd = begin_expansion(init, init->ast->cmd);
+			ast->cmd = begin_expansion(init, ast->cmd);
 			//expansion/script/...
-			quote_again = exec_start(init->ast, init);
+			if (!init->dollar)
+				quote_again = exec_start(ast, init);
 		}
 	}
-	clean_ast(&ast);
+	clean_ast(&init->ast);
 	del_lex(init->lex);
 	del_heredoc();
 	return (quote_again);
