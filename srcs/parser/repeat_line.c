@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:26:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 16:45:31 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 16:55:53 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	repeat_line_edition(t_init *init, t_lex *tmp)
 		if (!ret)
 			init->str = ft_strjoindel(init->str, line_tmp);
 		else if (ret == 1 && g_quote == '\\' && (init->stop = 1))
-			init->str = delete_esc(init, init->str, ft_strlen(init->str));
+			init->str = delete_esc(init->str, ft_strlen(init->str));
 		else if (ret == 1 && g_quote != '\\')
 			return (err_eof());
 		else if ((ret == 1 && g_quote != '\\') || ret == 3)
