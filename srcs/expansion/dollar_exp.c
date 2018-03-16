@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:19:00 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 18:02:15 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:12:31 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int		get_unquoted_dollar(char *str, int i)
 			i++;
 		if (str[i] && str[i] == '$')
 			return (i);
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (i);
 }
