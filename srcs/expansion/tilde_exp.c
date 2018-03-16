@@ -41,7 +41,8 @@ int		check_prefix(t_init *init, char *str, char buf[], int *i)
 	res = 0;
 	if (!buf[1] && (buf[0] == '-' || buf[0] == '+'))
 	{
-		if (buf[0] == '-' && !ft_getenv(&init->new_env, "OLDPWD"))
+		if ((buf[0] == '-' && !ft_getenv(&init->new_env, "OLDPWD")) ||
+				(buf[0] == '+' && !ft_getenv(&init->new_env, "PWD")))
 			res = 1;
 	}
 	else if (buf[0])
