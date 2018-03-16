@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/16 10:50:18 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 11:39:33 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ typedef enum		e_token
 {
 	NONE, WORD, OP, QUOTE, IO_NUMBER, EOI, AND_IF, OR_IF, DSEMI, NEWLINE,
 	DLESS, DGREAT, LESSAND, GREATAND, LESSGREAT, DLESSDASH, CLOBBER, 
-	ANDGREAT, ANDLESS, IO_HERE, CMD, PIPE, SEMI
+	ANDGREAT, ANDLESS, IO_HERE, CMD, PIPE, SEMI, IF, FI, ELSE, DO, DONE, 
+	FOR, CASE, ESAC, IN, THEN, UNTIL, WHILE, ELIF
 }					t_token;
 
 typedef struct		s_lex
