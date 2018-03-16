@@ -6,24 +6,21 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 11:56:55 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 16:23:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 14:46:27 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		ft_set(t_init *init, char ***entry)
+int		ft_set(t_env *loc, t_env *env, char **arg)
 {
-	char **arg;
-
-	arg = *entry;
 	if (!arg[1])
 	{
-		ft_print_env(init->new_env);
-		ft_print_env(init->loc_env);
+		ft_print_env(env);
+		ft_print_env(loc);
 	}
 	else if (ft_strequ(arg[1], "--loc"))
-		ft_print_env(init->loc_env);
+		ft_print_env(loc);
 	else
 	{
 		ft_printf_fd(STDERR_FILENO, "SET is not supporting option yet\n");

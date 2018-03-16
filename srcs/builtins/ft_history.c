@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 11:40:25 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/16 14:49:56 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		step_2(t_hist **histo, char **str, int flags)
 	return (0);
 }
 
-int		ft_history(t_init *init, char ***entry)
+int		ft_history(t_hist **histo, char **str)
 {
 	int		flags;
 	int		c;
@@ -55,7 +55,7 @@ int		ft_history(t_init *init, char ***entry)
 	flags = 0;
 	c = 0;
 	reset_ft_opt();
-	while ((c = ft_getopt(ft_tablen(*entry), *entry, "crswd:")) != -1)
+	while ((c = ft_getopt(ft_tablen(str), str, "crswd:")) != -1)
 	{
 		if (ft_strchr("crswd", (char)c))
 			flags = set_bits(c, flags);
@@ -72,5 +72,5 @@ history -wr [filename] or history -s arg [arg...]\n", STDERR_FILENO);
 		return (1);
 	}
 	else
-		return (step_2(&init->historic, &((*entry)[g_optind]), flags));
+		return (step_2(histo, &str[g_optind], flags));
 }

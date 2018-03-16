@@ -6,20 +6,16 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:01:28 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:53:33 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:03:40 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		ft_echo(t_init *init, char ***entry)
+int		ft_echo(char **str)
 {
-	char	**str;
 	int		i;
 
-	(void)init;
-	str = *entry;
-	str++;
 	i = -1;
 	if (str[0] && !ft_strcmp(str[0], "-n"))
 		i = 0;

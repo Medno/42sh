@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 17:36:30 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 14:58:06 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,17 @@ t_env		*fill_env(t_env *env, char **arg)
 	return (env);
 }
 
-int			ft_env_i(t_init *init, char **arg)
+int			ft_env_i(t_env *init, char **arg)
 {
 	t_env	*new;
 	t_init	*initmp;
 
 	new = NULL;
+	initmp = NULL;
+	(void)init;
 	new = fill_env(new, arg);
 	if (new)
 	{
-		initmp = init;
 		initmp->new_env = new;
 		ft_putendl("here");
 		initmp->ast->cmd->arg += 2;
@@ -54,7 +55,7 @@ int			ft_env_i(t_init *init, char **arg)
 	return (0);
 }
 
-int			ft_env_u(t_init *init, char **arg)
+int			ft_env_u(t_env *init, char **arg)
 {
 	t_env	*new;
 
@@ -64,16 +65,13 @@ int			ft_env_u(t_init *init, char **arg)
 	return (0);
 }
 
-int			ft_env(t_init *init, char ***entry)
+int			ft_env(t_env *env, char **arg)
 {
-	char	**arg;
-
-	arg = *entry;
 	if (!arg[1])
-		ft_print_env(init->new_env);
+		ft_print_env(env);
 	else if (ft_strequ(arg[1], "-i"))
-		return (ft_env_i(init, arg));
+		return (ft_env_i(env, arg));
 	else if (ft_strequ(arg[1], "-u"))
-		return (ft_env_u(init, arg));
+		return (ft_env_u(env, arg));
 	return (0);
 }

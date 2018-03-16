@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:15:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/27 15:53:45 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:28:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,5 @@ int				ft_setenv(t_env **env, char *name, char *content)
 		else
 			tmp->next = new_env(name, content);
 	}
-	return (0);
-}
-
-int				ft_bisetenv(t_init *init, char ***entry)
-{
-	ft_setenv(&init->new_env, (*entry)[1], (*entry)[2]);
-
 	return (0);
 }

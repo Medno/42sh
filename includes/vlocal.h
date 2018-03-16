@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 11:22:11 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 10:46:47 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 14:50:57 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int		ft_export(t_init *init, char ***entry);
 int		check_local(char ***arg, int clean);
 int		is_in_env(t_env *env, char *name);
 int		ft_set_local(t_env **loc, t_env **env, char **arg);
-int		ft_set(t_init *init, char ***entry);
-int		ft_unset(t_init *init, char ***entry);
+int		ft_set(t_env *loc, t_env *env, char **entry);
+int		ft_unset(t_env **loc, t_env **env, char **arg);
 // int		ft_set(t_env *loc_env, t_env *new_env, char **arg);
 // int		ft_unset(t_env **loc, t_env **env, char **arg);
 

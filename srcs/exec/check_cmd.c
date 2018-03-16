@@ -6,56 +6,76 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 13:57:46 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 15:26:58 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-t_builtin g_builtin[] =
-{
-	{"cd"		, &ft_cd},
-	{"echo"		, &ft_echo},
-	{"env"		, &ft_env},
-	{"setenv"	, &ft_bisetenv},
-	{"unsetenv"	, &ft_biunsetenv},
-	{"export"	, &ft_export},
-	{"history"	, &ft_history},
-	{"set"		, &ft_set},
-	{"unset"	, &ft_unset},
-	{"exit"		, &ft_exit},
-	{NULL		, NULL},
-};
+/* t_builtin g_builtin[] = */
+/* { */
+/* 	{"cd"		, &ft_cd}, */
+/* 	{"echo"		, &ft_echo}, */
+/* 	{"env"		, &ft_env}, */
+/* 	{"setenv"	, &ft_bisetenv}, */
+/* 	{"unsetenv"	, &ft_biunsetenv}, */
+/* 	{"export"	, &ft_export}, */
+/* 	{"history"	, &ft_history}, */
+/* 	{"set"		, &ft_set}, */
+/* 	{"unset"	, &ft_unset}, */
+/* 	{"exit"		, &ft_exit}, */
+/* 	{NULL		, NULL}, */
+/* }; */
 
 int		is_builtin(char *str)
 {
-	int i;
-
-	i = 0;
-	while (g_builtin[i].value)
-	{
-		if (ft_strequ(g_builtin[i].value, str))
-			return (1);
-		i++;
-	}
+	if (ft_strequ(str, "cd"))
+		return (1);
+	if (ft_strequ(str, "export"))
+		return (1);
+	if (ft_strequ(str, "echo"))
+		return (1);
+	if (ft_strequ(str, "env"))
+		return (1);
+	if (ft_strequ(str, "setenv"))
+		return (1);
+	if (ft_strequ(str, "unsetenv"))
+		return (1);
+	if (ft_strequ(str, "export"))
+		return (1);
+	if (ft_strequ(str, "set"))
+		return (1);
+	if (ft_strequ(str, "unset"))
+		return (1);
+	if (ft_strequ(str, "exit"))
+		return (1);
 	return (0);
 }
 
 int		check_builtins(char ***entry, t_cmd *cmd, t_init *init)
 {
-	int i;
-
 	if (!redirection(cmd))
 		return (1);
 	if (check_local(entry, CLEAN))
 		return (ft_set_local(&init->loc_env, &init->new_env, *entry));
-	i = 0;
-	while (g_builtin[i].value)
-	{
-		if (ft_strequ(g_builtin[i].value, **entry))
-			return (g_builtin[i].f(init, entry));
-		i++;
-	}
+	if (ft_strequ(**entry, "cd"))
+		return (ft_cd(init, entry));
+	if (ft_strequ(**entry, "export"))
+		return (ft_export(init, entry));
+	if (ft_strequ(**entry, "echo"))
+		return (ft_echo(&(*entry)[1]));
+	if (ft_strequ(**entry, "env"))
+		return (ft_env(init->new_env, *entry));
+	if (ft_strequ(**entry, "setenv") && (*entry)[1] && (*entry)[2])
+		return (ft_setenv(&init->new_env, (*entry)[1], (*entry)[2]));
+	if (ft_strequ(**entry, "unsetenv"))
+		return (ft_unsetenv(&init->new_env, (*entry)[1]));
+	if (ft_strequ(**entry, "set"))
+		return (ft_set(init->loc_env, init->new_env, *entry));
+	if (ft_strequ(**entry, "unset"))
+		return (ft_unset(&init->loc_env, &init->new_env, *entry));
+	if (ft_strequ(**entry, "exit"))
+		ft_exit(init, entry);
 	return (-1);
 }
 
