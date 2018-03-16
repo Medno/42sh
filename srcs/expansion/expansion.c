@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 15:28:45 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:53:20 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,16 @@ t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 		i++;
 	}
 	return (tmp);
+}
+
+void	ast_expansion(t_init *init, t_ast *ast)
+{
+	if (!ast)
+		return ;
+	if (ast->left)
+		ast_expansion(init, ast->left);
+	if (ast->right)
+		ast_expansion(init, ast->right);
+	if (ast->cmd)
+		ast->cmd = begin_expansion(init, ast->cmd);
 }

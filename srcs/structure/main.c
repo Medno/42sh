@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 14:45:58 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:50:14 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int				step_2(t_init *init)
 	{
 		while (ast && ast->value == SEMI)
 		{
-			ast->left->cmd = begin_expansion(init, ast->left->cmd);
+			ast_expansion(init, ast->left);
 			if (!init->dollar)
 				quote_again = exec_start(ast->left, init);
 			ast = ast->right;
 		}
 		if (ast && ast->value != SEMI)
 		{
-			ast->cmd = begin_expansion(init, ast->cmd);
+			ast_expansion(init, ast);
 			//expansion/script/...
 			if (!init->dollar)
 				quote_again = exec_start(ast, init);

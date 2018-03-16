@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:24:33 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 15:28:55 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:50:50 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ char	*delete_esc(char *str, int len);
 char	*esc_backslash(char *str, int *i);
 char	*esc_simple_qu(char *str, int *i, int len);
 char	*esc_double_qu(char *str, int *i, int len);
+void	ast_expansion(t_init *init, t_ast *ast);
 
 #endif
