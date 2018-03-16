@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 19:24:07 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/16 18:13:37 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static int	check_bin(char *str, t_env **env, char **s_fin)
 	char	*tmp;
 	char	**path;
 
+	path = NULL;
+	tmp = NULL;
 	path = ft_strsplit(ft_getenv(env, "PATH"), ':');
 	i = -1;
 	while (path[++i])
