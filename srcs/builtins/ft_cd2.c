@@ -6,46 +6,101 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 17:39:17 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 20:40:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-char		*clear_path(char *s1)
+static int	error_cd(int nb, char *str)
+{
+	if (nb == 1)
+		ft_printf_fd(STDERR_FILENO, "cd: %s: permission denied\n", str);
+	else if (nb == 2)
+		ft_printf_fd(STDERR_FILENO, "cd: %s: Not a directory\n", str);
+	else if (nb == 3)
+		ft_printf_fd(STDERR_FILENO, "cd: %s: No such file or directory\n", str);
+	return (1);
+}
+
+static void	handle_remove(t_path *tmp, t_path **pathlist)
+{
+	t_path	*tmp2;
+
+	if (ft_strequ(".", tmp->s) || (ft_strequ("..", tmp->s) && !tmp->prev))
+		remove_elem(tmp, pathlist);
+	else
+	{
+		tmp2 = tmp->prev;
+		remove_elem(tmp2, pathlist);
+		remove_elem(tmp, pathlist);
+	}
+}
+
+static int	check_elements(t_path **pathlist, char *str)
+{
+	t_path	*tmp;
+
+	tmp = *pathlist;
+	while (tmp)
+	{
+		if (tmp->perms & 4)
+			return (error_cd(1, str));
+		else if (tmp->type == 'r')
+			return (error_cd(2, str));
+		else if (!tmp->type)
+			return (error_cd(3, str));
+		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
+			handle_remove(tmp, pathlist);
+		if (!tmp)
+			tmp = *pathlist;
+		else if (tmp)
+			tmp = tmp->next;
+	}
+	return (0);
+}
+
+static char	*clear_path(char *s1, char *dir)
 {
 	t_path	*pathlist;
 	char	*new;
 
+	new = NULL;
 	if (!(pathlist = new_pathlist(s1)))
-		return (s1);
-	if (check_elements(pathlist, &new))
+		return ((new = ft_strdup(s1)));
+	ft_strdel(&s1);
+	set_path_info(pathlist);
+	if (check_elements(&pathlist, dir))
+	{
+		free_pathlist(&pathlist);
 		return (NULL);
+	}
+	new = pathlist_to_str(pathlist);
 	free_pathlist(&pathlist);
 	return (new);
 }
 
-int			ft_cd_l(t_env **env, char *curpath)
+int			ft_cd_l(t_env **env, char *curpath, char *dir)
 {
+	char	*tmp;
 	char	*tmp2;
 	char	*path;
 
-	tmp2 = NULL;
+	tmp = NULL;
 	if (curpath[0] != '/')
 	{
 		if (ft_getenv(env, "PWD"))
-			tmp2 = ft_strdup(ft_getenv(env, "PWD"));
+			tmp = ft_strdup(ft_getenv(env, "PWD"));
 		else
-			tmp2 = getcwd(tmp2, PATH_MAX);
-		tmp2 = paste_path(tmp2, curpath);
+			tmp = getcwd(tmp, PATH_MAX);
+		tmp2 = paste_path(tmp, curpath);
 		ft_strdel(&curpath);
+		ft_strdel(&tmp);
 		curpath = ft_strdup(tmp2);
 		ft_strdel(&tmp2);
 	}
-	ft_printf("[%s]\n", curpath);
-	if (!(path = clear_path(curpath)))
+	if (!(path = clear_path(curpath, dir)))
 		return (1);
-	ft_strdel(&curpath);
 	chdir(path);
 	ft_setenv(env, "OLDPWD", ft_getenv(env, "PWD"));
 	ft_setenv(env, "PWD", path);

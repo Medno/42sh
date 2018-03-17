@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 17:31:38 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 19:44:53 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@
 # include "completion.h"
 # include "vlocal.h"
 
-# include "logger.h"
-
 int		g_quote;
 t_init	*g_in;
 t_edit	*g_ed;
@@ -55,11 +53,7 @@ void				sigint_prompt(void);
 ** > cd <
 */
 int					ft_cd(t_init *init, char ***entry);
-int					ft_cd_l(t_env **env, char *curpath);
-char				**delete_and_paste(char **arr, int i);
-char				*paste_strs(char *str, char *new);
-char				*paste_path(char *s1, char *s2);
-int					handle_cd_error(char *str);
+int					ft_cd_l(t_env **env, char *curpath, char *dir);
 /*
 ** > echo | env | exit <
 */
@@ -105,6 +99,8 @@ void				ft_cfmakeinit(struct termios *my_state);
 char				*paste_path(char *p1, char *p2);
 void				free_pathlist(t_path **orig);
 t_path				*create_path(char *str);
-void				append_new(t_path **orig, t_path *new);
 t_path				*new_pathlist(char *str);
+void				remove_elem(t_path *elem, t_path **orig);
+void				set_path_info(t_path *pathlist);
+char				*pathlist_to_str(t_path *pathlist);
 #endif

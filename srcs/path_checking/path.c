@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 15:30:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 17:34:43 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 20:42:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void	free_pathlist(t_path **orig)
+void		free_pathlist(t_path **orig)
 {
 	t_path	*tmp;
 
@@ -33,7 +33,7 @@ void	free_pathlist(t_path **orig)
 	}
 }
 
-t_path	*create_path(char *str)
+t_path		*create_path(char *str)
 {
 	t_path	*new;
 
@@ -46,7 +46,7 @@ t_path	*create_path(char *str)
 	return (new);
 }
 
-void	append_new(t_path **orig, t_path *new)
+static void	append_new(t_path **orig, t_path *new)
 {
 	t_path	*tmp;
 
@@ -62,7 +62,7 @@ void	append_new(t_path **orig, t_path *new)
 	}
 }
 
-t_path	*new_pathlist(char *str)
+t_path		*new_pathlist(char *str)
 {
 	t_path	*orig;
 	t_path	*new;
@@ -82,17 +82,21 @@ t_path	*new_pathlist(char *str)
 	return (orig);
 }
 
-char	*paste_path(char *p1, char *p2)
+char		*paste_path(char *p1, char *p2)
 {
 	int		len1;
+	char	*str;
 
 	len1 = ft_strlen(p1);
-	if (!p1)
-		return (ft_strdup(p2));
-	if (p1[len1 - 1] == '/' && p2[0] == '/')
+	if (p1[len1 - 1] != '/' && p2[0] != '/')
+		str = ft_strjoin(p1, "/");
+	else if (p1[len1 - 1] == '/' && p2[0] == '/')
+	{
 		p1[len1 - 1] = 0;
-	else if (p1[len1 - 1] != '/' && p2[0] != '/')
-		p1 = ft_strjoindel(p1, "/");
-	p1 = ft_strjoindel(p1, p2);
-	return (p1);
+		str = ft_strdup(p1);
+	}
+	else
+		str = ft_strdup(p1);
+	str = ft_strjoindel(str, p2);
+	return (str);
 }
