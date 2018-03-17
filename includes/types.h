@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 14:52:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 17:11:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct		s_path
 {
 	char			*s;
 	int				perms;
+	char			type;
 	struct s_path	*next;
 	struct s_path	*prev;
 }					t_path;

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 15:39:05 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 16:09:49 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static int		ft_cd_2(t_env **env, char *dir, int p)
 		ft_strdel(&curpath);
 		return (ret);
 	}
-	return (ft_cd_l(env, curpath, dir));
+	return (ft_cd_l(env, curpath));
 }
 
 int				ft_cd(t_init *init, char ***entry)

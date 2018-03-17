@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 16:07:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 17:31:38 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void				sigint_prompt(void);
 ** > cd <
 */
 int					ft_cd(t_init *init, char ***entry);
-int					ft_cd_l(t_env **env, char *curpath, char *dir);
+int					ft_cd_l(t_env **env, char *curpath);
 char				**delete_and_paste(char **arr, int i);
 char				*paste_strs(char *str, char *new);
 char				*paste_path(char *s1, char *s2);
@@ -103,4 +103,8 @@ void				ft_cfmakeinit(struct termios *my_state);
 ** path checking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 char				*paste_path(char *p1, char *p2);
+void				free_pathlist(t_path **orig);
+t_path				*create_path(char *str);
+void				append_new(t_path **orig, t_path *new);
+t_path				*new_pathlist(char *str);
 #endif
