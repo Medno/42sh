@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 17:50:29 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:13:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 14:09:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		put_path(t_env **env)
 	new = NULL;
 	if (ft_getenv(env, "PWD"))
 		new = ft_strdup(ft_getenv(env, "PWD"));
-	else if (!(new = getcwd(new, 4096)))
+	else if (!(new = getcwd(new, PATH_MAX)))
 		new = ft_strdup("/");
 	if (ft_getenv(env, "HOME") && ft_strstr(new, ft_getenv(env, "HOME")))
 	{
@@ -40,7 +40,14 @@ void	insert_env_start(t_env **env)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	ft_setenv(env, "CLICOLOR", "1");
+	if (!ft_getenv(env, "PWD"))
+	{
+		tmp = getcwd(tmp, PATH_MAX);
+		ft_setenv(env, "PWD", tmp);
+		ft_strdel(&tmp);
+	}
 	if (!ft_getenv(env, "SHLVL"))
 		ft_setenv(env, "SHLVL", "1");
 	else
