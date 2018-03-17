@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/17 14:51:45 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/17 15:40:14 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC = gcc
 PATHFS = ./srcs/
 
 ### BUILTINS ###
-BUI_NAME = ft_cd.c ft_cd2.c ft_cd3.c	\
+BUI_NAME = ft_cd.c ft_cd2.c				\
 		   ft_echo.c					\
 		   ft_env.c						\
 		   ft_set_env.c					\
@@ -69,7 +69,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
 ### PATH CHECKING ###
 CHECK_NAME = path.c
 CHECK_PATH = path_checking/
-SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
+SRCS += $(addprefix $(PATHFS), $(addprefix $(CHECK_PATH), $(CHECK_NAME)))
 
 ### COMPLETION ###
 COMP_NAME =	clean_comp.c 				\

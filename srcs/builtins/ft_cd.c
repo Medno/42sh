@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 11:38:08 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 15:39:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ static int		ft_cd_2(t_env **env, char *dir, int p)
 			return (1);
 		return (0);
 	}
-	if (*dir == '/' || (*dir == '.' && *(dir + 1) == '/') || (*dir == '.'
-		&& *(dir + 1) == '.' && (*dir + 2) == '/') || ft_strequ("/", dir) ||
-	ft_strequ(".", dir) || ft_strequ("..", dir) || !ft_getenv(env, "CDPATH"))
+	if (!ft_getenv(env, "CDPATH") || (*dir == '.' && *(dir + 1) == '/') ||
+	*dir == '/' || (*dir == '.' && *(dir + 1) == '.' && (*dir + 2) == '/') ||
+	ft_strequ("/", dir) || ft_strequ(".", dir) || ft_strequ("..", dir))
 		curpath = ft_strdup(dir);
 	else
 		curpath = ft_handle_cdpath(env, dir);
@@ -140,5 +140,4 @@ int				ft_cd(t_init *init, char ***entry)
 	}
 	else
 		return (ft_cd_2(&init->new_env, (*entry)[g_optind], opt_p));
-	return (0);
 }

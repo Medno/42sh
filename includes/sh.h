@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 15:34:04 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/17 16:07:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,8 @@ int					put_path(t_env **env);
 void				ft_cfmakeraw(struct termios *my_state);
 void				ft_cfmakedefault(struct termios *my_state);
 void				ft_cfmakeinit(struct termios *my_state);
+/*
+** path checking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+*/
+char				*paste_path(char *p1, char *p2);
 #endif
