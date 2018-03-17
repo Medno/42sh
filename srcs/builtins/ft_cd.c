@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 18:41:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 21:06:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ static int		do_move(char *path, t_env **env)
 	char	*tmp;
 
 	tmp = NULL;
+	if (!ft_getenv(env, "PWD"))
+	{
+		tmp = getcwd(tmp, PATH_MAX);
+		ft_setenv(env, "PWD", tmp);
+		ft_strdel(&tmp);
+	}
 	if (chdir(path) < 0)
 		return (1);
 	if (ft_strequ(path, ft_getenv(env, "OLDPWD")))
