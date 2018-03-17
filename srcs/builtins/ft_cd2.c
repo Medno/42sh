@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 20:40:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 20:49:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ static char	*clear_path(char *s1, char *dir)
 
 	new = NULL;
 	if (!(pathlist = new_pathlist(s1)))
-		return ((new = ft_strdup(s1)));
+	{
+		ft_strdel(&s1);
+		return (ft_strdup("/"));
+	}
 	ft_strdel(&s1);
 	set_path_info(pathlist);
 	if (check_elements(&pathlist, dir))
