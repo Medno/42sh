@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/16 11:39:33 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/17 14:52:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,14 @@ typedef struct		s_ast
 	struct s_ast	*left;
 	struct s_ast	*right;
 }					t_ast;
+
+typedef struct		s_path
+{
+	char			*s;
+	int				perms;
+	struct s_path	*next;
+	struct s_path	*prev;
+}					t_path;
 
 typedef struct		s_edit
 {

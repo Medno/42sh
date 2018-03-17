@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/15 16:51:18 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/17 14:51:45 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,11 @@ LINE_NAME = ft_line.c		\
 			ft_copy.c
 LINE_PATH = line_edit/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(LINE_PATH), $(LINE_NAME)))
+
+### PATH CHECKING ###
+CHECK_NAME = path.c
+CHECK_PATH = path_checking/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(STRUC_PATH), $(STRUC_NAME)))
 
 ### COMPLETION ###
 COMP_NAME =	clean_comp.c 				\
