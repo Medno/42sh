@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 11:02:52 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/17 14:03:42 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		clean_arg(char ***arg)
 	while ((*arg)[j] && is_valid_identifier((*arg)[j], NOPRINT) &&
 			ft_strchr((*arg)[j], '='))
 		j++;
+	if (!j)
+		return (0);
 	new_arg = (char**)ft_memalloc(sizeof(char**) *
 			(ft_tablen((*arg + j)) + 1));
 	if (!new_arg)

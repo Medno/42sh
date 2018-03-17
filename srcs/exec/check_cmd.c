@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/16 15:26:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/17 11:22:27 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		is_builtin(char *str)
 	return (0);
 }
 
-int		check_builtins(char ***entry, t_cmd *cmd, t_init *init)
+int		check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 {
 	if (!redirection(cmd))
 		return (1);
@@ -65,7 +65,7 @@ int		check_builtins(char ***entry, t_cmd *cmd, t_init *init)
 	if (ft_strequ(**entry, "echo"))
 		return (ft_echo(&(*entry)[1]));
 	if (ft_strequ(**entry, "env"))
-		return (ft_env(init->new_env, *entry));
+		return (ft_env(init, ast, *entry));
 	if (ft_strequ(**entry, "setenv") && (*entry)[1] && (*entry)[2])
 		return (ft_setenv(&init->new_env, (*entry)[1], (*entry)[2]));
 	if (ft_strequ(**entry, "unsetenv"))
@@ -87,7 +87,7 @@ int		check_cmd(t_ast *ast, t_init *init)
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
 			(is_builtin(ast->cmd->arg[0]) ||
 			check_local(&ast->cmd->arg, CLEAN))
-			&& (ret = check_builtins(&ast->cmd->arg, ast->cmd, init)) >= 0)
+			&& (ret = check_builtins(&ast->cmd->arg, ast->cmd, ast, init)) >= 0)
 		return (ret);
 	else
 	{

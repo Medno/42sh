@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/16 15:27:10 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/17 15:34:04 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ int					handle_cd_error(char *str);
 ** > echo | env | exit <
 */
 int					ft_echo(char **str);
-int					ft_env(t_env *env, char **entry);
+int					ft_env(t_init *init, t_ast *ast, char **entry);
 int					ft_setenv(t_env **env,  char *name, char *value);
 int					ft_unsetenv(t_env **list, char *name);
 int					ft_exit(t_init *init, char ***entry);
-void				ft_print_env(t_env *env);
+int					ft_print_env(t_env *env);
 /*
 ** > history <
 */

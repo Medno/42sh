@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 16:11:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 10:25:21 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			exec_start(t_ast *ast, t_init *init);
 int			check_cmd(t_ast *ast, t_init *init);
 void		fork_cmd(t_init *init, t_ast *ast, char *path);
 int			is_builtin(char *str);
-int			check_builtins(char ***entry, t_cmd *cmd, t_init *init);
+int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init);
 int			check_path(char **arg, t_env **env, char **s_fin, int print);
 int			step_1(t_init init);
 

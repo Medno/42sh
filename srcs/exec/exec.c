@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 16:23:32 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/17 10:28:06 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_cmd(t_init *init, t_ast *ast, char *path)
 	char	**envir;
 
 	if (is_builtin(ast->cmd->arg[0]) || check_local(&ast->cmd->arg, CLEAN))
-		exit(check_builtins(&ast->cmd->arg, ast->cmd, init));
+		exit(check_builtins(&ast->cmd->arg, ast->cmd, ast, init));
 	if (!(ret = check_path(ast->cmd->arg, &init->new_env, &path, PRINT)))
 	{
 		envir = put_in_tab(&init->new_env);
