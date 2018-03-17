@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 20:49:12 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/17 20:53:19 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ static int	check_elements(t_path **pathlist, char *str)
 	while (tmp)
 	{
 		if (tmp->perms & 4)
-			return (error_cd(1, str));
+		{
+			if (tmp->next && ft_strequ("..", tmp->next->s))
+				tmp = tmp->next;
+			else
+				return (error_cd(1, str));
+		}
 		else if (tmp->type == 'r')
 			return (error_cd(2, str));
 		else if (!tmp->type)
