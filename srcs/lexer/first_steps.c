@@ -62,6 +62,8 @@ t_lex		*enter_quote(t_lex *new, char *str, int *i, char buf[])
 	new->token = WORD;
 	if (!g_quote)
 		g_quote = str[*i];
+	if (new->prev && is_brack(g_quote))
+		g_quote = 0;
 	ft_strcat(buf, read);
 	if ((g_quote == '\"' || g_quote == '\'') && str[*i] == '\\' && str[*i + 1])
 	{

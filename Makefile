@@ -98,6 +98,7 @@ LEXER_NAME = lexer.c			\
 			 init_lex.c			\
 			 print_lex.c		\
 			 is_lex.c			\
+			 brack_lex.c		\
 			 categorize_token.c	\
 			 first_steps.c 		\
 			 dollar_step.c		\
