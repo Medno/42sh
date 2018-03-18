@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 12:49:25 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 13:49:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:15:42 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ char		*ft_handle_d_positive(t_flags flags, char *str)
 	int		i;
 	char	*tmp;
 
-	i = 0;
 	tmp = NULL;
-	if (flags.plus && !flags.precision && flags.width)
+	if (!(i = 0) && flags.plus && !flags.precision && flags.width)
 	{
 		if (str[0] == '0')
 			str[0] = '+';
