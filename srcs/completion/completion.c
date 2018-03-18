@@ -113,7 +113,7 @@ int		comp_is_directory(t_comp *comp)
 **	On initialise current au début de la liste
 */
 
-void	do_new_completion(t_comp *comp)
+void	do_new_completion(t_comp *comp, t_env *env)
 {
 	if (comp_is_first_word(comp) == 1)
 	{
@@ -125,7 +125,7 @@ void	do_new_completion(t_comp *comp)
 		else
 		{
 //			ft_printf("do_2\n");
-			comp_get_pot_cmd(comp);
+			comp_get_pot_cmd(comp, env);
 		}
 	}
 	else
@@ -168,7 +168,6 @@ void	do_completion(t_comp *comp, t_env *env)
 	if (comp->cmd == NULL || *(comp->cmd) == 0)
 		return ;
 
-	(void)env;
 	// ft_printf("\nEn entree :\n");
 	// ft_printf("cmd = [%s]\npos = [%d]\n", comp->cmd, comp->pos);
 	// if (comp->list)
@@ -182,7 +181,7 @@ void	do_completion(t_comp *comp, t_env *env)
 	// ft_printf("\nApres get dir : ");
 	// ft_printf("dir = [%s] string = [%s]\n", comp->dir, comp->str);
 	if (comp->current == NULL)
-		do_new_completion(comp);
+		do_new_completion(comp, env);
 	else
 		put_current_to_next(comp);
 	// ft_printf("\nApres new_comp : ");

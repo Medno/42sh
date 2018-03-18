@@ -90,13 +90,13 @@ int		ft_nbr_path(char *str)
 	return (i);
 }
 
-char	**comp_get_all_path(void)
+char	**comp_get_all_path(t_env *env)
 {
 	int		i;
 	char	**tabl;
 	char	*tmp;
 
-	tmp = getenv("PATH");
+	tmp = ft_getenv(&env, "PATH");
 	if (!(tabl = malloc(sizeof(char *) * (ft_nbr_path(tmp) + 1))))
 		return (NULL);
 	i = 0;
@@ -133,7 +133,7 @@ void	comp_add_pot_builtin(t_comp *comp)
 	}
 }
 
-void	comp_get_pot_cmd(t_comp *comp)
+void	comp_get_pot_cmd(t_comp *comp, t_env *env)
 {
 	t_lcomp			*new;
 	DIR				*dir;
@@ -141,7 +141,7 @@ void	comp_get_pot_cmd(t_comp *comp)
 	char			**all_path;
 	int				i;
 
-	all_path = comp_get_all_path();
+	all_path = comp_get_all_path(env);
 	i = 0;
 	while (all_path[i])
 	{

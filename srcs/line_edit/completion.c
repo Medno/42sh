@@ -12,6 +12,12 @@
 
 #include "completion.h"
 
+/*
+**	On transforme la liste en string qu'on stock dans comp->cmd
+**	On stock la position dans comp->pos
+**	/!\ Le prompt incrémente l'index et empeche de s'en servir
+*/
+
 void		from_list_to_comp(t_line *cur, t_comp *comp)
 {
 	t_line *tmp;
@@ -70,6 +76,11 @@ void	print_completion(t_line *cur, t_comp *comp, t_curs *curs)
 		ansi("LE", ft_strlen(str), STDIN_FILENO);
 	ft_strdel(&str);
 }
+
+/*
+**	On part du debut de la liste, on note l'index de depart
+**	On parcours la liste et on incrémente de 1 à chaque fois
+*/
 
 void	reset_index_after_comp(t_line *cur)
 {
