@@ -36,7 +36,6 @@ static int		has_exec_rights(char *dir_to_open, char *d_name)
 	char	*file_path;
 
 	file_path = ft_strjoin_infinite(3, dir_to_open, "/", d_name);
-// stat renvoie 0 en cas de succes
 	if (stat(file_path, &sb) != 0)
 		ret = 0;
 	else

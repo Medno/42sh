@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comp_cmd.c                                       :+:      :+:    :+:  */
+/*   get_comp_cmd.c                                      :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,41 +12,7 @@
 
 #include "completion.h"
 
-int		comp_is_pot_cmd(char *lex, char *str, char *path)
-{
-	struct	stat sb;
-	char	*abs_path;
-	int		ret;
-
-	ret = 0;
-	if (path)
-		abs_path = ft_strjoin_infinite(3, path, "/", lex);
-	else
-		abs_path = ft_strdup(lex);
-	if (stat(abs_path, &sb) == 0 && (sb.st_mode & S_IXOTH) && !S_ISDIR(sb.st_mode))
-    {
-		if (str == NULL || ft_strlen(str) == 0)
-			ret = 0;
-		else if (ft_strncmp(lex, str, ft_strlen(str)) == 0)
-			ret = 1;
-	}
-	ft_strdel(&abs_path);
-	return (ret);
-}
-
-int		comp_is_pot_bi(char *lex, char *str)
-{
-	int		ret;
-
-	ret = 0;
-	if (str == NULL || ft_strlen(str) == 0)
-		ret = 0;
-	else if (ft_strncmp(lex, str, ft_strlen(str)) == 0)
-		ret = 1;
-	return (ret);
-}
-
-char	*get_next_path(char *str)
+static char		*get_next_path(char *str)
 {
 	int		i;
 	int		start;
@@ -72,7 +38,7 @@ char	*get_next_path(char *str)
 	return (tmp);
 }
 
-int		ft_nbr_path(char *str)
+static int		ft_nbr_path(char *str)
 {
 	char	*tmp;
 	int		i;
@@ -90,7 +56,7 @@ int		ft_nbr_path(char *str)
 	return (i);
 }
 
-char	**comp_get_all_path(t_env *env)
+static char		**comp_get_all_path(t_env *env)
 {
 	int		i;
 	char	**tabl;
@@ -113,27 +79,29 @@ char	**comp_get_all_path(t_env *env)
 	return (tabl);
 }
 
-void	comp_add_pot_builtin(t_comp *comp)
+static int		comp_is_pot_cmd(char *lex, char *str, char *path)
 {
-	t_lcomp *new;
-//	char **builtin_list;
-	int i;
+	struct	stat sb;
+	char	*abs_path;
+	int		ret;
 
-	char *builtin_list[] = {"exit", "cd", "echo", "env", "setenv", "unsetenv", "history", NULL};
-	i = 0;
-	while (builtin_list[i])
-	{
-		if (comp_is_pot_bi(builtin_list[i], comp->str))
-		{
-			new = init_t_lcomp();
-			new->cmd = ft_strdup(builtin_list[i]);
-			comp->list = lcomp_push_back(comp->list, new);
-		}
-		i++;
+	ret = 0;
+	if (path)
+		abs_path = ft_strjoin_infinite(3, path, "/", lex);
+	else
+		abs_path = ft_strdup(lex);
+	if (stat(abs_path, &sb) == 0 && (sb.st_mode & S_IXOTH) && !S_ISDIR(sb.st_mode))
+    {
+		if (str == NULL || ft_strlen(str) == 0)
+			ret = 0;
+		else if (ft_strncmp(lex, str, ft_strlen(str)) == 0)
+			ret = 1;
 	}
+	ft_strdel(&abs_path);
+	return (ret);
 }
 
-void	comp_get_pot_cmd(t_comp *comp, t_env *env)
+void			comp_get_pot_cmd(t_comp *comp, t_env *env)
 {
 	t_lcomp			*new;
 	DIR				*dir;
@@ -161,22 +129,3 @@ void	comp_get_pot_cmd(t_comp *comp, t_env *env)
 	ft_freetab(all_path);
 	comp_add_pot_builtin(comp);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

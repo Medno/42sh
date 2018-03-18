@@ -27,19 +27,17 @@ static char		*get_path_suffix(t_comp *comp)
 	char *ret;
 
 	ptr = comp_go_to_last_slash(comp->str);
-//	str = [Dir/Dir/][Truc a completer] = [ret = suffix][ptr]
 	if (ptr)
 	{
 		ret = ft_strsub(comp->str, 0, ft_strlen(comp->str) - ft_strlen(ptr));
 		comp_modify_str(comp, ptr);
 	}
-//	Pas de '/' donc str = [Truc a completer]
 	else
 		ret = ft_strnew(0);
 	return (ret);
 }
 
-static char	*get_absolute_path(t_comp *comp)
+static char		*get_absolute_path(t_comp *comp)
 {
 	char	*ptr;
 	char	*ret;
@@ -50,21 +48,25 @@ static char	*get_absolute_path(t_comp *comp)
 	return (ret);
 }
 
-void		comp_get_dir_to_open(t_comp *comp)
+/*
+**	On veut isoler "[directory]" dans "[directory][string to comp]" (Cas : "../dossier/comp[]")
+**	1er cas : "/dossier/dossier/comp", on cherche le chemin absolue du comp
+**	2eme cas : "ls dossier/dossier/comp", on cherche le chemin relatif en fonction du cwd
+**	3eme cas : "dossier/dossier/comp", on remplit dir par '\0' pour reperer le cas premier mot
+**	4eme cas : "ls comp", pas besoin de remplir dir on cherchera le cwd
+*/
+
+void			comp_get_dir_to_open(t_comp *comp)
 {
 	char *cwd;
 	char *suffix;
 
 	if (comp->str && *(comp->str) && *(comp->str) == '/')
-	{
-		// ft_printf("do_A\n");
 		comp->dir = get_absolute_path(comp);
-	}
 	else
 	{
 		if (comp_has_slash(comp->str) == 1 || comp_is_first_word(comp) == 0)
 		{
-			// ft_printf("do_B\n");
 			cwd = NULL;
 			cwd = getcwd(cwd, 0);
 			suffix = get_path_suffix(comp);
@@ -72,6 +74,5 @@ void		comp_get_dir_to_open(t_comp *comp)
 			ft_strdel(&cwd);
 			ft_strdel(&suffix);
 		}
-		// ft_printf("do_C\n");
 	}
 }

@@ -12,7 +12,7 @@
 
 #include "completion.h"
 
-t_line 	*go_to_start_of_str(t_line *cur, int len)
+static t_line 	*go_to_start_of_str(t_line *cur, int len)
 {
 	t_line *tmp;
 
@@ -25,7 +25,7 @@ t_line 	*go_to_start_of_str(t_line *cur, int len)
 	return (tmp);
 }
 
-void	del_one_t_line(t_line **del)
+static void		del_one_t_line(t_line **del)
 {
 	if (del && *del)
 	{
@@ -36,7 +36,7 @@ void	del_one_t_line(t_line **del)
 	}
 }
 
-t_line		*del_old_list(t_line *to_del, t_line *end_del)
+static t_line	*del_old_list(t_line *to_del, t_line *end_del)
 {
 	t_line *tmp;
 	t_line *ret;
@@ -47,12 +47,11 @@ t_line		*del_old_list(t_line *to_del, t_line *end_del)
 		tmp = to_del;
 		to_del = to_del->next;
 		del_one_t_line(&tmp);
-//		ft_printf("Ca degage! len = [%d]\n", len);
 	}
 	return (ret);
 }
 
-t_line *add_comp_to_list(t_line *cur, t_comp *comp)
+static t_line 	*add_comp_to_list(t_line *cur, t_comp *comp)
 {
 	char	*tmp;
 	int		i;
@@ -91,11 +90,9 @@ t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 		return (ret);
 	eoprefix = go_to_start_of_str(cur, ft_strlen(edit->comp->str));
 	eoprefix = del_old_list(eoprefix, cur);
-//	eoprefix = eoprefix->prev;
 	cur = add_comp_to_list(cur, edit->comp);
 	if (eoprefix)
 		eoprefix->next = cur;
 	cur->prev = eoprefix;
 	return (ret);
-
 }

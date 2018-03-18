@@ -32,3 +32,10 @@ REDUIRE LA FENETRE DE MANIERE A REMPLIR PRESQUE ENTIEREMENT LA LIGNE
 -> "le prompt> /Volumes/Mac OS[tab]"
 -> "le prompt> /Volumes/Mac OS OS"
 -> Mauvais clean à cause de l'espace dans le nom du fichier
+
+
+DIFFERENCE AVEC BASH
+
+-> "[tab]" ou "  [tab]" ou "              [tab]"
+=> BASH : Montre toutes les commandes
+=> FOOKHSH : Ne fais rien

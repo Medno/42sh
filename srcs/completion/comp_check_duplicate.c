@@ -21,7 +21,7 @@ static void	rem_duplicate(t_lcomp *elm)
 	ft_clean_lcomp(tmp);
 }
 
-void	comp_check_duplicate(t_comp *comp)
+void		comp_check_duplicate(t_comp *comp)
 {
 	t_lcomp *tmp;
 

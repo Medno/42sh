@@ -12,7 +12,7 @@
 
 #include "completion.h"
 
-static int		is_sorted(t_lcomp *list)
+static int	is_sorted(t_lcomp *list)
 {
 	t_lcomp *tmp;
 
@@ -26,7 +26,7 @@ static int		is_sorted(t_lcomp *list)
 	return (1);
 }
 
-void	comp_sort_alphab(t_comp *comp)
+void		comp_sort_alphab(t_comp *comp)
 {
 	t_lcomp *tmp;
 	char *tmp2;

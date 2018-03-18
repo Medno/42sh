@@ -28,6 +28,8 @@ void				comp_get_dir_to_open(t_comp *comp);
 void				comp_sort_alphab(t_comp *comp);
 void				comp_check_duplicate(t_comp *comp);
 t_line				*from_comp_to_list(t_line *cur, t_edit *edit);
+void				print_completion(t_line *cur, t_comp *comp, t_curs *curs);
+void				comp_add_pot_builtin(t_comp *comp);
 
 /*
 **	COMPLETION TOOLS
