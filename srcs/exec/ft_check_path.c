@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/16 18:13:37 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/18 10:50:22 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,35 +60,6 @@ static int	check_bin(char *str, t_env **env, char **s_fin)
 	if (ret)
 		ret = 1;
 	return (ret);
-}
-
-int			check_slash(char *str, char **s_fin, int print)
-{
-	int		i;
-	int		ret;
-	char	**path;
-
-	i = -1;
-	if (!(ret = is_accessible(str)))
-	{
-		*s_fin = ft_strdup(str);
-		return (0);
-	}
-	path = ft_strsplit(str, '/');
-	if (*str == '/')
-		*s_fin = ft_strdup("/");
-	while (path[++i])
-	{
-		if (*s_fin)
-			*s_fin = ft_strjoindel(*s_fin, path[i]);
-		else
-			*s_fin = ft_strdup(path[i]);
-		if (!(ret = is_accessible(*s_fin)) || (ret == -1))
-			break ;
-		*s_fin = ft_strjoindel(*s_fin, "/");
-	}
-	ft_freetab(path);
-	return (ret ? check_error(ret, str, print) : ret);
 }
 
 int			check_path(char **arg, t_env **env, char **s_fin, int print)
