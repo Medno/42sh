@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/18 12:27:02 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/18 12:33:36 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -184,7 +184,7 @@ OBJ = $(SRCS:%.c=%.o)
 all : makelib $(NAME)
 
 $(NAME) : $(OBJ)
-		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB) logger/liblogger.a
+		@$(CC) $(FLAGS) $(INC) -o $@ $^ $(LIB)
 		@echo "\033[K\033[35m***** done *****\033[0m"
 
 %.o:%.c
