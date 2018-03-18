@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 19:44:53 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 12:32:50 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int					ft_cd_l(t_env **env, char *curpath, char *dir);
 */
 int					ft_echo(char **str);
 int					ft_env(t_init *init, t_ast *ast, char **entry);
-int					ft_setenv(t_env **env,  char *name, char *value);
+int					ft_setenv(t_env **env, char *name, char *value);
 int					ft_unsetenv(t_env **list, char *name);
 int					ft_exit(t_init *init, char ***entry);
 int					ft_print_env(t_env *env);

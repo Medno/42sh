@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 15:05:18 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/18 12:29:22 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 # include "sh.h"
 
-#define RESETALL	0
-#define RESETFILE	1
-#define BADFD		-2
-#define NOSUCHFILE	-3
-#define NOPERM		-4
-#define OPENFAIL	-5
-#define AMBIGOUS	-6
-#define TOCLOSE		-10
+# define RESETALL	0
+# define RESETFILE	1
+# define BADFD		-2
+# define NOSUCHFILE	-3
+# define NOPERM		-4
+# define OPENFAIL	-5
+# define AMBIGOUS	-6
+# define TOCLOSE	-10
 
 int		redirection(t_cmd *cmd);
 

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/02/28 11:12:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 12:29:33 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void				comp_check_duplicate(t_comp *comp);
 */
 int					comp_is_first_word(t_comp *comp);
 int					comp_has_slash(char *str);
-
 
 t_lcomp				*lcomp_push_back(t_lcomp *list, t_lcomp *new);
 t_lcomp				*init_t_lcomp(void);

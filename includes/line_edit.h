@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 14:54:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 12:32:34 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_line				*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf);
 t_line				*grab_mod(t_line *current, t_curs *curseur);
 t_line				*select_word(char **str, t_line *cur, t_curs *curseur);
 t_line				*select_all(char **str, t_line *cur, t_curs *curseur);
-t_line				*paste_selected_line(char *str, t_line *cur, t_curs *curseur);
+t_line				*paste_selected_line(char *str, t_line *cur,
+					t_curs *curseur);
 /*
 ** historic
 */
@@ -50,7 +51,7 @@ void				hist_to_file(t_hist *historic);
 /*
 ** list checkups
 */
-void				ft_clean_edit(t_edit *edit); // edit this one
+void				ft_clean_edit(t_edit *edit);
 t_line				*create_elem(char c, int len);
 int					last_index(t_line *el);
 int					full_tline_len(t_line *el);
@@ -83,7 +84,7 @@ void				check_max(t_curs *curseur, int len);
 void				check_screen(t_curs *curseur);
 void				init_curs(t_curs *curseur, int prompt);
 /*
-**
+** completion
 */
 t_line				*completion(t_edit *edit);
 #endif

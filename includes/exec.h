@@ -6,14 +6,14 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/18 10:50:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 12:30:20 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
-
 #ifndef EXEC_H
 # define EXEC_H
+
+# include "sh.h"
 
 void		del_one_pid(t_pid **pid);
 void		del_pid(t_pid **pid);

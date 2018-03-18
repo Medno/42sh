@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 17:11:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 12:31:33 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct		s_lcomp
 	struct s_lcomp	*next;
 }					t_lcomp;
 
-typedef struct		s_comp 
+typedef struct		s_comp
 {
 	char			*cmd;
 	int				pos;
@@ -69,8 +69,8 @@ typedef struct		s_env
 typedef enum		e_token
 {
 	NONE, WORD, OP, QUOTE, IO_NUMBER, EOI, AND_IF, OR_IF, DSEMI, NEWLINE,
-	DLESS, DGREAT, LESSAND, GREATAND, LESSGREAT, DLESSDASH, CLOBBER, 
-	ANDGREAT, ANDLESS, IO_HERE, CMD, PIPE, SEMI, IF, FI, ELSE, DO, DONE, 
+	DLESS, DGREAT, LESSAND, GREATAND, LESSGREAT, DLESSDASH, CLOBBER,
+	ANDGREAT, ANDLESS, IO_HERE, CMD, PIPE, SEMI, IF, FI, ELSE, DO, DONE,
 	FOR, CASE, ESAC, IN, THEN, UNTIL, WHILE, ELIF
 }					t_token;
 
