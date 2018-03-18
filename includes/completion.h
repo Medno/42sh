@@ -27,6 +27,7 @@ void				comp_get_pot_dir_exec(t_comp *comp);
 void				comp_get_dir_to_open(t_comp *comp);
 void				comp_sort_alphab(t_comp *comp);
 void				comp_check_duplicate(t_comp *comp);
+t_line				*from_comp_to_list(t_line *cur, t_edit *edit);
 
 /*
 **	COMPLETION TOOLS

@@ -180,19 +180,23 @@ void	do_completion(t_comp *comp, t_env *env)
 	comp_get_dir_to_open(comp);
 	
 	// ft_printf("\nApres get dir : ");
-	// ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
+	// ft_printf("dir = [%s] string = [%s]\n", comp->dir, comp->str);
 	if (comp->current == NULL)
 		do_new_completion(comp);
 	else
 		put_current_to_next(comp);
-//	ft_printf("\nApres new_comp : ");
-//	if (comp->current && comp->list)
-//	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
-// On modifie remplace str par current dans cmd si on a reussit a remplir pot_list
+	// ft_printf("\nApres new_comp : ");
+	// if (comp->current && comp->list)
+	//  	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
+	 // else
+	 // 	ft_printf("\n");
+
+
+//	On modifie remplace str par current dans cmd si on a reussit a remplir pot_list
 	if (comp->list)
 		comp_modify_cmd(comp);
 //	Si on a un seul choix, on valide et on met current à NULL
 	// if (comp->current && comp->current->next == NULL
 	// 	&& comp->current == comp->list)
-	// 	comp_validate_choice(comp);
+	//  	comp_validate_choice(comp);
 }

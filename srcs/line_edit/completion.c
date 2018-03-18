@@ -12,108 +12,84 @@
 
 #include "completion.h"
 
-static void		from_list_to_comp(t_line *cur, t_comp *comp)
-{
-	comp->cmd = line_to_str(cur);
-	comp->pos = cur->index + 1;
-}
-
-static t_line 	*go_to_start_of_str(t_line *cur, int len)
+void		from_list_to_comp(t_line *cur, t_comp *comp)
 {
 	t_line *tmp;
 
+	comp->cmd = line_to_str(cur);
 	tmp = cur;
-	while (len > 0)
+	comp->pos = 0;
+	while (tmp->prev)
 	{
 		tmp = tmp->prev;
-		len--;
+		comp->pos++;
 	}
-	return (tmp);
+	comp->pos++;
 }
 
-void	del_one_t_line(t_line **del)
+void	ft_clean_screen_comp(t_comp *comp)
 {
-	if (del && *del)
-	{
-	 	(*del)->next = NULL;
-	 	(*del)->prev = NULL;
-		free(*del);
-		*del = NULL;
-	}
+	if (ft_strlen(comp->str) > 0)
+	 	ansi("LE", ft_strlen(comp->str), STDIN_FILENO);
+	ansi("CL_END", 0, STDIN_FILENO);
 }
 
-void		del_after_str(t_line **elm, int len)
+/*
+**	La liste en entree = "[prefix][completion]->cur<-[suffixe]"
+**	On stock [suffix] dans str
+**	On ecrit [completion]
+**	On ecrit suffix
+**	On replace le curseur a la fin de [completion]
+*/
+
+void	print_completion(t_line *cur, t_comp *comp, t_curs *curs)
 {
-	t_line **tmp;
+	char	*str;
+	t_line	*tmp;
+	int		i;
 
-	tmp = elm;
-	while (len > 0)
-	{
-		elm = &((*elm)->next);
-		ft_printf("Je vais del [%c]\n", (*tmp)->c);
-		del_one_t_line(tmp);
-		len--;
-		ft_printf("Ca degage! len = [%d]\n", len);
-		tmp = elm;
-	}
-}
-
-static t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
-{
-	t_line *to_del;
-	t_line *ret;
-
-	if (edit->comp->current == NULL)
-		return (cur);
-
-	to_del = go_to_start_of_str(cur, ft_strlen(edit->comp->str));
-	ret = cur;
-	to_del = to_del->prev;
-	char *str;
-	int i;
-
-	str = edit->comp->current->cmd;
 	i = 0;
-	while (str && str[i] && str[i + 1])
-		i++;
-	t_line *new;
-	while (i >= 0)
+	ft_clean_screen_comp(comp);
+	str = ft_strnew(parted_tline_len(cur));
+	tmp = cur;
+	while (tmp->next)
 	{
-		new = create_elem(str[i], cur->index);
-		cur->prev = new;
-		new->next = cur;
-		cur = new;
-		i--;
+		str[i] = tmp->c;
+		if (tmp->c == '\n' && tmp->prev && tmp->index % curs->screen.ws_col == 1
+			&& tmp->prev->c != '\n')
+		{
+			str[i] = '\n';
+			str[++i] = '\n';
+		}
+		i++;
+		tmp = tmp->next;
 	}
-	if (to_del)
-		to_del->next = cur;
-	cur->prev = to_del;
-	return (ret);
-
+	write(STDIN_FILENO, comp->current->cmd, ft_strlen(comp->current->cmd));	
+	write(STDIN_FILENO, str, i);
+	if (str && ft_strlen(str) > 0)
+		ansi("LE", ft_strlen(str), STDIN_FILENO);
 }
-
 
 /*
 **	On creer le t_comp
 **	On remplit le t_comp en fonction de la list
 **	On modifie le t_comp en fonction de la completion
-**	On modifie la list en fonction du t_comp
+**	Si on a trouvé une possibilité, on modifie la list en fonction du t_comp
 */
 
 t_line	*completion(t_edit *edit)
 {
 	t_line *tmp;
-	t_line *first;
 
 	tmp = *edit->current;
 	if (tmp->c == '0' && tmp->prev == NULL)
 		return (*edit->current);
 	from_list_to_comp(*edit->current, edit->comp);
 	do_completion(edit->comp, edit->env);
-	*edit->current = from_comp_to_list(*edit->current, edit);
-	
-	first = *edit->current; while (first->prev) { first = first->prev; }
-	int i = 0;
-	t_line *t = first; ft_printf("List a afficher = "); while (t) {ft_printf("[%c]", t->c ); t->index = i++; t = t->next;} ft_putchar('\n');
+	if (edit->comp->current)
+	{
+		*edit->current = from_comp_to_list(*edit->current, edit);
+		print_completion(*edit->current, edit->comp, &edit->curseur);
+	}
 	return (*edit->current);
 }

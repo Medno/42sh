@@ -82,7 +82,8 @@ COMP_NAME =	clean_comp.c 				\
 			comp_tools.c				\
 			completion.c				\
 			get_potential_cmd.c			\
-			get_potential_directory.c
+			get_potential_directory.c	\
+			from_comp_to_list.c			
 COMP_PATH = completion/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(COMP_PATH), $(COMP_NAME)))
 
