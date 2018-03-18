@@ -46,14 +46,6 @@ int		is_closing(char c)
 	return (0);
 }
 
-int		is_esc(char c)
-{
-	if (c == '\\' || c == '\'' || c == '\"' || c == '`' || c == '{' ||
-			c == '(' || c == '[')
-		return (1);
-	return (0);
-}
-
 int		is_number(char buf[])
 {
 	int	i;
