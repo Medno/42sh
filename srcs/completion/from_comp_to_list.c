@@ -36,20 +36,20 @@ void	del_one_t_line(t_line **del)
 	}
 }
 
-void		del_after_str(t_line **elm, int len)
+t_line		*del_old_list(t_line *to_del, t_line *end_del)
 {
-	t_line **tmp;
+	t_line *tmp;
+	t_line *ret;
 
-	tmp = elm;
-	while (len > 0)
+	ret = to_del->prev;
+	while (to_del && to_del != end_del)
 	{
-		elm = &((*elm)->next);
-		ft_printf("Je vais del [%c]\n", (*tmp)->c);
-		del_one_t_line(tmp);
-		len--;
-		ft_printf("Ca degage! len = [%d]\n", len);
-		tmp = elm;
+		tmp = to_del;
+		to_del = to_del->next;
+		del_one_t_line(&tmp);
+//		ft_printf("Ca degage! len = [%d]\n", len);
 	}
+	return (ret);
 }
 
 t_line *add_comp_to_list(t_line *cur, t_comp *comp)
@@ -73,6 +73,14 @@ t_line *add_comp_to_list(t_line *cur, t_comp *comp)
 	return (cur);
 }
 
+/*
+**	Liste de base : [prefix]->[old_comp]->cur<-[suffix]
+**	On positionne EOPrefix : [prefix]->EOPrefix->[old_comp]->cur<-[suffix]
+**	On detruit old_comp : [prefix]->EOPrefix->NULL && NULL->cur<-[suffix]
+**	On rajouter new_comp : [prefix]->EOPrefix->NULL && new_comp->cur<-[suffix]
+**	On relie le tout : [prefix]->EOPrefix->new_comp->cur<-[suffix]
+*/
+
 t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 {
 	t_line *eoprefix;
@@ -82,7 +90,8 @@ t_line 	*from_comp_to_list(t_line *cur, t_edit *edit)
 	if (edit->comp->current == NULL)
 		return (ret);
 	eoprefix = go_to_start_of_str(cur, ft_strlen(edit->comp->str));
-	eoprefix = eoprefix->prev;
+	eoprefix = del_old_list(eoprefix, cur);
+//	eoprefix = eoprefix->prev;
 	cur = add_comp_to_list(cur, edit->comp);
 	if (eoprefix)
 		eoprefix->next = cur;

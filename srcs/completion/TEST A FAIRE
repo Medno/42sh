@@ -1,11 +1,5 @@
 BUG CONNU
 
-==================================================================
-
-LEAKS
--> "le prompt> /s[tab]"
--> Non destruction de l'ancienne liste
-
 ===================================================================
 
 -> "le prompt> ls libf[TAB]"
@@ -38,5 +32,3 @@ REDUIRE LA FENETRE DE MANIERE A REMPLIR PRESQUE ENTIEREMENT LA LIGNE
 -> "le prompt> /Volumes/Mac OS[tab]"
 -> "le prompt> /Volumes/Mac OS OS"
 -> Mauvais clean à cause de l'espace dans le nom du fichier
-
-====================================================================

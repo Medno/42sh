@@ -68,6 +68,24 @@ void	print_completion(t_line *cur, t_comp *comp, t_curs *curs)
 	write(STDIN_FILENO, str, i);
 	if (str && ft_strlen(str) > 0)
 		ansi("LE", ft_strlen(str), STDIN_FILENO);
+	ft_strdel(&str);
+}
+
+void	reset_index_after_comp(t_line *cur)
+{
+	t_line	*tmp;
+	int		index;
+
+	tmp = cur;
+	while (tmp->prev)
+		tmp = tmp->prev;
+	index = tmp->index;
+	while (tmp)
+	{
+		tmp->index = index;
+		tmp = tmp->next;
+		index++;
+	}
 }
 
 /*
@@ -90,6 +108,7 @@ t_line	*completion(t_edit *edit)
 	{
 		*edit->current = from_comp_to_list(*edit->current, edit);
 		print_completion(*edit->current, edit->comp, &edit->curseur);
+		reset_index_after_comp(*edit->current);
 	}
 	return (*edit->current);
 }
