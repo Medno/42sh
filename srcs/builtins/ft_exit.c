@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 09:04:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:18:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	final_exit(t_init *init, unsigned char x, char ***entry)
 	return (0);
 }
 
-int		ft_exit(t_init *init, char ***entry)
+int			ft_exit(t_init *init, char ***entry)
 {
 	unsigned char	ret;
 	int				i;
@@ -49,6 +49,6 @@ int		ft_exit(t_init *init, char ***entry)
 	ft_printf("{tred}{bold}exit{eoc}\n");
 	if (check == -1)
 		ft_printf_fd(STDERR_FILENO,
-			"42sh: exit: %s: numeric argument required\n", init->ast->cmd->arg[1]);
+		"42sh: exit: %s: numeric argument required\n", init->ast->cmd->arg[1]);
 	return (final_exit(init, ret, entry));
 }

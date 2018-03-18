@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 12:05:57 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 11:36:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:19:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		append_new(t_hist **list, t_hist *new)
 	}
 }
 
-int			append_to_list(t_hist **histo, char *str)
+int				append_to_list(t_hist **histo, char *str)
 {
 	int		fd;
 	t_hist	*new;
@@ -44,7 +44,7 @@ int			append_to_list(t_hist **histo, char *str)
 			return (0);
 	}
 	else if ((fd = open("./srcs/history/.history", O_RDONLY)) < 0)
-			return (0);
+		return (0);
 	line = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{

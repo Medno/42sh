@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/16 14:49:56 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/18 11:19:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	set_bits(int c, int fl)
 	return (fl);
 }
 
-static int		step_2(t_hist **histo, char **str, int flags)
+static int	step_2(t_hist **histo, char **str, int flags)
 {
 	if (!flags)
 		return (print_history(histo, str));
@@ -47,7 +47,7 @@ static int		step_2(t_hist **histo, char **str, int flags)
 	return (0);
 }
 
-int		ft_history(t_hist **histo, char **str)
+int			ft_history(t_hist **histo, char **str)
 {
 	int		flags;
 	int		c;

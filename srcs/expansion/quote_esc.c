@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:13:31 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 15:33:43 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:20:47 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*esc_simple_qu(char *str, int *i, int len)
 int		incr_backslash(int j, char c)
 {
 	if (c == '\\' || c == '\"' || c == '$' || c == '`')
-		return (j + 1);;
+		return (j + 1);
 	if (c == '\n')
 		return (j + 2);
 	return (j);

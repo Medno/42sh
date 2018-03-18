@@ -6,13 +6,31 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 15:44:30 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:22:53 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-int			edit_end(char **line, t_edit *edit)
+void	ft_clean_edit(t_edit *edit)
+{
+	if (edit)
+	{
+		ft_strdel(&(edit->comp->dir));
+		ft_strdel(&(edit->comp->str));
+		ft_strdel(&(edit->comp->cmd));
+		edit->comp->current = NULL;
+		if (edit->comp->list)
+		{
+			ft_clean_lcomp_list(edit->comp->list);
+			edit->comp->list = NULL;
+		}
+		free(edit->comp);
+		edit->comp = NULL;
+	}
+}
+
+int		edit_end(char **line, t_edit *edit)
 {
 	*edit->current = move_last(*edit->current, &edit->curseur);
 	*edit->current = push_new(*edit->current, '\n', &edit->curseur);
@@ -22,7 +40,7 @@ int			edit_end(char **line, t_edit *edit)
 	return (0);
 }
 
-int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
+int		handle_ctrl_d_c(t_edit *edit, char **line, int i)
 {
 	if (i)
 	{
@@ -43,7 +61,7 @@ int			handle_ctrl_d_c(t_edit *edit, char **line, int i)
 	}
 }
 
-int			edit_line(char **line, t_edit *edit)
+int		edit_line(char **line, t_edit *edit)
 {
 	char	c;
 
@@ -71,7 +89,7 @@ int			edit_line(char **line, t_edit *edit)
 	return (0);
 }
 
-int			ft_line_edition(char **line, int prompt_len, t_hist **histo,
+int		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 		t_env *env)
 {
 	t_edit			edit;

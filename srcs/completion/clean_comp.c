@@ -6,7 +6,7 @@
 /*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 14:06:38 by hfouques          #+#    #+#             */
-/*   Updated: 2017/01/25 21:45:59 by hfouques         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:13:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		reset_completion(char c, t_comp *comp)
 	ft_strdel(&(comp->dir));
 	ft_strdel(&(comp->str));
 	ft_strdel(&(comp->cmd));
-	return (1);	
+	return (1);
 }
 
 void	ft_clean_lcomp(t_lcomp *elm)

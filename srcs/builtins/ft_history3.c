@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/14 11:40:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:20:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int				full_hist_file(t_hist **histo, char *str)
+int			full_hist_file(t_hist **histo, char *str)
 {
 	int		fd;
 	t_hist	*tmp;
@@ -33,7 +33,7 @@ int				full_hist_file(t_hist **histo, char *str)
 	return (0);
 }
 
-int				replace_w_arg(t_hist **histo, char **str)
+int			replace_w_arg(t_hist **histo, char **str)
 {
 	char	*s;
 	int		i;
@@ -62,7 +62,7 @@ int				replace_w_arg(t_hist **histo, char **str)
 	return (0);
 }
 
-static int		check_num(char *str)
+static int	check_num(char *str)
 {
 	int		i;
 
@@ -78,7 +78,7 @@ static int		check_num(char *str)
 	return (ft_atoi(str));
 }
 
-int		print_history(t_hist **histo, char **str)
+int			print_history(t_hist **histo, char **str)
 {
 	t_hist	*tmp;
 	int		nb;

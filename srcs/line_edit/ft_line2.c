@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 09:25:56 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:21:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 	int		checked;
 
 	check_screen(&edit->curseur);
-	checked = last_index(*edit->current) >= edit->curseur.screen.ws_col * edit->curseur.screen.ws_row ? 1 : 0;
+	checked = last_index(*edit->current) >= edit->curseur.screen.ws_col *
+		edit->curseur.screen.ws_row ? 1 : 0;
 	if (c == 127 || c == 8)
 		return (line_delone(*edit->current, &edit->curseur));
 	else if (c == '\t')

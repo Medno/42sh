@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:29:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/15 15:25:20 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/18 11:22:30 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,22 +99,4 @@ int		parted_tline_len(t_line *cur)
 		cur = cur->next;
 	}
 	return (i);
-}
-
-void	ft_clean_edit(t_edit *edit)
-{
-	if (edit)
-	{
-		ft_strdel(&(edit->comp->dir));
-		ft_strdel(&(edit->comp->str));
-		ft_strdel(&(edit->comp->cmd));
-		edit->comp->current = NULL;
-		if (edit->comp->list)
-		{
-			ft_clean_lcomp_list(edit->comp->list);
-			edit->comp->list = NULL;
-		}
-		free(edit->comp);
-		edit->comp = NULL;
-	}
 }
