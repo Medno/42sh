@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 13:21:52 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:13:27 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,12 @@ typedef struct		s_builtin
 	const char		*value;
 	int				(*f)(t_init *init, char ***entry);
 }					t_builtin;
+
+typedef struct		s_glob
+{
+	char			*s;
+	int				expr;
+	struct s_glob	*next;
+}					t_glob;
 
 #endif
