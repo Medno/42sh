@@ -13,46 +13,20 @@
 #include "completion.h"
 
 /*
-**	On va au debut de comp->str (la string a remplacée par completion)
-**	On clean tout ce qu'il y a apres le curseur
+**	On delete la caractère à gauche du curseur pour la longueur de la string a remplacer
 */
 
-static void	ft_clean_screen_comp(t_comp *comp)
+static t_line	*ft_clean_screen_comp(t_comp *comp, t_curs *curs, t_line *cur)
 {
-	if (ft_strlen(comp->str) > 0)
-	 	ansi("LE", ft_strlen(comp->str), STDIN_FILENO);
-	ansi("CL_END", 0, STDIN_FILENO);
-}
+	int i;
 
-
-/*
-**	On créer ret de la taille nescessaire pour stocker la fin de la liste
-**	On parcours la liste en partant du curseur pour remplir ret
-**	On gère les sauts à la manière de Kiyan (voir avec lui si besoin ^^^)
-*/
-
-static char	*get_suffix(t_line *cur, t_curs *curs)
-{
-	char *ret;
-	int		i;	
-	t_line	*tmp;
-
-	ret = ft_strnew(parted_tline_len(cur));
-	tmp = cur;
 	i = 0;
-	while (tmp->next)
+	while (i < ft_strlen(comp->str))
 	{
-		ret[i] = tmp->c;
-		if (tmp->c == '\n' && tmp->prev && tmp->index % curs->screen.ws_col == 1
-			&& tmp->prev->c != '\n')
-		{
-			ret[i] = '\n';
-			ret[++i] = '\n';
-		}
+		cur = line_delone(cur, curs);
 		i++;
-		tmp = tmp->next;
 	}
-	return (ret);
+	return (cur);
 }
 
 /*
@@ -79,22 +53,23 @@ static void	reset_index_after_comp(t_line *cur)
 
 /*
 **	La liste en entree = "[prefix][completion]->cur<-[suffixe]"
-**	On stock [suffix] dans str
-**	On ecrit [completion]
+**	On clean l'ancienne valeur de [completion]
+**	On ré-ecrit [completion]
 **	On ecrit suffix
-**	On replace le curseur a la fin de [completion]
+**	On remet les bonnes valeurs de index dans la liste
 */
 
-void		print_completion(t_line *cur, t_comp *comp, t_curs *curs)
+t_line		*print_completion(t_line *cur, t_edit *edit)
 {
-	char	*str;
+	char *tmp;
 
-	ft_clean_screen_comp(comp);
-	str = get_suffix(cur, curs);
-	write(STDIN_FILENO, comp->current->cmd, ft_strlen(comp->current->cmd));	
-	write(STDIN_FILENO, str, ft_strlen(str));
-	if (str && ft_strlen(str) > 0)
-		ansi("LE", ft_strlen(str), STDIN_FILENO);
-	ft_strdel(&str);
+	cur = ft_clean_screen_comp(edit->comp, &edit->curseur, cur);
+	tmp = edit->comp->current->cmd;
+	while (tmp && *tmp)
+	{
+		cur = push_new(cur, *tmp, &edit->curseur);
+		tmp++;
+	}
 	reset_index_after_comp(cur);
+	return (cur);
 }
