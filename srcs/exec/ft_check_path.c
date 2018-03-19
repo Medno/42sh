@@ -6,13 +6,21 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 10:51:33 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:09:34 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	check_bin(char *str, t_env **env, char **s_fin, int print)
+static char	**get_path(t_init *init)
+{
+	if (ft_getenv(&init->new_env, "PATH"))
+		return (ft_strsplit(ft_getenv(&init->new_env, "PATH"), ':'));
+	else
+		return (ft_strsplit(ft_getenv(&init->loc_env, "PATH"), ':'));
+}
+
+static int	check_bin(char *str, t_init *init, char **s_fin, int print)
 {
 	int		ret;
 	int		i;
@@ -21,7 +29,7 @@ static int	check_bin(char *str, t_env **env, char **s_fin, int print)
 
 	path = NULL;
 	tmp = NULL;
-	path = ft_strsplit(ft_getenv(env, "PATH"), ':');
+	path = get_path(init);
 	i = -1;
 	while (path[++i])
 	{
@@ -40,7 +48,7 @@ static int	check_bin(char *str, t_env **env, char **s_fin, int print)
 	return (ret);
 }
 
-int			check_path(char **arg, t_env **env, char **s_fin, int print)
+int			check_path(char **arg, t_init *init, char **s_fin, int print)
 {
 	if (!arg || !*arg)
 		return (1);
@@ -51,8 +59,9 @@ int			check_path(char **arg, t_env **env, char **s_fin, int print)
 	}
 	if (ft_strchr(*arg, '/'))
 		return (check_slash(*arg, s_fin, print));
-	else if (ft_getenv(env, "PATH"))
-		return (check_bin(*arg, env, s_fin, print));
+	else if (ft_getenv(&init->new_env, "PATH") ||
+			ft_getenv(&init->loc_env, "PATH"))
+		return (check_bin(*arg, init, s_fin, print));
 	else
 		return (check_error(-1, *arg, print));
 }
