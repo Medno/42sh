@@ -43,3 +43,8 @@ DIFFERENCE AVEC BASH
 ===============================================================
 prompt$> TOD[curseur]O tab
 prompt$> TOD[curseur]O x tab
+
+===============================================================
+TROUVER LES VARIABLES D'ENVIRONNEMENT
+-> ceho $HOM
+-> Bash va chercher dans l'environnement et va trouver HOME
