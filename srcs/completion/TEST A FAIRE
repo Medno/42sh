@@ -2,26 +2,6 @@ BUG CONNU
 
 ===================================================================
 
--> "le prompt> ls libf[TAB]"
--> "le prompt> ls libft" au lieu de "le prompt> ls libft/"
-
--> "le prompt> rm Makef[TAB]"
--> "le prompt> rm Makefile" au lieu de "le prompt> rm Makefile "
-
-===================================================================
-
--> REDUIRE LA FENETRE DE MANIERE A ECRIRE SUR DEUX LIGNE
--> "le prompt> lda\np[TAB]"
--> Le CLEAN ne s'effectue pas correctement.
-
-REDUIRE LA FENETRE DE MANIERE A REMPLIR PRESQUE ENTIEREMENT LA LIGNE 
--> "le prompt> blablablabblalabl /[TAB]"
--> "le prompt> blababalablablabl /App\nplication"
--> "le prompt> blababalablablabl /Net\nwork"
--> Le CLEAN s'effectue correctement.
-
-===================================================================
-
 -> REMPLIR LA LIGNE AU MAXIMUM
 -> "le prompt> aaaaaaaaaaa /[tab]"
 -> disparition de / :(
