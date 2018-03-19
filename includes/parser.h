@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 12:29:49 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/18 12:29:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:39:47 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int					parser(t_init *init);
 int					repeat_heredoc(t_init *init, t_lex *tmp);
 int					repeat_line(t_init *line, t_lex *tmp);
 int					line_edit(char **line, int len_prompt, t_init *init);
+/*
+** errors
+*/
+int					print_errpars(int index, char *str, char c);
 int					check_first(t_lex *first);
 int					err_pars(t_lex *tmp);
 int					err_eof(void);

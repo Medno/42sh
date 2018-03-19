@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/19 13:36:54 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/19 15:40:36 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,6 +114,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(LEXER_PATH), $(LEXER_NAME)))
 PARSER_NAME = ast.c init_ast.c	\
 			  init_cmd.c		\
 			  init_redir.c		\
+			  print_errpars.c	\
 			  error_pars.c		\
 			  put_in_cmd.c		\
 			  parser.c			\
