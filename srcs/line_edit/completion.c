@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/02 14:03:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 09:08:27 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **	/!\ Le prompt incrémente l'index et empeche de s'en servir
 */
 
-void		from_list_to_comp(t_line *cur, t_comp *comp)
+void	from_list_to_comp(t_line *cur, t_comp *comp)
 {
 	t_line *tmp;
 
@@ -42,8 +42,6 @@ void		from_list_to_comp(t_line *cur, t_comp *comp)
 
 t_line	*completion(t_edit *edit)
 {
-//	t_line *tmp;
-
 	if ((*edit->current)->c == '0' && (*edit->current)->prev == NULL)
 		return (*edit->current);
 	from_list_to_comp(*edit->current, edit->comp);
