@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/17 21:10:30 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 08:38:41 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int		check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 		return (ft_set(init->loc_env, init->new_env, *entry));
 	if (ft_strequ(**entry, "unset"))
 		return (ft_unset(&init->loc_env, &init->new_env, *entry));
-	if (ft_strequ(**entry, "exit"))
-		ft_exit(init, entry);
 	if (ft_strequ(**entry, "history"))
 		return (ft_history(&init->historic, *entry));
+	if (ft_strequ(**entry, "exit"))
+		ft_exit(init, entry);
 	return (-1);
 }
 
