@@ -29,6 +29,7 @@ void				comp_sort_alphab(t_comp *comp);
 void				comp_check_duplicate(t_comp *comp);
 t_line				*print_completion(t_line *cur, t_edit *edit);
 void				comp_add_pot_builtin(t_comp *comp);
+void				comp_add_pot_words(t_comp *comp);
 
 /*
 **	COMPLETION TOOLS

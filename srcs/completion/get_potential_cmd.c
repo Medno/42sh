@@ -62,22 +62,22 @@ static char		**comp_get_all_path(t_edit *edit)
 	char	**tabl;
 	char	*tmp;
 
-	tmp = ft_getenv(&edit->env, "PATH");
-	if (!tmp)
+	if (!(tmp = ft_getenv(&edit->env, "PATH")))
 		tmp = ft_getenv(&edit->loc, "PATH");
 	if (!(tabl = malloc(sizeof(char *) * (ft_nbr_path(tmp) + 1))))
 		return (NULL);
-	i = 0;
-	while (i < ft_nbr_path(tmp))
+	i = ft_nbr_path(tmp);
+	tabl[i] = NULL;
+	while (i > 0)
 	{
+		i--;
 		tabl[i] = get_next_path(tmp);
 		if (*tmp && *tmp == ':')
 			tmp++;
 		while (*tmp && *tmp != ':')
 			tmp++;
-		i++;
+
 	}
-	tabl[i] = NULL;
 	return (tabl);
 }
 
@@ -130,4 +130,5 @@ void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 	}
 	ft_freetab(all_path);
 	comp_add_pot_builtin(comp);
+	comp_add_pot_words(comp);
 }
