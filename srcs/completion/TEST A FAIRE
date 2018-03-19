@@ -39,3 +39,7 @@ DIFFERENCE AVEC BASH
 -> "[tab]" ou "  [tab]" ou "              [tab]"
 => BASH : Montre toutes les commandes
 => FOOKHSH : Ne fais rien
+
+===============================================================
+prompt$> TOD[curseur]O tab
+prompt$> TOD[curseur]O x tab
