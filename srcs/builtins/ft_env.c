@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 13:36:29 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 13:57:21 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-t_env		*fill_env(t_env *env, char **arg)
+int			fill_env(t_env **env, char **arg)
 {
 	int		i;
 	char	*name;
@@ -25,17 +25,17 @@ t_env		*fill_env(t_env *env, char **arg)
 	{
 		name = ft_strsub(arg[i], 0, equ_index(arg[i], '='));
 		value = ft_strchr(arg[i], '=') + 1;
-		ft_setenv(&env, name, value);
+		ft_setenv(env, name, value);
 		ft_strdel(&name);
 		i++;
 	}
 	if (!arg[i])
 	{
-		ft_print_env(env);
-		free_list(&env);
-		return (NULL);
+		ft_print_env(*env);
+		free_list(env);
+		return (0);
 	}
-	return (env);
+	return (1);
 }
 
 static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
@@ -44,15 +44,15 @@ static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
 	t_ast	*astmp;
 	int		ret;
 
-	ret = 0;
-	new = fill_env(new, arg);
-	if (new || (!new && arg[1] && arg[2]))
+	ret = fill_env(&new, arg);
+	if (ret && (new || (!new && arg[1] && arg[2])))
 	{
 		init_all(NULL, &initmp);
 		astmp = init_ast();
 		free_list(&initmp.new_env);
 		initmp.new_env = new;
-		ft_setenv(&initmp.loc_env, "PATH", "/bin:/usr/bin");
+		if (!ft_getenv(&new, "PATH"))
+			ft_setenv(&initmp.loc_env, "PATH", "/bin:/usr/bin");
 		astmp->cmd = init_cmd();
 		astmp->value = CMD;
 		astmp->cmd->arg = shift_arg(ast->cmd->arg);
