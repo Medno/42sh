@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 16:50:14 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:04:40 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				step_1(t_init init)
 		init.dollar = 0;
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
-		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init.new_env);
+		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init);
 		ft_cfmakedefault(&init.current);
 		init.historic = cleanup_nl_hist(&init.historic);
 		if (!ret && init.str)

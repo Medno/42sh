@@ -6,7 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/03/19 17:13:27 by kyazdani         ###   ########.fr       */
+=======
+/*   Updated: 2018/03/19 17:03:05 by hlely            ###   ########.fr       */
+>>>>>>> 89998f8c4fde965dd32a56853292563af5835430
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +127,7 @@ typedef struct		s_edit
 	t_curs			curseur;
 	t_comp			*comp;
 	t_env			*env;
+	t_env			*loc;
 	int				prompt_len;
 }					t_edit;
 

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:57:14 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 15:41:53 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 16:00:52 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 int			ft_unset(t_env **loc, t_env **env, char **arg)
 {
 	int		i;
+	int		ret;
 
 	i = 0;
+	ret = 0;
 	while (arg[i])
 	{
-		if (!is_valid_identifier("unset", arg[i], PRINT))
+		if (!is_all_valid_identifier("unset", arg[i], PRINT))
 		{
 			i++;
+			ret = 1;
 			continue ;
 		}
 		if (is_in_env(*loc, arg[i]))
@@ -30,5 +33,5 @@ int			ft_unset(t_env **loc, t_env **env, char **arg)
 			ft_unsetenv(env, arg[i]);
 		i++;
 	}
-	return (0);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 09:10:14 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:06:46 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		edit_line(char **line, t_edit *edit)
 }
 
 int		ft_line_edition(char **line, int prompt_len, t_hist **histo,
-		t_env *env)
+		t_init init)
 {
 	t_edit			edit;
 	t_line			*current;
@@ -111,7 +111,8 @@ int		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	edit.histo = histo;
 	edit.curseur = curseur;
 	edit.comp = init_t_comp();
-	edit.env = env;
+	edit.env = init.new_env;
+	edit.loc = init.loc_env;
 	g_ed = &edit;
 	ret = edit_line(line, &edit);
 	ft_clean_edit(&edit);
