@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/18 11:20:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:21:33 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			full_hist_file(t_hist **histo, char *str)
 		fd = open("./srcs/history/.history",
 		O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	tmp = *histo;
-	while (tmp->prev)
+	while (tmp && tmp->prev)
 		tmp = tmp->prev;
 	while (tmp)
 	{
@@ -95,7 +95,7 @@ int			print_history(t_hist **histo, char **str)
 			return (1);
 	}
 	tmp = *histo;
-	while (tmp->prev && --nb)
+	while (tmp && tmp->prev && --nb)
 		tmp = tmp->prev;
 	while (tmp)
 	{

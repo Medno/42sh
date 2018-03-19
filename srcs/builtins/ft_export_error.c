@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:21:56 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 19:31:38 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 15:44:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int		export_usage(char *arg)
 	return (1);
 }
 
-int		not_an_identifier(char *arg)
+int		not_an_identifier(char *function, char *arg)
 {
 	ft_printf_fd(STDERR_FILENO,
-			"42sh : unset: `%s': not a valid identifier\n", arg);
+			"42sh : %s: `%s': not a valid identifier\n", function, arg);
 	return (0);
 }
 

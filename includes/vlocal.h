@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 11:22:11 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/18 12:30:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:42:43 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define TOENV		1
 
 int		equ_index(char *str, char c);
-int		is_valid_identifier(char *arg, int print);
+int		is_valid_identifier(char *function, char *arg, int print);
 int		is_uid(char *arg);
 int		ft_export(t_init *init, char ***entry);
 int		check_local(char ***arg, int clean);
@@ -42,6 +42,6 @@ int		ft_unset(t_env **loc, t_env **env, char **arg);
 void	ft_set_variable(t_env **loc, t_env **env, char *arg, int where);
 
 int		export_usage(char *arg);
-int		not_an_identifier(char *arg);
+int		not_an_identifier(char *function, char *arg);
 int		read_only_error(char *arg, int free);
 #endif

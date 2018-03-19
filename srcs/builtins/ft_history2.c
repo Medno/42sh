@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 14:13:26 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/07 12:06:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:25:15 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			free_offset_hist(t_hist **histo, char *offset)
 
 	nb = ft_atoi(offset);
 	tmp = *histo;
-	while (tmp->prev)
+	while (tmp && tmp->prev)
 		tmp = tmp->prev;
 	while (tmp && nb != tmp->nb)
 		tmp = tmp->next;

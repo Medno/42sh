@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 18:04:49 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/17 12:09:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 15:10:44 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void		create_loc(t_init *init)
 	value = ft_itoa(uid);
 	ft_setenv(&init->loc_env, name, value);
 	ft_strdel(&value);
+	if (!ft_getenv(&init->new_env, "PATH"))
+		ft_setenv(&init->loc_env, "PATH", "/bin:/usr/bin");
 }
 
 void		init_all(char **env, t_init *init)

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 08:59:26 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 15:43:18 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		clean_arg(char ***arg)
 
 	i = 0;
 	j = 0;
-	while ((*arg)[j] && is_valid_identifier((*arg)[j], NOPRINT) &&
+	while ((*arg)[j] && is_valid_identifier(NULL, (*arg)[j], NOPRINT) &&
 			ft_strchr((*arg)[j], '='))
 		j++;
 	if (!j)
@@ -49,7 +49,7 @@ int		check_local(char ***arg, int clean)
 	while ((*arg)[i])
 	{
 		if (!ft_strchr((*arg)[i], '=') ||
-				!is_valid_identifier((*arg)[i], NOPRINT))
+				!is_valid_identifier(NULL, (*arg)[i], NOPRINT))
 		{
 			if (clean == CLEAN)
 				clean_arg(arg);

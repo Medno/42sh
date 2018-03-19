@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 16:23:35 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 10:46:37 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 15:40:51 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int			is_uid(char *arg)
 	return (0);
 }
 
-int			is_valid_identifier(char *arg, int print)
+int			is_valid_identifier(char *function, char *arg, int print)
 {
 	if (!(ft_isalpha(arg[0]) && arg[0] != '_') || !check_alnum(arg))
 	{
 		if (print)
-			return (not_an_identifier(arg));
+			return (not_an_identifier(function, arg));
 		return (0);
 	}
 	return (1);

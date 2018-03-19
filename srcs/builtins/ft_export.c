@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:27:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/15 10:47:13 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 15:41:21 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			switch_env_to_loc(t_init *init, char **arg)
 	ret = 0;
 	while (arg[i])
 	{
-		if (!is_valid_identifier(arg[i], PRINT))
+		if (!is_valid_identifier("export", arg[i], PRINT))
 		{
 			i++;
 			ret = 1;
@@ -90,7 +90,7 @@ int			switch_loc_to_env(t_init *init, char **arg)
 	ret = 0;
 	while (arg[i])
 	{
-		if (!is_valid_identifier(arg[i], PRINT))
+		if (!is_valid_identifier("export", arg[i], PRINT))
 		{
 			i++;
 			ret = 1;
