@@ -20,15 +20,15 @@ static int		get_start(t_comp *comp)
 	i = comp->pos - 1;
 	tmp = comp->cmd;
 	
-	if (tmp[i] == ' ' && i != 0 && tmp[i - 1] == ' ')
+	if (is_delimiteur(tmp[i]) && i != 0 && is_delimiteur(tmp[i - 1]))
 		return (i);
 	while (i > 0)
 	{
 		i--;
-		if (tmp[i] == ' ')
+		if (is_delimiteur(tmp[i]))
 			break ;
 	}
-	if (tmp[i] == ' ')
+	if (is_delimiteur(tmp[i]))
 		i++;
 	return (i);
 }
@@ -42,7 +42,7 @@ static size_t	get_len(t_comp *comp, int start)
 	ret = 0;
 	if (start == comp->pos - 1)
 		return (0);
-	while (*tmp && *tmp != ' ')
+	while (*tmp && !is_delimiteur(*tmp))
 	{
 		tmp++;
 		ret++;

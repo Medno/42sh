@@ -12,6 +12,13 @@
 
 #include "completion.h"
 
+int		is_delimiteur(char c)
+{
+	if (c == ' ' || c == ':' || c == '>' || c == '=' || c == '<')
+		return (1);
+	return (0);
+}
+
 int		comp_is_first_word(t_comp *comp)
 {
 	int i;
@@ -21,7 +28,7 @@ int		comp_is_first_word(t_comp *comp)
 	while (comp->cmd[i] && comp->cmd[i] == ' ')
 		i++;
 // On parcourt le premier mot
-	while (comp->cmd[i] && comp->cmd[i] != ' ')
+	while (comp->cmd[i] && !is_delimiteur(comp->cmd[i]))
 		i++;
 
 	if (i > comp->pos - 2)

@@ -46,7 +46,7 @@ t_line	*completion(t_edit *edit)
 	if ((*edit->current)->c == '0' && (*edit->current)->prev == NULL)
 		return (*edit->current);
 	from_list_to_comp(*edit->current, edit->comp);
-	do_completion(edit->comp, edit->env);
+	do_completion(edit->comp, edit);
 	if (edit->comp->current)
 	{
 		*edit->current = print_completion(*edit->current, edit);
