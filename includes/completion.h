@@ -19,9 +19,9 @@
 /*
 ** POUR COMPLETION
 */
-void				do_completion(t_comp *comp, t_env *env);
+void				do_completion(t_comp *comp, t_edit *edit);
 void				get_word_to_complete(t_comp *comp);
-void				comp_get_pot_cmd(t_comp *comp, t_env *env);
+void				comp_get_pot_cmd(t_comp *comp, t_edit *edit);
 void				comp_get_pot_dir(t_comp *comp);
 void				comp_get_pot_dir_exec(t_comp *comp);
 void				comp_get_dir_to_open(t_comp *comp);
@@ -43,5 +43,6 @@ void				ft_clean_lcomp(t_lcomp *elm);
 void				ft_clean_lcomp_list(t_lcomp *list);
 int					reset_completion(char c, t_comp *comp);
 char				*comp_go_to_last_slash(char *str);
+int					is_delimiteur(char c);
 
 #endif

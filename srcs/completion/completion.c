@@ -20,14 +20,14 @@
 **	Comp->current prend la premiere valeur de la liste créee
 */
 
-void	do_new_completion(t_comp *comp, t_env *env)
+void	do_new_completion(t_comp *comp, t_edit *edit)
 {
 	if (comp_is_first_word(comp) == 1)
 	{
 		if (comp->dir)
 			comp_get_pot_dir_exec(comp);
 		else
-			comp_get_pot_cmd(comp, env);
+			comp_get_pot_cmd(comp, edit);
 	}
 	else
 		comp_get_pot_dir(comp);
@@ -121,7 +121,7 @@ void	comp_validate_choice(t_comp *comp)
 **	S'il y a un seul choix possible, on ajoute un ' ' ou un '/'
 */
 
-void	do_completion(t_comp *comp, t_env *env)
+void	do_completion(t_comp *comp, t_edit *edit)
 {
 	if (comp->cmd == NULL || *(comp->cmd) == 0)
 		return ;
@@ -140,12 +140,12 @@ void	do_completion(t_comp *comp, t_env *env)
 	// ft_printf("dir = [%s] string = [%s]\n", comp->dir, comp->str);
 
 	if (comp->current == NULL)
-		do_new_completion(comp, env);
+		do_new_completion(comp, edit);
 	else
 		put_current_to_next(comp);
 	// ft_printf("\nApres new_comp : ");
 	// if (comp->current && comp->list)
-	// //  	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
+	// 	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
 	// else
 	// 	ft_printf("\n");
 
