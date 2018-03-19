@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 10:49:36 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:03:58 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		check_cmd(t_ast *ast, t_init *init)
 	int		ret;
 	char	*path;
 
+	ret = 0;
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
 			(is_builtin(ast->cmd->arg[0]) ||
 			check_local(&ast->cmd->arg, CLEAN))
@@ -98,7 +99,6 @@ int		check_cmd(t_ast *ast, t_init *init)
 		path = NULL;
 		if (!ast->cmd->arg)
 			return (1);
-		ret = check_path(ast->cmd->arg, &init->new_env, &path, NOPRINT);
 		fork_cmd(init, ast, path);
 		return (ret);
 	}
