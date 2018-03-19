@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 12:05:01 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:05:49 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct		s_line
 {
 	char			c;
 	int				index;
-	int				select;
 	struct s_line	*next;
 	struct s_line	*prev;
 }					t_line;

@@ -71,26 +71,46 @@ void	comp_modify_cmd(t_comp *comp)
 	ft_strdel(&suffix);
 }
 
-// void	comp_validate_choice(t_comp *comp)
-// {
-// 	char *str;
+int		comp_is_directory(t_comp *comp)
+{
+	struct	stat sb;
+	int		ret;
+	char	*file_path;
 
-// 	str = get_word_to_complete(comp);
-// // CAS DIR
-// 	if (comp_is_cmd(comp, str) == 0 && comp_is_directory(comp))
-// 	{
-// 		comp->cmd = ft_strjoindel(comp->cmd, "/");
-// 		comp->pos++;
-// 	}
-// // CAS Commande OU Fichier
-// 	else
-// 	{
-// 		comp->cmd = ft_strjoindel(comp->cmd, " ");
-// 		comp->pos++;
-// 	}
-// 	ft_strdel(&str);
-// 	reset_completion(comp);
-// }
+//	ft_printf("file_path = [%s] + [%s]\n", comp->dir, comp->current->cmd);
+	file_path = ft_strjoin(comp->dir, comp->current->cmd);
+// stat renvoie 0 en cas de succes
+	if (stat(file_path, &sb) != 0)
+		ret = 0;
+	else
+	{
+		if (S_ISDIR(sb.st_mode))
+			ret = 1;
+		else
+			ret = 0;
+	}
+	ft_strdel(&file_path);
+	return (ret);
+}
+
+void	comp_validate_choice(t_comp *comp)
+{
+//	Si on a un seul choix, on valide et on met current à NULL
+	if (comp->list->next)
+		return ;
+// CAS DIR
+	if (comp_is_directory(comp))
+	{
+		comp->current->cmd = ft_strjoindel(comp->current->cmd, "/");
+		comp->pos++;
+	}
+// CAS Commande OU Fichier
+	else
+	{
+		comp->current->cmd = ft_strjoindel(comp->current->cmd, " ");
+		comp->pos++;
+	}
+}
 
 /*
 **	On recuperer la string à completer
@@ -125,15 +145,13 @@ void	do_completion(t_comp *comp, t_env *env)
 		put_current_to_next(comp);
 	// ft_printf("\nApres new_comp : ");
 	// if (comp->current && comp->list)
-	//  	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
+	// //  	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
 	// else
 	// 	ft_printf("\n");
 
 	if (comp->list)
+	{
 		comp_modify_cmd(comp);
-
-//	Si on a un seul choix, on valide et on met current à NULL
-	// if (comp->current && comp->current->next == NULL
-	// 	&& comp->current == comp->list)
-	//  	comp_validate_choice(comp);
+		comp_validate_choice(comp);
+	}
 }

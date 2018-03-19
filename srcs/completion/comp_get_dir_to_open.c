@@ -29,7 +29,7 @@ static char		*get_path_suffix(t_comp *comp)
 	ptr = comp_go_to_last_slash(comp->str);
 	if (ptr)
 	{
-		ret = ft_strsub(comp->str, 0, ft_strlen(comp->str) - ft_strlen(ptr));
+		ret = ft_strsub(comp->str, 0, ft_strlen(comp->str) - ft_strlen(ptr) + 1);
 		comp_modify_str(comp, ptr);
 	}
 	else
@@ -70,9 +70,11 @@ void			comp_get_dir_to_open(t_comp *comp)
 			cwd = NULL;
 			cwd = getcwd(cwd, 0);
 			suffix = get_path_suffix(comp);
-			comp->dir = ft_strjoin_infinite(3, cwd, "/", suffix);
+			comp->dir = ft_strjoin_infinite(3, cwd, "/", suffix);			
+//			ft_printf("HELLO DIR = [%s]+['/']+[%s]\n", cwd, suffix);
 			ft_strdel(&cwd);
 			ft_strdel(&suffix);
+//			ft_printf("HELLO DIR = [%s]\n", comp->dir);
 		}
 	}
 }
