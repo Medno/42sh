@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/17 14:03:42 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 08:59:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		ft_set_local(t_env **loc, t_env **env, char **arg)
 	i = 0;
 	while (arg[i])
 	{
-		ft_set_variable(loc, env, arg[i], LOC);
+		ft_set_variable(loc, env, arg[i], BOTH);
 		i++;
 	}
 	return (0);
