@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 21:06:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/19 14:42:09 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int		g_optind;
 
-static int		do_move(char *path, t_env **env)
+static int		do_move(char *path, t_env **env, int p)
 {
 	char	*tmp;
 
@@ -27,7 +27,7 @@ static int		do_move(char *path, t_env **env)
 	}
 	if (chdir(path) < 0)
 		return (1);
-	if (ft_strequ(path, ft_getenv(env, "OLDPWD")))
+	if (!p && ft_strequ(path, ft_getenv(env, "OLDPWD")))
 	{
 		tmp = ft_strdup(ft_getenv(env, "PWD"));
 		ft_setenv(env, "PWD", ft_getenv(env, "OLDPWD"));
@@ -98,11 +98,11 @@ static int		ft_cd_2(t_env **env, char *dir, int p)
 
 	if (ft_strequ(dir, "-"))
 	{
-		if (ft_getenv(env, "OLDPWD") && !do_move(ft_getenv(env, "OLDPWD"), env))
-			ft_putendl_fd(ft_getenv(env, "PWD"), STDOUT_FILENO);
+		if (ft_getenv(env, "OLDPWD") && !do_move(ft_getenv(env, "OLDPWD"),
+					env, 0))
+			return (!(ft_printf("%s\n", ft_getenv(env, "PWD"))));
 		else if (write(STDERR_FILENO, "cd: OLDPWD not set\n", 19))
 			return (1);
-		return (0);
 	}
 	if (!ft_getenv(env, "CDPATH") || (*dir == '.' && *(dir + 1) == '/') ||
 	*dir == '/' || (*dir == '.' && *(dir + 1) == '.' && (*dir + 2) == '/') ||
@@ -112,7 +112,7 @@ static int		ft_cd_2(t_env **env, char *dir, int p)
 		curpath = ft_handle_cdpath(env, dir);
 	if (p)
 	{
-		if ((ret = do_move(curpath, env)))
+		if ((ret = do_move(curpath, env, 1)))
 			handle_cd_error(curpath);
 		ft_strdel(&curpath);
 		return (ret);
@@ -142,7 +142,7 @@ int				ft_cd(t_init *init, char ***entry)
 		if (!ft_getenv(&init->new_env, "HOME")
 			&& write(STDERR_FILENO, "cd: HOME not set\n", 17))
 			return (1);
-		return (do_move(ft_getenv(&init->new_env, "HOME"), &init->new_env));
+		return (do_move(ft_getenv(&init->new_env, "HOME"), &init->new_env, 1));
 	}
 	else
 		return (ft_cd_2(&init->new_env, (*entry)[g_optind], opt_p));
