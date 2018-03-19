@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:37:15 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 16:32:13 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:43:14 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ int		check_prefix(t_init *init, char *str, char buf[], int *i)
 		(*i)++;
 	}
 	res = 0;
-	if (!buf[1] && (buf[0] == '-' || buf[0] == '+'))
+	if ((!buf[1] && (buf[0] == '-' || buf[0] == '+')) || !buf[0])
 	{
 		if ((buf[0] == '-' && !ft_getenv(&init->new_env, "OLDPWD")) ||
-				(buf[0] == '+' && !ft_getenv(&init->new_env, "PWD")))
+				(buf[0] == '+' && !ft_getenv(&init->new_env, "PWD")) ||
+				(!buf[0] && !ft_getenv(&init->new_env, "HOME")))
 			res = 1;
 	}
 	else if (buf[0])
@@ -62,11 +63,6 @@ char	*exp_tilde(t_init *init, char *str, int len)
 	char	*res;
 
 	i = 1;
-	if (!str[1])
-	{
-		ft_strdel(&str);
-		return (copy_home(init));
-	}
 	ft_bzero(buf, len);
 	if (check_prefix(init, str, buf, &i))
 		return (str);
