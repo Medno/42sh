@@ -6,26 +6,11 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 11:11:42 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 13:38:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-/* t_builtin g_builtin[] = */
-/* { */
-/* 	{"cd"		, &ft_cd}, */
-/* 	{"echo"		, &ft_echo}, */
-/* 	{"env"		, &ft_env}, */
-/* 	{"setenv"	, &ft_bisetenv}, */
-/* 	{"unsetenv"	, &ft_biunsetenv}, */
-/* 	{"export"	, &ft_export}, */
-/* 	{"history"	, &ft_history}, */
-/* 	{"set"		, &ft_set}, */
-/* 	{"unset"	, &ft_unset}, */
-/* 	{"exit"		, &ft_exit}, */
-/* 	{NULL		, NULL}, */
-/* }; */
 
 int		is_builtin(char *str)
 {

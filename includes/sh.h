@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 11:13:38 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/19 13:37:12 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int					ft_cd_l(t_env **env, char *curpath, char *dir);
 /*
 ** > echo | env | exit <
 */
+void				clean_init(t_init *init);
+char				**cpytab(char **dest, char **src);
+char				**shift_arg(char **arg);
 int					ft_echo(char **str);
 int					ft_env(t_init *init, t_ast *ast, char **entry);
 int					ft_setenv(t_env **env, char *name, char *value);
@@ -82,6 +85,7 @@ int					count_list_len(t_env **env);
 char				**put_in_tab(t_env **env);
 char				*ft_getenv(t_env **env, char *elem);
 t_env				*create_env(char **arr);
+t_env				*cpyenv(t_env *env);
 void				insert_env_start(t_env **env);
 /*
 ** addons >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
