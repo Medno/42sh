@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/19 15:40:36 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/19 17:20:58 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -155,6 +155,11 @@ EXEC_NAME = exec.c				\
 			check_slash.c
 EXEC_PATH = exec/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(EXEC_PATH), $(EXEC_NAME)))
+
+### GLOBING ###
+GLOB_NAME = ft_glob.c
+GLOB_PATH = globing/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(GLOB_PATH), $(GLOB_NAME)))
 
 INC += -Ilogger/incs/
 
