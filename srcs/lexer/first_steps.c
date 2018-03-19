@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:30:13 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/12 17:42:57 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:41:44 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,54 +39,49 @@ static int	cat_op(char c, char buf[])
 
 t_lex		*already_op(t_lex *new, char *str, int *i, char buf[])
 {
-	char	read[2];
-
-	read[0] = str[*i];
-	read[1] = '\0';
 	if (is_op(str[*i], buf) && cat_op(str[*i], buf))
-		ft_strcat(buf, read);
+		put_in_buffer(buf, str[*i]);
 	else
 	{
 		new = put_in_new(new, buf);
-		(*i)--;
+		if (str[*i] == '-' && (new->prev->token == LESSGREAT ||
+					new->prev->token == GREATAND))
+		{
+			put_in_buffer(buf, '-');
+			new->token = WORD;
+			new = put_in_new(new, buf);
+		}
+		else
+			(*i)--;
 	}
 	return (new);
 }
 
 t_lex		*enter_quote(t_lex *new, char *str, int *i, char buf[])
 {
-	char	read[2];
-
-	read[0] = str[*i];
-	read[1] = '\0';
 	new->token = WORD;
 	if (!g_quote)
 		g_quote = str[*i];
 	if (new->prev && is_brack(g_quote))
 		g_quote = 0;
-	ft_strcat(buf, read);
+	put_in_buffer(buf, str[*i]);
 	if ((g_quote == '\"' || g_quote == '\'') && str[*i] == '\\' && str[*i + 1])
 	{
 		(*i)++;
-		read[0] = str[*i];
-		ft_strcat(buf, read);
+		put_in_buffer(buf, str[*i]);
 	}
 	return (new);
 }
 
 t_lex		*new_op(t_lex *new, char *str, int i, char buf[])
 {
-	char	read[2];
-
-	read[0] = str[i];
-	read[1] = '\0';
 	if (buf[0])
 	{
 		if (is_number(buf) && (str[i] == '>' || str[i] == '<'))
 			new->token = IO_NUMBER;
 		new = put_in_new(new, buf);
 	}
-	ft_strcat(buf, read);
+	put_in_buffer(buf, str[i]);
 	new->token = OP;
 	return (new);
 }

@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 13:18:23 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/19 17:02:01 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:11:32 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	check_first(t_lex *first)
+int			check_first(t_lex *first)
 {
 	if (!first)
 		return (1);
@@ -27,7 +27,7 @@ int	check_first(t_lex *first)
 	return (0);
 }
 
-int	check_brack(char *str, size_t len)
+static int	check_brack(char *str, size_t len)
 {
 	int		i;
 	int		j;
@@ -51,14 +51,14 @@ int	check_brack(char *str, size_t len)
 	return (0);
 }
 
-int	search_brack(char *str)
+static int	search_brack(char *str)
 {
 	if (ft_strchr(str, '(') || ft_strchr(str, ')'))
 		return (1);
 	return (0);
 }
 
-int	err_pars(t_lex *tmp)
+int			err_pars(t_lex *tmp)
 {
 	if (ft_strequ(tmp->value, "}"))
 		return (print_errpars(1, tmp->value, 0));
@@ -80,7 +80,7 @@ int	err_pars(t_lex *tmp)
 	return (0);
 }
 
-int	err_eof(void)
+int			err_eof(void)
 {
 	if (g_quote)
 		print_errpars(2, NULL, g_quote);
