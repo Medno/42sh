@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:32:13 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 14:05:16 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:38:59 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,21 @@
 
 void	concat_char(char *str, int i, char buf[])
 {
-	char	read[2];
-
-	read[0] = str[i];
-	read[1] = '\0';
 	if ((is_closing(str[i]) && g_quote != '\\') ||
 			(g_quote == '\\' && str[i] != '\n'))
 		g_quote = 0;
 	if (g_quote == '\\' && str[i + 1])
 		g_quote = 0;
-	ft_strcat(buf, read);
+	put_in_buffer(buf, str[i]);
 }
 
 t_lex	*new_word(t_lex *new, char *str, int i, char buf[])
 {
-	char	read[2];
 	int		len;
 
 	len = ft_strlen(buf);
-	read[0] = str[i];
-	read[1] = '\0';
 	ft_bzero(buf, len);
-	ft_strcat(buf, read);
+	put_in_buffer(buf, str[i]);
 	new->token = WORD;
 	return (new);
 }
