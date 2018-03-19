@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 13:18:23 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/19 15:45:15 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/19 17:02:01 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,31 @@ int	check_first(t_lex *first)
 	}
 	return (0);
 }
-/*
+
 int	check_brack(char *str, size_t len)
 {
 	int		i;
+	int		j;
 	int		open;
 	char	buf[len];
 
 	i = 0;
-	open = -1;
+	j = 0;
+	open = 0;
+	ft_bzero(buf, len);
 	while (str[i])
 	{
-		if (open == -1 && is_brack(str[i]))
-			open = str[i];
+		if (!open && str[i] == ')')
+			return (print_errpars(1, ")", 0));
+		if (!open && str[i] == '(')
+			open = 1;
+		if (open && str[i] == ')')
+			open = 0;
 		i++;
 	}
 	return (0);
 }
-*/
+
 int	search_brack(char *str)
 {
 	if (ft_strchr(str, '(') || ft_strchr(str, ')'))
@@ -59,9 +66,9 @@ int	err_pars(t_lex *tmp)
 		if (tmp->next && (tmp->next->token != WORD &&
 					tmp->next->token != IO_HERE))
 			return (print_errpars(1, tmp->value, 0));
-//	if (search_brack(str))
-//		if (check_brack(tmp->value, ft_strlen(tmp->value)))
-//			return (1);
+	if (search_brack(tmp->value))
+		if (check_brack(tmp->value, ft_strlen(tmp->value)))
+			return (1);
 	if (tmp->next && (tmp->token == AND_IF || tmp->token == OR_IF ||
 				ft_strequ(tmp->value, "|") || tmp->token == DLESSDASH ||
 				ft_strequ(tmp->value, ";") || tmp->token == DSEMI ||
