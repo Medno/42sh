@@ -38,6 +38,7 @@ void	from_list_to_comp(t_line *cur, t_comp *comp)
 **	On remplit le t_comp en fonction de la list
 **	On modifie le t_comp en fonction de la completion
 **	Si on a trouvé une possibilité, on modifie la list en fonction du t_comp
+**	En cas de solution unique, on rajoute '/' ou ' ' à la fin
 */
 
 t_line	*completion(t_edit *edit)
@@ -50,6 +51,8 @@ t_line	*completion(t_edit *edit)
 	{
 		*edit->current = from_comp_to_list(*edit->current, edit);
 		print_completion(*edit->current, edit->comp, &edit->curseur);
+		if (edit->comp->list->next == NULL)
+			reset_completion('0', edit->comp);
 	}
 	return (*edit->current);
 }
