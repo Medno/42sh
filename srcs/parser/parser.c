@@ -12,18 +12,6 @@
 
 #include "parser.h"
 
-int	is_redir(t_lex *tmp)
-{
-	if (ft_strequ(tmp->value, ">") || ft_strequ(tmp->value, "<") ||
-			tmp->token == GREATAND || tmp->token == LESSAND ||
-			tmp->token == DGREAT || tmp->token == DLESS ||
-			tmp->token == CLOBBER || tmp->token == DLESSDASH ||
-			tmp->token == LESSGREAT || tmp->token == ANDLESS ||
-			tmp->token == ANDGREAT)
-		return (1);
-	return (0);
-}
-
 int	parser(t_init *init)
 {
 	t_lex	*tmp;

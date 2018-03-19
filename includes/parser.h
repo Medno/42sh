@@ -22,6 +22,8 @@ int					parser(t_init *init);
 int					repeat_heredoc(t_init *init, t_lex *tmp);
 int					repeat_line(t_init *line, t_lex *tmp);
 int					line_edit(char **line, int len_prompt, t_init *init);
+int					is_redir(t_lex *tmp);
+int					is_rsvword(t_lex *tmp);
 /*
 ** errors
 */
@@ -47,7 +49,6 @@ void				clean_redir(t_redir **redir);
 t_redir				*put_fd_in(t_redir *redir, t_lex *tmp);
 void				put_redir(t_cmd *cmd, t_lex *tmp, int *loop);
 t_cmd				*put_in_cmd(t_cmd *cmd, t_lex *tmp);
-int					is_redir(t_lex *tmp);
 void				print_cmd(t_cmd *cmd);
 
 #endif

@@ -17,7 +17,7 @@ int			check_first(t_lex *first)
 	if (!first)
 		return (1);
 	if (first->token != WORD && !is_redir(first) && first->token != QUOTE &&
-			first->token != IO_NUMBER)
+			first->token != IO_NUMBER && !is_rsvword(first))
 	{
 		if (first->token != EOI)
 			ft_printf_fd(STDERR_FILENO,

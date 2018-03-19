@@ -118,6 +118,7 @@ PARSER_NAME = ast.c init_ast.c	\
 			  error_pars.c		\
 			  put_in_cmd.c		\
 			  parser.c			\
+			  is_pars.c			\
 			  print_smtg.c		\
 			  repeat_heredoc.c	\
 			  repeat_line.c
