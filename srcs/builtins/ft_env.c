@@ -18,7 +18,9 @@ t_env		*fill_env(t_env *env, char **arg)
 	char	*name;
 	char	*value;
 
-	i = 2;
+	i = 1;
+	if (ft_strequ(arg[i], "-i") || ft_strequ(arg[i], "-"))
+		i++;
 	while (arg[i] && ft_strchr(arg[i], '='))
 	{
 		name = ft_strsub(arg[i], 0, equ_index(arg[i], '='));
@@ -133,6 +135,17 @@ int			ft_env_i(t_env *new, t_init *init, t_ast *ast, char **arg)
 	return (0);
 }
 
+int			usage_env(char *str)
+{
+	if (str[1])
+	{
+		ft_printf_fd(STDERR_FILENO, "env: illegal option -- %s\n", str + 1);
+		ft_printf_fd(STDERR_FILENO,
+				"usage: env [-i] [name=value ...] [utility[argument ...]]\n");
+	}
+	return (1);
+}
+
 int			ft_env(t_init *init, t_ast *ast, char **arg)
 {
 	t_env	*new;
@@ -140,8 +153,10 @@ int			ft_env(t_init *init, t_ast *ast, char **arg)
 	new = NULL;
 	if (!arg[1])
 		return (ft_print_env(init->new_env));
-	else if (ft_strequ(arg[1], "-i"))
+	else if (ft_strequ(arg[1], "-i") || ft_strequ(arg[1], "-"))
 		new = NULL;
+	else if (arg[1][0] == '-')
+		return (usage_env(arg[1]));
 	else
 		new = cpyenv(init->new_env);
 	return (ft_env_i(new, init, ast, arg));
