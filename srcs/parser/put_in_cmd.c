@@ -28,17 +28,16 @@ t_redir	*put_fd_in(t_redir *redir, t_lex *tmp)
 
 void	redir_pushback(t_cmd *cmd, t_redir *redir)
 {
-	t_cmd	*cmd_tmp;
+	t_redir	*redir_tmp;
 
 	if (!cmd->redir)
 		cmd->redir = redir;
 	else
 	{
-		cmd_tmp = cmd;
-		while (cmd->redir && cmd->redir->next)
-			cmd->redir = cmd->redir->next;
-		cmd->redir->next = redir;
-		cmd = cmd_tmp;
+		redir_tmp = cmd->redir;
+		while (redir_tmp && redir_tmp->next)
+			redir_tmp = redir_tmp->next;
+		redir_tmp->next = redir;
 	}
 }
 
