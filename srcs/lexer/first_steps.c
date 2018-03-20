@@ -65,7 +65,7 @@ t_lex		*enter_quote(t_lex *new, char *str, int *i, char buf[])
 	if (new->prev && is_brack(g_quote))
 		g_quote = 0;
 	put_in_buffer(buf, str[*i]);
-	if ((g_quote == '\"' || g_quote == '\'') && str[*i] == '\\' && str[*i + 1])
+	if ((g_quote == '\"') && str[*i] == '\\' && str[*i + 1])
 	{
 		(*i)++;
 		put_in_buffer(buf, str[*i]);
