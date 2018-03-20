@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/20 09:13:19 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/20 09:19:35 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct		s_job
 	int				stdinfd;
 	int				stdoutfd;
 	int				stderrfd;
+	struct termios	term;
 	struct s_job	*next;
 }					t_job;
 
