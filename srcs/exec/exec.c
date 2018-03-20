@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 13:27:18 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/20 17:38:57 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	fork_cmd(t_init *init, t_ast *ast, char *path)
 	ft_strdel(&path);
 }
 
-int		launch_exec(t_init *init, t_ast *ast, int std_fd[])
+int		launch_exec(t_init *init, t_ast *ast, int std_fd[], int error)
 {
 	if (ast)
 	{
 		if (ast->value == PIPE)
 			launch_pipe(init, ast, std_fd);
 		else if (ast->value == AND_IF)
-			launch_and(init, ast, std_fd);
+			launch_and(init, ast, std_fd, error);
 		else if (ast->value == OR_IF)
-			launch_or(init, ast, std_fd);
+			launch_or(init, ast, std_fd, error);
 		else if (ast->value == CMD && ast->cmd && ast->cmd->arg)
 			return (check_cmd(ast, init));
 	}
@@ -71,9 +71,11 @@ int		exec_start(t_ast *ast, t_init *init)
 {
 	int		std_fd[3];
 	int		ret;
+	int		error;
 
+	error = 0;
 	saving_fd(std_fd);
-	launch_exec(init, ast, std_fd);
+	launch_exec(init, ast, std_fd, error);
 	ret = wait_pipe(&init->pid_list);
 	reset_fd(std_fd);
 	return (ret);

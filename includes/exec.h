@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 11:40:16 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/20 17:39:09 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void		del_pid(t_pid **pid);
 void		setup_pipe(t_ast *ast);
 void		close_pipe(t_ast *ast);
 void		launch_pipe(t_init *init, t_ast *ast, int std_fd[]);
-void		launch_and(t_init *init, t_ast *ast, int std_fd[]);
-void		launch_or(t_init *init, t_ast *ast, int std_fd[]);
+void		launch_and(t_init *init, t_ast *ast, int std_fd[], int error);
+void		launch_or(t_init *init, t_ast *ast, int std_fd[], int error);
 int			wait_pipe(t_pid **pid);
 
-int			launch_exec(t_init *init, t_ast *ast, int std_fd[]);
+int			launch_exec(t_init *init, t_ast *ast, int std_fd[], int error);
 int			exec_start(t_ast *ast, t_init *init);
 int			check_cmd(t_ast *ast, t_init *init);
 void		fork_cmd(t_init *init, t_ast *ast, char *path);
