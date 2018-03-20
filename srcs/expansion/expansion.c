@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 16:53:20 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/20 18:23:57 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,25 @@ char	*do_expansion(t_init *init, char *str)
 t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 {
 	t_cmd	*tmp;
+	t_redir	*redir;
 	int		i;
 
 	tmp = cmd;
+	redir = cmd->redir;
 	i = 0;
 	while (tmp && tmp->arg && tmp->arg[i])
 	{
 		tmp->arg[i] = do_expansion(init, tmp->arg[i]);
 		i++;
 	}
+	//Philippe faudrait que tu valides ca
+	while (redir)
+	{
+		if (redir->file)
+			redir->file = do_expansion(init, redir->file);
+		redir = redir->next;
+	}
+	//jusqu'ici
 	return (tmp);
 }
 
