@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/20 09:30:01 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/20 19:09:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int				main(int ac, char **av, char **environ)
 
 	if (!isatty(STDIN_FILENO))
 		return (0);
-	if (!setting_terminal())
-		return (1);
+	/* if (!setting_terminal()) */
+	/* 	return (1); */
 	init_all(environ, &init);
 	g_in = &init;
 	step_1(init);

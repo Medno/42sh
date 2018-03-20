@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/20 18:23:57 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/20 18:43:46 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 		tmp->arg[i] = do_expansion(init, tmp->arg[i]);
 		i++;
 	}
-	//Philippe faudrait que tu valides ca
+	//Philippe faudrait que tu valides ca, y'avait un pb avec les expansions dans les redirs
 	while (redir)
 	{
 		if (redir->file)

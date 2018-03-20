@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 13:57:21 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/20 19:18:45 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			fill_env(t_env **env, char **arg)
 	}
 	if (!arg[i])
 	{
+		ft_putendl("true");
 		ft_print_env(*env);
 		free_list(env);
 		return (0);
@@ -59,6 +60,8 @@ static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
 		ret = exec_start(astmp, &initmp);
 		clean_ast(&astmp);
 		clean_init(&initmp);
+		ft_freetab(ast->cmd->arg);
+		ast->cmd->arg = NULL;
 	}
 	return (ret);
 }

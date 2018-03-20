@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:55:05 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 16:43:02 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/20 19:32:55 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static char	*change_str(char *str, char *path)
 	i += 2;
 	if (str[i] && str[i] == ' ')
 		i++;
-	while (str[i] && str[i] != ' ')
+	while (str[i] && str[i] != ' '
+			&& str[i] != ';' && str[i] != '|' && str[i] != '&')
 		i++;
 	newstr = ft_strjoindel(newstr, "<");
 	newstr = ft_strjoindel(newstr, path);
