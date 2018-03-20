@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/19 17:20:58 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/20 09:11:24 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -157,6 +157,14 @@ EXEC_NAME = exec.c				\
 			check_slash.c
 EXEC_PATH = exec/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(EXEC_PATH), $(EXEC_NAME)))
+
+### JOB CONTROL ###
+JOB_NAME = find_job.c			\
+		   new_job.c			\
+		   job_status.c			\
+		   new_proc.c
+JOB_PATH = job/
+SRCS += $(addprefix $(PATHFS), $(addprefix $(JOB_PATH), $(JOB_NAME)))
 
 ### GLOBING ###
 GLOB_NAME = ft_glob.c
