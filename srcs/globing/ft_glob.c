@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 15:01:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 15:10:59 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:26:19 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ static void		free_glob(t_glpath **list)
 		tmp2 = *list;
 		while (tmp->next)
 			tmp = tmp->next;
+		ft_strdel(&tmp->str);
+		ft_freetab(tmp->elem.pathv);
 		if (tmp != tmp2)
 		{
 			while (tmp2->next != tmp)
 				tmp2 = tmp2->next;
 			tmp2->next = NULL;
 		}
-		ft_strdel(&tmp->str);
-		ft_freetab(tmp->elem.pathv);
-		if (!(*list)->next)
-			ft_memdel((void **)&(*list));
+		if (tmp == tmp2)
+			ft_memdel((void **)list);
 		else
 			ft_memdel((void **)&tmp);
 	}
@@ -67,5 +67,6 @@ char			*ft_glob(char *init)
 	ft_strdel(&init);
 	init = paste(list);
 	free_glob(&list);
+	getchar();
 	return (init);
 }
