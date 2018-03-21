@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 11:01:26 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 11:28:25 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,48 @@ static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
 	return (ret);
 }
 
-int			usage_env(char *str)
+int			usage_env(void)
 {
-	if (str[1])
-	{
-		ft_printf_fd(STDERR_FILENO, "env: illegal option -- %s\n", str + 1);
-		ft_printf_fd(STDERR_FILENO,
-				"usage: env [-i] [name=value ...] [utility[argument ...]]\n");
-	}
+	ft_printf_fd(STDERR_FILENO,
+			"usage: env [-i] [name=value ...] [utility[argument ...]]\n");
 	return (1);
+}
+
+static int	set_bits(int c, int flag)
+{
+	if (c == 'i')
+		flag |= 1;
+	return (flag);
 }
 
 int			ft_env(t_init *init, t_ast *ast, char **arg)
 {
 	t_env	*new;
+	int		flags;
+	int		c;
 
+	c = 0;
+	flags = 0;
 	new = NULL;
 	if (!arg[1])
 		return (ft_print_env(init->new_env, 0));
-	else if (ft_strequ(arg[1], "-i") || ft_strequ(arg[1], "-"))
-		new = NULL;
-	else if (arg[1][0] == '-')
-		return (usage_env(arg[1]));
-	else
+	reset_ft_opt();
+	while ((c = ft_getopt(ft_tablen(arg), arg, "i")) != -1)
+	{
+		if (c == 'i')
+			flags = set_bits(c, flags);
+		else if (c == ':' || c == '?')
+			return (usage_env());
+	}
+	if (!flags)
 		new = cpyenv(init->new_env);
+	else if (flags & 1)
+		new = NULL;
+	/* else if (ft_strequ(arg[1], "-i") || ft_strequ(arg[1], "-")) */
+	/* 	new = NULL; */
+	/* else if (arg[1][0] == '-') */
+	/* 	return (usage_env(arg[1])); */
+	/* else */
+	/* 	new = cpyenv(init->new_env); */
 	return (ft_env_return(new, ast, arg));
 }
