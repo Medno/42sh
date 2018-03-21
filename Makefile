@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/21 17:04:31 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/21 18:30:13 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,6 +133,7 @@ EXPANS_NAME = expansion.c		\
 			  tilde_exp.c		\
 			  dollar_exp.c		\
 			  dollar_tab.c		\
+			  dollar_search.c	\
 			  addtab_index.c	\
 			  err_exp.c
 EXPANS_PATH = expansion/
