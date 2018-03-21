@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 11:28:25 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 11:30:10 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,5 @@ int			ft_env(t_init *init, t_ast *ast, char **arg)
 		new = cpyenv(init->new_env);
 	else if (flags & 1)
 		new = NULL;
-	/* else if (ft_strequ(arg[1], "-i") || ft_strequ(arg[1], "-")) */
-	/* 	new = NULL; */
-	/* else if (arg[1][0] == '-') */
-	/* 	return (usage_env(arg[1])); */
-	/* else */
-	/* 	new = cpyenv(init->new_env); */
 	return (ft_env_return(new, ast, arg));
 }
