@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/21 15:49:27 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/21 16:44:37 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,6 +132,8 @@ EXPANS_NAME = expansion.c		\
 			  quote_remove.c	\
 			  tilde_exp.c		\
 			  dollar_exp.c		\
+			  dollar_tab.c		\
+			  addtab_index.c	\
 			  err_exp.c
 EXPANS_PATH = expansion/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(EXPANS_PATH), $(EXPANS_NAME)))
