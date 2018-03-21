@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/21 14:50:58 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/21 15:49:27 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -154,6 +154,7 @@ EXEC_NAME = exec.c				\
 			ft_check_path.c		\
 			and_or_semi.c		\
 			error.c				\
+			only_redir.c		\
 			pid_addlast.c		\
 			check_slash.c
 EXEC_PATH = exec/

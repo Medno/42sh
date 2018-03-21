@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/20 18:03:18 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 15:50:55 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int		launch_exec(t_init *init, t_ast *ast, int std_fd[], int error)
 			launch_or(init, ast, std_fd, error);
 		else if (ast->value == CMD && ast->cmd && ast->cmd->arg)
 			return (check_cmd(ast, init));
+		else if (ast->value == CMD && ast->cmd && !ast->cmd->arg)
+			return (only_redir(ast));
 	}
 	return (0);
 }
