@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/21 14:50:58 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/21 16:31:20 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,6 +170,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(JOB_PATH), $(JOB_NAME)))
 ### GLOBING ###
 GLOB_NAME = ft_glob.c			\
 			parse_glob.c		\
+			check_glob.c		\
 			expand_glob.c
 GLOB_PATH = globing/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(GLOB_PATH), $(GLOB_NAME)))

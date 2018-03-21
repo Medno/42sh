@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 15:01:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 14:47:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:10:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char			*ft_glob(char *init)
 	if (!init)
 		return (init);
 	list = parse_glob(init, ft_strlen(init));
-	//>list with expans func
+	expand_list(&list);
 	ft_strdel(&init);
 	init = paste(list);
 	free_glob(&list);

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 15:01:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 12:34:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:48:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 
 char		*ft_glob(char *init);
 t_glpath	*parse_glob(char *str, int len);
+int			check_glob(char *str);
+void		expand_list(t_glpath **list);
 
 #endif
