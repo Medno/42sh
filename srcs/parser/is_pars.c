@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 10:58:07 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/20 10:58:08 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:39:12 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_rsvword(t_lex *tmp)
 {
 	if (tmp->token == IF || tmp->token == FI || tmp->token == DO ||
 			tmp->token == ELSE || tmp->token == ELIF || tmp->token == DONE ||
-			tmp->token == FOR || tmp->token == CASE || tmp->token == ESAC || 
+			tmp->token == FOR || tmp->token == CASE || tmp->token == ESAC ||
 			tmp->token == IN || tmp->token == THEN || tmp->token == UNTIL ||
 			tmp->token == WHILE)
 		return (1);
