@@ -6,20 +6,20 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:37:15 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/19 11:43:14 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:49:35 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-char	*copy_home(t_init *init)
+static char	*copy_home(t_init *init)
 {
 	if (!ft_getenv(&init->new_env, "HOME"))
 		return (ft_strdup("/Users"));
 	return (ft_strdup(ft_getenv(&init->new_env, "HOME")));
 }
 
-char	*pwd_tilde(t_init *init, char c)
+static char	*pwd_tilde(t_init *init, char c)
 {
 	if (c == '+')
 		return (ft_strdup(ft_getenv(&init->new_env, "PWD")));
@@ -28,7 +28,7 @@ char	*pwd_tilde(t_init *init, char c)
 	return (NULL);
 }
 
-int		check_prefix(t_init *init, char *str, char buf[], int *i)
+static int	check_prefix(t_init *init, char *str, char buf[], int *i)
 {
 	int		res;
 	char	*tmp;
@@ -56,7 +56,7 @@ int		check_prefix(t_init *init, char *str, char buf[], int *i)
 	return (res);
 }
 
-char	*exp_tilde(t_init *init, char *str, int len)
+char		*exp_tilde(t_init *init, char *str, int len)
 {
 	int		i;
 	char	buf[len + 1];

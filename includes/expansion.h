@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:24:33 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:32:36 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:51:55 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 /*
 ** expansions
 */
-t_cmd	*begin_expansion(t_init *init, t_cmd *cmd);
 char	*exp_tilde(t_init *init, char *str, int len);
 char	*dollar_exp(t_init *init, char *str, char ***tab, int *index);
 char	*dollar_modify_str(t_init *init, char *str, int *replace, int *i);

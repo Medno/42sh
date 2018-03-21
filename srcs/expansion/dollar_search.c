@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:05:38 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:32:13 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:43:43 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-int		get_unquoted_dollar(char *str, int i)
+static int	get_unquoted_dollar(char *str, int i)
 {
 	char	escape;
 
@@ -40,7 +40,7 @@ int		get_unquoted_dollar(char *str, int i)
 	return (i);
 }
 
-char	*search_dollar(t_init *init, char *str, int *i, int len)
+static char	*search_dollar(t_init *init, char *str, int *i, int len)
 {
 	char	*res;
 	char	*in_env;
@@ -68,7 +68,7 @@ char	*search_dollar(t_init *init, char *str, int *i, int len)
 	return (res);
 }
 
-char	*not_dollar(char *res, char *str, int i, int end)
+static char	*not_dollar(char *res, char *str, int i, int end)
 {
 	char	*tmp;
 

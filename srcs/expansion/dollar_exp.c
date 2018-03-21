@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:19:00 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:32:24 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:44:10 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-char	*dollar_checkstr(t_init *init, char *str, char *res, int *replace)
+static char	*dollar_checkstr(t_init *init, char *str, char *res, int *replace)
 {
 	int		i;
 	char	*tmp;
@@ -27,7 +27,7 @@ char	*dollar_checkstr(t_init *init, char *str, char *res, int *replace)
 	return (res);
 }
 
-char	*dollar_exp(t_init *init, char *str, char ***tab, int *index)
+char		*dollar_exp(t_init *init, char *str, char ***tab, int *index)
 {
 	char	*res;
 	int		replace;

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:13:31 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/18 11:20:47 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:50:18 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*esc_simple_qu(char *str, int *i, int len)
 	return (res);
 }
 
-int		incr_backslash(int j, char c)
+static int	incr_backslash(int j, char c)
 {
 	if (c == '\\' || c == '\"' || c == '$' || c == '`')
 		return (j + 1);
@@ -58,7 +58,7 @@ int		incr_backslash(int j, char c)
 	return (j);
 }
 
-char	*esc_double_qu(char *str, int *i, int len)
+char		*esc_double_qu(char *str, int *i, int len)
 {
 	char	*res;
 	char	buffer[len + 1];

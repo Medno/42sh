@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 16:05:20 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:48:33 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-char	*do_expansion(t_init *init, char *str, char ***tab, int *index)
+static char		*do_expansion(t_init *init, char *str, char ***tab, int *index)
 {
 	char	*check_expans;
 
@@ -28,7 +28,7 @@ char	*do_expansion(t_init *init, char *str, char ***tab, int *index)
 	return (check_expans);
 }
 
-t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
+static t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 {
 	t_cmd	*tmp;
 	t_redir	*redir;
@@ -51,7 +51,7 @@ t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 	return (tmp);
 }
 
-void	ast_expansion(t_init *init, t_ast *ast)
+void			ast_expansion(t_init *init, t_ast *ast)
 {
 	if (!ast)
 		return ;

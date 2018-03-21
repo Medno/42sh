@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:26:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/08 13:59:13 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 18:41:17 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static t_lex	*categorize_op(t_lex *new)
 
 static t_lex	*categorize_rsvword(t_lex *new)
 {
-	new->token = (ft_strequ("if", new->value)) ? new->token = IF : new->token;
-	new->token = (ft_strequ("fi", new->value)) ? new->token = FI : new->token;
-	new->token = (ft_strequ("do", new->value)) ? new->token = DO : new->token;
+	new->token = (ft_strequ("if", new->value)) ? IF : new->token;
+	new->token = (ft_strequ("fi", new->value)) ? FI : new->token;
+	new->token = (ft_strequ("do", new->value)) ? DO : new->token;
 	if (ft_strequ("else", new->value))
 		new->token = ELSE;
 	else if (ft_strequ("elif", new->value))

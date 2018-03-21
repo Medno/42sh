@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 15:28:37 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 18:50:51 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	put_in_buffer(char buf[], char c)
 	buf[len] = c;
 }
 
-char	*treat_esc(char *res, char *str, int *i)
+static char	*treat_esc(char *res, char *str, int *i)
 {
 	char	*to_join;
 	int		len;
@@ -49,7 +49,7 @@ char	*treat_esc(char *res, char *str, int *i)
 	return (res);
 }
 
-char	*delete_esc(char *str, int len)
+char		*delete_esc(char *str, int len)
 {
 	char	*res;
 	char	buf[len + 1];
