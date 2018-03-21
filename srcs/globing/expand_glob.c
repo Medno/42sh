@@ -1,21 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glob.h                                          :+:      :+:    :+:   */
+/*   expand_glob.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/19 15:01:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 12:34:46 by kyazdani         ###   ########.fr       */
+/*   Created: 2018/03/21 11:52:05 by kyazdani          #+#    #+#             */
+/*   Updated: 2018/03/21 11:52:11 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GLOB_H
-# define FT_GLOB_H
-
-# include "sh.h"
-
-char		*ft_glob(char *init);
-t_glpath	*parse_glob(char *str, int len);
-
-#endif
+#include "ft_glob.h"

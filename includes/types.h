@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 11:46:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 13:57:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,12 @@ typedef struct		s_glob
 	char			**pathv;
 	size_t			offs;
 }					t_glob;
+
+typedef struct		s_glpath
+{
+	char			*str;
+	t_glob			elem;
+	struct s_glpath	*next;
+}					t_glpath;
 
 #endif
