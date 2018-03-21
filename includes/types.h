@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/20 09:19:35 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 11:46:48 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define TYPES_H
 
 # include "sh.h"
-# include "line_edit.h"
 
 typedef struct		s_line
 {
@@ -178,9 +177,9 @@ typedef struct		s_job
 
 typedef struct		s_glob
 {
-	char			*s;
-	int				expr;
-	struct s_glob	*next;
+	size_t			nb;
+	char			**pathv;
+	size_t			offs;
 }					t_glob;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 10:58:33 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 11:48:15 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include <termios.h>
 # include "libft.h"
 # include "ft_printf.h"
-# include "line_edit.h"
 # include "types.h"
+# include "ft_glob.h"
+# include "line_edit.h"
 # include "lexer.h"
 # include "parser.h"
 # include "expansion.h"

@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/20 09:11:24 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/21 11:40:28 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,8 +170,6 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(JOB_PATH), $(JOB_NAME)))
 GLOB_NAME = ft_glob.c
 GLOB_PATH = globing/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(GLOB_PATH), $(GLOB_NAME)))
-
-INC += -Ilogger/incs/
 
 ### LIBFT ###
 LIBINC = ./libft

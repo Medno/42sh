@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 15:01:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 17:24:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:46:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define FT_GLOB_H
 
 # include "sh.h"
+
+char	*ft_glob(char *init);
 
 #endif
