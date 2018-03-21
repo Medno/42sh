@@ -6,17 +6,15 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:21:56 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 15:44:26 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 12:09:54 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		export_usage(char *arg)
+int		export_usage(void)
 {
-	ft_printf_fd(STDERR_FILENO, "42sh : export: %s: invalid option\n", arg);
-	ft_printf_fd(STDERR_FILENO, "export: usage: [-n] [name[=value]] ");
-	ft_printf_fd(STDERR_FILENO, "or export -p\n");
+	ft_printf_fd(STDERR_FILENO, "export: usage: [-np] [name[=value]]\n");
 	return (1);
 }
 

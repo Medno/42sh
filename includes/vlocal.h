@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 11:22:11 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 15:59:15 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 13:11:55 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ int		is_in_env(t_env *env, char *name);
 int		ft_set_local(t_env **loc, t_env **env, char **arg);
 int		ft_set(t_env *loc, t_env *env, char **entry);
 int		ft_unset(t_env **loc, t_env **env, char **arg);
+int		export_equal(t_init *init, char *arg, int whereto);
+int		switch_env_to_loc(t_init *init, char **arg);
+int		switch_loc_to_env(t_init *init, char **arg);
 
 void	ft_set_variable(t_env **loc, t_env **env, char *arg, int where);
 
-int		export_usage(char *arg);
+int		export_usage(void);
 int		not_an_identifier(char *function, char *arg);
 int		read_only_error(char *arg, int free);
 #endif

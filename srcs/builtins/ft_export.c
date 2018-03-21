@@ -6,33 +6,11 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:27:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/21 11:01:55 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 13:19:08 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-static int	swapping_env(t_env **loc, t_env **env, char *arg, int where)
-{
-	t_env	*tmp;
-
-	tmp = (where == TOENV) ? *loc : *env;
-	while (tmp && !ft_strequ(arg, tmp->name))
-		tmp = tmp->next;
-	if (!tmp)
-		return (0);
-	if (where == TOLOC)
-	{
-		ft_setenv(loc, arg, tmp->content);
-		ft_unsetenv(env, arg);
-	}
-	else
-	{
-		ft_setenv(env, arg, tmp->content);
-		ft_unsetenv(loc, arg);
-	}
-	return (1);
-}
 
 int			export_equal(t_init *init, char *arg, int whereto)
 {
@@ -57,68 +35,44 @@ int			export_equal(t_init *init, char *arg, int whereto)
 	return (0);
 }
 
-int			switch_env_to_loc(t_init *init, char **arg)
+static int	set_bits(char c, int flag)
 {
-	int		i;
-	int		ret;
-
-	i = 2;
-	ret = 0;
-	while (arg[i])
-	{
-		if (!is_valid_identifier("export", arg[i], PRINT))
-		{
-			i++;
-			ret = 1;
-			continue ;
-		}
-		if (ft_strchr(arg[i], '='))
-			ret = export_equal(init, arg[i], TOLOC);
-		else
-			swapping_env(&init->loc_env, &init->new_env, arg[i], TOLOC);
-		i++;
-	}
-	return (ret);
+	if (c == 'p')
+		flag |= 1;
+	else if (c == 'n')
+		flag |= 2;
+	return (flag);
 }
 
-int			switch_loc_to_env(t_init *init, char **arg)
+int			check_p(t_init *init, char **arg)
 {
-	int		i;
-	int		ret;
-
-	i = 1;
-	ret = 0;
-	while (arg[i])
-	{
-		if (!is_valid_identifier("export", arg[i], PRINT))
-		{
-			i++;
-			ret = 1;
-			continue ;
-		}
-		if (ft_strchr(arg[i], '='))
-			ret = export_equal(init, arg[i], TOENV);
-		else
-			swapping_env(&init->loc_env, &init->new_env, arg[i], TOENV);
-		i++;
-	}
-	return (ret);
+	if (arg[1] && arg[2])
+		return (switch_loc_to_env(init, arg + 1));
+	ft_print_env(init->new_env, '"');
+	return (0);
 }
 
 int			ft_export(t_init *init, char ***entry)
 {
 	char	**arg;
+	int		flags;
+	char	c;
 
+	flags = 0;
+	c = 0;
 	arg = *entry;
-	if (!arg[1] || ft_strequ(arg[1], "-p"))
+	reset_ft_opt();
+	while ((c = ft_getopt(ft_tablen(arg), arg, "np")) != -1)
 	{
-		ft_print_env(init->new_env, '"');
-		return (0);
+		if (ft_strchr("np", c))
+			flags = set_bits(c, flags);
+		else if (c == '?')
+			return (export_usage());
 	}
-	if (arg[1] && ft_strequ(arg[1], "-n"))
+	if (flags == 1)
+		return (check_p(init, arg));
+	if (flags & 2)
 		return (switch_env_to_loc(init, arg));
-	else if (arg[1] && arg[1][0] == '-')
-		return (export_usage(arg[1]));
 	else
 		return (switch_loc_to_env(init, arg));
 	return (0);

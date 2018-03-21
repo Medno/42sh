@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 11:30:10 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 12:01:00 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			ft_env(t_init *init, t_ast *ast, char **arg)
 	{
 		if (c == 'i')
 			flags = set_bits(c, flags);
-		else if (c == ':' || c == '?')
+		else if (c == '?')
 			return (usage_env());
 	}
 	if (!flags)
