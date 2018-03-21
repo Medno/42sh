@@ -6,17 +6,20 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 12:55:59 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/17 15:33:21 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 11:03:05 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		ft_print_env(t_env *env)
+int		ft_print_env(t_env *env, char c)
 {
 	while (env)
 	{
-		ft_printf("%s=%s\n", env->name, env->content);
+		if (ft_strchr(env->content, ' '))
+			ft_printf("%s=%c%s%c\n", env->name, c, env->content, c);
+		else
+			ft_printf("%s=%s\n", env->name, env->content);
 		env = env->next;
 	}
 	return (0);

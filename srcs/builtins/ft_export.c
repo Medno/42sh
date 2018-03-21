@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:27:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 15:41:21 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 11:01:55 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int			ft_export(t_init *init, char ***entry)
 	arg = *entry;
 	if (!arg[1] || ft_strequ(arg[1], "-p"))
 	{
-		ft_print_env(init->new_env);
+		ft_print_env(init->new_env, '"');
 		return (0);
 	}
 	if (arg[1] && ft_strequ(arg[1], "-n"))
