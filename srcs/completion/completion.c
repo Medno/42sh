@@ -32,6 +32,7 @@ void	do_new_completion(t_comp *comp, t_edit *edit)
 	else
 		comp_get_pot_dir(comp);
 	comp_sort_alphab(comp);
+	comp_add_backslash_space(comp);
 	comp_check_duplicate(comp);
 	comp->current = comp->list;
 }

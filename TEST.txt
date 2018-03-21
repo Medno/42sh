@@ -120,7 +120,9 @@ EOF"
 COMMENTAIRES : Copier/coller sans les quotes fonctionne dans bash mais pas dans 42sh. Syntax error lié au \ à la fin. Si on les retire et qu'on c/c la commande sur une longue ligne ca fonctionne.
 
 ===================================================
+ls << EOF
+> heredoc
+> EOF
+> [FLECHE HAUT] ls << EOF				NOT OK : > affichage heredoc
 
-> 										NOT OK : > 
-
-COMMENTAIRES : 
+COMMENTAIRES : Kiyan : "du coup faut juste delete les ligne apres le ls <<EOF, faut le rajouter dans le ft_cleanup_nl qui passe a chaque fin de ligne"

@@ -12,10 +12,42 @@
 
 #include "completion.h"
 
-int		is_delimiteur(char c)
+int			is_echaped(char *str, int index)
 {
+	char *tmp;
+	int echap;
+
+	if (index == 0)
+		return (0);
+	echap = 0;
+	tmp = str;
+	while (tmp && *tmp && tmp != str + index)
+	{
+		if (*tmp == '\\')
+		{
+			if (echap == 1)
+				echap = 0;
+			else
+				echap = 1;
+		}
+		else
+			echap = 0;
+		tmp++;
+	}
+	return (echap);
+}
+
+int		is_delimiteur(char *str, int index)
+{
+	char c;
+
+	c = str[index];
 	if (c == ' ' || c == ':' || c == '>' || c == '=' || c == '<')
+	{
+		if (is_echaped(str, index))
+			return (0);
 		return (1);
+	}
 	return (0);
 }
 
@@ -28,7 +60,7 @@ int		comp_is_first_word(t_comp *comp)
 	while (comp->cmd[i] && comp->cmd[i] == ' ')
 		i++;
 // On parcourt le premier mot
-	while (comp->cmd[i] && !is_delimiteur(comp->cmd[i]))
+	while (comp->cmd[i] && !is_delimiteur(comp->cmd, i))
 		i++;
 
 	if (i > comp->pos - 2)

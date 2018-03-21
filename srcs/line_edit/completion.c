@@ -12,6 +12,56 @@
 
 #include "completion.h"
 
+int			is_separ(char *str, int index)
+{
+	char c;
+
+	c = str[index];
+	if (c == ';' || c == '&' || c == '|' || c == '(' || c == '`')
+	{
+		if (is_echaped(str, index))
+			return (0);
+		return (1);
+	}
+	return (0);
+}
+
+/*
+**	On à l'endroit ou est positionner le curseur
+**	On recule jusqu'à trouvé un separateur
+**	
+*/
+
+void		start_at_separ(t_comp *comp)
+{
+	int		index;
+	char	*to_del;
+
+	if (comp->pos == 1)
+		return ;
+	index = comp->pos - 2;
+//	ft_printf("\nindex = [%d]\n", index);
+	// Je vais sur le dernier SEPAR
+	while (index >= 0)
+	{
+		if (is_separ(comp->cmd, index))
+			break ;
+		index--;
+	}
+	// SI j'ai trouver un separateur
+	if (index != -1)
+	{
+		if (comp->cmd[index + 1])
+			index++;
+		to_del = comp->cmd;
+		comp->cmd = ft_strdup(comp->cmd + index);
+		// ft_printf("Ancienne cmd = [%s] ; new cmd = [%s]\n", to_del, comp->cmd);
+		// ft_printf("ancienne pos = [%d] ; new pos = [%d]\n", comp->pos, comp->pos - (ft_strlen(to_del) - ft_strlen(comp->cmd)));
+		comp->pos -= (ft_strlen(to_del) - ft_strlen(comp->cmd));
+		ft_strdel(&to_del);
+	}
+}
+
 /*
 **	On transforme la liste en string qu'on stock dans comp->cmd
 **	On stock la position dans comp->pos
@@ -31,6 +81,7 @@ void	from_list_to_comp(t_line *cur, t_comp *comp)
 		comp->pos++;
 	}
 	comp->pos++;
+	start_at_separ(comp);
 }
 
 /*

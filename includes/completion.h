@@ -30,6 +30,7 @@ void				comp_check_duplicate(t_comp *comp);
 t_line				*print_completion(t_line *cur, t_edit *edit);
 void				comp_add_pot_builtin(t_comp *comp);
 void				comp_add_pot_words(t_comp *comp);
+void				comp_add_backslash_space(t_comp *comp);
 
 /*
 **	COMPLETION TOOLS
@@ -44,6 +45,7 @@ void				ft_clean_lcomp(t_lcomp *elm);
 void				ft_clean_lcomp_list(t_lcomp *list);
 int					reset_completion(char c, t_comp *comp);
 char				*comp_go_to_last_slash(char *str);
-int					is_delimiteur(char c);
+int					is_delimiteur(char *str, int index);
+int					is_echaped(char *str, int index);
 
 #endif

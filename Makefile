@@ -81,6 +81,7 @@ COMP_NAME =	clean_comp.c 				\
 			comp_get_dir_to_open.c		\
 			comp_get_word_to_complete.c	\
 			comp_sort_alphab.c			\
+			comp_add_backslash_space.c	\
 			comp_tools.c				\
 			completion.c				\
 			get_potential_cmd.c			\
