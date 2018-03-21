@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:47:52 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 17:03:29 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:32:03 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	check_quote_sl(char s, uint8_t *c, uint8_t *sl)
 		*c ^= 1;
 	else if ((s == '\"' && !*c) || (s == '\"' && *c == 2))
 		*c ^= 2;
-	else if  (s == '\\')
+	else if (s == '\\')
 		*sl = 1;
 }
 
@@ -28,7 +28,7 @@ static int	check_bracks(char *buf, char c)
 	{
 		while (*buf)
 		{
-			if (ft_isalnum(*buf) || *buf == '!' || *buf == '-') 
+			if (ft_isalnum(*buf) || *buf == '!' || *buf == '-')
 				buf++;
 			else
 				return (0);
@@ -90,7 +90,7 @@ int			check_glob(char *str)
 		check_quote_sl(*str, &quote, &slash);
 		if ((*str == '*' || *str == '?') && !quote && !slash)
 			return (1);
-		else if ((*str == '{' || *str == '[')  && !quote && !slash)
+		else if ((*str == '{' || *str == '[') && !quote && !slash)
 		{
 			if ((ret = check_brack_expr(&str)))
 				return (ret);

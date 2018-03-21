@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 11:51:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 17:19:52 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:32:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,8 @@ t_glpath		*parse_glob(char *str, int len)
 		check_quotes(*str, &quotes);
 		if (*str == ' ' && !quotes && new_list_elem(&buf[0], &list) && (i = -1))
 			ft_bzero(&buf[0], len + 1);
-		else if (*str == '\\')
-		{
-			str++;
+		else if (*str == '\\' && (str += 1))
 			buf[++i] = *str;
-		}
 		str++;
 	}
 	if (buf[0])

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 14:47:37 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:33:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		edit_end(char **line, t_edit *edit)
 	*line = line_to_str(*edit->current);
 	free_tline(*edit->current);
 	*line = ft_glob(*line);
-	ft_printf(">>>> %s", *line);
 	return (0);
 }
 
