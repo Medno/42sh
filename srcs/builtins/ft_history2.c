@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 14:13:26 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 15:25:15 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 15:08:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ static void	increme_all(t_hist *cur, int c)
 	}
 }
 
-static void	free_elem(t_hist *tmp)
+static void	free_elem(t_hist *tmp, t_hist **histo)
 {
 	t_hist	*tmp2;
 
+	if (!tmp)
+		return ;
+	tmp2 = NULL;
 	increme_all(tmp->next, -1);
 	tmp2 = tmp->prev;
 	if (tmp2)
@@ -38,7 +41,10 @@ static void	free_elem(t_hist *tmp)
 	tmp->next = NULL;
 	tmp->prev = NULL;
 	ft_strdel(&tmp->line);
-	ft_memdel((void **)&tmp);
+	if (!(*histo)->next && !(*histo)->prev)
+		ft_memdel((void **)&(*histo));
+	else
+		ft_memdel((void **)&tmp);
 }
 
 int			free_offset_hist(t_hist **histo, char *offset)
@@ -59,7 +65,7 @@ int			free_offset_hist(t_hist **histo, char *offset)
 		return (1);
 	}
 	else
-		free_elem(tmp);
+		free_elem(tmp, histo);
 	return (0);
 }
 
@@ -67,7 +73,9 @@ int			free_history(t_hist **histo)
 {
 	t_hist	*tmp;
 
-	while ((*histo)->prev)
+	if (!*histo)
+		return (0);
+	while ((*histo) && (*histo)->prev)
 		*histo = (*histo)->prev;
 	while (*histo)
 	{

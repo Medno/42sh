@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 11:51:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 14:43:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/21 15:04:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		check_quotes(char c, uint8_t *quotes)
 t_glpath		*parse_glob(char *str, int len)
 {
 	t_glpath	*list;
-	char		buf[len];
+	char		buf[len + 1];
 	uint8_t		quotes;
 	int			i;
 
