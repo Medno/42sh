@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 17:19:00 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 16:12:31 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/21 16:41:45 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*search_dollar(t_init *init, char *str, int *i, int len)
 	char	buf[len];
 	int		brace;
 
-	res = NULL;
 	ft_bzero(buf, len);
 	(*i)++;
 	brace = (str[*i] && str[*i] == '{') ? 1 : 0;
@@ -62,8 +61,9 @@ char	*search_dollar(t_init *init, char *str, int *i, int len)
 			break ;
 		(*i)++;
 	}
-	if (buf[0] && (in_env = ft_getenv(&init->new_env, buf)))
-		res = ft_strdup(in_env);
+	if (!(in_env = ft_getenv(&init->new_env, buf)))
+		in_env = ft_getenv(&init->loc_env, buf);
+	res = (buf[0] && in_env) ? ft_strdup(in_env) : NULL;
 	*i = (brace) ? *i + 1 : *i;
 	return (res);
 }
@@ -107,7 +107,7 @@ char	*exp_expr(t_init *init, char *str, int *replace, int *i)
 	return (res);
 }
 
-char	*dollar_exp(t_init *init, char *str)
+char	*dollar_exp(t_init *init, char *str, char ***tab, int *index)
 {
 	char	*res;
 	char	*tmp;
@@ -125,7 +125,10 @@ char	*dollar_exp(t_init *init, char *str)
 	}
 	if (replace && !init->dollar)
 	{
+		if (ft_strchr(res, ' ') && !only_space(res))
+			return (return_newtab(res, tab, index));
 		ft_strdel(&str);
+		ft_printf("res = |%s|\n", res);
 		return (res);
 	}
 	ft_strdel(&res);
