@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 15:43:18 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/21 19:59:15 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		clean_arg(char ***arg)
+static int	clean_arg(char ***arg)
 {
 	int		i;
 	int		j;
@@ -25,7 +25,7 @@ int		clean_arg(char ***arg)
 		j++;
 	if (!j)
 		return (0);
-	new_arg = (char**)ft_memalloc(sizeof(char**) *
+	new_arg = (char**)ft_memalloc(sizeof(char*) *
 			(ft_tablen((*arg + j)) + 1));
 	if (!new_arg)
 		return (0);
@@ -41,7 +41,7 @@ int		clean_arg(char ***arg)
 	return (1);
 }
 
-int		check_local(char ***arg, int clean)
+int			check_local(char ***arg, int clean)
 {
 	int		i;
 
@@ -60,7 +60,7 @@ int		check_local(char ***arg, int clean)
 	return (1);
 }
 
-int		equ_index(char *str, char c)
+int			equ_index(char *str, char c)
 {
 	int		i;
 
@@ -74,7 +74,7 @@ int		equ_index(char *str, char c)
 	return (-1);
 }
 
-void	ft_set_variable(t_env **loc_env, t_env **env, char *arg, int where)
+void		ft_set_variable(t_env **loc_env, t_env **env, char *arg, int where)
 {
 	char	*name;
 	char	*value;
@@ -88,7 +88,7 @@ void	ft_set_variable(t_env **loc_env, t_env **env, char *arg, int where)
 	ft_strdel(&name);
 }
 
-int		ft_set_local(t_env **loc, t_env **env, char **arg)
+int			ft_set_local(t_env **loc, t_env **env, char **arg)
 {
 	int		i;
 
