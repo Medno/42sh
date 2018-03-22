@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 13:57:07 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/22 12:35:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,19 +174,5 @@ typedef struct		s_job
 	struct termios	term;
 	struct s_job	*next;
 }					t_job;
-
-typedef struct		s_glob
-{
-	size_t			nb;
-	char			**pathv;
-	size_t			offs;
-}					t_glob;
-
-typedef struct		s_glpath
-{
-	char			*str;
-	t_glob			elem;
-	struct s_glpath	*next;
-}					t_glpath;
 
 #endif

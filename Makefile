@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/22 10:15:13 by hlely            ###   ########.fr        #
+#    Updated: 2018/03/22 12:35:43 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -172,14 +172,6 @@ JOB_NAME = find_job.c			\
 		   new_proc.c
 JOB_PATH = job/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(JOB_PATH), $(JOB_NAME)))
-
-### GLOBING ###
-GLOB_NAME = ft_glob.c			\
-			parse_glob.c		\
-			check_glob.c		\
-			expand_glob.c
-GLOB_PATH = globing/
-SRCS += $(addprefix $(PATHFS), $(addprefix $(GLOB_PATH), $(GLOB_NAME)))
 
 ### LIBFT ###
 LIBINC = ./libft
