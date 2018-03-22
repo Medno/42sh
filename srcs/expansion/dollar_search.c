@@ -95,7 +95,7 @@ char	*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
 				str[*i + 1] == '{'))
 	{
 		tmp = search_dollar(init, str, i, len + 1);
-		*replace = (only_space(tmp) && *replace == 0) ? 2 : 1;
+		*replace = 1;
 		res = ft_strjoindel(res, tmp);
 		ft_strdel(&tmp);
 	}
