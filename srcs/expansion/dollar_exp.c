@@ -41,6 +41,7 @@ char		**exp_dollar(t_init *init, char **tab)
 			return (return_newtab(res, tab));
 		ft_strdel(&tab[0]);
 		tab = ft_addstr_tab(tab, res);
+		ft_strdel(&res);
 		return (tab);
 	}
 	ft_strdel(&res);
