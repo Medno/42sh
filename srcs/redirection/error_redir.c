@@ -25,25 +25,15 @@ void	which_error(int error, char *err_file)
 {
 	ft_putstr_fd("42sh: ", STDERR_FILENO);
 	if (error == BADFD)
-	{
-		ft_putstr_fd(err_file, STDERR_FILENO);
-		ft_putendl_fd(": Bad file descriptor", STDERR_FILENO);
-	}
+		ft_printf_fd(STDERR_FILENO, "%s: Bad file descriptor\n", err_file);
 	else if (error == NOSUCHFILE)
-	{
-		ft_putstr_fd(err_file, STDERR_FILENO);
-		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-	}
+		ft_printf_fd(STDERR_FILENO, "%s: No such file or directory\n", err_file);
 	else if (error == NOPERM)
-	{
-		ft_putstr_fd(err_file, STDERR_FILENO);
-		ft_putendl_fd(": Permission denied", STDERR_FILENO);
-	}
+		ft_printf_fd(STDERR_FILENO, "%s: Permission denied\n", err_file);
 	else if (error == OPENFAIL)
-	{
-		ft_putstr_fd(err_file, STDERR_FILENO);
-		ft_putendl_fd(": failed to open", STDERR_FILENO);
-	}
+		ft_printf_fd(STDERR_FILENO, "%s: failed to open\n", err_file);
+	else if (error == AMBIGOUS)
+		ft_printf_fd(STDERR_FILENO, "ambigous redirection\n");
 	else
 		ft_putendl_fd("File number expected", STDERR_FILENO);
 }

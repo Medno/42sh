@@ -75,17 +75,25 @@ t_redir	*handle_closingfd(t_redir *redir)
 	return (redir);
 }
 
+t_redir	*closefd(t_redir *redir)
+{
+	redir->fd_in = (redir->fd_in == -1) ? 1 : redir->fd_in;
+	close(redir->fd_in);
+	redir->fd_out = TOCLOSE;
+	return (redir);
+}
+
 t_redir	*handle_simplefd(t_redir *redir)
 {
 	struct stat	buf;
 	char		*tmp;
 
 	if (redir->file && ft_strequ(redir->file, "-"))
+		closefd(redir);
+	if (redir->file && !ft_isdigit(*redir->file))
 	{
-		redir->fd_in = (redir->fd_in == -1) ? 1 : redir->fd_in;
-		close(redir->fd_in);
-		redir->fd_out = TOCLOSE;
-		return (redir);
+		which_error(AMBIGOUS, redir->file);
+		return (NULL);
 	}
 	if (redir->fd_in == -1)
 		return (handle_allfd(redir));
