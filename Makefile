@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/21 18:30:13 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/03/22 10:15:13 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,6 +156,7 @@ EXEC_NAME = exec.c				\
 			pipe.c				\
 			check_cmd.c			\
 			ft_check_path.c		\
+			clean_space.c		\
 			and_or_semi.c		\
 			error.c				\
 			only_redir.c		\
