@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 17:34:19 by kyazdani          #+#    #+#             */
-/*   Updated: 2017/11/09 15:11:50 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:29:12 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ft_strtrim(char const *s)
 	size_t			i;
 	unsigned int	start;
 	size_t			end;
-	char			*str;
 
 	if (!s)
 		return (NULL);
@@ -32,7 +31,5 @@ char	*ft_strtrim(char const *s)
 		end--;
 		i++;
 	}
-	if ((str = (char *)malloc(sizeof(char) * i + 1)) == NULL)
-		return (NULL);
 	return (ft_strsub(s, start, end - start + 1));
 }
