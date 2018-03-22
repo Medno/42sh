@@ -17,7 +17,7 @@ int			only_space(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] != ' ')
 			return (0);
@@ -26,28 +26,19 @@ int			only_space(char *str)
 	return (1);
 }
 
-static char	**split_intotab(char *str, char **tab, int *index)
+char	**return_newtab(char *str, char **tab)
 {
-	char	**res;
 	char	**tmp;
-	int		loop;
+	int		i;
 
+	i = 0;
 	tmp = ft_strsplit(str, ' ');
-	res = addtab_index(tab, tmp, *index);
-	loop = ft_tablen(tmp) - 1;
-	while (loop)
+	ft_strdel(&tab[0]);
+	while (tmp[i])
 	{
-		(*index)++;
-		loop--;
+		if (!only_space(tmp[i]))
+			tab = ft_addstr_tab(tab, tmp[i]);
+		i++;
 	}
-	ft_freetab(tmp);
-	ft_freetab(tab);
-	return (res);
-}
-
-char		*return_newtab(char *res, char ***tab, int *index)
-{
-	*tab = split_intotab(res, *tab, index);
-	ft_strdel(&res);
-	return ((*tab)[*index]);
+	return (tab);
 }

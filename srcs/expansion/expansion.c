@@ -12,43 +12,50 @@
 
 #include "expansion.h"
 
-static char		*do_expansion(t_init *init, char *str, char ***tab, int *index)
+static char		**do_expansion(t_init *init, char *str, char **res)
 {
-	char	*check_expans;
+	char	**tmp;
+	int		i;
 
-	check_expans = ft_strdup(str);
-	ft_strdel(&str);
-	(*tab)[*index] = check_expans;
-	if (check_expans[0] == '~')
-		check_expans = exp_tilde(init, check_expans,
-				ft_strlen(check_expans));
-	if (ft_strchr(check_expans, '$'))
-		check_expans = dollar_exp(init, check_expans, tab, index);
-	check_expans = delete_esc(check_expans, ft_strlen(check_expans));
-	return (check_expans);
+	i = 0;
+	tmp = NULL;
+	tmp = ft_addstr_tab(tmp, str);
+	if (tmp[0])
+	{
+		if (tmp[0][0] == '~')
+			tmp[0] = exp_tilde(init, tmp[0], ft_strlen(tmp[0]));
+		tmp = (ft_strchr(tmp[0], '$')) ? exp_dollar(init, tmp) : tmp;
+		while (tmp[i])
+		{
+			tmp[i] = delete_esc(tmp[i], ft_strlen(tmp[i]));
+			i++;
+		}
+		i = 0;
+		while (tmp[i])
+		{
+			res = ft_addstr_tab(res, tmp[i]);
+			i++;
+		}
+		ft_freetab(tmp);
+	}
+	return (res);
 }
 
 static t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 {
-	t_cmd	*tmp;
-	t_redir	*redir;
+	char	**res;
 	int		i;
 
-	tmp = cmd;
-	redir = cmd->redir;
 	i = 0;
-	while (tmp && tmp->arg && tmp->arg[i])
+	res = NULL;
+	while (cmd->arg[i])
 	{
-		tmp->arg[i] = do_expansion(init, tmp->arg[i], &tmp->arg, &i);
+		res = do_expansion(init, cmd->arg[i], res);
 		i++;
 	}
-	while (redir)
-	{
-		if (redir->file)
-			redir->file = do_expansion(init, redir->file, &tmp->arg, &i);
-		redir = redir->next;
-	}
-	return (tmp);
+	ft_freetab(cmd->arg);
+	cmd->arg = res;
+	return (cmd);
 }
 
 void			ast_expansion(t_init *init, t_ast *ast)

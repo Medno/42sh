@@ -27,21 +27,22 @@ static char	*dollar_checkstr(t_init *init, char *str, char *res, int *replace)
 	return (res);
 }
 
-char		*dollar_exp(t_init *init, char *str, char ***tab, int *index)
+char		**exp_dollar(t_init *init, char **tab)
 {
 	char	*res;
 	int		replace;
 
 	res = ft_strdup("");
 	replace = 0;
-	res = dollar_checkstr(init, str, res, &replace);
+	res = dollar_checkstr(init, tab[0], res, &replace);
 	if (replace && !init->dollar)
 	{
 		if (ft_strchr(res, ' ') && replace == 1)
-			return (return_newtab(res, tab, index));
-		ft_strdel(&str);
-		return (res);
+			return (return_newtab(res, tab));
+		ft_strdel(&tab[0]);
+		tab = ft_addstr_tab(tab, res);
+		return (tab);
 	}
 	ft_strdel(&res);
-	return (str);
+	return (tab);
 }

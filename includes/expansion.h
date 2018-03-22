@@ -19,11 +19,11 @@
 ** expansions
 */
 char	*exp_tilde(t_init *init, char *str, int len);
-char	*dollar_exp(t_init *init, char *str, char ***tab, int *index);
+char	**exp_dollar(t_init *init, char **tab);
 char	*dollar_modify_str(t_init *init, char *str, int *replace, int *i);
 char	*err_dollar(t_init *init, char *str);
 char	**addtab_index(char **tab, char **add, int i);
-char	*return_newtab(char *res, char ***tab, int *index);
+char	**return_newtab(char *res, char **tab);
 int		only_space(char *str);
 /*
 ** quote removal
