@@ -43,7 +43,7 @@ static int	clean_arg(char ***arg)
 	{
 		if (!only_space((*arg)[j]))
 		{
-			new_arg[i] = ft_strtrim((*arg)[j]);
+			new_arg[i] = ft_strdup((*arg)[j]);
 			i++;
 		}
 		j++;
