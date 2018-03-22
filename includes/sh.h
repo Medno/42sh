@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 11:48:15 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/22 12:36:52 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "types.h"
-# include "ft_glob.h"
 # include "line_edit.h"
 # include "lexer.h"
 # include "parser.h"
