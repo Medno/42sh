@@ -36,8 +36,8 @@ static char		**do_expansion(t_init *init, char *str, char **res)
 			res = ft_addstr_tab(res, tmp[i]);
 			i++;
 		}
-		ft_freetab(tmp);
 	}
+	ft_freetab(tmp);
 	return (res);
 }
 
@@ -48,7 +48,7 @@ static t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 
 	i = 0;
 	res = NULL;
-	while (cmd->arg[i])
+	while (cmd->arg && cmd->arg[i])
 	{
 		res = do_expansion(init, cmd->arg[i], res);
 		i++;

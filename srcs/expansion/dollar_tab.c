@@ -34,11 +34,13 @@ char	**return_newtab(char *str, char **tab)
 	i = 0;
 	tmp = ft_strsplit(str, ' ');
 	ft_strdel(&tab[0]);
+	ft_strdel(&str);
 	while (tmp[i])
 	{
 		if (!only_space(tmp[i]))
 			tab = ft_addstr_tab(tab, tmp[i]);
 		i++;
 	}
+	ft_freetab(tmp);
 	return (tab);
 }
