@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 13:18:23 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/19 17:11:32 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:18:54 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ int			check_first(t_lex *first)
 {
 	if (!first)
 		return (1);
+	if (ft_strequ(first->value, "}"))
+		return (print_errpars(1, first->value, 0));
+	if (ft_strequ(first->value, "()"))
+		return (print_errpars(1, ")", 0));
 	if (first->token != WORD && !is_redir(first) && first->token != QUOTE &&
 			first->token != IO_NUMBER && !is_rsvword(first))
 	{
@@ -60,8 +64,6 @@ static int	search_brack(char *str)
 
 int			err_pars(t_lex *tmp)
 {
-	if (ft_strequ(tmp->value, "}"))
-		return (print_errpars(1, tmp->value, 0));
 	if (is_redir(tmp))
 		if (tmp->next && (tmp->next->token != WORD &&
 					tmp->next->token != IO_HERE))
