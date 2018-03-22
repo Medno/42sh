@@ -74,6 +74,8 @@ int			check_cmd(t_ast *ast, t_init *init)
 	char	*path;
 
 	ret = 0;
+		if (!delete_space(ast))
+			return (1);
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
 			(is_builtin(ast->cmd->arg[0]) ||
 			check_local(&ast->cmd->arg, CLEAN))
@@ -81,8 +83,6 @@ int			check_cmd(t_ast *ast, t_init *init)
 		return (ret);
 	else
 	{
-		if (!delete_space(ast))
-			return (1);
 		path = NULL;
 		if (!ast->cmd->arg)
 			return (1);
