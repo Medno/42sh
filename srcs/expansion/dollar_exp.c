@@ -37,7 +37,7 @@ char		**exp_dollar(t_init *init, char **tab)
 	res = dollar_checkstr(init, tab[0], res, &replace);
 	if (replace && !init->dollar)
 	{
-		if (ft_strchr(res, ' ') && replace == 1)
+		if (replace == 1)
 			return (return_newtab(res, tab));
 		ft_strdel(&tab[0]);
 		tab = ft_addstr_tab(tab, res);

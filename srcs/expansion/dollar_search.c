@@ -12,7 +12,7 @@
 
 #include "expansion.h"
 
-static int	get_unquoted_dollar(char *str, int i)
+static int	get_unquoted_dollar(char *str, int i, int *rep)
 {
 	char	escape;
 
@@ -32,6 +32,7 @@ static int	get_unquoted_dollar(char *str, int i)
 		}
 		if (str[i] && str[i + 1] && str[i] == '$' && str[i + 1] == '$')
 			i++;
+		*rep = (str[i] && str[i] == '$' && escape == '\"') ? 2 : *rep;
 		if (str[i] && str[i] == '$')
 			return (i);
 		if (str[i])
@@ -86,7 +87,7 @@ char	*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
 	int		len;
 
 	res = ft_strdup("");
-	end = get_unquoted_dollar(str, *i);
+	end = get_unquoted_dollar(str, *i, replace);
 	len = ft_strlen(str);
 	if (*i < end)
 		res = not_dollar(res, str, *i, end);
@@ -95,14 +96,14 @@ char	*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
 				str[*i + 1] == '{'))
 	{
 		tmp = search_dollar(init, str, i, len + 1);
-		*replace = 1;
+		*replace = (*replace == 2) ? *replace : 1;
 		res = ft_strjoindel(res, tmp);
-		ft_strdel(&tmp);
 	}
 	else if (str[*i] == '$' && !ft_isalnum(str[*i + 1]))
 	{
 		(*i)++;
 		*replace = 0;
 	}
+	ft_strdel(&tmp);
 	return (res);
 }
