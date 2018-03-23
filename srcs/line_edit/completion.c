@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 09:08:27 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 09:16:11 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ int			is_separ(char *str, int index)
 	return (0);
 }
 
-/*
-**	On à l'endroit ou est positionner le curseur
-**	On recule jusqu'à trouvé un separateur
-**	
-*/
-
 void		start_at_separ(t_comp *comp)
 {
 	int		index;
@@ -40,23 +34,18 @@ void		start_at_separ(t_comp *comp)
 	if (comp->pos == 1)
 		return ;
 	index = comp->pos - 2;
-//	ft_printf("\nindex = [%d]\n", index);
-	// Je vais sur le dernier SEPAR
 	while (index >= 0)
 	{
 		if (is_separ(comp->cmd, index))
 			break ;
 		index--;
 	}
-	// SI j'ai trouver un separateur
 	if (index != -1)
 	{
 		if (comp->cmd[index + 1])
 			index++;
 		to_del = comp->cmd;
 		comp->cmd = ft_strdup(comp->cmd + index);
-		// ft_printf("Ancienne cmd = [%s] ; new cmd = [%s]\n", to_del, comp->cmd);
-		// ft_printf("ancienne pos = [%d] ; new pos = [%d]\n", comp->pos, comp->pos - (ft_strlen(to_del) - ft_strlen(comp->cmd)));
 		comp->pos -= (ft_strlen(to_del) - ft_strlen(comp->cmd));
 		ft_strdel(&to_del);
 	}
@@ -68,7 +57,7 @@ void		start_at_separ(t_comp *comp)
 **	/!\ Le prompt incrémente l'index et empeche de s'en servir
 */
 
-void	from_list_to_comp(t_line *cur, t_comp *comp)
+void		from_list_to_comp(t_line *cur, t_comp *comp)
 {
 	t_line *tmp;
 
@@ -92,7 +81,7 @@ void	from_list_to_comp(t_line *cur, t_comp *comp)
 **	En cas de solution unique, on rajoute '/' ou ' ' à la fin
 */
 
-t_line	*completion(t_edit *edit)
+t_line		*completion(t_edit *edit)
 {
 	if ((*edit->current)->c == '0' && (*edit->current)->prev == NULL)
 		return (*edit->current);
