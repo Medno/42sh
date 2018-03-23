@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/23 10:49:23 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/23 13:22:02 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,8 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(COMP_PATH), $(COMP_NAME)))
 HIST_NAME = start_histo.c			\
 			edit_histo.c			\
 			paste_quote_history.c	\
-			lookup_historic.c
+			lookup_historic.c		\
+			lookup_historic2.c
 HIST_PATH = history/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(HIST_PATH), $(HIST_NAME)))
 
