@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 10:46:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 11:00:51 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,5 @@ void				init_curs(t_curs *curseur, int prompt);
 ** completion
 */
 t_line				*completion(t_edit *edit);
+t_line				*completion_inv(t_edit *edit);
 #endif

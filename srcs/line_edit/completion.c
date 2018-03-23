@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 14:33:20 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 09:16:11 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 11:02:14 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ void		from_list_to_comp(t_line *cur, t_comp *comp)
 **	Si on a trouvé une possibilité, on modifie la list et on l'affiche
 **	En cas de solution unique, on rajoute '/' ou ' ' à la fin
 */
+
+t_line		*completion_inv(t_edit *edit)
+{
+	(void)edit;
+	return (*edit->current);
+}
 
 t_line		*completion(t_edit *edit)
 {

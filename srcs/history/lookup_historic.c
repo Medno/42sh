@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:05:33 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 10:48:25 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 10:50:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_line		*lookup_history(t_edit *edit)
 	*edit->current = move_first(*edit->current, &edit->curseur);
 	ansi("LE", edit->prompt_len + 1, STDIN_FILENO);
 	ansi("CL_END", 0, STDIN_FILENO);
-	ft_putstr_fd("(reverse-i-search):", STDIN_FILENO);
+	ft_putstr_fd("(reverse-i-search): ", STDIN_FILENO);
 	while (read(STDIN_FILENO, &buf, 1))
 	{
 		if (buf == 27)

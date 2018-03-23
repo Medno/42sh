@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 10:02:10 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 11:00:53 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur, int checked)
 		cur = select_word(&str, cur, curseur);
 	else if (c == 25 && !checked)
 		cur = paste_selected_line(str, cur, curseur);
+	else if (c == 4)
+		return (del_next(cur, curseur));
+	else if (c == 1)
+		return (move_first(cur, curseur));
+	else if (c == 2)
+		return (move_left(cur, curseur));
+	else if (c == 5)
+		return (move_last(cur, curseur));
+	else if (c == 6)
+		return (move_right(cur, curseur));
 	return (cur);
 }
 
@@ -36,16 +46,8 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 		return (line_delone(*edit->current, &edit->curseur));
 	else if (c == '\t')
 		return (completion(edit));
-	else if (c == 4)
-		return (del_next(*edit->current, &edit->curseur));
-	else if (c == 1)
-		return (move_first(*edit->current, &edit->curseur));
-	else if (c == 2)
-		return (move_left(*edit->current, &edit->curseur));
-	else if (c == 5)
-		return (move_last(*edit->current, &edit->curseur));
-	else if (c == 6)
-		return (move_right(*edit->current, &edit->curseur));
+	else if (c == 18)
+		return (completion_inv(edit));
 	else if (c == 12)
 		return (clearscreen(edit));
 	else if (c >= 32 && c <= 126 && !checked)
