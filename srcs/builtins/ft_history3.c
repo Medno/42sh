@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 15:21:33 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/23 09:21:24 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			print_history(t_hist **histo, char **str)
 		tmp = tmp->prev;
 	while (tmp)
 	{
-		ft_printf("%d %s", tmp->nb, tmp->line);
+		ft_printf("%4d  %s", tmp->nb, tmp->line);
 		tmp = tmp->next;
 	}
 	return (0);

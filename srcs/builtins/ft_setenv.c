@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:15:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/18 12:26:44 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 09:24:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_env	*new_env(char *name, char *content)
 
 	if (!(new_elem = malloc(sizeof(t_env))))
 	{
-		ft_putendl_fd("supershell: setenv: Cannot allocate memory", 2);
+		ft_putendl_fd("pksh: setenv: Cannot allocate memory", 2);
 		return (NULL);
 	}
 	new_elem->name = ft_strdup(name);
