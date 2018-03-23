@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:05:33 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 16:38:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 17:48:31 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char			lookup_history(t_edit *edit)
 	c = 0;
 	str = NULL;
 	look = NULL;
+	if (!(*edit->histo)->prev && !(*edit->histo)->next)
+		return (0);
 	init_lookup(edit, look);
 	while (read(STDIN_FILENO, &c, 1))
 	{
