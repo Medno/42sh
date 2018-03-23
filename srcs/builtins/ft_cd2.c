@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 20:53:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 15:46:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	error_cd(int nb, char *str)
 	return (1);
 }
 
-static void	handle_remove(t_path *tmp, t_path **pathlist)
+static t_path	*handle_remove(t_path *tmp, t_path **pathlist)
 {
 	t_path	*tmp2;
 
@@ -35,6 +35,7 @@ static void	handle_remove(t_path *tmp, t_path **pathlist)
 		remove_elem(tmp2, pathlist);
 		remove_elem(tmp, pathlist);
 	}
+	return (NULL);
 }
 
 static int	check_elements(t_path **pathlist, char *str)
@@ -56,10 +57,10 @@ static int	check_elements(t_path **pathlist, char *str)
 		else if (!tmp->type)
 			return (error_cd(3, str));
 		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
-			handle_remove(tmp, pathlist);
+			tmp = handle_remove(tmp, pathlist);
 		if (!tmp)
 			tmp = *pathlist;
-		else if (tmp)
+		else
 			tmp = tmp->next;
 	}
 	return (0);
