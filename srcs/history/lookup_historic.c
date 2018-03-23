@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:05:33 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 15:11:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 16:03:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static char	reset(t_edit *edit, char c)
 		edit->prompt_len = put_path(&edit->env);
 		tmp = line_to_str(*edit->current);
 		ft_putstr_fd(tmp, STDIN_FILENO);
-		ansi("REST", 0, STDIN_FILENO);
 		ft_strdel(&tmp);
 		*edit->current = move_last(*edit->current, &edit->curseur);
 	}
@@ -36,12 +35,13 @@ static void	init_lookup(t_edit *edit)
 	char	*tmp;
 
 	*edit->current = move_first(*edit->current, &edit->curseur);
-	ansi("SAVE", 0, STDIN_FILENO);
 	ansi("LE", edit->prompt_len + 1, STDIN_FILENO);
 	ansi("CL_END", 0, STDIN_FILENO);
 	edit->prompt_len = ft_printf_fd(STDIN_FILENO, "(reverse-i-search): ");
 	tmp = line_to_str(*edit->current);
 	ft_putstr_fd(tmp, STDIN_FILENO);
+	while ((*edit->current)->next)
+		*edit->current = (*edit->current)->next;
 	ft_strdel(&tmp);
 }
 
@@ -58,31 +58,27 @@ static t_line *clear(t_edit *edit, char *buf)
 	(*edit->histo)->line = ft_strdup(tmp);
 	ft_putstr_fd(tmp, STDIN_FILENO);
 	ft_strdel(&tmp);
-	while ((*edit->current)->next)
-		*edit->current = (*edit->current)->next;
 	return (*edit->current);
 }
 
-char	*add_char_str(char *look, char c)
+static char		*remove_last(char *s)
 {
-	char	*tmp;
+	char	*new;
 
-	tmp = NULL;
-	if (!look)
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) == 1)
 	{
-		if (!(look = ft_strnew(1)))
-			return (NULL);
-		look[0] = c;
-		return (look);
+		ft_strdel(&s);
+		return (NULL);
 	}
 	else
 	{
-		if (!(tmp = ft_strnew(ft_strlen(look) + 1)))
+		if (!(new = ft_strnew(ft_strlen(s) - 1)))
 			return (NULL);
-		tmp = ft_strcpy(tmp, look);
-		tmp[ft_strlen(look)] = c;
-		ft_strdel(&look);
-		return (tmp);
+		new = ft_strncpy(new, s, ft_strlen(s) - 1);
+		ft_strdel(&s);
+		return (new);
 	}
 }
 
@@ -112,6 +108,8 @@ char			lookup_history(t_edit *edit)
 				ft_strdel(&str);
 			}
 		}
+		else
+			look = remove_last(look);
 	}
 	return (0);
 }
