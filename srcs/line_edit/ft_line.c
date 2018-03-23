@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 11:30:10 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 15:21:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		edit_line(char **line, t_edit *edit)
 	c = 0;
 	while (reset_completion(edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 18)
+		if (c == 18 && *edit->histo)
 			c = lookup_history(edit);
 		if (c == 3)
 			return (handle_ctrl_d_c(edit, line, 1));

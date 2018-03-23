@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 11:30:07 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 15:11:53 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ t_line				*hist_up(t_line *cur, t_hist **histo, int prompt,
 t_line				*hist_down(t_line *cur, t_hist **histo, int prompt,
 					t_curs *curseur);
 t_hist				*create_hist(char *str);
+char				*search_hist(t_edit *edit, char *look, char c);
 void				init_hist(t_hist **histo);
 void				handle_history_ret(t_line *cur, t_hist **histo);
 t_hist				*new_hist(void);
 void				hist_to_file(t_hist *historic);
 char				lookup_history(t_edit *edit);
+char				*add_char_str(char *look, char c);
 /*
 ** list checkups
 */
