@@ -33,8 +33,8 @@ static int	repeat_line_edition(t_init *init, t_lex *tmp)
 	if (condition_repeat(tmp))
 	{
 		line_tmp = NULL;
-		checkout = 1;
 		ret = line_edit(&line_tmp, -1, init);
+		checkout = (ret == 3) ? 0 : 1;
 		if (!ret)
 			init->str = ft_strjoindel(init->str, line_tmp);
 		else if (ret == 1 && g_quote == '\\' && (init->stop = 1))
