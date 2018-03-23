@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/13 09:12:41 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 16:16:11 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 16:18:27 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_line			*ft_line_esc_2(t_edit *edit, char *buf)
 		*edit->current = move_rword(*edit->current, &edit->curseur);
 	else if (ft_strequ(buf, "[1;2D"))
 		*edit->current = move_lword(*edit->current, &edit->curseur);
-	else if (ft_strequ(buf, "[Z") || ft_strequ(buf, "[[Z"))
+	else if (ft_strequ(buf, "[Z"))
 		return (completion_inv(edit));
 	edit->comp->reset = 0;
 	return (*edit->current);
