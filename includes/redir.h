@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/18 12:29:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 10:46:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_redir	*handle_back(t_redir *redir);
 t_redir	*handle_backfd(t_redir *redir);
 t_redir	*handle_redirall(t_redir *redir);
 t_redir	*handle_rw(t_redir *redir);
+t_redir	*handle_closingfd(t_redir *redir);
+t_redir	*handle_allfd(t_redir *redir);
 
 void	del_heredoc(void);
 

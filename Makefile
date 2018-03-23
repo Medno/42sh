@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/03/22 12:35:43 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/03/23 10:46:59 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,6 +144,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(EXPANS_PATH), $(EXPANS_NAME)))
 REDIR_NAME = redirection.c		\
 			 handle_redir.c		\
 			 handle_backredir.c	\
+			 handle_fdredir.c	\
 			 handle_double.c	\
 			 error_redir.c		\
 			 heredoc.c			\
@@ -156,7 +157,6 @@ EXEC_NAME = exec.c				\
 			pipe.c				\
 			check_cmd.c			\
 			ft_check_path.c		\
-			clean_space.c		\
 			and_or_semi.c		\
 			error.c				\
 			only_redir.c		\
