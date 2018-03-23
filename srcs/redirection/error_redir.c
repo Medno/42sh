@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:13:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 14:41:36 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/23 10:49:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	which_error(int error, char *err_file)
 	if (error == BADFD)
 		ft_printf_fd(STDERR_FILENO, "%s: Bad file descriptor\n", err_file);
 	else if (error == NOSUCHFILE)
-		ft_printf_fd(STDERR_FILENO, "%s: No such file or directory\n", err_file);
+		ft_printf_fd(STDERR_FILENO,
+				"%s: No such file or directory\n", err_file);
 	else if (error == NOPERM)
 		ft_printf_fd(STDERR_FILENO, "%s: Permission denied\n", err_file);
 	else if (error == OPENFAIL)
