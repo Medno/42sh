@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/23 10:40:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/23 15:59:35 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 		return (ft_echo(&(*entry)[1]));
 	if (ft_strequ(**entry, "env"))
 		return (ft_env(init, ast, *entry));
-	if (ft_strequ(**entry, "setenv") && (*entry)[1] && (*entry)[2])
-		return (ft_setenv(&init->new_env, (*entry)[1], (*entry)[2]));
+	if (ft_strequ(**entry, "setenv"))
+		return (ft_setenv_init(&init->new_env, *entry));
 	if (ft_strequ(**entry, "unsetenv"))
 		return (ft_unsetenv(&init->new_env, (*entry)[1]));
 	if (ft_strequ(**entry, "set"))
