@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/22 10:46:21 by hlely            ###   ########.fr       */
+/*   Updated: 2018/03/23 09:16:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int			check_cmd(t_ast *ast, t_init *init)
 	char	*path;
 
 	ret = 0;
-		if (!delete_space(ast))
-			return (1);
+	if (!delete_space(ast))
+		return (1);
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
 			(is_builtin(ast->cmd->arg[0]) ||
 			check_local(&ast->cmd->arg, CLEAN))
