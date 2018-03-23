@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/22 12:36:14 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 10:45:33 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int		edit_line(char **line, t_edit *edit)
 		else if (c == 16)
 			*edit->current = hist_up(*edit->current, edit->histo,
 					edit->prompt_len, &edit->curseur);
+		else if (c == 18)
+			*edit->current = lookup_history(edit);
 		else if (c == 27)
 			*edit->current = ft_line_esc(*edit->current, edit->prompt_len,
 					&edit->curseur, edit->histo);
