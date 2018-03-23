@@ -40,10 +40,11 @@ static void		add_backslash_for_space(t_lcomp *elem)
 	new = ft_strnew(ft_strlen(elem->cmd) + n);
 	i = 0;
 	tmp = new;
-	while (i < ft_strlen(elem->cmd) + n)
+	while (i < ft_strlen(elem->cmd))
 	{
 		if (elem->cmd[i] == ' ' && is_echaped(elem->cmd, i) == 0)
 		{
+			
 			*tmp = '\\';
 			tmp++;
 			*tmp = ' ';
