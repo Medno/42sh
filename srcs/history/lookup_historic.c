@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:05:33 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 16:03:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 16:38:54 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,40 +25,28 @@ static char	reset(t_edit *edit, char c)
 		tmp = line_to_str(*edit->current);
 		ft_putstr_fd(tmp, STDIN_FILENO);
 		ft_strdel(&tmp);
-		*edit->current = move_last(*edit->current, &edit->curseur);
+		while ((*edit->current)->next)
+			*edit->current = (*edit->current)->next;
 	}
 	return (c);
 }
 
-static void	init_lookup(t_edit *edit)
+static void	init_lookup(t_edit *edit, char *s)
 {
 	char	*tmp;
 
 	*edit->current = move_first(*edit->current, &edit->curseur);
 	ansi("LE", edit->prompt_len + 1, STDIN_FILENO);
 	ansi("CL_END", 0, STDIN_FILENO);
-	edit->prompt_len = ft_printf_fd(STDIN_FILENO, "(reverse-i-search): ");
+	if (!s)
+		edit->prompt_len = ft_printf_fd(0, "(reverse-i-search) `': ");
+	else
+		edit->prompt_len = ft_printf_fd(0, "(reverse-i-search) `%s': ", s);
 	tmp = line_to_str(*edit->current);
 	ft_putstr_fd(tmp, STDIN_FILENO);
 	while ((*edit->current)->next)
 		*edit->current = (*edit->current)->next;
 	ft_strdel(&tmp);
-}
-
-static t_line *clear(t_edit *edit, char *buf)
-{
-	char	*tmp;
-
-	*edit->current = move_first(*edit->current, &edit->curseur);
-	ansi("CL_END", 0, STDIN_FILENO);
-	ft_strdel(&(*(edit->histo))->line);
-	free_tline(*edit->current);
-	*edit->current = str_to_line(buf, edit->prompt_len, &edit->curseur);
-	tmp = line_to_str(*edit->current);
-	(*edit->histo)->line = ft_strdup(tmp);
-	ft_putstr_fd(tmp, STDIN_FILENO);
-	ft_strdel(&tmp);
-	return (*edit->current);
 }
 
 static char		*remove_last(char *s)
@@ -82,6 +70,21 @@ static char		*remove_last(char *s)
 	}
 }
 
+static void		step_2(t_edit *edit, char **look, char **str, char c)
+{
+	if (c != 127 && c != 8)
+	{
+		if ((*str = search_hist(edit, *look, c)))
+		{
+			*look = add_char_str(*look, c);
+			*edit->current = clear(edit, *str);
+			ft_strdel(str);
+		}
+	}
+	else
+		*look = remove_last(*look);
+}
+
 char			lookup_history(t_edit *edit)
 {
 	char	*look;
@@ -91,7 +94,7 @@ char			lookup_history(t_edit *edit)
 	c = 0;
 	str = NULL;
 	look = NULL;
-	init_lookup(edit);
+	init_lookup(edit, look);
 	while (read(STDIN_FILENO, &c, 1))
 	{
 		if (c != ' ' && (!ft_isalnum(c) || c == '\n') && c != 127 && c != 8)
@@ -99,17 +102,9 @@ char			lookup_history(t_edit *edit)
 			ft_strdel(&look);
 			return (reset(edit, c));
 		}
-		else if (c != 127 && c != 8)
-		{
-			if ((str = search_hist(edit, look, c)))
-			{
-				look = add_char_str(look, c);
-				*edit->current = clear(edit, str);
-				ft_strdel(&str);
-			}
-		}
 		else
-			look = remove_last(look);
+			step_2(edit, &look, &str, c);
+		init_lookup(edit, look);
 	}
 	return (0);
 }
