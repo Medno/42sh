@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 11:00:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 11:30:10 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		edit_line(char **line, t_edit *edit)
 	c = 0;
 	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
+		if (c == 18)
+			c = lookup_history(edit);
 		if (c == 3)
 			return (handle_ctrl_d_c(edit, line, 1));
 		else if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
@@ -84,11 +86,8 @@ int		edit_line(char **line, t_edit *edit)
 		else if (c == 16)
 			*edit->current = hist_up(*edit->current, edit->histo,
 					edit->prompt_len, &edit->curseur);
-		else if (c == 18)
-			*edit->current = lookup_history(edit);
 		else if (c == 27)
-			*edit->current = ft_line_esc(*edit->current, edit->prompt_len,
-					&edit->curseur, edit->histo);
+			*edit->current = ft_line_esc(edit);
 		else
 			*edit->current = ft_line_usual(edit, c);
 	}

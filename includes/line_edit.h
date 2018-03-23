@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:48:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 11:00:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/03/23 11:30:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ t_line				*ft_line_usual(t_edit *edit, char c);
 t_line				*line_delone(t_line *cur, t_curs *curseur);
 t_line				*del_next(t_line *cur, t_curs *curseur);
 void				ansi(char *str, int x, int fd);
-t_line				*ft_line_esc(t_line *cur, int len, t_curs *curseur,
-					t_hist **histo);
-t_line				*ft_line_esc_2(t_line *cur, t_curs *curseur, char *buf);
+t_line				*ft_line_esc(t_edit *edit);
+t_line				*ft_line_esc_2(t_edit *edit, char *buf);
 /*
 ** copy
 */
-t_line				*grab_mod(t_line *current, t_curs *curseur);
 t_line				*select_word(char **str, t_line *cur, t_curs *curseur);
 t_line				*select_all(char **str, t_line *cur, t_curs *curseur);
 t_line				*paste_selected_line(char *str, t_line *cur,
@@ -47,7 +45,7 @@ void				init_hist(t_hist **histo);
 void				handle_history_ret(t_line *cur, t_hist **histo);
 t_hist				*new_hist(void);
 void				hist_to_file(t_hist *historic);
-t_line				*lookup_history(t_edit *edit);
+char				lookup_history(t_edit *edit);
 /*
 ** list checkups
 */
