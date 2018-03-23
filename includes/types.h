@@ -45,6 +45,7 @@ typedef struct		s_lcomp
 {
 	char			*cmd;
 	struct s_lcomp	*next;
+	struct s_lcomp	*prev;
 }					t_lcomp;
 
 typedef struct		s_comp
@@ -55,6 +56,7 @@ typedef struct		s_comp
 	t_lcomp			*current;
 	char			*str;
 	char			*dir;
+	int				reset;
 }					t_comp;
 
 typedef struct		s_env

@@ -22,6 +22,7 @@ t_lcomp	*lcomp_push_back(t_lcomp *list, t_lcomp *new)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+	new->prev = tmp;
 	return (list);
 }
 

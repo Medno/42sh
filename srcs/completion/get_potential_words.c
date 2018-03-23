@@ -28,7 +28,7 @@ static char	**get_word_list(void)
 {
 	char **word_list;
 
-	word_list = ft_memalloc(sizeof(char *) * 13);
+	word_list = ft_memalloc(sizeof(char *) * 14);
 	if (word_list)
 	{
 		word_list[0] = ft_strdup("if");

@@ -64,6 +64,9 @@ t_line			*ft_line_esc_2(t_edit *edit, char *buf)
 		*edit->current = move_lword(*edit->current, &edit->curseur);
 	else if (ft_strequ(buf, "[Z"))
 		return (completion_inv(edit));
+	else if (ft_strequ(buf, "[[Z"))
+		return (completion_inv(edit));
+	edit->comp->reset = 0;
 	return (*edit->current);
 }
 

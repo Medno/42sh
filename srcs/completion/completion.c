@@ -78,10 +78,9 @@ int		comp_is_directory(t_comp *comp)
 	int		ret;
 	char	*file_path;
 
-//	ft_printf("file_path = [%s] + [%s]\n", comp->dir, comp->current->cmd);
 	file_path = ft_strjoin(comp->dir, comp->current->cmd);
 // stat renvoie 0 en cas de succes
-	if (stat(file_path, &sb) != 0)
+	if (!file_path || stat(file_path, &sb) != 0)
 		ret = 0;
 	else
 	{

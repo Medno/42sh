@@ -44,7 +44,6 @@ static size_t	get_len(t_comp *comp, int start)
 		return (0);
 	while (*tmp && !is_delimiteur(tmp, ret))
 	{
-		tmp++;
 		ret++;
 		if ((int)start + (int)ret == comp->pos - 1)
 			break;

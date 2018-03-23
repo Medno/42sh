@@ -35,7 +35,10 @@ int				ft_setenv(t_env **env, char *name, char *content)
 	while (tmp && tmp->next && ft_strcmp(name, tmp->name))
 		tmp = tmp->next;
 	if (!content)
+	{
+		ft_putendl_fd("setenv: invalid argument", STDERR_FILENO);
 		return (1);
+	}
 	if (tmp && !ft_strcmp(name, tmp->name))
 	{
 		free(tmp->content);

@@ -70,7 +70,7 @@ int		edit_line(char **line, t_edit *edit)
 	char	c;
 
 	c = 0;
-	while (reset_completion(c, edit->comp) && read(STDIN_FILENO, &c, 1))
+	while (reset_completion(edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
 		if (c == 18)
 			c = lookup_history(edit);

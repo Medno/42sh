@@ -20,6 +20,7 @@
 ** POUR COMPLETION
 */
 void				do_completion(t_comp *comp, t_edit *edit);
+void				from_list_to_comp(t_line *cur, t_comp *comp);
 void				get_word_to_complete(t_comp *comp);
 void				comp_get_pot_cmd(t_comp *comp, t_edit *edit);
 void				comp_get_pot_dir(t_comp *comp);
@@ -41,9 +42,10 @@ int					comp_has_slash(char *str);
 t_lcomp				*lcomp_push_back(t_lcomp *list, t_lcomp *new);
 t_lcomp				*init_t_lcomp(void);
 t_comp				*init_t_comp(void);
+void				ft_clean_comp(t_comp *comp);
 void				ft_clean_lcomp(t_lcomp *elm);
 void				ft_clean_lcomp_list(t_lcomp *list);
-int					reset_completion(char c, t_comp *comp);
+int					reset_completion(t_comp *comp);
 char				*comp_go_to_last_slash(char *str);
 int					is_delimiteur(char *str, int index);
 int					is_echaped(char *str, int index);
