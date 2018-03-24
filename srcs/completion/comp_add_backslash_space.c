@@ -12,6 +12,12 @@
 
 #include "completion.h"
 
+static int		is_space_or_dollar(char c)
+{
+	if (c == ' ' || c == '$')
+		return (1);
+	return (0);
+}
 
 static int		nbr_of_space(char *str)
 {
@@ -22,7 +28,7 @@ static int		nbr_of_space(char *str)
 	ret = 0;
 	while (str && str[i])
 	{
-		if (str[i] == ' ' && is_echaped(str, i) == 0)
+		if (is_space_or_dollar(str[i]) && is_echaped(str, i) == 0)
 			ret++;
 		i++;
 	}
@@ -42,12 +48,12 @@ static void		add_backslash_for_space(t_lcomp *elem)
 	tmp = new;
 	while (i < ft_strlen(elem->cmd))
 	{
-		if (elem->cmd[i] == ' ' && is_echaped(elem->cmd, i) == 0)
+		if (is_space_or_dollar(elem->cmd[i]) && is_echaped(elem->cmd, i) == 0)
 		{
 			
 			*tmp = '\\';
 			tmp++;
-			*tmp = ' ';
+			*tmp = elem->cmd[i];
 		}
 		else
 			*tmp = elem->cmd[i];
@@ -64,9 +70,9 @@ void		comp_add_backslash_space(t_comp *comp)
 	t_lcomp *tmp;
 
 	tmp = comp->list;
-	while (tmp && tmp->next)
+	while (tmp)
 	{
-		if (ft_strchr(tmp->cmd, ' '))
+		if (ft_strchr(tmp->cmd, ' ') || ft_strchr(tmp->cmd, '$'))
 		{
 			add_backslash_for_space(tmp);
 		}

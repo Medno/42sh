@@ -22,6 +22,7 @@
 void				do_completion(t_comp *comp, t_edit *edit);
 void				from_list_to_comp(t_line *cur, t_comp *comp);
 void				get_word_to_complete(t_comp *comp);
+void				comp_get_pot_local(t_comp *comp, t_edit *edit);
 void				comp_get_pot_cmd(t_comp *comp, t_edit *edit);
 void				comp_get_pot_dir(t_comp *comp);
 void				comp_get_pot_dir_exec(t_comp *comp);

@@ -22,7 +22,9 @@
 
 void	do_new_completion(t_comp *comp, t_edit *edit)
 {
-	if (comp_is_first_word(comp) == 1)
+	if (*comp->str == '$')
+		comp_get_pot_local(comp, edit);
+	else if (comp_is_first_word(comp) == 1)
 	{
 		if (comp->dir)
 			comp_get_pot_dir_exec(comp);
@@ -32,7 +34,8 @@ void	do_new_completion(t_comp *comp, t_edit *edit)
 	else
 		comp_get_pot_dir(comp);
 	comp_sort_alphab(comp);
-	comp_add_backslash_space(comp);
+	if (*comp->str != '$')
+		comp_add_backslash_space(comp);
 	comp_check_duplicate(comp);
 	comp->current = comp->list;
 }
@@ -135,7 +138,7 @@ void	do_completion(t_comp *comp, t_edit *edit)
 	// ft_printf("\nApres get word : ");
 	// ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
 
-	comp_get_dir_to_open(comp);
+	// comp_get_dir_to_open(comp);
 	// ft_printf("\nApres get dir : ");
 	// ft_printf("dir = [%s] string = [%s]\n", comp->dir, comp->str);
 
@@ -146,8 +149,8 @@ void	do_completion(t_comp *comp, t_edit *edit)
 	// ft_printf("\nApres new_comp : ");
 	// if (comp->current && comp->list)
 	// 	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
-	// else
-	// 	ft_printf("\n");
+	//  else
+	//  	ft_printf("\n");
 
 	if (comp->list)
 	{

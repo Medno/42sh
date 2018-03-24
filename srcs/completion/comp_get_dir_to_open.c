@@ -61,6 +61,8 @@ void			comp_get_dir_to_open(t_comp *comp)
 	char *cwd;
 	char *suffix;
 
+	// if (comp->str && *(comp->str) && *(comp->str) == '~')
+	// 	add_tild_in_str(comp);
 	if (comp->str && *(comp->str) && *(comp->str) == '/')
 		comp->dir = get_absolute_path(comp);
 	else

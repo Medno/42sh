@@ -70,29 +70,13 @@ int				step_1(t_init init)
 	}
 }
 
-int				setting_terminal(void)
-{
-	pid_t			shell_pgid;
-
-	shell_pgid = getpid();
-	if (setpgid(shell_pgid, shell_pgid) < 0)
-	{
-		ft_printf_fd(STDERR_FILENO,
-				"42sh: can't put the shell in its own process group");
-		return (0);
-	}
-	tcsetpgrp(STDIN_FILENO, shell_pgid);
-	return (1);
-}
-
 int				main(int ac, char **av, char **environ)
 {
 	t_init			init;
 
 	if (!isatty(STDIN_FILENO))
 		return (0);
-	/* if (!setting_terminal()) */
-	/* 	return (1); */
+
 	init_all(environ, &init);
 	g_in = &init;
 	step_1(init);
