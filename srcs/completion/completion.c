@@ -100,7 +100,7 @@ void	do_completion(t_comp *comp, t_edit *edit)
 	// ft_printf("\nApres get word : ");
 	// ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
 
-	comp_get_dir_to_open(comp);
+	comp_get_dir_to_open(comp, edit);
 	// ft_printf("\nApres get dir : ");
 	// ft_printf("dir = [%s] string = [%s]\n", comp->dir, comp->str);
 

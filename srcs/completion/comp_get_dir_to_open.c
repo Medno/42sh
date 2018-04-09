@@ -56,13 +56,13 @@ static char		*get_absolute_path(t_comp *comp)
 **	4eme cas : "ls comp", pas besoin de remplir dir on cherchera le cwd
 */
 
-void			comp_get_dir_to_open(t_comp *comp)
+void			comp_get_dir_to_open(t_comp *comp, t_edit *edit)
 {
 	char *cwd;
 	char *suffix;
 
-	// if (comp->str && *(comp->str) && *(comp->str) == '~')
-	// 	add_tild_in_str(comp);
+	if (comp->str && *(comp->str) && *(comp->str) == '~')
+		add_tild_in_str(comp, edit);
 	if (comp->str && *(comp->str) && *(comp->str) == '/')
 		comp->dir = get_absolute_path(comp);
 	else

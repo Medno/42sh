@@ -26,13 +26,14 @@ void				comp_get_pot_local(t_comp *comp, t_edit *edit);
 void				comp_get_pot_cmd(t_comp *comp, t_edit *edit);
 void				comp_get_pot_dir(t_comp *comp);
 void				comp_get_pot_dir_exec(t_comp *comp);
-void				comp_get_dir_to_open(t_comp *comp);
+void				comp_get_dir_to_open(t_comp *comp, t_edit *edit);
 void				comp_sort_alphab(t_comp *comp);
 void				comp_check_duplicate(t_comp *comp);
 t_line				*print_completion(t_line *cur, t_edit *edit);
 void				comp_add_pot_builtin(t_comp *comp);
 void				comp_add_pot_words(t_comp *comp);
 void				comp_add_backslash_space(t_comp *comp);
+void				add_tild_in_str(t_comp *comp, t_edit *edit);
 
 /*
 **	COMPLETION TOOLS
