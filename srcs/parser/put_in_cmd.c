@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:23:29 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 17:30:56 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 11:40:31 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	put_redir(t_cmd *cmd, t_lex *tmp, int *loop)
 	if (is_number(tmp->next->value))
 		redir->fd_out = ft_atoi(tmp->next->value);
 	else
-		redir->file = ft_strdup(tmp->next->value);
+		redir->file = ft_addstr_tab(redir->file, tmp->next->value);
 	redir_pushback(cmd, redir);
 }
 

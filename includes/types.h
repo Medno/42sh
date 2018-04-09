@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/09 10:29:01 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/09 11:35:13 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct		s_redir
 	int				fd_in;
 	int				fd_out;
 	char			*token;
-	char			*file;
+	char			**file;
 	struct s_redir	*next;
 }					t_redir;
 
