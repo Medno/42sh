@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 10:47:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/18 11:00:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 11:53:45 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static void	handle_remove(t_path *tmp, t_path **pathlist)
+static t_path	*handle_remove(t_path *tmp, t_path **pathlist)
 {
 	t_path	*tmp2;
 
@@ -24,6 +24,7 @@ static void	handle_remove(t_path *tmp, t_path **pathlist)
 		remove_elem(tmp2, pathlist);
 		remove_elem(tmp, pathlist);
 	}
+	return (*pathlist);
 }
 
 static int	check_valid(t_path **pathlist)
@@ -46,9 +47,7 @@ static int	check_valid(t_path **pathlist)
 			if (tmp->perms & 8)
 				return (-2);
 		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
-			handle_remove(tmp, pathlist);
-		if (!tmp)
-			tmp = *pathlist;
+			tmp = handle_remove(tmp, pathlist);
 		else if (tmp)
 			tmp = tmp->next;
 	}
