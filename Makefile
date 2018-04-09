@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/04/06 10:30:46 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/04/09 09:12:12 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -168,14 +168,6 @@ EXEC_NAME = exec.c				\
 			check_slash.c
 EXEC_PATH = exec/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(EXEC_PATH), $(EXEC_NAME)))
-
-### JOB CONTROL ###
-JOB_NAME = find_job.c			\
-		   new_job.c			\
-		   job_status.c			\
-		   new_proc.c
-JOB_PATH = job/
-SRCS += $(addprefix $(PATHFS), $(addprefix $(JOB_PATH), $(JOB_NAME)))
 
 ### LIBFT ###
 LIBINC = ./libft

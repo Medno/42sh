@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 15:55:38 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/09 09:12:41 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # include "parser.h"
 # include "expansion.h"
 # include "exec.h"
-# include "job.h"
 # include "redir.h"
 # include "completion.h"
 # include "vlocal.h"

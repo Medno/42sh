@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/11 15:35:23 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/09 09:22:00 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 t_redir	*handle_redir(t_redir *redir)
 {
+	if (redir->file && redir->file[0] == '$')
+	{
+		which_error(AMBIGOUS, NULL);
+		return (NULL);
+	}
 	if (ft_strequ(redir->token, ">"))
 		redir = handle_simple(redir);
 	else if (ft_strequ(redir->token, ">&"))
