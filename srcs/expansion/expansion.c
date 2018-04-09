@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/09 11:46:44 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 11:55:17 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 
 	i = 0;
 	res = NULL;
+	res_redir = NULL;
 	while (cmd->arg && cmd->arg[i])
 	{
 		res = do_expansion(init, cmd->arg[i], res);

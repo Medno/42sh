@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:44:15 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/14 15:46:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/09 12:11:38 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_redir	*handle_backfd(t_redir *redir)
 	struct stat		buf;
 	char			*tmp;
 
-	if (redir->file && ft_strequ(redir->file, "-"))
+	if (*redir->file && ft_strequ(*redir->file, "-"))
 	{
 		redir->fd_out = TOCLOSE;
 		close(redir->fd_in);
 		return (redir);
 	}
-	if (redir->file)
+	if (*redir->file)
 	{
 		which_error(AMBIGOUS, NULL);
 		return (NULL);
@@ -45,9 +45,9 @@ t_redir	*handle_back(t_redir *redir)
 {
 	int		fd;
 
-	if ((fd = open(redir->file, O_RDONLY)) == -1)
+	if ((fd = open(*redir->file, O_RDONLY)) == -1)
 	{
-		which_error(file_error(redir->file), redir->file);
+		which_error(file_error(*redir->file), *redir->file);
 		return (NULL);
 	}
 	redir->fd_out = fd;
@@ -60,9 +60,9 @@ t_redir	*handle_rw(t_redir *redir)
 	int		fd;
 
 	redir->fd_in = (redir->fd_in == -1) ? 0 : redir->fd_in;
-	if ((fd = open(redir->file, O_RDWR | O_CREAT, 0644)) == -1)
+	if ((fd = open(*redir->file, O_RDWR | O_CREAT, 0644)) == -1)
 	{
-		which_error(file_error(redir->file), redir->file);
+		which_error(file_error(*redir->file), *redir->file);
 		return (NULL);
 	}
 	dup2(fd, redir->fd_in);

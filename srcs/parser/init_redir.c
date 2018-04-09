@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:36:27 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/09 11:43:18 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 11:54:48 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	clean_one_redir(t_redir **del)
 {
 	if (*del)
 	{
-		ft_tabdel(&(*del)->file);
+		ft_freetab((*del)->file);
 		ft_strdel(&(*del)->token);
 		(*del)->next = NULL;
 		ft_memdel((void **)del);

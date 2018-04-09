@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:44:14 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/23 10:44:43 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/09 12:07:15 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ t_redir	*handle_simplefd(t_redir *redir)
 	struct stat	buf;
 	char		*tmp;
 
-	if (redir->file && ft_strequ(redir->file, "-"))
+	if (*redir->file && ft_strequ(*redir->file, "-"))
 		closefd(redir);
-	if (redir->file && !ft_isdigit(*redir->file))
+	if (*redir->file && !ft_isdigit(**redir->file))
 	{
-		which_error(AMBIGOUS, redir->file);
+		which_error(AMBIGOUS, *redir->file);
 		return (NULL);
 	}
 	if (redir->fd_in == -1)
 		return (handle_allfd(redir));
-	if (redir->file && ft_isdigit(*redir->file) && ft_strchr(redir->file, '-'))
+	if (*redir->file && ft_isdigit(**redir->file) && ft_strchr(*redir->file, '-'))
 		return (handle_closingfd(redir));
 	if (redir->fd_out > 2 && fstat(redir->fd_out, &buf) == -1)
 	{
