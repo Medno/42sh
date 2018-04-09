@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 09:21:24 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 14:01:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			replace_w_arg(t_hist **histo, char **str)
 				(*histo)->line = ft_strdup(s);
 			else
 				(*histo)->line = ft_strjoindel((*histo)->line, s);
+			ft_strdel(&s);
 		}
 		if ((*histo)->line)
 			(*histo)->line = ft_strjoindel((*histo)->line, "\n");

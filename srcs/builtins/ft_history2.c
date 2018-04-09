@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 14:13:26 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 15:08:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 14:48:14 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	free_elem(t_hist *tmp, t_hist **histo)
 
 	if (!tmp)
 		return ;
-	tmp2 = NULL;
 	increme_all(tmp->next, -1);
 	tmp2 = tmp->prev;
 	if (tmp2)
@@ -38,6 +37,8 @@ static void	free_elem(t_hist *tmp, t_hist **histo)
 	tmp2 = tmp->next;
 	if (tmp2)
 		tmp2->prev = tmp->prev;
+	else if (!(*histo)->next && (*histo)->prev)
+		*histo = (*histo)->prev;
 	tmp->next = NULL;
 	tmp->prev = NULL;
 	ft_strdel(&tmp->line);
