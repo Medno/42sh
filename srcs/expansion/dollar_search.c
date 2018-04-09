@@ -12,6 +12,19 @@
 
 #include "expansion.h"
 
+static char	incr_index_in_esc(char *str, int *i, char esc)
+{
+	if (esc == '\\' || (str[*i] && str[*i] == '\\'))
+		(*i)++;
+	if (str[*i])
+		(*i)++;
+	while (str[*i] && str[*i] != esc && esc != '\\' && esc != '\"')
+		(*i)++;
+	if (esc != '\"')
+		esc = 0;
+	return (esc);
+}
+
 static int	get_unquoted_dollar(char *str, int i, int *rep)
 {
 	char	escape;
@@ -21,15 +34,13 @@ static int	get_unquoted_dollar(char *str, int i, int *rep)
 	{
 		if (escape && str[i] == escape)
 			escape = 0;
-		else if (!escape && is_quote_bslash(str[i]) && (escape = str[i]))
-			i++;
-		if (escape == '\'' || escape == '\\' || (str[i] && str[i] == '\\'))
+		else if (!escape && is_quote_bslash(str[i]))
 		{
-			i = (escape == '\\' || (str[i] && str[i] == '\\')) ? i + 1 : i;
-			while (str[i] && str[i] != escape && escape != '\\')
-				i++;
-			escape = (escape != '\"') ? 0 : escape;
+			escape = str[i];
+			i++;
 		}
+		if (escape == '\'' || escape == '\\' || (str[i] && str[i] == '\\'))
+			escape = incr_index_in_esc(str, &i, escape);
 		if (str[i] && str[i + 1] && str[i] == '$' && str[i + 1] == '$')
 			i++;
 		*rep = (str[i] && str[i] == '$' && escape == '\"') ? 2 : *rep;
@@ -98,12 +109,12 @@ char		*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
 		tmp = search_dollar(init, str, i, len + 1);
 		*replace = (*replace == 2) ? *replace : 1;
 		res = ft_strjoindel(res, tmp);
+		ft_strdel(&tmp);
 	}
 	else if (str[*i] == '$' && !ft_isalnum(str[*i + 1]))
 	{
 		(*i)++;
 		*replace = 0;
 	}
-	ft_strdel(&tmp);
 	return (res);
 }
