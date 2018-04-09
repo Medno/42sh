@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/22 12:35:16 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 10:29:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,28 +153,4 @@ typedef struct		s_type
 	int				value;
 	int				(*f)(t_cmd *cmd, t_lex *lex);
 }					t_type;
-
-typedef struct		s_proc
-{
-	t_cmd			*cmd;
-	pid_t			pid;
-	int				completed;
-	int				stopped;
-	int				status;
-	struct s_proc	*next;
-}					t_proc;
-
-typedef struct		s_job
-{
-	struct s_proc	*proc;
-	char			*command;
-	pid_t			pgid;
-	int				notified;
-	int				stdinfd;
-	int				stdoutfd;
-	int				stderrfd;
-	struct termios	term;
-	struct s_job	*next;
-}					t_job;
-
 #endif
