@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:48:33 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 11:46:44 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char		**do_expansion(t_init *init, char *str, char **res)
 static t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 {
 	char	**res;
+	char	**res_redir;
 	int		i;
 
 	i = 0;
@@ -52,6 +53,12 @@ static t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
 	{
 		res = do_expansion(init, cmd->arg[i], res);
 		i++;
+	}
+	if (cmd->redir && cmd->redir->file && cmd->redir->file[0])
+	{
+		res_redir = do_expansion(init, cmd->redir->file[0], res_redir);
+		ft_freetab(cmd->redir->file);
+		cmd->redir->file = res_redir;
 	}
 	ft_freetab(cmd->arg);
 	cmd->arg = res;
