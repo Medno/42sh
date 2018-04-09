@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:13:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/23 10:49:07 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/09 13:20:16 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	which_error(int error, char *err_file)
 	else if (error == OPENFAIL)
 		ft_printf_fd(STDERR_FILENO, "%s: failed to open\n", err_file);
 	else if (error == AMBIGOUS)
-		ft_printf_fd(STDERR_FILENO, "ambigous redirection\n");
+		ft_printf_fd(STDERR_FILENO, "ambiguous redirection\n");
 	else
 		ft_putendl_fd("File number expected", STDERR_FILENO);
 }
