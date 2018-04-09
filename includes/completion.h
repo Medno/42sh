@@ -34,6 +34,7 @@ void				comp_add_pot_builtin(t_comp *comp);
 void				comp_add_pot_words(t_comp *comp);
 void				comp_add_backslash_space(t_comp *comp);
 void				add_tild_in_str(t_comp *comp, t_edit *edit);
+void				add_dollar_in_str(t_comp *comp, t_edit *edit);
 
 /*
 **	COMPLETION TOOLS

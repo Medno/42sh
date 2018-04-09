@@ -82,6 +82,7 @@ COMP_NAME =	clean_comp.c 				\
 			comp_get_word_to_complete.c	\
 			comp_list_to_comp.c			\
 			comp_tilde_expansion.c		\
+			comp_dollar_expansion.c		\
 			comp_sort_alphab.c			\
 			comp_add_backslash_space.c	\
 			comp_tools.c				\

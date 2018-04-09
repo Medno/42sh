@@ -70,5 +70,6 @@ void			add_tild_in_str(t_comp *comp, t_edit *edit)
 		// ft_printf("Il n'y a PAS de prefix, je remplace ~ par %s\n", "/Users");
 		replace_tilde_in_str(comp, "/Users/");		
 	}
+	ft_strdel(&home);
 	return ;
 }
