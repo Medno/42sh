@@ -14,11 +14,11 @@
 
 static char	incr_index_in_esc(char *str, int *i, char esc)
 {
-	if (esc == '\\' || (str[*i] && str[*i] == '\\'))
+	if ((str[*i] && str[*i] == '\\'))
+		(*i) += 2;
+	else if (esc == '\\')
 		(*i)++;
-	if (str[*i])
-		(*i)++;
-	while (str[*i] && str[*i] != esc && esc != '\\' && esc != '\"')
+	while (str[*i] && str[*i] != esc && esc == '\'')
 		(*i)++;
 	if (esc != '\"')
 		esc = 0;
