@@ -6,13 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:13:31 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:50:18 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 09:52:36 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-char	*esc_backslash(char *str, int *i)
+char		*esc_backslash(char *str, int *i)
 {
 	char	*res;
 	char	read[2];
@@ -28,7 +28,7 @@ char	*esc_backslash(char *str, int *i)
 	return (res);
 }
 
-char	*esc_simple_qu(char *str, int *i, int len)
+char		*esc_simple_qu(char *str, int *i, int len)
 {
 	char	*res;
 	char	buffer[len + 1];

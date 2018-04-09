@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:05:38 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:43:43 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 09:53:02 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static char	*not_dollar(char *res, char *str, int i, int end)
 	return (res);
 }
 
-char	*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
+char		*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
 {
 	char	*tmp;
 	char	*res;

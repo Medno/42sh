@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 13:21:32 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 16:39:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 09:51:29 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_edit.h"
 
-t_line *clear(t_edit *edit, char *buf)
+t_line	*clear(t_edit *edit, char *buf)
 {
 	char	*tmp;
 

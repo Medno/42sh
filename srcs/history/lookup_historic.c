@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:05:33 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 17:48:31 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 09:56:14 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	init_lookup(t_edit *edit, char *s)
 	ft_strdel(&tmp);
 }
 
-static char		*remove_last(char *s)
+static char	*remove_last(char *s)
 {
 	char	*new;
 
@@ -70,7 +70,7 @@ static char		*remove_last(char *s)
 	}
 }
 
-static void		step_2(t_edit *edit, char **look, char **str, char c)
+static void	step_2(t_edit *edit, char **look, char **str, char c)
 {
 	if (c != 127 && c != 8)
 	{
@@ -85,7 +85,7 @@ static void		step_2(t_edit *edit, char **look, char **str, char c)
 		*look = remove_last(*look);
 }
 
-char			lookup_history(t_edit *edit)
+char		lookup_history(t_edit *edit)
 {
 	char	*look;
 	char	*str;

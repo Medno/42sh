@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:25:58 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 15:34:17 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 09:53:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			only_space(char *str)
 	return (1);
 }
 
-char	**return_newtab(char *str, char **tab)
+char		**return_newtab(char *str, char **tab)
 {
 	char	**tmp;
 	int		i;

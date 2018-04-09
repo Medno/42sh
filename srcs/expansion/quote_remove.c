@@ -6,20 +6,20 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:50:51 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/09 09:54:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-int		is_quote_bslash(char c)
+int			is_quote_bslash(char c)
 {
 	if (c == '\\' || c == '\'' || c == '\"')
 		return (1);
 	return (0);
 }
 
-void	put_in_buffer(char buf[], char c)
+void		put_in_buffer(char buf[], char c)
 {
 	int	len;
 

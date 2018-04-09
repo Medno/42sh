@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 15:46:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 09:55:02 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	error_cd(int nb, char *str)
+static int		error_cd(int nb, char *str)
 {
 	if (nb == 1)
 		ft_printf_fd(STDERR_FILENO, "cd: %s: permission denied\n", str);
@@ -38,7 +38,7 @@ static t_path	*handle_remove(t_path *tmp, t_path **pathlist)
 	return (NULL);
 }
 
-static int	check_elements(t_path **pathlist, char *str)
+static int		check_elements(t_path **pathlist, char *str)
 {
 	t_path	*tmp;
 
@@ -66,7 +66,7 @@ static int	check_elements(t_path **pathlist, char *str)
 	return (0);
 }
 
-static char	*clear_path(char *s1, char *dir)
+static char		*clear_path(char *s1, char *dir)
 {
 	t_path	*pathlist;
 	char	*new;
@@ -89,7 +89,7 @@ static char	*clear_path(char *s1, char *dir)
 	return (new);
 }
 
-int			ft_cd_l(t_env **env, char *curpath, char *dir)
+int				ft_cd_l(t_env **env, char *curpath, char *dir)
 {
 	char	*tmp;
 	char	*tmp2;
