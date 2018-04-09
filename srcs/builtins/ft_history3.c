@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/09 14:01:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/09 15:30:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			full_hist_file(t_hist **histo, char *str)
 		ft_putendl_fd(tmp->line, fd);
 		tmp = tmp->next;
 	}
+	close(fd);
 	return (0);
 }
 
