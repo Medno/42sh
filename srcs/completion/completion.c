@@ -75,45 +75,7 @@ void	comp_modify_cmd(t_comp *comp)
 	ft_strdel(&suffix);
 }
 
-int		comp_is_directory(t_comp *comp)
-{
-	struct	stat sb;
-	int		ret;
-	char	*file_path;
 
-	file_path = ft_strjoin(comp->dir, comp->current->cmd);
-// stat renvoie 0 en cas de succes
-	if (!file_path || stat(file_path, &sb) != 0)
-		ret = 0;
-	else
-	{
-		if (S_ISDIR(sb.st_mode))
-			ret = 1;
-		else
-			ret = 0;
-	}
-	ft_strdel(&file_path);
-	return (ret);
-}
-
-void	comp_validate_choice(t_comp *comp)
-{
-//	Si on a un seul choix, on valide et on met current à NULL
-	if (comp->list->next)
-		return ;
-// CAS DIR
-	if (comp_is_directory(comp))
-	{
-		comp->current->cmd = ft_strjoindel(comp->current->cmd, "/");
-		comp->pos++;
-	}
-// CAS Commande OU Fichier
-	else
-	{
-		comp->current->cmd = ft_strjoindel(comp->current->cmd, " ");
-		comp->pos++;
-	}
-}
 
 /*
 **	On recuperer la string à completer
@@ -138,7 +100,7 @@ void	do_completion(t_comp *comp, t_edit *edit)
 	// ft_printf("\nApres get word : ");
 	// ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
 
-	// comp_get_dir_to_open(comp);
+	comp_get_dir_to_open(comp);
 	// ft_printf("\nApres get dir : ");
 	// ft_printf("dir = [%s] string = [%s]\n", comp->dir, comp->str);
 
@@ -153,8 +115,5 @@ void	do_completion(t_comp *comp, t_edit *edit)
 	//  	ft_printf("\n");
 
 	if (comp->list)
-	{
 		comp_modify_cmd(comp);
-		comp_validate_choice(comp);
-	}
 }
