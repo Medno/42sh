@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:05:38 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/09 09:53:02 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 11:34:18 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static char	incr_index_in_esc(char *str, int *i, char esc)
 		(*i)++;
 	while (str[*i] && str[*i] != esc && esc == '\'')
 		(*i)++;
+	if (esc == '\\' && str[*i] == '\"')
+		esc = str[*i];
 	if (esc != '\"')
 		esc = 0;
 	return (esc);
