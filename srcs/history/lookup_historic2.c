@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 13:21:32 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/09 09:51:29 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 11:20:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ t_line	*clear(t_edit *edit, char *buf)
 	free_tline(*edit->current);
 	*edit->current = str_to_line(buf, edit->prompt_len, &edit->curseur);
 	tmp = line_to_str(*edit->current);
-	(*edit->histo)->line = ft_strdup(tmp);
-	ft_putstr_fd(tmp, STDIN_FILENO);
-	ft_strdel(&tmp);
+	if (tmp)
+	{
+		(*edit->histo)->line = ft_strdup(tmp);
+		ft_putstr_fd(tmp, STDIN_FILENO);
+		ft_strdel(&tmp);
+	}
 	return (*edit->current);
 }
 
