@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 16:23:35 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 15:58:50 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 15:18:17 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_alnum(char *str)
 	j = 0;
 	while (str[j] && str[j] != '=')
 	{
-		if (!ft_isalnum(str[j]))
+		if (!ft_isalnum(str[j]) && str[j] != '_')
 			return (0);
 		j++;
 	}
