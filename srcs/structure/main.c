@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 09:24:23 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 10:26:29 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int				main(int ac, char **av, char **environ)
 
 	if (!isatty(STDIN_FILENO))
 		return (0);
+	init_all(environ, &init);
+	g_in = &init;
 	signal(SIGSEGV, (void (*)(int))catch_and_reset);
 	signal(SIGABRT, (void (*)(int))catch_and_reset);
 	signal(SIGBUS, (void (*)(int))catch_and_reset);
 	signal(SIGFPE, (void (*)(int))catch_and_reset);
 	signal(SIGTRAP, (void (*)(int))catch_and_reset);
-	init_all(environ, &init);
-	g_in = &init;
 	step_1(init);
 	(void)ac;
 	(void)av;
