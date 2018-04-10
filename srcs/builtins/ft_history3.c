@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 08:49:01 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 15:02:43 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			full_hist_file(t_hist **histo, char *str)
 		tmp = tmp->prev;
 	while (tmp)
 	{
-		ft_putendl_fd(tmp->line, fd);
+		ft_putstr_fd(tmp->line, fd);
 		tmp = tmp->next;
 	}
 	close(fd);
