@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 10:26:29 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 10:46:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int				main(int ac, char **av, char **environ)
 	signal(SIGBUS, (void (*)(int))catch_and_reset);
 	signal(SIGFPE, (void (*)(int))catch_and_reset);
 	signal(SIGTRAP, (void (*)(int))catch_and_reset);
+	signal(SIGHUP, (void (*)(int))catch_and_reset);
+	signal(SIGTERM, (void (*)(int))catch_and_reset);
 	step_1(init);
 	(void)ac;
 	(void)av;
