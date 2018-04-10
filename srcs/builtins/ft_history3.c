@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 08:30:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 08:49:01 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ int			replace_w_arg(t_hist **histo, char **str)
 
 	s = NULL;
 	i = -1;
-	if (!*str)
-		return (0);
-	else
+	if (*str)
 	{
 		ft_strdel(&(*histo)->line);
 		while (str[++i])
