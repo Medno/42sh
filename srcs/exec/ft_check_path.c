@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 13:09:34 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 15:51:06 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_bin(char *str, t_init *init, char **s_fin, int print)
 	tmp = NULL;
 	path = get_path(init);
 	i = -1;
-	while (path[++i])
+	while (path && path[++i])
 	{
 		tmp = ft_strjoin(path[i], "/");
 		tmp = ft_strjoindel(tmp, str);
