@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 14:59:34 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 15:06:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,12 @@ int			ft_exit(t_init *init, char **arg)
 		{
 			if (!ft_isdigit(arg[1][i]))
 			{
-				ft_printf_fd(STDERR_FILENO,
-		"42sh: exit: %s: numeric argument required\n", init->ast->cmd->arg[1]);
-				ret = 255;
-				break ;
+				ft_printf_fd(2, "42sh: exit: %s: numeric argument required\n",
+				init->ast->cmd->arg[1]);
+				return (final_exit(init, 255, arg));
 			}
-			ret = (unsigned char)ft_atoi(arg[1]);
 		}
+		ret = (unsigned char)ft_atoi(arg[1]);
 	}
 	return (final_exit(init, ret, arg));
 }
