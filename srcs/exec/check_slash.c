@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 10:47:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/09 11:53:45 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 08:49:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_path	*handle_remove(t_path *tmp, t_path **pathlist)
 	return (*pathlist);
 }
 
-static int	check_valid(t_path **pathlist)
+static int		check_valid(t_path **pathlist)
 {
 	t_path	*tmp;
 
@@ -54,7 +54,7 @@ static int	check_valid(t_path **pathlist)
 	return (0);
 }
 
-static int	check_str(char *str)
+static int		check_str(char *str)
 {
 	while (*str)
 	{
@@ -65,7 +65,7 @@ static int	check_str(char *str)
 	return (1);
 }
 
-int			check_slash(char *str, char **s_fin, int print)
+int				check_slash(char *str, char **s_fin, int print)
 {
 	int		ret;
 	char	*tmp;
