@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tilde_exp.c                                        :+:      :+:    :+:   */
+/*   comp_tilde_expansion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/09 16:37:15 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:49:35 by pchadeni         ###   ########.fr       */
+/*   Created: 2018/04/10 09:52:15 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:52:17 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "completion.h"
 
-void			replace_tilde_in_str(t_comp *comp, char *new_tild)
+static void			replace_tilde_in_str(t_comp *comp, char *new_tild)
 {
 	char *new;
 
@@ -21,8 +21,7 @@ void			replace_tilde_in_str(t_comp *comp, char *new_tild)
 	comp->str = new;
 }
 
-
-char			*get_home_value(t_edit *edit)
+static char			*get_home_value(t_edit *edit)
 {
 	char *home;
 	char *tmp;
@@ -36,7 +35,7 @@ char			*get_home_value(t_edit *edit)
 	return (tmp);
 }
 
-static int		has_prefix(char *str)
+static int			has_prefix(char *str)
 {
 	char *tmp;
 
@@ -48,28 +47,14 @@ static int		has_prefix(char *str)
 	return (1);
 }
 
-void			add_tild_in_str(t_comp *comp, t_edit *edit)
+void				add_tild_in_str(t_comp *comp, t_edit *edit)
 {
-//	[~blbalbalab/suffix]
 	char *home;
 
 	home = get_home_value(edit);
-	if (has_prefix(comp->str) == 2)
-	{
-//	 	ft_printf("J'ai reconnu ~ tout seul, je ne fais rien\n");
-	 	(void)comp;
-//		replace_tilde_in_str(comp, home);
-	}
-	else if (has_prefix(comp->str) == 1)
-	{
-		// ft_printf("Il y a un prefix, je remplace ~ par %s\n", home);
+	if (has_prefix(comp->str) == 1)
 		replace_tilde_in_str(comp, home);
-	}
-	else
-	{
-		// ft_printf("Il n'y a PAS de prefix, je remplace ~ par %s\n", "/Users");
-		replace_tilde_in_str(comp, "/Users/");		
-	}
+	else if (!has_prefix(comp->str))
+		replace_tilde_in_str(comp, "/Users/");
 	ft_strdel(&home);
-	return ;
 }

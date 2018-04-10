@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comp_cmd.c                                      :+:      :+:    :+:  */
+/*   get_potential_words.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 10:01:51 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 10:01:53 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	**get_word_list(void)
 		word_list[4] = ft_strdup("fi");
 		word_list[5] = ft_strdup("do");
 		word_list[6] = ft_strdup("done");
-		word_list[7] = ft_strdup("case");	
+		word_list[7] = ft_strdup("case");
 		word_list[8] = ft_strdup("esac");
 		word_list[9] = ft_strdup("while");
 		word_list[10] = ft_strdup("until");

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   completion.c                                       :+:      :+:    :+:   */
+/*   debug_completion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/10 09:53:02 by hfouques          #+#    #+#             */
-/*   Updated: 2018/04/10 09:53:03 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 10:11:03 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 10:11:05 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,30 @@ void	do_completion(t_comp *comp, t_edit *edit)
 {
 	if (comp->cmd == NULL || *(comp->cmd) == 0)
 		return ;
+
+	// ft_printf("\nEn entree :\n");
+	// ft_printf("cmd = [%s]\npos = [%d]\n", comp->cmd, comp->pos);
+	// if (comp->list)
+	// 	ft_printf("current = [%s]\nlist = [%s]\n", comp->current->cmd, comp->list ? comp->list->cmd : 0);
+
 	get_word_to_complete(comp);
+	// ft_printf("\nApres get word : ");
+	// ft_printf("dir = [%s]\nstring = [%s]\n", comp->dir, comp->str);
+
 	comp_get_dir_to_open(comp, edit);
+	// ft_printf("\nApres get dir : ");
+	// ft_printf("dir = [%s] string = [%s]\n", comp->dir, comp->str);
+
 	if (comp->current == NULL)
 		do_new_completion(comp, edit);
 	else
 		put_current_to_next(comp);
+	// ft_printf("\nApres new_comp : ");
+	// if (comp->current && comp->list)
+	// 	ft_printf("current = [%s]\n list = [%s]\n", comp->current->cmd, comp->list->cmd);
+	//  else
+	//  	ft_printf("\n");
+
 	if (comp->list)
 		comp_modify_cmd(comp);
 }

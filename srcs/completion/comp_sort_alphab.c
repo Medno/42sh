@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_all_cmd.c                                       :+:      :+:    :+:  */
+/*   comp_sort_alphab.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 09:51:40 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:51:41 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_sorted(t_lcomp *list)
 void		comp_sort_alphab(t_comp *comp)
 {
 	t_lcomp *tmp;
-	char *tmp2;
+	char	*tmp2;
 
 	tmp = comp->list;
 	while (tmp && tmp->next)

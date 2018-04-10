@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comp_cmd.c                                       :+:      :+:    :+:  */
+/*   get_potential_directory.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 09:53:39 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:53:40 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static int		is_pot_dir(char *dir, char *str)
 
 static int		has_exec_rights(char *dir_to_open, char *d_name)
 {
-	struct	stat sb;
-	int		ret;
-	char	*file_path;
+	struct stat	sb;
+	int			ret;
+	char		*file_path;
 
 	file_path = ft_strjoin_infinite(3, dir_to_open, "/", d_name);
 	if (stat(file_path, &sb) != 0)
@@ -49,7 +49,7 @@ static int		has_exec_rights(char *dir_to_open, char *d_name)
 	return (ret);
 }
 
-void	comp_get_pot_dir_exec(t_comp *comp)
+void			comp_get_pot_dir_exec(t_comp *comp)
 {
 	DIR				*dir;
 	struct dirent	*info;
@@ -59,7 +59,8 @@ void	comp_get_pot_dir_exec(t_comp *comp)
 	{
 		while ((info = readdir(dir)))
 		{
-			if (is_pot_dir(info->d_name, comp->str) && has_exec_rights(comp->dir, info->d_name))
+			if (is_pot_dir(info->d_name, comp->str)
+				&& has_exec_rights(comp->dir, info->d_name))
 			{
 				new = init_t_lcomp();
 				new->cmd = ft_strdup(info->d_name);
@@ -70,7 +71,7 @@ void	comp_get_pot_dir_exec(t_comp *comp)
 	}
 }
 
-void	comp_get_pot_dir(t_comp *comp)
+void			comp_get_pot_dir(t_comp *comp)
 {
 	DIR				*dir;
 	struct dirent	*info;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comp_cmd.c                                      :+:      :+:    :+:  */
+/*   get_potential_bi.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 09:53:18 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:53:19 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	**get_builtin_list(void)
 		bi_list[4] = ft_strdup("setenv");
 		bi_list[5] = ft_strdup("unsetenv");
 		bi_list[6] = ft_strdup("export");
-		bi_list[7] = ft_strdup("set");	
+		bi_list[7] = ft_strdup("set");
 		bi_list[8] = ft_strdup("unset");
 		bi_list[9] = ft_strdup("exit");
 		bi_list[10] = ft_strdup("history");

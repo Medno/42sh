@@ -20,7 +20,7 @@ static char		**do_expansion(t_init *init, char *str, char **res)
 	i = 0;
 	tmp = NULL;
 	tmp = ft_addstr_tab(tmp, str);
-	if (tmp[0])
+	if (tmp && tmp[0])
 	{
 		if (tmp[0][0] == '~')
 			tmp[0] = exp_tilde(init, tmp[0], ft_strlen(tmp[0]));

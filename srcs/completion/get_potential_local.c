@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comp_cmd.c                                      :+:      :+:    :+:  */
+/*   get_potential_local.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 09:53:52 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:53:53 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int	comp_is_pot_local(char *name, char *str)
 	return (ret);
 }
 
-static void		add_pot_local(t_comp *comp, t_env *env)
+static void	add_pot_local(t_comp *comp, t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 	t_lcomp *new;
-	
+
 	tmp = env;
 	while (tmp)
 	{

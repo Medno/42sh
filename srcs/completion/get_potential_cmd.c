@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comp_cmd.c                                      :+:      :+:    :+:  */
+/*   get_potential_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 09:53:28 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:53:29 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,24 @@ static char		**comp_get_all_path(t_edit *edit)
 			tmp++;
 		while (*tmp && *tmp != ':')
 			tmp++;
-
 	}
 	return (tabl);
 }
 
 static int		comp_is_pot_cmd(char *lex, char *str, char *path)
 {
-	struct	stat sb;
-	char	*abs_path;
-	int		ret;
+	struct stat sb;
+	char		*abs_path;
+	int			ret;
 
 	ret = 0;
 	if (path)
 		abs_path = ft_strjoin_infinite(3, path, "/", lex);
 	else
 		abs_path = ft_strdup(lex);
-	if (stat(abs_path, &sb) == 0 && (sb.st_mode & S_IXOTH) && !S_ISDIR(sb.st_mode))
-    {
+	if (stat(abs_path, &sb) == 0 &&
+		(sb.st_mode & S_IXOTH) && !S_ISDIR(sb.st_mode))
+	{
 		if (str == NULL || ft_strlen(str) == 0)
 			ret = 0;
 		else if (ft_strncmp(lex, str, ft_strlen(str)) == 0)
@@ -112,8 +112,8 @@ void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 	int				i;
 
 	all_path = comp_get_all_path(edit);
-	i = 0;
-	while (all_path[i])
+	i = -1;
+	while (all_path[++i])
 	{
 		dir = opendir(all_path[i]);
 		while (dir && (info = readdir(dir)))
@@ -126,7 +126,6 @@ void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 			}
 		}
 		closedir(dir);
-		i++;
 	}
 	ft_freetab(all_path);
 	comp_add_pot_builtin(comp);

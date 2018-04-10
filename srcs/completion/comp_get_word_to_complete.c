@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_heredoc.c                                       :+:      :+:    :+:   */
+/*   comp_get_word_to_complete.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 09:51:10 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:51:11 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int		get_start(t_comp *comp)
 
 	i = comp->pos - 1;
 	tmp = comp->cmd;
-	
 	if (is_delimiteur(tmp, i) && i != 0 && is_delimiteur(tmp, i - 1))
 		return (i);
 	while (i > 0)
@@ -46,7 +45,7 @@ static size_t	get_len(t_comp *comp, int start)
 	{
 		ret++;
 		if ((int)start + (int)ret == comp->pos - 1)
-			break;
+			break ;
 	}
 	return (ret);
 }
@@ -54,7 +53,7 @@ static size_t	get_len(t_comp *comp, int start)
 /*
 **	On veut recuperer la string a modifier par completion
 **	Càd isoler [string a comp] dans "[prefix] [string a comp][suffix]"
-**	On isole le debut de la string start et la taille de la string pour effectuer un strsub
+**	On isole le debut et la taille de la string start pour effectuer un strsub
 */
 
 void			get_word_to_complete(t_comp *comp)

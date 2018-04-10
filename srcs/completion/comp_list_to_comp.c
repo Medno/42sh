@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_heredoc.c                                       :+:      :+:    :+:   */
+/*   comp_list_to_comp.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2018/03/02 11:22:58 by kyazdani         ###   ########.fr       */
+/*   Created: 2018/04/10 09:51:27 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:51:28 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		start_at_separ(t_comp *comp)
 **	/!\ Le prompt incrémente l'index et empeche de s'en servir
 */
 
-void		from_list_to_comp(t_line *cur, t_comp *comp)
+void			from_list_to_comp(t_line *cur, t_comp *comp)
 {
 	t_line *tmp;
 
@@ -72,4 +72,3 @@ void		from_list_to_comp(t_line *cur, t_comp *comp)
 	comp->pos++;
 	start_at_separ(comp);
 }
-

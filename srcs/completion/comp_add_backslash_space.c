@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_all_cmd.c                                       :+:      :+:    :+:  */
+/*   comp_add_backslash_space.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hfouques <hfouques@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/17 18:59:14 by hfouques          #+#    #+#             */
-/*   Updated: 2017/02/20 18:20:51 by hfouques         ###   ########.fr       */
+/*   Created: 2018/04/10 09:50:11 by hfouques          #+#    #+#             */
+/*   Updated: 2018/04/10 09:50:13 by hfouques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		add_backslash_for_space(t_lcomp *elem)
 {
 	int		n;
 	char	*new;
-	int i;
+	int		i;
 	char	*tmp;
 
 	n = nbr_of_space(elem->cmd);
@@ -50,7 +50,6 @@ static void		add_backslash_for_space(t_lcomp *elem)
 	{
 		if (is_space_or_dollar(elem->cmd[i]) && is_echaped(elem->cmd, i) == 0)
 		{
-			
 			*tmp = '\\';
 			tmp++;
 			*tmp = elem->cmd[i];
@@ -65,7 +64,7 @@ static void		add_backslash_for_space(t_lcomp *elem)
 	ft_strdel(&tmp);
 }
 
-void		comp_add_backslash_space(t_comp *comp)
+void			comp_add_backslash_space(t_comp *comp)
 {
 	t_lcomp *tmp;
 
