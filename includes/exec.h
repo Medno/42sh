@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/22 10:12:28 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 08:42:17 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void		fork_cmd(t_init *init, t_ast *ast, char *path);
 int			is_builtin(char *str);
 int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init);
 int			check_path(char **arg, t_init *init, char **s_fin, int print);
-int			step_1(t_init init);
 
 void		pid_addlast(t_pid **pid, pid_t proc);
 

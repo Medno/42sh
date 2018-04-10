@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 18:04:49 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/19 15:10:44 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 08:43:48 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void		create_loc(t_init *init)
+static void	create_loc(t_init *init)
 {
 	uid_t	uid;
 	char	*name;

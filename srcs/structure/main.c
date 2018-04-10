@@ -6,13 +6,37 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/09 09:56:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 08:40:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int				step_2(t_init *init)
+static int		step_3(t_init *init, t_ast *ast, int quote_again)
+{
+	if (ast)
+	{
+		while (ast && ast->value == SEMI)
+		{
+			ast_expansion(init, ast->left);
+			if (!init->dollar)
+				quote_again = exec_start(ast->left, init);
+			ast = ast->right;
+		}
+		if (ast && ast->value != SEMI)
+		{
+			ast_expansion(init, ast);
+			if (!init->dollar)
+				quote_again = exec_start(ast, init);
+		}
+	}
+	clean_ast(&init->ast);
+	del_lex(init->lex);
+	del_heredoc();
+	return (quote_again);
+}
+
+static int		step_2(t_init *init)
 {
 	int			quote_again;
 	t_ast		*ast;
@@ -26,30 +50,10 @@ int				step_2(t_init *init)
 	}
 	init->historic = cleanup_nl_hist(&init->historic);
 	ast = init->ast;
-	if (ast)
-	{
-		while (ast && ast->value == SEMI)
-		{
-			ast_expansion(init, ast->left);
-			if (!init->dollar)
-				quote_again = exec_start(ast->left, init);
-			ast = ast->right;
-		}
-		if (ast && ast->value != SEMI)
-		{
-			ast_expansion(init, ast);
-			//expansion/script/...
-			if (!init->dollar)
-				quote_again = exec_start(ast, init);
-		}
-	}
-	clean_ast(&init->ast);
-	del_lex(init->lex);
-	del_heredoc();
-	return (quote_again);
+	return (step_3(init, ast, quote_again));
 }
 
-int				step_1(t_init init)
+static int		step_1(t_init init)
 {
 	int		ret;
 	int		len_prompt;
@@ -79,7 +83,7 @@ int				main(int ac, char **av, char **environ)
 	init_all(environ, &init);
 	g_in = &init;
 	step_1(init);
-	(void)ac; // FOR FURTHER USE (DEBUG AND SHELL OPTIONS OR SCRIPTS)
+	(void)ac;
 	(void)av;
 	return (0);
 }
