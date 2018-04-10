@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:05:38 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 11:34:18 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/10 11:55:01 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ static char	incr_index_in_esc(char *str, int *i, char esc)
 
 static int	get_unquoted_dollar(char *str, int i, int *rep)
 {
-	char	escape;
+	static char	escape = 0;
 
-	escape = 0;
 	while (str[i])
 	{
 		if (escape && str[i] == escape)
@@ -46,7 +45,7 @@ static int	get_unquoted_dollar(char *str, int i, int *rep)
 		if (str[i] && str[i + 1] && str[i] == '$' && str[i + 1] == '$')
 			i++;
 		*rep = (str[i] && str[i] == '$' && escape == '\"') ? 2 : *rep;
-		if (str[i] && str[i] == '$')
+		if (str[i] && str[i] == '$' && str[i + 1] && str[i + 1] != ' ')
 			return (i);
 		if (str[i])
 			i++;
