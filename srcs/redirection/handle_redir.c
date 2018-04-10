@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/09 12:08:50 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 13:58:33 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_redir	*handle_simple(t_redir *redir)
 {
 	int		fd;
 
-	if (!*redir->file)
+	if (!redir->file)
 		*redir->file = ft_itoa(redir->fd_out);
 	if ((fd = open(*redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 	{
@@ -79,7 +79,7 @@ t_redir	*handle_redirall(t_redir *redir)
 {
 	int		fd;
 
-	if (!*redir->file)
+	if (!redir->file)
 		*redir->file = ft_itoa(redir->fd_out);
 	if (ft_strequ(*redir->file, "-") && redir->fd_in != -1)
 	{

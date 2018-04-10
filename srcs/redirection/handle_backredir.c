@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:44:15 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/09 12:11:38 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 13:57:15 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_redir	*handle_backfd(t_redir *redir)
 	struct stat		buf;
 	char			*tmp;
 
-	if (*redir->file && ft_strequ(*redir->file, "-"))
+	if (redir->file && ft_strequ(*redir->file, "-"))
 	{
 		redir->fd_out = TOCLOSE;
 		close(redir->fd_in);
 		return (redir);
 	}
-	if (*redir->file)
+	if (redir->file)
 	{
 		which_error(AMBIGOUS, NULL);
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:15:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 16:04:38 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 13:08:25 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ int				ft_setenv(t_env **env, char *name, char *content)
 
 int				ft_setenv_init(t_env **env, char **arg)
 {
+	if (!arg[1])
+	{
+		ft_print_env(*env, 0);
+		return (0);
+	}
 	if (!arg[1] || !arg[2] || ft_strchr(arg[1], '='))
 	{
 		ft_printf_fd(STDERR_FILENO, "setenv: usage: setenv [name] [value]\n");

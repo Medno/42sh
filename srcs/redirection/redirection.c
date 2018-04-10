@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/09 13:19:34 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 13:53:38 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_redir	*handle_redir(t_redir *redir)
 {
-	if (!redir->file || (redir->file && ft_tablen(redir->file) > 1))
+	if (redir->file && ft_tablen(redir->file) > 1)
 	{
 		which_error(AMBIGOUS, NULL);
 		return (NULL);
