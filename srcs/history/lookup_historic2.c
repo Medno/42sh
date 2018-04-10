@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 13:21:32 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 11:20:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 11:31:54 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*search_hist(t_edit *edit, char *look, char c)
 	while (tmp && tmp->line && !strstrall(tmp->line, s))
 		tmp = tmp->prev;
 	ft_strdel(&s);
-	if (!tmp)
+	if (!tmp || !tmp->line)
 		return (NULL);
 	else
 		return (ft_strdup(tmp->line));
