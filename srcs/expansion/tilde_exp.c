@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:37:15 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:49:35 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/10 13:19:13 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_prefix(t_init *init, char *str, char buf[], int *i)
 		(*i)++;
 	}
 	res = 0;
-	if ((!buf[1] && (buf[0] == '-' || buf[0] == '+')) || !buf[0])
+	if (!buf[0] || (buf[0] && (buf[0] == '-' || buf[0] == '+') && !buf[1]))
 	{
 		if ((buf[0] == '-' && !ft_getenv(&init->new_env, "OLDPWD")) ||
 				(buf[0] == '+' && !ft_getenv(&init->new_env, "PWD")) ||

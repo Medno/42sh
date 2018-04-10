@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:05:38 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 11:55:01 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/10 13:41:40 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*search_dollar(t_init *init, char *str, int *i, int len)
 	*i = (brace) ? *i + 1 : *i;
 	while (str[*i])
 	{
-		if (ft_isalnum(str[*i]))
+		if (ft_isalnum(str[*i]) || str[*i] == '_' || str[*i] == '-')
 			put_in_buffer(buf, str[*i]);
 		else if (!ft_isalnum(str[*i]) && brace && str[*i] != '}')
 			return (err_dollar(init, str));
@@ -104,8 +104,8 @@ char		*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
 	if (*i < end)
 		res = not_dollar(res, str, *i, end);
 	*i = (*i == end && !str[*i + 1]) ? *i + 1 : end;
-	if (str[*i] && str[*i + 1] && (ft_isalnum(str[*i + 1]) ||
-				str[*i + 1] == '{'))
+	if (str[*i] && str[*i + 1] && (ft_isalnum(str[*i + 1]) || str[*i + 1] == '_'
+					|| str[*i + 1] == '-' || str[*i + 1] == '{'))
 	{
 		tmp = search_dollar(init, str, i, len + 1);
 		*replace = (*replace == 2) ? *replace : 1;
