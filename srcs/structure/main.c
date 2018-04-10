@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 10:46:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 10:49:55 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		step_3(t_init *init, t_ast *ast, int quote_again)
 	return (quote_again);
 }
 
-static int		step_2(t_init *init)
+int				main_step_2(t_init *init)
 {
 	int			quote_again;
 	t_ast		*ast;
@@ -67,7 +67,7 @@ static int		step_1(t_init init)
 		ft_cfmakedefault(&init.current);
 		init.historic = cleanup_nl_hist(&init.historic);
 		if (!ret && init.str)
-			step_2(&init);
+			main_step_2(&init);
 		if (ret == 1 || init.stop)
 			ft_exit(&init, NULL);
 		ft_strdel(&init.str);
@@ -79,7 +79,7 @@ int				main(int ac, char **av, char **environ)
 	t_init			init;
 
 	if (!isatty(STDIN_FILENO))
-		return (0);
+		return (read_stdin(environ));
 	init_all(environ, &init);
 	g_in = &init;
 	signal(SIGSEGV, (void (*)(int))catch_and_reset);
