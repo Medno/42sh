@@ -6,11 +6,13 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 10:49:55 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 15:27:46 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+extern int		g_status;
 
 static int		step_3(t_init *init, t_ast *ast, int quote_again)
 {
@@ -78,6 +80,7 @@ int				main(int ac, char **av, char **environ)
 {
 	t_init			init;
 
+	g_status = 0;
 	if (!isatty(STDIN_FILENO))
 		return (read_stdin(environ));
 	init_all(environ, &init);

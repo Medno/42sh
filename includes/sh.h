@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 10:41:35 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 15:05:27 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include "vlocal.h"
 
 int		g_quote;
+int		g_status;
 t_init	*g_in;
 t_edit	*g_ed;
 

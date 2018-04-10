@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:43:53 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/20 18:03:55 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/10 15:33:45 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	launch_pipe(t_init *init, t_ast *ast, int std_fd[], int error)
 	launch_exec(init, ast->right, std_fd, error);
 }
 
-int		wait_pipe(t_pid **pid)
+int		wait_pipe(t_pid **pid, int sig)
 {
 	t_pid	*tmp;
 	int		status;
@@ -77,6 +77,10 @@ int		wait_pipe(t_pid **pid)
 		*pid = (*pid)->next;
 	}
 	*pid = tmp;
+	if (status != -1)
+		g_status = WEXITSTATUS(status);
+	else
+		g_status = sig;
 	del_pid(pid);
 	return (status);
 }
