@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 15:06:16 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/10 17:23:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	final_exit(t_init *init, unsigned char x, char **entry)
 	hist_to_file(init->historic);
 	ft_strdel(&init->str);
 	free_list(&init->new_env);
+	if (x != 255)
+		x = g_status;
 	exit(x);
 	return (0);
 }
