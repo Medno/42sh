@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 12:29:49 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 15:39:47 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:31:58 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_ast				*init_ast(void);
 void				clean_ast(t_ast **root);
 t_ast				*build_ast(t_lex *first);
 void				paste_last_hist(t_hist **histo);
-void				print_ast(t_ast *root, char *pos);
 /*
 ** command
 */
@@ -49,6 +48,5 @@ void				clean_redir(t_redir **redir);
 t_redir				*put_fd_in(t_redir *redir, t_lex *tmp);
 void				put_redir(t_cmd *cmd, t_lex *tmp, int *loop);
 t_cmd				*put_in_cmd(t_cmd *cmd, t_lex *tmp);
-void				print_cmd(t_cmd *cmd);
 
 #endif

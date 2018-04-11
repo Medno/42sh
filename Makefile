@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/04/10 17:19:24 by pchadeni         ###   ########.fr        #
+#    Updated: 2018/04/11 14:31:36 by pchadeni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,7 +128,6 @@ PARSER_NAME = ast.c init_ast.c	\
 			  put_in_cmd.c		\
 			  parser.c			\
 			  is_pars.c			\
-			  print_smtg.c		\
 			  repeat_heredoc.c	\
 			  repeat_line.c
 PARSER_PATH = parser/
