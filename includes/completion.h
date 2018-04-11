@@ -41,7 +41,7 @@ void				add_dollar_in_str(t_comp *comp, t_edit *edit);
 */
 int					comp_is_first_word(t_comp *comp);
 int					comp_has_slash(char *str);
-
+void				add_to_list(t_comp *comp, char *d_name);
 t_lcomp				*lcomp_push_back(t_lcomp *list, t_lcomp *new);
 t_lcomp				*init_t_lcomp(void);
 t_comp				*init_t_comp(void);
