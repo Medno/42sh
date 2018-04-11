@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:27:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/21 13:19:08 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/11 08:34:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,22 @@ static int	set_bits(char c, int flag)
 	return (flag);
 }
 
-int			check_p(t_init *init, char **arg)
+static int	check_p(t_init *init, char **arg)
 {
 	if (arg[1] && arg[2])
 		return (switch_loc_to_env(init, arg + 1));
 	ft_print_env(init->new_env, '"');
+	return (0);
+}
+
+static int	router(t_init *init, char **arg, int flags)
+{
+	if (flags == 1)
+		return (check_p(init, arg));
+	if (flags & 2)
+		return (switch_env_to_loc(init, arg));
+	else
+		return (switch_loc_to_env(init, arg));
 	return (0);
 }
 
@@ -62,6 +73,11 @@ int			ft_export(t_init *init, char ***entry)
 	c = 0;
 	arg = *entry;
 	reset_ft_opt();
+	if (arg && !(arg)[1])
+	{
+		ft_print_env(init->new_env, '\'');
+		return (0);
+	}
 	while ((c = ft_getopt(ft_tablen(arg), arg, "np")) != -1)
 	{
 		if (ft_strchr("np", c))
@@ -69,11 +85,5 @@ int			ft_export(t_init *init, char ***entry)
 		else if (c == '?')
 			return (export_usage());
 	}
-	if (flags == 1)
-		return (check_p(init, arg));
-	if (flags & 2)
-		return (switch_env_to_loc(init, arg));
-	else
-		return (switch_loc_to_env(init, arg));
-	return (0);
+	return (router(init, arg, flags));
 }
