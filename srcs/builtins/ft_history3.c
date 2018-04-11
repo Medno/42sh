@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/11 10:59:06 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/11 11:27:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	check_num(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			ft_printf_fd(2, "42sh: history: numeric argument required\n");
+			ft_printf_fd(2, "21sh: history: numeric argument required\n");
 			return (-1);
 		}
 	}
@@ -91,7 +91,7 @@ int			print_history(t_hist **histo, char **str)
 		if (nb < 0)
 			return (1);
 		str++;
-		if (*str && ft_printf_fd(2, "42sh: history: too many arguments\n"))
+		if (*str && ft_printf_fd(2, "21sh: history: too many arguments\n"))
 			return (1);
 	}
 	tmp = *histo;

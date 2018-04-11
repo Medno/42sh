@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 15:29:06 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/19 15:44:37 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/11 11:28:31 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_errpars(int index, char *str, char c)
 {
-	ft_printf_fd(STDERR_FILENO, "42sh: ");
+	ft_printf_fd(STDERR_FILENO, "21sh: ");
 	if (index == 1)
 		ft_printf_fd(STDERR_FILENO,
 				"syntax error near unexpected token `%s'\n", str);

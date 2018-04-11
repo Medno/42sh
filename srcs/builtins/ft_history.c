@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 11:41:13 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/18 11:19:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/11 11:26:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ history -wr [filename] or history -s arg [arg...]\n", STDERR_FILENO);
 	}
 	if ((1 & flags) && (2 & flags))
 	{
-		ft_putendl_fd("42sh: history: cannot use more than one of -rw", 2);
+		ft_putendl_fd("21sh: history: cannot use more than one of -rw", 2);
 		return (1);
 	}
 	else

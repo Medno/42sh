@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 14:13:26 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/09 14:48:14 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/11 11:26:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			free_offset_hist(t_hist **histo, char *offset)
 		tmp = tmp->next;
 	if (!tmp)
 	{
-		ft_printf_fd(2, "42sh: history: %s: history position out of range\n",
+		ft_printf_fd(2, "21sh: history: %s: history position out of range\n",
 				offset);
 		return (1);
 	}
