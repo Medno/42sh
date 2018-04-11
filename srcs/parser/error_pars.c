@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 13:18:23 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 13:31:42 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:08:46 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ int			check_first(t_lex *first)
 static int	check_brack(char *str, size_t len)
 {
 	int		i;
-	int		j;
 	int		open;
 	char	buf[len];
 
 	i = 0;
-	j = 0;
 	open = 0;
 	ft_bzero(buf, len);
 	while (str[i])

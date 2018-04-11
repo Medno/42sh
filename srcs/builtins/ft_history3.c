@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:30:39 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/11 11:27:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:16:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			replace_w_arg(t_hist **histo, char **str)
 	if (*str)
 	{
 		if (!*histo)
-			*histo = create_hist("");
+			init_hist(histo);
 		ft_strdel(&(*histo)->line);
 		(*histo)->line = *str[0] ? NULL : ft_strdup("");
 		while (str[++i])

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 09:56:42 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/11 14:07:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int				main_step_2(t_init *init)
 	return (step_3(init, ast, quote_again));
 }
 
-static int		step_1(t_init init)
+static void		step_1(t_init init)
 {
 	int		ret;
 	int		len_prompt;
