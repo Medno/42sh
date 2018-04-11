@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 11:22:11 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/21 13:11:55 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/11 14:52:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 int		equ_index(char *str, char c);
 int		is_valid_identifier(char *function, char *arg, int print);
 int		is_all_valid_identifier(char *function, char *arg, int print);
-int		is_uid(char *arg);
 int		ft_export(t_init *init, char ***entry);
 int		check_local(char ***arg, int clean);
 int		is_in_env(t_env *env, char *name);
