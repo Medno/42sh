@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 13:18:23 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 11:28:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/11 13:31:42 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			err_pars(t_lex *tmp)
 {
 	if (is_redir(tmp))
 		if (tmp->next && (tmp->next->token != WORD &&
-					tmp->next->token != IO_HERE))
+				tmp->next->token != IO_HERE && tmp->next->token != QUOTE))
 			return (print_errpars(1, tmp->value, 0));
 	if (search_brack(tmp->value))
 		if (check_brack(tmp->value, ft_strlen(tmp->value)))
