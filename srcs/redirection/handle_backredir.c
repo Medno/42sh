@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:44:15 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/10 13:57:15 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/11 12:19:41 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_redir	*handle_backfd(t_redir *redir)
 
 	if (redir->file && ft_strequ(*redir->file, "-"))
 	{
-		redir->fd_out = TOCLOSE;
+		redir->fd_in = redir->fd_in == -1 ? STDIN_FILENO: redir->fd_in;
 		close(redir->fd_in);
 		return (redir);
 	}
