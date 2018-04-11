@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 17:16:09 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 11:58:29 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/11 16:02:07 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ static void	check_escape(char *str, int *i, char *escape)
 	{
 		*escape = str[*i];
 		(*i)++;
+	}
+	if (*escape == '\"' && str[*i] == '\\')
+	{
+		(*i) += 2;
+		return ;
 	}
 }
 

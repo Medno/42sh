@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 18:05:38 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 11:58:42 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:24:24 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char		*dollar_modify_str(t_init *init, char *str, int *replace, int *i)
 			|| str[*i + 1] == '-' || str[*i + 1] == '{' || str[*i + 1] == '?'))
 	{
 		tmp = search_dollar(init, str, i, len + 1);
-		*replace = (*replace == 2) ? *replace : 1;
+		*replace = (*replace == 2 || !ft_strchr(tmp, ' ')) ? 2 : 1;
 		res = ft_strjoindel(res, tmp);
 		ft_strdel(&tmp);
 	}
