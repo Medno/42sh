@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 11:15:16 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/06 14:59:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/11 15:45:31 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ int					ft_getopt(int ac, char *const av[], const char *optstring)
 	if (ft_init(ac, av))
 		return (-1);
 	g_optopt = (int)get_next_char(&opt_addr, av);
-	if (ft_isalnum((int)*opt_addr) && (chr = ft_strchr(optstring, *opt_addr)))
+	if (ft_isalnum((int)*opt_addr) && (chr = ft_strchr(optstring, g_optopt)))
 	{
 		if (*(chr + 1) == ':')
 		{
-			if (!av[g_optind + 1] && !*(opt_addr + 1))
+			if (!av[g_optind + 1] && !*(opt_addr + 1) && !(opt_addr = NULL))
 				return (get_error(1, av, chr, g_optopt));
 			else if (!*(opt_addr + 1) && (g_optind++))
 				g_optarg = av[g_optind];
