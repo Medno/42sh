@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 15:27:46 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/11 09:56:42 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int		step_1(t_init init)
 		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init);
 		ft_cfmakedefault(&init.current);
 		init.historic = cleanup_nl_hist(&init.historic);
-		if (!ret && init.str)
+		if (!ret && init.str && !ft_strequ(init.str, "\n"))
 			main_step_2(&init);
 		if (ret == 1 || init.stop)
 			ft_exit(&init, NULL);
