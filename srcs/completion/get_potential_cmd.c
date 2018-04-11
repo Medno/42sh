@@ -105,7 +105,6 @@ static int		comp_is_pot_cmd(char *lex, char *str, char *path)
 
 void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 {
-	t_lcomp			*new;
 	DIR				*dir;
 	struct dirent	*info;
 	char			**all_path;
@@ -117,17 +116,12 @@ void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 	{
 		if ((dir = opendir(all_path[i])))
 		{
-		while (dir && (info = readdir(dir)))
-		{
-			if (comp_is_pot_cmd(info->d_name, comp->str, all_path[i]))
+			while (dir && (info = readdir(dir)))
 			{
-				new = init_t_lcomp();
-				new->cmd = ft_strdup(info->d_name);
-				comp->list = lcomp_push_back(comp->list, new);
+				if (comp_is_pot_cmd(info->d_name, comp->str, all_path[i]))
+					add_to_list(comp, info->d_name);
 			}
-		}
-		ft_printf("Je vais close un dir de [%s]\n", all_path[i]);
-		closedir(dir);
+			closedir(dir);
 		}
 	}
 	ft_freetab(all_path);

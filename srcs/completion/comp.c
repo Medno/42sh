@@ -12,7 +12,16 @@
 
 #include "completion.h"
 
-t_lcomp	*lcomp_push_back(t_lcomp *list, t_lcomp *new)
+void		add_to_list(t_comp *comp, char *d_name)
+{
+	t_lcomp *new;
+
+	new = init_t_lcomp();
+	new->cmd = ft_strdup(d_name);
+	comp->list = lcomp_push_back(comp->list, new);
+}
+
+t_lcomp		*lcomp_push_back(t_lcomp *list, t_lcomp *new)
 {
 	t_lcomp *tmp;
 
@@ -26,7 +35,7 @@ t_lcomp	*lcomp_push_back(t_lcomp *list, t_lcomp *new)
 	return (list);
 }
 
-t_lcomp	*init_t_lcomp(void)
+t_lcomp		*init_t_lcomp(void)
 {
 	t_lcomp *new;
 
@@ -34,7 +43,7 @@ t_lcomp	*init_t_lcomp(void)
 	return (new);
 }
 
-t_comp	*init_t_comp(void)
+t_comp		*init_t_comp(void)
 {
 	t_comp *new;
 
