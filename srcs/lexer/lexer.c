@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/12 14:56:45 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/16 14:08:38 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/11 12:32:45 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	build_lexer(t_lex *first, char *str, int len_str)
 
 	i = 0;
 	new = first;
-	ft_bzero(buf, len_str);
+	ft_bzero(buf, len_str + 1);
 	while (str[i])
 	{
 		new = all_steps(new, str, &i, buf);

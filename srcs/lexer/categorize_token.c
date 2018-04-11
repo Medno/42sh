@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 16:26:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:41:17 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/11 12:32:57 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static t_lex	*categorize_token(t_lex *new)
 	return (new);
 }
 
-t_lex			*put_in_new(t_lex *new, char *buf)
+t_lex			*put_in_new(t_lex *new, char buf[])
 {
 	int	len;
 
