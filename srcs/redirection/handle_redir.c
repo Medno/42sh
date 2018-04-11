@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/10 13:58:33 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/11 08:59:32 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ t_redir	*handle_allfd(t_redir *redir)
 			return (NULL);
 		}
 	}
-	else if ((fd = open(*redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
+	else if ((fd = open(*redir->file, O_WRONLY |
+					O_CREAT | O_TRUNC, 0644)) == -1)
 	{
 		which_error(file_error(*redir->file), *redir->file);
 		return (NULL);
