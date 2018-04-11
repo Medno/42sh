@@ -22,7 +22,7 @@
 
 void	do_new_completion(t_comp *comp, t_edit *edit)
 {
-	if (*comp->str == '$')
+	if (comp->str && *comp->str == '$')
 		comp_get_pot_local(comp, edit);
 	else if (comp_is_first_word(comp) == 1)
 	{

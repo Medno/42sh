@@ -113,7 +113,7 @@ void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 
 	all_path = comp_get_all_path(edit);
 	i = -1;
-	while (all_path[++i])
+	while (all_path && all_path[++i])
 	{
 		dir = opendir(all_path[i]);
 		while (dir && (info = readdir(dir)))
