@@ -6,7 +6,7 @@
 /*   By: hfouques <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 09:53:28 by hfouques          #+#    #+#             */
-/*   Updated: 2018/04/10 09:53:29 by hfouques         ###   ########.fr       */
+/*   Updated: 2018/04/11 14:13:18 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 	i = -1;
 	while (all_path && all_path[++i])
 	{
-		dir = opendir(all_path[i]);
+		if ((dir = opendir(all_path[i])))
+		{
 		while (dir && (info = readdir(dir)))
 		{
 			if (comp_is_pot_cmd(info->d_name, comp->str, all_path[i]))
@@ -125,7 +126,9 @@ void			comp_get_pot_cmd(t_comp *comp, t_edit *edit)
 				comp->list = lcomp_push_back(comp->list, new);
 			}
 		}
+		ft_printf("Je vais close un dir de [%s]\n", all_path[i]);
 		closedir(dir);
+		}
 	}
 	ft_freetab(all_path);
 	comp_add_pot_builtin(comp);
