@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 17:16:09 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 19:02:15 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/12 10:49:15 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static int	not_escaped(char *str, int *i, int *rep, char *escape)
 	if (str[*i] == '\"' && !*escape)
 		*escape = '\"';
 	else if (str[*i] == '\'' && !*escape)
+	{
+		(*i)++;
 		while (str[*i] && str[*i] != '\'')
 			(*i)++;
+	}
 	else
 	{
 		if (str[*i] && str[*i + 1] && str[*i] == '$' && str[*i + 1] == '$')
@@ -27,7 +30,8 @@ static int	not_escaped(char *str, int *i, int *rep, char *escape)
 		if (str[*i] && str[*i] == '$' && str[*i + 1] && str[*i + 1] != ' ')
 			return (1);
 	}
-	(*i)++;
+	if (str[*i])
+		(*i)++;
 	return (0);
 }
 
