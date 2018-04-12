@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/23 10:46:28 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/12 16:33:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ void	which_error(int error, char *err_file);
 */
 
 void	saving_fd(int fd[]);
-int		reset_fd(int fd[]);
+int		reset_fd(int fd[], t_cmd *cmd);
 #endif

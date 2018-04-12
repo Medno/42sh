@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 15:31:03 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/12 16:32:59 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ int		exec_start(t_ast *ast, t_init *init)
 	saving_fd(std_fd);
 	sig = launch_exec(init, ast, std_fd, error);
 	ret = wait_pipe(&init->pid_list, sig);
-	reset_fd(std_fd);
+	reset_fd(std_fd, ast->cmd);
 	return (ret);
 }
