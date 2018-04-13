@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:21:44 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/13 08:21:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/13 08:31:03 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_redir	*handle_allfd(t_redir *redir)
 	struct stat	buf;
 	char		*tmp;
 
-	if (redir->fd_out > 0)
+	if (redir->fd_out >= 0)
 	{
 		fd = redir->fd_out;
 		if (fstat(fd, &buf) == -1)
