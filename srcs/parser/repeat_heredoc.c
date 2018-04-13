@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:55:05 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/13 15:16:29 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/13 15:20:15 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	return_heredoc(t_init *init, char *to_del, char *heredoc)
 	init->str = change_str(init->str, value);
 	ft_strdel(&to_del);
 	del_lex(init->lex);
-	paste_last_hist(&init->historic);
 	return (1);
 }
 
@@ -53,6 +52,7 @@ static int	no_heredoc(t_init *init, char *to_del, char *heredoc)
 	ft_strdel(&heredoc);
 	ft_strdel(&to_del);
 	del_lex(init->lex);
+	paste_last_hist(&init->historic);
 	return (-1);
 }
 
@@ -75,11 +75,11 @@ int			repeat_heredoc(t_init *init, t_lex *tmp)
 			return (no_heredoc(init, line_tmp, heredoc));
 		if (ft_strequ(line_tmp, tmp->value) || !line_tmp)
 			return (return_heredoc(init, line_tmp, heredoc));
-		checkout = 1;
 		heredoc = (checkout) ? ft_strjoindel(heredoc, "\n") : heredoc;
 		heredoc = ft_strnjoindel(heredoc, line_tmp,
 				ft_strlen(heredoc) + ft_strlen(line_tmp) - 1);
 		ft_strdel(&line_tmp);
+		checkout = 1;
 	}
 	checkout = 0;
 	return (0);
