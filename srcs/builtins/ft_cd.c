@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/19 14:42:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/13 11:50:06 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ static char		*ft_handle_cdpath(t_env **env, char *dir)
 	while (pathlist[++i])
 	{
 		curpath = paste_path(pathlist[i], dir);
-		stat(curpath, &info);
-		if (info.st_mode & S_IFDIR)
-			break ;
+		if (stat(curpath, &info) != -1)
+			if (info.st_mode & S_IFDIR)
+				break ;
 		ft_strdel(&curpath);
 	}
 	if (!curpath)
-		curpath = ft_strjoin("./", dir);
+		curpath = ft_strdup(dir);
 	ft_freetab(pathlist);
 	return (curpath);
 }
