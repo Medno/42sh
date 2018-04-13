@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:43:53 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/10 15:33:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/13 15:37:53 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,15 @@ int		wait_pipe(t_pid **pid, int sig)
 		*pid = (*pid)->next;
 	}
 	*pid = tmp;
-	if (status != -1)
-		g_status = WEXITSTATUS(status);
-	else
-		g_status = sig;
 	del_pid(pid);
+	if (!(!WIFEXITED(status) && WIFSIGNALED(status)))
+	{
+		if (status == -1 && sig == 0)
+			return (g_status);
+		if (status >= 0 && sig == 0)
+			g_status = WEXITSTATUS(status);
+		else
+			g_status = sig;
+	}
 	return (status);
 }

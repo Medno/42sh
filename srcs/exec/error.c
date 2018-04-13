@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:47:26 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 11:27:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/13 15:35:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	signal_error(int status, pid_t pid)
 	else if (signal == SIGBUS)
 		ft_printf_fd(STDERR_FILENO,
 				"%d	Bus error: %d\n", pid, signal);
+	g_status = 128 + signal;
 }
