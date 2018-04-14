@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 14:07:58 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/13 15:49:56 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void		step_1(t_init init)
 		len_prompt = put_path(&init.new_env);
 		ft_cfmakeraw(&init.current);
 		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init);
+		g_status = (ret == 3) ? 1 : g_status;
 		ft_cfmakedefault(&init.current);
 		init.historic = cleanup_nl_hist(&init.historic);
 		if (!ret && init.str && !ft_strequ(init.str, "\n"))
