@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 16:30:25 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/12 18:35:53 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/14 14:47:17 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*create_newheredoc(char *line)
 		wnb = ft_itoa(nb);
 		heredoc = ft_strjoindel(heredoc, wnb);
 	}
-	ft_putendl_fd(line, fd);
+	(line && *line) ? ft_putendl_fd(line, fd) : 0;
 	close(fd);
 	ft_strdel(&line);
 	ft_strdel(&wnb);
