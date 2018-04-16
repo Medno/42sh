@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 13:18:23 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/11 14:08:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/16 12:24:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			check_first(t_lex *first)
 	{
 		if (first->token != EOI)
 			ft_printf_fd(STDERR_FILENO,
-			"21sh: syntax error near unexpected token '%s'\n", first->value);
+			"42sh: syntax error near unexpected token '%s'\n", first->value);
 		return (1);
 	}
 	return (0);
@@ -84,6 +84,6 @@ int			err_eof(void)
 {
 	if (g_quote)
 		print_errpars(2, NULL, g_quote);
-	ft_printf_fd(STDERR_FILENO, "21sh: syntax error: unexpected end of file\n");
+	ft_printf_fd(STDERR_FILENO, "42sh: syntax error: unexpected end of file\n");
 	return (-1);
 }

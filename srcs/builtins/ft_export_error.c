@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 16:21:56 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 11:26:23 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/16 12:21:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		export_usage(void)
 int		not_an_identifier(char *function, char *arg)
 {
 	ft_printf_fd(STDERR_FILENO,
-			"21sh : %s: `%s': not a valid identifier\n", function, arg);
+			"42sh : %s: `%s': not a valid identifier\n", function, arg);
 	return (0);
 }
 
@@ -30,6 +30,6 @@ int		read_only_error(char *arg, int free)
 {
 	if (free)
 		ft_strdel(&arg);
-	ft_printf_fd(STDERR_FILENO, "21sh : %s: readonly variable\n", arg);
+	ft_printf_fd(STDERR_FILENO, "42sh : %s: readonly variable\n", arg);
 	return (0);
 }

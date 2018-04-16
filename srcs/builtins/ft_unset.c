@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:57:14 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/16 11:39:59 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/16 12:22:59 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		unset_usage(void)
 {
-	ft_printf_fd(STDERR_FILENO, "21sh: usage: unset [-f] [-v] [name...]\n");
+	ft_printf_fd(STDERR_FILENO, "42sh: usage: unset [-f] [-v] [name...]\n");
 	return (1);
 }
 
@@ -88,7 +88,7 @@ int				ft_unset(t_env **loc, t_env **env, char **arg)
 	}
 	if ((flags & 1) && (flags & 2))
 	{
-		ft_printf_fd(STDERR_FILENO, "21sh: unset: cannot have flag f and v\n");
+		ft_printf_fd(STDERR_FILENO, "42sh: unset: cannot have flag f and v\n");
 		return (1);
 	}
 	if (flags & 2 || flags == 0)

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:13:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 11:25:33 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/16 12:24:18 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		file_error(char *file)
 
 void	which_error(int error, char *err_file)
 {
-	ft_putstr_fd("21sh: ", STDERR_FILENO);
+	ft_putstr_fd("42sh: ", STDERR_FILENO);
 	if (error == BADFD)
 		ft_printf_fd(STDERR_FILENO, "%s: Bad file descriptor\n", err_file);
 	else if (error == NOSUCHFILE)

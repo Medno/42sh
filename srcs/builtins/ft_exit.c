@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/11 11:26:06 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/16 12:21:41 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			ft_exit(t_init *init, char **arg)
 	ft_printf_fd(STDIN_FILENO, "{tred}{bold}exit{eoc}\n");
 	if (arg && arg[0] && arg[1] && arg[2] != NULL)
 	{
-		ft_putendl_fd("21sh: exit: too many arguments", STDERR_FILENO);
+		ft_putendl_fd("42sh: exit: too many arguments", STDERR_FILENO);
 		return (1);
 	}
 	else if (arg && arg[0] && arg[1])
@@ -45,7 +45,7 @@ int			ft_exit(t_init *init, char **arg)
 		{
 			if (!ft_isdigit(arg[1][i]))
 			{
-				ft_printf_fd(2, "21sh: exit: %s: numeric argument required\n",
+				ft_printf_fd(2, "42sh: exit: %s: numeric argument required\n",
 				init->ast->cmd->arg[1]);
 				return (final_exit(init, 255, arg));
 			}
