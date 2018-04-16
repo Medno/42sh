@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 12:55:59 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 08:38:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/16 13:40:13 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		ft_print_env(t_env *env, char c)
 {
 	while (env)
 	{
-		if (ft_strchr(env->content, ' ') || ft_strchr(env->content, ';')
-				|| c == '"')
+		if ((ft_strchr(env->content, ' ') || ft_strchr(env->content, ';')
+				|| c == '"') && c != 0)
 			ft_printf("%s=%c%s%c\n", env->name, c, env->content, c);
 		else
 			ft_printf("%s=%s\n", env->name, env->content);
