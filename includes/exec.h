@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/14 14:17:17 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/17 10:45:02 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		close_pipe(t_ast *ast);
 void		launch_pipe(t_init *init, t_ast *ast, int std_fd[], int error);
 void		launch_and(t_init *init, t_ast *ast, int std_fd[], int error);
 void		launch_or(t_init *init, t_ast *ast, int std_fd[], int error);
-int			wait_pipe(t_pid **pid, t_ast *ast, int sig);
+int			wait_pipe(t_pid **pid, int sig);
 int			return_builtin(t_ast *ast);
 
 int			delete_space(t_ast *ast);

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 13:27:35 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/21 18:40:35 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/17 10:21:49 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	parser(t_init *init)
 	int		repeat;
 
 	if (check_first(init->lex))
-		return (1);
+		return ((g_status = 258));
 	tmp = init->lex;
 	while (tmp->token != EOI)
 	{
 		if (err_pars(tmp))
-			return (1);
+			return ((g_status = 258));
 		repeat = repeat_line(init, tmp);
 		if (repeat == 1)
 			return (-1);
