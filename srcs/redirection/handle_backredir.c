@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 15:44:15 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/12 17:18:04 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/20 09:43:09 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ t_redir	*handle_rw(t_redir *redir)
 {
 	int		fd;
 
+	if (!redir->file)
+	{
+		redir->file = ft_memalloc(sizeof(char*) * 2);
+		*redir->file = ft_itoa(redir->fd_out);
+		redir->fd_out = -1;
+	}
 	redir->fd_in = (redir->fd_in == -1) ? 0 : redir->fd_in;
 	if ((fd = open(*redir->file, O_RDWR | O_CREAT, 0644)) == -1)
 	{
