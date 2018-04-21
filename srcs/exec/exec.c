@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/17 10:43:50 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 14:40:49 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	fork_cmd(t_init *init, t_ast *ast, char *path)
 	{
 		pid_addlast(&init->pid_list, father);
 		signal(SIGINT, (void (*)(int))sig_write_nl);
+		signal(SIGQUIT, (void (*)(int))sig_write_nl);
 		close_pipe(ast);
 	}
 	if (!father)
 	{
 		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		setup_pipe(ast);
 		if (!redirection(ast->cmd))
 			exit(EXIT_FAILURE);
