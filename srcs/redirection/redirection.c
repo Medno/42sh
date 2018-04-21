@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/21 12:42:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 12:52:42 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int		is_fd_redir(t_redir *redir)
 
 static t_redir	*check_redir_error(t_redir *redir)
 {
+	char	*tmp;
+
 	if (redir->file && ft_tablen(redir->file) > 1)
 		return (which_error(AMBIGOUS, NULL));
 	if (!redir->file && redir->fd_out == -1)
@@ -29,8 +31,15 @@ static t_redir	*check_redir_error(t_redir *redir)
 	if ((redir->fd_in >= 10 && redir->fd_in <= 12) ||
 			(is_fd_redir(redir) && redir->fd_out >= 10 && redir->fd_out <= 12))
 		return (backup_error());
-	if (redir->fd_out < -1)
+	if (redir->fd_out < -1 || redir->fd_in < -1)
 		return (which_error(BADFD, NULL));
+	if (redir->fd_in > 4863)
+	{
+		tmp = ft_itoa(redir->fd_in);
+		which_error(BADFD, tmp);
+		ft_strdel(&tmp);
+		return (NULL);
+	}
 	return (redir);
 }
 
