@@ -6,19 +6,38 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/10 13:53:38 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 12:42:58 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-t_redir	*handle_redir(t_redir *redir)
+static int		is_fd_redir(t_redir *redir)
+{
+	if (ft_strequ(redir->token, ">&") || ft_strequ(redir->token, "<&") ||
+			ft_strequ(redir->token, "&>"))
+		return (1);
+	return (0);
+}
+
+static t_redir	*check_redir_error(t_redir *redir)
 {
 	if (redir->file && ft_tablen(redir->file) > 1)
-	{
-		which_error(AMBIGOUS, NULL);
+		return (which_error(AMBIGOUS, NULL));
+	if (!redir->file && redir->fd_out == -1)
+		return (which_error(AMBIGOUS, NULL));
+	if ((redir->fd_in >= 10 && redir->fd_in <= 12) ||
+			(is_fd_redir(redir) && redir->fd_out >= 10 && redir->fd_out <= 12))
+		return (backup_error());
+	if (redir->fd_out < -1)
+		return (which_error(BADFD, NULL));
+	return (redir);
+}
+
+t_redir			*handle_redir(t_redir *redir)
+{
+	if (!check_redir_error(redir))
 		return (NULL);
-	}
 	else if (ft_strequ(redir->token, ">"))
 		redir = handle_simple(redir);
 	else if (ft_strequ(redir->token, ">&"))
@@ -36,7 +55,7 @@ t_redir	*handle_redir(t_redir *redir)
 	return (redir);
 }
 
-int		redirection(t_cmd *cmd)
+int				redirection(t_cmd *cmd)
 {
 	t_cmd	*tmp1;
 	t_redir	*tmp;

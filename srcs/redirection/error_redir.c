@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 15:13:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/16 12:24:18 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/21 12:43:14 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int		file_error(char *file)
 	return (OPENFAIL);
 }
 
-void	which_error(int error, char *err_file)
+t_redir	*which_error(int error, char *err_file)
 {
 	ft_putstr_fd("42sh: ", STDERR_FILENO);
-	if (error == BADFD)
+	if (error == BADFD && !err_file)
+		ft_printf_fd(STDERR_FILENO, "Bad file descriptor\n");
+	else if (error == BADFD)
 		ft_printf_fd(STDERR_FILENO, "%s: Bad file descriptor\n", err_file);
 	else if (error == NOSUCHFILE)
 		ft_printf_fd(STDERR_FILENO,
@@ -37,4 +39,12 @@ void	which_error(int error, char *err_file)
 		ft_printf_fd(STDERR_FILENO, "ambiguous redirection\n");
 	else
 		ft_putendl_fd("File number expected", STDERR_FILENO);
+	return (NULL);
+}
+
+t_redir	*backup_error(void)
+{
+	ft_printf_fd(STDERR_FILENO,
+			"42sh : can't use fd from 10 to 12\n");
+	return (NULL);
 }

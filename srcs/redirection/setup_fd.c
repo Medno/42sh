@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:38:00 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/13 08:18:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 11:38:14 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	saving_fd(int fd[])
 {
-	fd[0] = dup(STDIN_FILENO);
-	fd[1] = dup(STDOUT_FILENO);
-	fd[2] = dup(STDERR_FILENO);
+	fd[0] = 10;
+	fd[1] = 11;
+	fd[2] = 12;
+	fd[0] = dup2(STDIN_FILENO, fd[0]);
+	fd[1] = dup2(STDIN_FILENO, fd[1]);
+	fd[2] = dup2(STDIN_FILENO, fd[2]);
 }
 
 int		reset_fd(int fd[], t_cmd *cmd)

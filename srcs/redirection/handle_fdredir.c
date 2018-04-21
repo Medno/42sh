@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:44:14 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 08:59:03 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 12:38:40 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ t_redir	*handle_simplefd(t_redir *redir)
 	if (redir->file && ft_strequ(*redir->file, "-"))
 		closefd(redir);
 	if (redir->file && !ft_isdigit(**redir->file) && **redir->file != '-')
-	{
-		which_error(AMBIGOUS, *redir->file);
-		return (NULL);
-	}
+		return (which_error(AMBIGOUS, *redir->file));
 	if (redir->fd_in == -1)
 		return (handle_allfd(redir));
 	if (redir->file && ft_isdigit(**redir->file) &&

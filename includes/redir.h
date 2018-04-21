@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/12 16:33:07 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 12:17:46 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	del_heredoc(void);
 */
 
 int		file_error(char *file);
-void	which_error(int error, char *err_file);
+t_redir	*backup_error(void);
+t_redir	*which_error(int error, char *err_file);
 
 /*
 ** Setup >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
