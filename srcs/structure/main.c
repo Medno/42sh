@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/13 15:49:56 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 13:02:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				main(int ac, char **av, char **environ)
 
 	g_status = 0;
 	if (!isatty(STDIN_FILENO))
-		return (read_stdin(environ));
+		return (1);
 	init_all(environ, &init);
 	g_in = &init;
 	signal(SIGSEGV, (void (*)(int))catch_and_reset);
