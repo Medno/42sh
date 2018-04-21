@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 15:07:47 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 15:51:06 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/21 14:23:38 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**get_path(t_init *init)
 		return (ft_strsplit(ft_getenv(&init->loc_env, "PATH"), ':'));
 }
 
-static int	check_bin(char *str, t_init *init, char **s_fin, int print)
+int			check_bin(char *str, t_init *init, char **s_fin, int print)
 {
 	int		ret;
 	int		i;

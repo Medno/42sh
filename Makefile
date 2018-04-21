@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/04/16 12:21:09 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/04/21 14:11:46 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ PATHFS = ./srcs/
 BUI_NAME = ft_cd.c ft_cd2.c				\
 		   ft_echo.c					\
 		   ft_env.c						\
+		   ft_env_exec.c				\
 		   ft_env_op.c					\
 		   ft_setenv.c					\
 		   ft_unsetenv.c				\

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/21 12:01:00 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/21 14:25:54 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
 		astmp->cmd = init_cmd();
 		astmp->value = CMD;
 		astmp->cmd->arg = shift_arg(ast->cmd->arg);
-		ret = exec_start(astmp, &initmp);
+		fork_env_cmd(&initmp, astmp, NULL);
+		ret = wait_pipe(&initmp.pid_list, 0);
 		clean_ast(&astmp);
 		clean_init(&initmp);
 		ft_freetab(ast->cmd->arg);
