@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 11:16:41 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/26 18:48:06 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 {
 	if (!redirection(cmd))
 		return (1);
-	if (check_local(entry, CLEAN))
-		return (ft_set_local(&init->loc_env, &init->new_env, *entry));
 	if (ft_strequ(**entry, "cd"))
 		return (ft_cd(init, entry));
 	if (ft_strequ(**entry, "export"))
@@ -74,17 +72,25 @@ int			check_cmd(t_ast *ast, t_init *init)
 	char	*path;
 
 	ret = 0;
+	ft_set_tmp(init, ast->cmd->arg);
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
-			(is_builtin(ast->cmd->arg[0]) ||
-			check_local(&ast->cmd->arg, CLEAN))
+			(check_local(&ast->cmd->arg, CLEAN) ||
+			(is_builtin(ast->cmd->arg[0])))
 			&& (ret = check_builtins(&ast->cmd->arg, ast->cmd, ast, init)) >= 0)
+	{
+		free_list(&init->env_tmp);
 		return (ret);
+	}
 	else
 	{
 		path = NULL;
 		if (!ast->cmd->arg)
+		{
+			free_list(&init->env_tmp);
 			return (1);
+		}
 		fork_cmd(init, ast, path);
+		free_list(&init->env_tmp);
 		return (ret);
 	}
 }

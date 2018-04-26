@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/21 14:09:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/26 15:23:45 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int					ft_cd_l(t_env **env, char *curpath, char *dir);
 /*
 ** > echo | env | exit <
 */
+void				ft_set_tmp(t_init *init, char **arg);
 void				clean_init(t_init *init);
 char				**cpytab(char **dest, char **src);
 char				**shift_arg(char **arg);

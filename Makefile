@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/04/21 14:11:46 by hlely            ###   ########.fr        #
+#    Updated: 2018/04/26 15:22:49 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ BUI_NAME = ft_cd.c ft_cd2.c				\
 		   ft_export_error.c			\
 		   ft_exit.c					\
 		   ft_set.c						\
+		   ft_set_tmp.c					\
 		   ft_print_env.c				\
 		   ft_unset.c					\
 		   is_in_env.c					\

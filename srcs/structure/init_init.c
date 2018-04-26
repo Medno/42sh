@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 18:04:49 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 14:49:34 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/26 15:17:42 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		init_all(char **env, t_init *init)
 	init->lex = NULL;
 	init->ast = NULL;
 	init->loc_env = NULL;
+	init->env_tmp = NULL;
 	init->pid_list = NULL;
 	init->new_env = (env) ? create_env(env) : NULL;
 	insert_env_start(&init->new_env);

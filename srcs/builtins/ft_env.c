@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/21 14:25:54 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/26 19:17:25 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			ft_env(t_init *init, t_ast *ast, char **arg)
 	flags = 0;
 	new = NULL;
 	if (!arg[1])
-		return (ft_print_env(init->new_env, 0));
+		return (ft_print_env((init->env_tmp) ? init->env_tmp : init->new_env, 0));
 	reset_ft_opt();
 	while ((c = ft_getopt(ft_tablen(arg), arg, "i")) != -1)
 	{

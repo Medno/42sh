@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 18:00:40 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:45:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/26 16:00:41 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	free_list(t_env **env)
 		if (tmp2 == tmp)
 			break ;
 	}
+	*env = NULL;
 }
 
 char	**put_in_tab(t_env **env)
