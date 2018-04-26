@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/09 09:55:02 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/26 15:28:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,8 @@ int				ft_cd_l(t_env **env, char *curpath, char *dir)
 	tmp = NULL;
 	if (curpath[0] != '/')
 	{
-		if (ft_getenv(env, "PWD"))
-			tmp = ft_strdup(ft_getenv(env, "PWD"));
-		else
-			tmp = getcwd(tmp, PATH_MAX);
+		tmp = ft_getenv(env, "PWD") ? ft_strdup(ft_getenv(env, "PWD")) 
+				: getcwd(tmp, PATH_MAX);
 		tmp2 = paste_path(tmp, curpath);
 		ft_strdel(&curpath);
 		ft_strdel(&tmp);
