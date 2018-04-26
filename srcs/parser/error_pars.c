@@ -21,7 +21,7 @@ int			check_first(t_lex *first)
 	if (ft_strequ(first->value, "()"))
 		return (print_errpars(1, ")", 0));
 	if (first->token != WORD && !is_redir(first) && first->token != QUOTE &&
-			first->token != IO_NUMBER && !is_rsvword(first))
+			first->token != IO_NUMBER)
 	{
 		if (first->token != EOI)
 			ft_printf_fd(STDERR_FILENO,

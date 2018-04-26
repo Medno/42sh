@@ -23,14 +23,3 @@ int	is_redir(t_lex *tmp)
 		return (1);
 	return (0);
 }
-
-int	is_rsvword(t_lex *tmp)
-{
-	if (tmp->token == IF || tmp->token == FI || tmp->token == DO ||
-			tmp->token == ELSE || tmp->token == ELIF || tmp->token == DONE ||
-			tmp->token == FOR || tmp->token == CASE || tmp->token == ESAC ||
-			tmp->token == IN || tmp->token == THEN || tmp->token == UNTIL ||
-			tmp->token == WHILE)
-		return (1);
-	return (0);
-}

@@ -23,7 +23,6 @@ int					repeat_heredoc(t_init *init, t_lex *tmp);
 int					repeat_line(t_init *line, t_lex *tmp);
 int					line_edit(char **line, int len_prompt, t_init *init);
 int					is_redir(t_lex *tmp);
-int					is_rsvword(t_lex *tmp);
 /*
 ** errors
 */
