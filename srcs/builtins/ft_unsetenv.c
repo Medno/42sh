@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 13:16:01 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/05 15:40:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/27 15:10:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			ft_unsetenv(t_env **list, char *name)
 		tmp = tmp->next;
 	if (!tmp)
 	{
-		ft_putendl_fd("unsetenv: no matches found", STDERR_FILENO);
+		ft_printf_fd(STDERR_FILENO, "unsetenv: `%s': no match\n", name);
 		return (1);
 	}
 	return (ft_unsetenv_2(list, tmp));
@@ -52,5 +52,15 @@ int			ft_unsetenv(t_env **list, char *name)
 
 int			ft_biunsetenv(t_init *init, char ***entry)
 {
-	return (ft_unsetenv(&init->new_env, (*entry)[1]));
+	int		i;
+	int		ret;
+
+	ret = 0;
+	i = 1;
+	while (entry && *entry && (*entry)[i])
+	{
+		ret += ft_unsetenv(&init->new_env, (*entry)[i]);
+		i++;
+	}
+	return (ret ? 1 : 0);
 }

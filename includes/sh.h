@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 14:17:57 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 15:06:13 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int					ft_env(t_init *init, t_ast *ast, char **entry);
 int					ft_setenv(t_env **env, char *name, char *value);
 int					ft_setenv_init(t_init *init, char **arg);
 int					ft_unsetenv(t_env **list, char *name);
+int					ft_biunsetenv(t_init *init, char ***name);
 int					ft_exit(t_init *init, char **arg);
 int					usage_env(void);
 int					ft_print_env(t_env *env, char c);
