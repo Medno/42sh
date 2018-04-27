@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:30:23 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/21 19:59:15 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 12:12:11 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	clean_arg(char ***arg)
+int			clean_arg(char ***arg)
 {
 	int		i;
 	int		j;

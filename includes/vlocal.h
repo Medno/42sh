@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 11:22:11 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 14:52:01 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 12:12:29 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define TOLOC		0
 # define TOENV		1
 
+int		clean_arg(char ***arg);
 int		equ_index(char *str, char c);
 int		is_valid_identifier(char *function, char *arg, int print);
 int		is_all_valid_identifier(char *function, char *arg, int print);

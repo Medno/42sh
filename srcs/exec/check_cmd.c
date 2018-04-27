@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/26 18:48:06 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 13:31:46 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 	if (ft_strequ(**entry, "env"))
 		return (ft_env(init, ast, *entry));
 	if (ft_strequ(**entry, "setenv"))
-		return (ft_setenv_init(&init->new_env, *entry));
+		return (ft_setenv_init(init, *entry));
 	if (ft_strequ(**entry, "unsetenv"))
 		return (ft_unsetenv(&init->new_env, (*entry)[1]));
 	if (ft_strequ(**entry, "set"))
@@ -84,10 +84,12 @@ int			check_cmd(t_ast *ast, t_init *init)
 	else
 	{
 		path = NULL;
-		if (!ast->cmd->arg)
+		if (ast->cmd->arg)
+			clean_arg(&ast->cmd->arg);
+		if (!ast->cmd->arg || (ast->cmd->arg && !ast->cmd->arg[0]))
 		{
 			free_list(&init->env_tmp);
-			return (1);
+			return (0);
 		}
 		fork_cmd(init, ast, path);
 		free_list(&init->env_tmp);

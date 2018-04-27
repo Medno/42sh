@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:15:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 13:08:25 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 13:32:45 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int				ft_setenv(t_env **env, char *name, char *content)
 	return (0);
 }
 
-int				ft_setenv_init(t_env **env, char **arg)
+int				ft_setenv_init(t_init *init, char **arg)
 {
 	if (!arg[1])
 	{
-		ft_print_env(*env, 0);
+		ft_print_env(init->new_env, 0);
 		return (0);
 	}
 	if (!arg[1] || !arg[2] || ft_strchr(arg[1], '='))
@@ -66,5 +66,6 @@ int				ft_setenv_init(t_env **env, char **arg)
 		ft_printf_fd(STDERR_FILENO, "setenv: usage: setenv [name] [value]\n");
 		return (1);
 	}
-	return (ft_setenv(env, arg[1], arg[2]));
+	ft_getenv(&init->loc_env, arg[1]) ? ft_unsetenv(&init->loc_env, arg[1]) : 0;
+	return (ft_setenv(&init->new_env, arg[1], arg[2]));
 }
