@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/26 15:28:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/27 10:25:03 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static int		check_elements(t_path **pathlist, char *str)
 	tmp = *pathlist;
 	while (tmp)
 	{
-		if (tmp->perms & 4)
+		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
+			tmp = handle_remove(tmp, pathlist);
+		else if (tmp->perms & 4)
 		{
 			if (tmp->next && ft_strequ("..", tmp->next->s))
 				tmp = tmp->next;
@@ -56,8 +58,6 @@ static int		check_elements(t_path **pathlist, char *str)
 			return (error_cd(2, str));
 		else if (!tmp->type)
 			return (error_cd(3, str));
-		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
-			tmp = handle_remove(tmp, pathlist);
 		if (!tmp)
 			tmp = *pathlist;
 		else
@@ -98,7 +98,7 @@ int				ft_cd_l(t_env **env, char *curpath, char *dir)
 	tmp = NULL;
 	if (curpath[0] != '/')
 	{
-		tmp = ft_getenv(env, "PWD") ? ft_strdup(ft_getenv(env, "PWD")) 
+		tmp = ft_getenv(env, "PWD") ? ft_strdup(ft_getenv(env, "PWD"))
 				: getcwd(tmp, PATH_MAX);
 		tmp2 = paste_path(tmp, curpath);
 		ft_strdel(&curpath);

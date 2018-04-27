@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 17:40:00 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/17 20:43:33 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/27 10:22:10 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,48 @@ static void	set_perms_type(t_path *elem, char *s)
 	}
 }
 
+static void	el_checking(t_path *tmp, char **s, char **t)
+{
+	if (tmp->next && ft_strequ(tmp->next->s, ".."))
+	{
+		if (*s)
+		{
+			*t = ft_strjoin(*s, "/");
+			*t = ft_strjoindel(*t, tmp->s);
+		}
+		else
+			*t = ft_strjoin("/", tmp->s);
+	}
+	else
+	{
+		if (!*s)
+			*s = ft_strjoin("/", tmp->s);
+		else
+		{
+			*s = ft_strjoindel(*s, "/");
+			*s = ft_strjoindel(*s, tmp->s);
+		}
+	}
+}
+
 void		set_path_info(t_path *pathlist)
 {
 	t_path	*tmp;
 	char	*s;
+	char	*t;
 
 	tmp = pathlist;
 	s = NULL;
+	t = NULL;
 	while (tmp)
 	{
-		if (!s)
-			s = ft_strjoin("/", tmp->s);
-		else
-		{
-			s = ft_strjoindel(s, "/");
-			s = ft_strjoindel(s, tmp->s);
-		}
-		set_perms_type(tmp, s);
+		if (!ft_strequ(tmp->s, ".") && !ft_strequ(tmp->s, ".."))
+			el_checking(tmp, &s, &t);
+		if (t)
+			set_perms_type(tmp, t);
+		else if (s)
+			set_perms_type(tmp, s);
+		ft_strdel(&t);
 		tmp = tmp->next;
 	}
 	ft_strdel(&s);
