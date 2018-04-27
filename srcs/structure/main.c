@@ -6,13 +6,14 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/21 13:02:07 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 14:18:48 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
 extern int		g_status;
+extern int		g_oldstatus;
 
 static int		step_3(t_init *init, t_ast *ast, int quote_again)
 {

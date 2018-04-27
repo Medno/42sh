@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 13:32:16 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 14:17:57 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 
 int		g_quote;
 int		g_status;
+int		g_oldstatus;
 t_init	*g_in;
 t_edit	*g_ed;
 

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/16 12:21:41 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/27 14:21:04 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	final_exit(t_init *init, unsigned char x, char **entry)
 	ft_strdel(&init->str);
 	free_list(&init->new_env);
 	if (x == 0)
-		x = g_status;
+		x = g_oldstatus;
 	exit(x);
 	return (0);
 }
@@ -46,7 +46,7 @@ int			ft_exit(t_init *init, char **arg)
 			if (!ft_isdigit(arg[1][i]))
 			{
 				ft_printf_fd(2, "42sh: exit: %s: numeric argument required\n",
-				init->ast->cmd->arg[1]);
+				arg[1]);
 				return (final_exit(init, 255, arg));
 			}
 		}
