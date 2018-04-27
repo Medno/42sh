@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:15:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 13:32:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 14:56:42 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int				ft_setenv_init(t_init *init, char **arg)
 	{
 		ft_print_env(init->new_env, 0);
 		return (0);
+	}
+	if (ft_tablen(arg) > 3)
+	{
+		ft_printf_fd(STDERR_FILENO, "setenv: Too many arguments.\n");
+		return (1);
 	}
 	if (!arg[1] || !arg[2] || ft_strchr(arg[1], '='))
 	{
