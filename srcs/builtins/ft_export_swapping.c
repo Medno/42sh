@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:08:12 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/26 17:58:34 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 11:45:30 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	swapping_env(t_init *init, char *arg, int where)
 {
 	t_env	*tmp;
 
-	tmp = (where == TOENV) ? (init->loc_env) : (init->env_tmp);
+	tmp = init->env_tmp;
 	while (tmp && !ft_strequ(arg, tmp->name))
 		tmp = tmp->next;
 	if (!tmp)
@@ -24,12 +24,12 @@ static int	swapping_env(t_init *init, char *arg, int where)
 	if (where == TOLOC)
 	{
 		ft_setenv(&init->loc_env, arg, tmp->content);
-		ft_unsetenv(&init->new_env, arg);
+		ft_getenv(&init->new_env, arg) ? ft_unsetenv(&init->new_env, arg) : 0;
 	}
 	else
 	{
 		ft_setenv(&init->new_env, arg, tmp->content);
-		ft_unsetenv(&init->loc_env, arg);
+		ft_getenv(&init->loc_env, arg) ? ft_unsetenv(&init->loc_env, arg) : 0;
 	}
 	return (1);
 }
