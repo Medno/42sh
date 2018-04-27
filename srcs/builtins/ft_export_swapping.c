@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:08:12 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/27 11:45:30 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 13:38:53 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	swapping_env(t_init *init, char *arg, int where)
 {
 	t_env	*tmp;
 
-	tmp = init->env_tmp;
+	tmp = ft_getenv(&init->env_tmp, arg) ? init->env_tmp : init->loc_env;
 	while (tmp && !ft_strequ(arg, tmp->name))
 		tmp = tmp->next;
 	if (!tmp)
