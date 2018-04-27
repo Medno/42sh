@@ -6,11 +6,18 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/26 19:17:25 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 10:14:05 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+static int	usage_env(void)
+{
+	ft_printf_fd(STDERR_FILENO,
+			"usage: env [-i] [name=value ...] [utility[argument ...]]\n");
+	return (1);
+}
 
 int			fill_env(t_env **env, char **arg)
 {
@@ -25,6 +32,12 @@ int			fill_env(t_env **env, char **arg)
 	{
 		name = ft_strsub(arg[i], 0, equ_index(arg[i], '='));
 		value = ft_strchr(arg[i], '=') + 1;
+		if (!name || !*name)
+		{
+			free_list(env);
+			ft_strdel(&name);
+			return (usage_env() * 0);
+		}
 		ft_setenv(env, name, value);
 		ft_strdel(&name);
 		i++;
@@ -64,13 +77,6 @@ static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
 		ast->cmd->arg = NULL;
 	}
 	return (ret);
-}
-
-int			usage_env(void)
-{
-	ft_printf_fd(STDERR_FILENO,
-			"usage: env [-i] [name=value ...] [utility[argument ...]]\n");
-	return (1);
 }
 
 static int	set_bits(int c, int flag)

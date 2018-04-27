@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/26 15:55:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/04/27 09:48:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,33 +92,34 @@ static char		*ft_handle_cdpath(t_env **env, char *dir)
 	return (curpath);
 }
 
-static int		ft_cd_2(t_env **env, char *dir, int p)
+static int		ft_cd_2(t_init *init, char *dir, int p)
 {
 	char	*curpath;
 
-	if (ft_strequ(dir, "-") && ft_getenv(env, "OLDPWD"))
+	if (ft_strequ(dir, "-") && ft_getenv(&init->env_tmp, "OLDPWD"))
 	{
-		if (!do_move(ft_getenv(env, "OLDPWD"), env, 0))
-			return (!(ft_printf("%s\n", ft_getenv(env, "PWD"))));
+		if (!do_move(ft_getenv(&init->env_tmp, "OLDPWD"), &init->new_env, 0))
+			return (!(ft_printf("%s\n", ft_getenv(&init->env_tmp, "PWD"))));
 		else if (ft_printf_fd(2, "cd: %s: No such file or directory\n",
-					ft_getenv(env, "OLDPWD")))
+					ft_getenv(&init->env_tmp, "OLDPWD")))
 			return (1);
 	}
 	else if (ft_strequ(dir, "-") && write(2, "cd: OLDPWD not set\n", 19))
 		return (1);
-	if (!ft_getenv(env, "CDPATH") || (*dir == '.' && *(dir + 1) == '/') ||
+	if (!ft_getenv(&init->env_tmp, "CDPATH") ||
+			(*dir == '.' && *(dir + 1) == '/') ||
 	*dir == '/' || (*dir == '.' && *(dir + 1) == '.' && (*dir + 2) == '/') ||
 	ft_strequ(".", dir) || ft_strequ("..", dir))
 		curpath = ft_strdup(dir);
 	else
-		curpath = ft_handle_cdpath(env, dir);
+		curpath = ft_handle_cdpath(&init->new_env, dir);
 	if (p)
 	{
-		p = do_move(curpath, env, 1) ? handle_cd_error(curpath) : 0;
+		p = do_move(curpath, &init->new_env, 1) ? handle_cd_error(curpath) : 0;
 		ft_strdel(&curpath);
 		return (p);
 	}
-	return (ft_cd_l(env, curpath, dir));
+	return (ft_cd_l(&init->new_env, curpath, dir));
 }
 
 int				ft_cd(t_init *init, char ***entry)
@@ -140,11 +141,12 @@ int				ft_cd(t_init *init, char ***entry)
 	}
 	if (!(*entry)[g_optind])
 	{
-		if (!ft_getenv(&init->new_env, "HOME")
+		if ((!ft_getenv(&init->env_tmp, "HOME") ||
+					ft_strequ(ft_getenv(&init->env_tmp, "HOME"), ""))
 			&& write(STDERR_FILENO, "cd: HOME not set\n", 17))
 			return (1);
-		return (do_move(ft_getenv(&init->new_env, "HOME"), &init->new_env, 1));
+		return (do_move(ft_getenv(&init->env_tmp, "HOME"), &init->new_env, 1));
 	}
 	else
-		return (ft_cd_2(&init->new_env, (*entry)[g_optind], opt_p));
+		return (ft_cd_2(init, (*entry)[g_optind], opt_p));
 }
