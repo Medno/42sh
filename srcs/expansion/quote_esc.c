@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 18:13:31 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/09 09:52:36 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 18:37:24 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,8 @@ char		*esc_simple_qu(char *str, int *i, int len)
 
 static int	incr_backslash(int j, char c)
 {
-	if (c == '\\' || c == '\"' || c == '$' || c == '`')
+	if (c == '\\' || c == '\"' || c == '$' || c == '`' || c == '\n')
 		return (j + 1);
-	if (c == '\n')
-		return (j + 2);
 	return (j);
 }
 
@@ -72,11 +70,12 @@ char		*esc_double_qu(char *str, int *i, int len)
 	{
 		if (str[j] == '\\' && str[j + 1])
 			j = incr_backslash(j, str[j + 1]);
-		if (str[j])
+		if (str[j] && !(str[j] == '\n' && str[j - 1] == '\\'))
 		{
 			buffer[k] = str[j];
 			k++;
 		}
+
 		j++;
 	}
 	res = ft_strdup(buffer);
