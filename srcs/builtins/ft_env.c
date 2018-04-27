@@ -6,17 +6,17 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 10:14:05 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/27 10:25:25 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	usage_env(void)
+static int	print_env(t_env **env)
 {
-	ft_printf_fd(STDERR_FILENO,
-			"usage: env [-i] [name=value ...] [utility[argument ...]]\n");
-	return (1);
+	ft_print_env(*env, 0);
+	free_list(env);
+	return (0);
 }
 
 int			fill_env(t_env **env, char **arg)
@@ -43,11 +43,7 @@ int			fill_env(t_env **env, char **arg)
 		i++;
 	}
 	if (!arg[i])
-	{
-		ft_print_env(*env, 0);
-		free_list(env);
-		return (0);
-	}
+		return (print_env(env));
 	return (1);
 }
 
@@ -96,7 +92,7 @@ int			ft_env(t_init *init, t_ast *ast, char **arg)
 	flags = 0;
 	new = NULL;
 	if (!arg[1])
-		return (ft_print_env((init->env_tmp) ? init->env_tmp : init->new_env, 0));
+		return (ft_print_env(init->env_tmp, 0));
 	reset_ft_opt();
 	while ((c = ft_getopt(ft_tablen(arg), arg, "i")) != -1)
 	{
