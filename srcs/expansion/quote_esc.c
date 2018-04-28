@@ -75,7 +75,6 @@ char		*esc_double_qu(char *str, int *i, int len)
 			buffer[k] = str[j];
 			k++;
 		}
-
 		j++;
 	}
 	res = ft_strdup(buffer);

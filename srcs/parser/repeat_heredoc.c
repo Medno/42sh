@@ -57,6 +57,12 @@ static int	no_heredoc(t_init *init, char *to_del, char *heredoc)
 	return (-1);
 }
 
+static void	delete_escape_heredoc(t_lex *lex)
+{
+	lex->value = delete_esc(lex->value, ft_strlen(lex->value));
+	lex->value = ft_strjoindel(lex->value, "\n");
+}
+
 int			repeat_heredoc(t_init *init, t_lex *tmp)
 {
 	int			ret;
@@ -65,7 +71,7 @@ int			repeat_heredoc(t_init *init, t_lex *tmp)
 	static int	checkout = 0;
 
 	if (tmp->token == IO_HERE)
-		tmp->value = ft_strjoindel(tmp->value, "\n");
+		delete_escape_heredoc(tmp);
 	heredoc = (tmp->token == IO_HERE) ? ft_strdup("") : NULL;
 	while (tmp->token == IO_HERE)
 	{
