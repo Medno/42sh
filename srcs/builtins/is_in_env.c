@@ -20,3 +20,13 @@ int		is_in_env(t_env *env, char *name)
 		return (0);
 	return (1);
 }
+
+char	*ft_getenvloc(t_init *init, char *elem)
+{
+	char *ret;
+
+	ret = ft_getenv(&init->env_tmp, elem);
+	if (!ret)
+		ret = ft_getenv(&init->loc_env, elem);
+	return (ret);
+}

@@ -68,7 +68,7 @@ int				handle_cd_error(char *str)
 	return (0);
 }
 
-static char		*ft_handle_cdpath(t_env **env, char *dir)
+static char		*ft_handle_cdpath(t_init *init, char *dir)
 {
 	char		**pathlist;
 	char		*curpath;
@@ -76,7 +76,7 @@ static char		*ft_handle_cdpath(t_env **env, char *dir)
 	struct stat	info;
 
 	i = -1;
-	pathlist = ft_strsplit(ft_getenv(env, "CDPATH"), ':');
+	pathlist = ft_strsplit(ft_getenvloc(init, "CDPATH"), ':');
 	curpath = NULL;
 	while (pathlist && pathlist[++i])
 	{
@@ -99,20 +99,20 @@ static int		ft_cd_2(t_init *init, char *dir, int p)
 	if (ft_strequ(dir, "-") && ft_getenv(&init->env_tmp, "OLDPWD"))
 	{
 		if (!do_move(ft_getenv(&init->env_tmp, "OLDPWD"), &init->new_env, 0))
-			return (!(ft_printf("%s\n", ft_getenv(&init->env_tmp, "PWD"))));
+			return (!(ft_printf("%s\n", ft_getenv(&init->new_env, "PWD"))));
 		else if (ft_printf_fd(2, "cd: %s: No such file or directory\n",
 					ft_getenv(&init->env_tmp, "OLDPWD")))
 			return (1);
 	}
 	else if (ft_strequ(dir, "-") && write(2, "cd: OLDPWD not set\n", 19))
 		return (1);
-	if (!ft_getenv(&init->env_tmp, "CDPATH") ||
+	if (!ft_getenvloc(init, "CDPATH") ||
 			(*dir == '.' && *(dir + 1) == '/') ||
 	*dir == '/' || (*dir == '.' && *(dir + 1) == '.' && (*dir + 2) == '/') ||
 	ft_strequ(".", dir) || ft_strequ("..", dir))
 		curpath = ft_strdup(dir);
 	else
-		curpath = ft_handle_cdpath(&init->new_env, dir);
+		curpath = ft_handle_cdpath(init, dir);
 	if (p)
 	{
 		p = do_move(curpath, &init->new_env, 1) ? handle_cd_error(curpath) : 0;

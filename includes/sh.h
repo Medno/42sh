@@ -58,6 +58,7 @@ void				catch_and_reset(int sig);
 */
 int					ft_cd(t_init *init, char ***entry);
 int					ft_cd_l(t_env **env, char *curpath, char *dir);
+
 /*
 ** > echo | env | exit <
 */
@@ -93,6 +94,7 @@ void				free_list(t_env **env);
 int					count_list_len(t_env **env);
 char				**put_in_tab(t_env **env);
 char				*ft_getenv(t_env **env, char *elem);
+char				*ft_getenvloc(t_init *init, char *elem);
 t_env				*create_env(char **arr);
 t_env				*cpyenv(t_env *env);
 void				insert_env_start(t_env **env);
