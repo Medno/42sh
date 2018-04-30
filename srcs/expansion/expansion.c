@@ -6,11 +6,24 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/09 11:55:17 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/30 13:04:06 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+
+static char		**concat_res(char **res, char **tmp)
+{
+	int	i;
+
+	i = 0;
+	while (tmp[i])
+	{
+		res = ft_addstr_tab(res, tmp[i]);
+		i++;
+	}
+	return (res);
+}
 
 static char		**do_expansion(t_init *init, char *str, char **res)
 {
@@ -24,18 +37,15 @@ static char		**do_expansion(t_init *init, char *str, char **res)
 	{
 		if (tmp[0][0] == '~')
 			tmp[0] = exp_tilde(init, tmp[0], ft_strlen(tmp[0]));
+		if (ft_strchr(tmp[0], '~'))
+			tmp[0] = assign_tilde(init, tmp[0]);
 		tmp = (ft_strchr(tmp[0], '$')) ? exp_dollar(init, tmp) : tmp;
 		while (tmp[i])
 		{
 			tmp[i] = delete_esc(tmp[i], ft_strlen(tmp[i]));
 			i++;
 		}
-		i = 0;
-		while (tmp[i])
-		{
-			res = ft_addstr_tab(res, tmp[i]);
-			i++;
-		}
+		res = concat_res(res, tmp);
 	}
 	ft_freetab(tmp);
 	return (res);

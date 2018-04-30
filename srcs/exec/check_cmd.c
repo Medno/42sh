@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/27 15:05:19 by hlely            ###   ########.fr       */
+/*   Updated: 2018/04/30 13:30:00 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,8 @@ int			check_cmd(t_ast *ast, t_init *init)
 	ret = 0;
 	ft_set_tmp(init, ast->cmd->arg);
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
-			(check_local(&ast->cmd->arg, CLEAN) ||
-			(is_builtin(ast->cmd->arg[0])))
-			&& (ret = check_builtins(&ast->cmd->arg, ast->cmd, ast, init)) >= 0)
+		(check_local(&ast->cmd->arg, CLEAN) || (is_builtin(ast->cmd->arg[0])))
+		&& (ret = check_builtins(&ast->cmd->arg, ast->cmd, ast, init)) >= 0)
 	{
 		free_list(&init->env_tmp);
 		return (ret);
@@ -84,8 +83,7 @@ int			check_cmd(t_ast *ast, t_init *init)
 	else
 	{
 		path = NULL;
-		if (ast->cmd->arg)
-			clean_arg(&ast->cmd->arg);
+		(ast->cmd->arg) ? clean_arg(&ast->cmd->arg) : 0;
 		if (!ast->cmd->arg || (ast->cmd->arg && !ast->cmd->arg[0]))
 		{
 			free_list(&init->env_tmp);

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:37:15 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/10 13:19:13 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:25:08 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char		*exp_tilde(t_init *init, char *str, int len)
 	char	*res;
 
 	i = 1;
-	ft_bzero(buf, len);
+	ft_bzero(buf, len + 1);
 	if (check_prefix(init, str, buf, &i))
 		return (str);
 	if (i != 1 && !ft_strequ(buf, "+") && !ft_strequ(buf, "-"))
@@ -76,4 +76,23 @@ char		*exp_tilde(t_init *init, char *str, int len)
 		res = ft_strjoindel(res, &str[i]);
 	ft_strdel(&str);
 	return (res);
+}
+
+char		*assign_tilde(t_init *init, char *str)
+{
+	char	*bef;
+	char	*after;
+	int		equ_i;
+
+	equ_i = equ_index(str, '=');
+	if (equ_i == -1 || !str[equ_i + 1] || str[0] == '=' ||
+		(equ_i > 0 && str[equ_i + 1] && str[equ_i + 1] != '~'))
+		return (str);
+	bef = ft_strsub(str, 0, equ_index(str, '=') + 1);
+	after = ft_strdup(ft_strchr(str, '~'));
+	after = exp_tilde(init, after, ft_strlen(after));
+	bef = ft_strjoindel(bef, after);
+	ft_strdel(&after);
+	ft_strdel(&str);
+	return (bef);
 }
