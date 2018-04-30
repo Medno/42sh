@@ -106,10 +106,8 @@ static int		ft_cd_2(t_init *init, char *dir, int p)
 	}
 	else if (ft_strequ(dir, "-") && write(2, "cd: OLDPWD not set\n", 19))
 		return (1);
-	if (!ft_getenvloc(init, "CDPATH") ||
-			(*dir == '.' && *(dir + 1) == '/') ||
-	*dir == '/' || (*dir == '.' && *(dir + 1) == '.' && (*dir + 2) == '/') ||
-	ft_strequ(".", dir) || ft_strequ("..", dir))
+	if (!ft_getenvloc(init, "CDPATH") || ft_strnequ("./", dir, 2)
+		|| *dir == '/' || ft_strnequ("../", dir, 3))
 		curpath = ft_strdup(dir);
 	else
 		curpath = ft_handle_cdpath(init, dir);
