@@ -85,17 +85,39 @@ static void	el_checking(t_path *tmp, char **s, char **t)
 	}
 }
 
+char *go_to_last(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (i >= 0 && str[i] && str[i] != c)
+		i--;
+	if (i == -1)
+		i++;
+	return (str + i);
+}
+
 void		set_path_info(t_path *pathlist)
 {
 	t_path	*tmp;
 	char	*s;
 	char	*t;
+	char	*tmp2;
 
 	tmp = pathlist;
 	s = NULL;
 	t = NULL;
 	while (tmp)
 	{
+		if (ft_strequ(tmp->s, "..") && s && go_to_last(s, '/'))
+		{
+			tmp2 = ft_strsub(s, 0, ft_strlen(s) - ft_strlen(go_to_last(s, '/')));
+			ft_strdel(&s);
+			s = tmp2;
+		}
 		if (!ft_strequ(tmp->s, ".") && !ft_strequ(tmp->s, ".."))
 			el_checking(tmp, &s, &t);
 		if (t)

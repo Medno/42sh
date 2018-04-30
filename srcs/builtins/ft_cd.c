@@ -68,7 +68,7 @@ int				handle_cd_error(char *str)
 	return (0);
 }
 
-static char		*ft_handle_cdpath(t_init *init, char *dir)
+static char		*ft_handle_cdpath(t_init *init, char *dir, int *do_print)
 {
 	char		**pathlist;
 	char		*curpath;
@@ -88,63 +88,80 @@ static char		*ft_handle_cdpath(t_init *init, char *dir)
 	}
 	if (!curpath)
 		curpath = ft_strdup(dir);
+	else
+		*do_print = 1;
 	ft_freetab(pathlist);
 	return (curpath);
 }
 
-static int		ft_cd_2(t_init *init, char *dir, int p)
+int				ft_getopt_cd(char **entry)
 {
-	char	*curpath;
+	int c;
+	int opt_p;
 
-	if (ft_strequ(dir, "-") && ft_getenv(&init->env_tmp, "OLDPWD"))
-	{
-		if (!do_move(ft_getenv(&init->env_tmp, "OLDPWD"), &init->new_env, 0))
-			return (!(ft_printf("%s\n", ft_getenv(&init->new_env, "PWD"))));
-		else if (ft_printf_fd(2, "cd: %s: No such file or directory\n",
-					ft_getenv(&init->env_tmp, "OLDPWD")))
-			return (1);
-	}
-	else if (ft_strequ(dir, "-") && write(2, "cd: OLDPWD not set\n", 19))
-		return (1);
-	if (!ft_getenvloc(init, "CDPATH") || ft_strnequ("./", dir, 2)
-		|| *dir == '/' || ft_strnequ("../", dir, 3))
-		curpath = ft_strdup(dir);
-	else
-		curpath = ft_handle_cdpath(init, dir);
-	if (p)
-	{
-		p = do_move(curpath, &init->new_env, 1) ? handle_cd_error(curpath) : 0;
-		ft_strdel(&curpath);
-		return (p);
-	}
-	return (ft_cd_l(&init->new_env, curpath, dir));
-}
-
-int				ft_cd(t_init *init, char ***entry)
-{
-	int		opt_p;
-	int		c;
-
-	opt_p = 0;
 	c = 0;
+	opt_p = 0;
 	reset_ft_opt();
-	while ((c = ft_getopt(ft_tablen(*entry), *entry, "LP")) != -1)
+	while ((c = ft_getopt(ft_tablen(entry), entry, "LP")) != -1)
 	{
-		if (c == '?' && write(STDERR_FILENO, "cd: usage: cd [-LP] [dir]\n", 26))
-			return (1);
+		if (c == '?')
+			return (write(STDERR_FILENO, "cd: usage: cd[-LP] [dir]\n",
+			 26) ? -1 : -1);
 		else if (c == 'P')
 			opt_p = 1;
 		else if (c == 'L')
 			opt_p = 0;
 	}
-	if (!(*entry)[g_optind])
+	return (opt_p);
+}
+
+int				do_simple_cd(t_init *init, char *dir)
+{
+	if (!dir)
 	{
-		if ((!ft_getenv(&init->env_tmp, "HOME") ||
-					ft_strequ(ft_getenv(&init->env_tmp, "HOME"), ""))
-			&& write(STDERR_FILENO, "cd: HOME not set\n", 17))
-			return (1);
-		return (do_move(ft_getenv(&init->env_tmp, "HOME"), &init->new_env, 1));
+		if (!ft_getenvloc(init, "HOME") || ft_strequ(ft_getenvloc(init, "HOME"), ""))
+			return (write(STDERR_FILENO, "cd: HOME not set\n", 17) ? 1 : 1);
+		else if (!do_move(ft_getenvloc(init, "HOME"), &init->new_env, 1))
+			return (0);
+		else
+			ft_printf_fd(2, "cd: %s: No such file or directory\n",	ft_getenvloc(init, "HOME"));
+		return (1);
 	}
 	else
-		return (ft_cd_2(init, (*entry)[g_optind], opt_p));
+	{
+		if (!ft_getenvloc(init, "OLDPWD") || ft_strequ(ft_getenvloc(init, "OLDPWD"), ""))
+			return (write(2, "cd: OLDPWD not set\n", 19) ? 1 : 1);
+		else if (!do_move(ft_getenvloc(init, "OLDPWD"), &init->new_env, 0))
+			return (!(ft_printf("%s\n", ft_getenv(&init->new_env, "PWD"))));
+		else
+			ft_printf_fd(2, "cd: %s: No such file or directory\n",	ft_getenvloc(init, "OLDPWD"));
+		return (1);
+	}
 }
+
+int				ft_cd(t_init *init, char ***entry)
+{
+	int		opt_p;
+	char	*curpath;
+	int		ret;
+	int		do_print;
+
+	if ((opt_p = ft_getopt_cd(*entry)) == -1)
+		return (1);
+	if (!((*entry)[g_optind]) || ft_strequ((*entry)[g_optind], "-"))
+		return (do_simple_cd(init, (*entry)[g_optind]));
+	do_print = 0;
+	if (!ft_getenvloc(init, "CDPATH") || ft_strnequ("./", (*entry)[g_optind], 2) || (**entry)[g_optind] == '/' || ft_strnequ("../", (*entry)[g_optind], 3)
+		|| ft_strequ(".", (*entry)[g_optind]) || ft_strequ("..", (*entry)[g_optind]))
+		curpath = ft_strdup((*entry)[g_optind]);
+	else
+		curpath = ft_handle_cdpath(init, (*entry)[g_optind], &do_print);
+	if (opt_p)
+		ret = do_move(curpath, &init->new_env, 1) ? handle_cd_error(curpath) : 0;
+	else
+		ret = ft_cd_l(&init->new_env, curpath, (*entry)[g_optind]);
+	do_print ? ft_printf("%s\n", ft_getenv(&init->new_env, "PWD")) : 0;
+	ft_strdel(&curpath);
+	return (ret);
+}
+

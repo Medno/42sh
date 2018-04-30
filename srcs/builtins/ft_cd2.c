@@ -45,23 +45,18 @@ static int		check_elements(t_path **pathlist, char *str)
 	tmp = *pathlist;
 	while (tmp)
 	{
-		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
+		if (ft_strequ("..", tmp->s))
 			tmp = handle_remove(tmp, pathlist);
 		else if (tmp->perms & 4)
 		{
-			if (tmp->next && ft_strequ("..", tmp->next->s))
-				tmp = tmp->next;
-			else
+			if (!(tmp->next && (ft_strequ("..", tmp->next->s))))
 				return (error_cd(1, str));
 		}
 		else if (tmp->type == 'r')
 			return (error_cd(2, str));
 		else if (!tmp->type)
 			return (error_cd(3, str));
-		if (!tmp)
-			tmp = *pathlist;
-		else
-			tmp = tmp->next;
+		tmp = (!tmp) ? *pathlist : tmp->next;
 	}
 	return (0);
 }
@@ -73,17 +68,22 @@ static char		*clear_path(char *s1, char *dir)
 
 	new = NULL;
 	if (!(pathlist = new_pathlist(s1)))
-	{
-		ft_strdel(&s1);
 		return (ft_strdup("/"));
+	t_path *tmp;
+	tmp = pathlist;
+	while (tmp)
+	{
+		if (ft_strequ(".", tmp->s))
+			tmp = handle_remove(tmp, &pathlist);
+		tmp = (!tmp) ? pathlist : tmp->next;
 	}
-	ft_strdel(&s1);
 	set_path_info(pathlist);
 	if (check_elements(&pathlist, dir))
 	{
 		free_pathlist(&pathlist);
 		return (NULL);
 	}
+
 	new = pathlist_to_str(pathlist);
 	free_pathlist(&pathlist);
 	return (new);
@@ -96,21 +96,25 @@ int				ft_cd_l(t_env **env, char *curpath, char *dir)
 	char	*path;
 
 	tmp = NULL;
+	tmp2 = NULL;
 	if (curpath[0] != '/')
 	{
 		tmp = ft_getenv(env, "PWD") ? ft_strdup(ft_getenv(env, "PWD"))
 				: getcwd(tmp, PATH_MAX);
 		tmp2 = paste_path(tmp, curpath);
-		ft_strdel(&curpath);
 		ft_strdel(&tmp);
-		curpath = ft_strdup(tmp2);
-		ft_strdel(&tmp2);
 	}
-	if (!(path = clear_path(curpath, dir)))
+	if (!tmp2 && curpath)
+		tmp2 = ft_strdup(curpath);
+	if (!(path = clear_path(tmp2, dir)))
+	{
+		ft_strdel(&tmp2);
 		return (1);
+	}
 	chdir(path);
 	ft_setenv(env, "OLDPWD", ft_getenv(env, "PWD"));
 	ft_setenv(env, "PWD", path);
 	ft_strdel(&path);
+	ft_strdel(&tmp2);
 	return (0);
 }
