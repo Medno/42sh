@@ -89,7 +89,7 @@ static char		*clear_path(char *s1, char *dir)
 	return (new);
 }
 
-int				ft_cd_l(t_env **env, char *curpath, char *dir)
+int				ft_cd_l(t_init *init, char *curpath, char *dir)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -97,24 +97,23 @@ int				ft_cd_l(t_env **env, char *curpath, char *dir)
 
 	tmp = NULL;
 	tmp2 = NULL;
-	if (curpath[0] != '/')
-	{
-		tmp = ft_getenv(env, "PWD") ? ft_strdup(ft_getenv(env, "PWD"))
+	tmp = ft_getenvloc(init, "PWD") ? ft_strdup(ft_getenvloc(init, "PWD"))
 				: getcwd(tmp, PATH_MAX);
+	if (curpath[0] != '/')
 		tmp2 = paste_path(tmp, curpath);
-		ft_strdel(&tmp);
-	}
 	if (!tmp2 && curpath)
 		tmp2 = ft_strdup(curpath);
 	if (!(path = clear_path(tmp2, dir)))
 	{
 		ft_strdel(&tmp2);
+		ft_strdel(&tmp);
 		return (1);
 	}
 	chdir(path);
-	ft_setenv(env, "OLDPWD", ft_getenv(env, "PWD"));
-	ft_setenv(env, "PWD", path);
+	ft_setenv(&init->new_env, "OLDPWD", tmp);
+	ft_setenv(&init->new_env, "PWD", path);
 	ft_strdel(&path);
 	ft_strdel(&tmp2);
+	ft_strdel(&tmp);
 	return (0);
 }

@@ -57,7 +57,7 @@ void				catch_and_reset(int sig);
 ** > cd <
 */
 int					ft_cd(t_init *init, char ***entry);
-int					ft_cd_l(t_env **env, char *curpath, char *dir);
+int					ft_cd_l(t_init *init, char *curpath, char *dir);
 
 /*
 ** > echo | env | exit <
