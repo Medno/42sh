@@ -83,7 +83,6 @@ static char		*clear_path(char *s1, char *dir)
 		free_pathlist(&pathlist);
 		return (NULL);
 	}
-
 	new = pathlist_to_str(pathlist);
 	free_pathlist(&pathlist);
 	return (new);

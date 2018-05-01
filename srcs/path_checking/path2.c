@@ -85,7 +85,7 @@ static void	el_checking(t_path *tmp, char **s, char **t)
 	}
 }
 
-char *go_to_last(char *str, char c)
+int			go_to_last(char *str, char c)
 {
 	int i;
 
@@ -97,7 +97,7 @@ char *go_to_last(char *str, char c)
 		i--;
 	if (i == -1)
 		i++;
-	return (str + i);
+	return (i);
 }
 
 void		set_path_info(t_path *pathlist)
@@ -112,18 +112,19 @@ void		set_path_info(t_path *pathlist)
 	t = NULL;
 	while (tmp)
 	{
-		if (ft_strequ(tmp->s, "..") && s && go_to_last(s, '/'))
+		if (ft_strequ(tmp->s, "..") && s)
 		{
-			tmp2 = ft_strsub(s, 0, ft_strlen(s) - ft_strlen(go_to_last(s, '/')));
+			tmp2 = ft_strsub(s, 0, go_to_last(s, '/'));
 			ft_strdel(&s);
 			s = tmp2;
 		}
-		if (!ft_strequ(tmp->s, ".") && !ft_strequ(tmp->s, ".."))
+		if (!ft_strequ(tmp->s, ".."))
 			el_checking(tmp, &s, &t);
 		if (t)
 			set_perms_type(tmp, t);
 		else if (s)
 			set_perms_type(tmp, s);
+		tmp = (tmp->next && ft_strequ(tmp->next->s, ".."))? tmp->next : tmp;
 		ft_strdel(&t);
 		tmp = tmp->next;
 	}
