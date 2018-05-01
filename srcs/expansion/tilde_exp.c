@@ -14,17 +14,17 @@
 
 static char	*copy_home(t_init *init)
 {
-	if (!ft_getenv(&init->new_env, "HOME"))
+	if (!ft_getenvloc(init, "HOME"))
 		return (ft_strdup("/Users"));
-	return (ft_strdup(ft_getenv(&init->new_env, "HOME")));
+	return (ft_strdup(ft_getenvloc(init, "HOME")));
 }
 
 static char	*pwd_tilde(t_init *init, char c)
 {
 	if (c == '+')
-		return (ft_strdup(ft_getenv(&init->new_env, "PWD")));
+		return (ft_strdup(ft_getenvloc(init, "PWD")));
 	if (c == '-')
-		return (ft_strdup(ft_getenv(&init->new_env, "OLDPWD")));
+		return (ft_strdup(ft_getenvloc(init, "OLDPWD")));
 	return (NULL);
 }
 
@@ -41,9 +41,9 @@ static int	check_prefix(t_init *init, char *str, char buf[], int *i)
 	res = 0;
 	if (!buf[0] || (buf[0] && (buf[0] == '-' || buf[0] == '+') && !buf[1]))
 	{
-		if ((buf[0] == '-' && !ft_getenv(&init->new_env, "OLDPWD")) ||
-				(buf[0] == '+' && !ft_getenv(&init->new_env, "PWD")) ||
-				(!buf[0] && !ft_getenv(&init->new_env, "HOME")))
+		if ((buf[0] == '-' && !ft_getenvloc(init, "OLDPWD")) ||
+				(buf[0] == '+' && !ft_getenvloc(init, "PWD")) ||
+				(!buf[0] && !ft_getenvloc(init, "HOME")))
 			res = 1;
 	}
 	else if (buf[0])
