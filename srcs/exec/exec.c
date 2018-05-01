@@ -60,9 +60,16 @@ int		launch_exec(t_init *init, t_ast *ast, int std_fd[], int error)
 		if (ast->value == PIPE)
 			launch_pipe(init, ast, std_fd, error);
 		else if (ast->value == AND_IF)
-			launch_and(init, ast, std_fd, error);
+		{
+
+			launch_and(init, ast->left, std_fd, error);
+			launch_and(init, ast->right, std_fd, error);
+		}
 		else if (ast->value == OR_IF)
-			launch_or(init, ast, std_fd, error);
+		{
+			launch_or(init, ast->left, std_fd, error);
+			launch_or(init, ast->right, std_fd, error);
+		}
 		else if (ast->value == CMD && ast->cmd && ast->cmd->arg)
 			return (check_cmd(ast, init));
 		else if (ast->value == CMD && ast->cmd && !ast->cmd->arg)

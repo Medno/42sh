@@ -14,49 +14,44 @@
 
 void		launch_and(t_init *init, t_ast *ast, int std_fd[], int error)
 {
-	int		ret;
-	int		status;
+	int status;
+	int ret;
 
-	ret = launch_exec(init, ast->left, std_fd, error);
-	reset_fd(std_fd, ast->left->cmd);
-	saving_fd(std_fd);
-	status = wait_pipe(&init->pid_list, ret);
-	if (status != -1)
-		ret = status;
-	error = ret;
-	if (!ret || (ast->right && ast->right->value == OR_IF))
+	if (ast->parent && ast->parent->left == ast && g_status == 0)
 	{
-		ret = launch_exec(init, ast->right, std_fd, error);
-		reset_fd(std_fd, ast->right->cmd);
+		ret = launch_exec(init, ast, std_fd, error);
+		reset_fd(std_fd, ast->cmd);
+		saving_fd(std_fd);
+		status = wait_pipe(&init->pid_list, ret);
+	}
+	else if (ast->value != CMD ||
+			(ast->parent && ast->parent->right == ast && g_status == 0))
+	{
+		ret = launch_exec(init, ast, std_fd, error);
+		reset_fd(std_fd, ast->cmd);
 		wait_pipe(&init->pid_list, ret);
 	}
+
 }
 
 void		launch_or(t_init *init, t_ast *ast, int std_fd[], int error)
 {
-	int		ret;
-	int		status;
+	int status;
+	int ret;
 
-	if (!error)
+	if (ast->parent && ast->parent->left == ast && g_status == 0)
 	{
-		ret = launch_exec(init, ast->left, std_fd, error);
-		reset_fd(std_fd, ast->left->cmd);
+		ret = launch_exec(init, ast, std_fd, error);
+		reset_fd(std_fd, ast->cmd);
 		saving_fd(std_fd);
 		status = wait_pipe(&init->pid_list, ret);
-		ret = (status != -1) ? status : ret;
-		if (ret)
-		{
-			g_status = -1;
-			ret = launch_exec(init, ast->right, std_fd, error);
-			reset_fd(std_fd, ast->right->cmd);
-			wait_pipe(&init->pid_list, ret);
-		}
 	}
-	else
+	else if (ast->value != CMD ||
+			(ast->parent && ast->parent->right == ast && g_status == 1))
 	{
-		g_status = -1;
-		ret = launch_exec(init, ast->right, std_fd, error);
-		reset_fd(std_fd, ast->right->cmd);
+		ret = launch_exec(init, ast, std_fd, error);
+		reset_fd(std_fd, ast->cmd);
 		wait_pipe(&init->pid_list, ret);
 	}
+
 }
