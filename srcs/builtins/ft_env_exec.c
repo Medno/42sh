@@ -44,20 +44,23 @@ void		fork_env_cmd(t_init *init, t_ast *ast, char *path)
 {
 	pid_t	father;
 
-	father = fork();
-	if (father > 0)
+	if (ast->cmd->arg[0])
 	{
-		pid_addlast(&init->pid_list, father);
-		signal(SIGINT, (void (*)(int))sig_write_nl);
-		close_pipe(ast);
-	}
-	if (!father)
-	{
-		signal(SIGINT, SIG_DFL);
-		setup_pipe(ast);
-		if (!redirection(ast->cmd))
-			exit(EXIT_FAILURE);
-		exec_env_cmd(init, ast, path);
+		father = fork();
+		if (father > 0)
+		{
+			pid_addlast(&init->pid_list, father);
+			signal(SIGINT, (void (*)(int))sig_write_nl);
+			close_pipe(ast);
+		}
+		if (!father)
+		{
+			signal(SIGINT, SIG_DFL);
+			setup_pipe(ast);
+			if (!redirection(ast->cmd))
+				exit(EXIT_FAILURE);
+			exec_env_cmd(init, ast, path);
+		}
 	}
 	ft_strdel(&path);
 }

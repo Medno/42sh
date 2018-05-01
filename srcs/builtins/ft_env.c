@@ -36,7 +36,7 @@ int			fill_env(t_env **env, char **arg)
 		{
 			free_list(env);
 			ft_strdel(&name);
-			return (usage_env() * 0);
+			return (usage_env());
 		}
 		ft_setenv(env, name, value);
 		ft_strdel(&name);
@@ -44,7 +44,7 @@ int			fill_env(t_env **env, char **arg)
 	}
 	if (!arg[i])
 		return (print_env(env));
-	return (1);
+	return (0);
 }
 
 static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
@@ -54,7 +54,7 @@ static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
 	int		ret;
 
 	ret = fill_env(&new, arg);
-	if (ret && (new || (!new && arg[1] && arg[2])))
+	if (!ret && (new || (!new && arg[1] && arg[2])))
 	{
 		init_all(NULL, &initmp);
 		astmp = init_ast();
