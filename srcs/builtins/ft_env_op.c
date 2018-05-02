@@ -58,10 +58,8 @@ char	**shift_arg(char **arg)
 	int		i;
 	char	**newarg;
 
-	i = 1;
+	i = inc_opt(arg);
 	newarg = NULL;
-	if (arg[i] && ft_strequ(arg[i], "-i"))
-		i++;
 	while (arg[i] && ft_strchr(arg[i], '='))
 		i++;
 	newarg = cpytab(newarg, arg + i);
