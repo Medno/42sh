@@ -57,6 +57,11 @@ int			ft_biunsetenv(t_init *init, char ***entry)
 
 	ret = 0;
 	i = 1;
+	if (entry && *entry && !(*entry)[i])
+	{
+		ft_printf_fd(STDERR_FILENO, "unsetenv: Too few arguments.\n");
+		return (1);
+	}
 	while (entry && *entry && (*entry)[i])
 	{
 		ret += ft_unsetenv(&init->new_env, (*entry)[i]);

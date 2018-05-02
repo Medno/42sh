@@ -81,6 +81,7 @@ void	clean_init(t_init *init)
 		tmp->next = NULL;
 		ft_memdel((void**)&tmp);
 	}
+	ft_strdel(&init->pwd);
 	free_list(&init->new_env);
 	free_list(&init->loc_env);
 }

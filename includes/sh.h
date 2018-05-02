@@ -41,7 +41,7 @@ int		g_oldstatus;
 t_init	*g_in;
 t_edit	*g_ed;
 
-void				init_all(char **env, t_init *init);
+int					init_all(char **env, t_init *init);
 int					read_stdin(char **environ);
 int					main_step_2(t_init *init);
 /*

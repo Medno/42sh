@@ -16,12 +16,10 @@ extern int		g_optind;
 
 static int		swap_pwd(t_init *init)
 {
-	char	*tmp;
-
-	tmp = ft_strdup(ft_getenvloc(init, "PWD"));
 	ft_setenv(&init->new_env, "PWD", ft_getenvloc(init, "OLDPWD"));
-	ft_setenv(&init->new_env, "OLDPWD", tmp);
-	ft_strdel(&tmp);
+	ft_setenv(&init->new_env, "OLDPWD", init->pwd);
+	ft_strdel(&init->pwd);
+	init->pwd = ft_strdup(ft_getenv(&init->new_env, "PWD"));
 	return (0);
 }
 
@@ -30,25 +28,22 @@ int				do_move(char *path, t_init *init, int p)
 	char	*tmp;
 
 	tmp = NULL;
-	if (!ft_getenvloc(init, "PWD"))
-	{
-		tmp = getcwd(tmp, PATH_MAX);
-		ft_setenv(&init->new_env, "PWD", tmp);
-		ft_strdel(&tmp);
-	}
 	if (chdir(path) < 0)
 		return (1);
 	if (!p && ft_strequ(path, ft_getenvloc(init, "OLDPWD")))
 		swap_pwd(init);
 	else
 	{
-		ft_setenv(&init->new_env, "OLDPWD", ft_getenvloc(init, "PWD"));
+		ft_setenv(&init->new_env, "OLDPWD", init->pwd);
 		if ((tmp = getcwd(tmp, PATH_MAX)))
+		{
 			ft_setenv(&init->new_env, "PWD", tmp);
+			ft_strdel(&init->pwd);
+			init->pwd = tmp;
+		}
 		else
 			return (ft_printf("cd: error retrieving current directory\n"));
 	}
-	ft_strdel(&tmp);
 	return (0);
 }
 
@@ -80,6 +75,7 @@ int				ft_cd(t_init *init, char ***entry)
 	int		ret;
 	int		do_print;
 
+	ft_printf("En entree, pwd = [%s]\n", init->pwd);
 	if ((opt_p = ft_getopt_cd(*entry)) == -1)
 		return (1);
 	if (!((*entry)[g_optind]) || ft_strequ((*entry)[g_optind], "-"))
@@ -97,7 +93,7 @@ int				ft_cd(t_init *init, char ***entry)
 		ret = do_move(curpath, init, 1) ? handle_cd_error(curpath) : 0;
 	else
 		ret = ft_cd_l(init, curpath, (*entry)[g_optind]);
-	do_print ? ft_printf("%s\n", ft_getenv(&init->new_env, "PWD")) : 0;
+	do_print ? ft_printf("%s\n", init->pwd) : 0;
 	ft_strdel(&curpath);
 	return (ret);
 }

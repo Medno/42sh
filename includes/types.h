@@ -136,6 +136,7 @@ typedef struct		s_pid
 typedef struct		s_init
 {
 	char			*str;
+	char			*pwd;
 	int				stop;
 	int				dollar;
 	t_pid			*pid_list;

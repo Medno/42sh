@@ -56,6 +56,7 @@ int			do_simple_cd(t_init *init, char *dir, int opt)
 			return (print_oldpwd(tmp));
 		ft_printf_fd(2, "cd: %s: No such file or directory\n",
 				ft_getenvloc(init, "OLDPWD"));
+		ft_strdel(&tmp);
 	}
 	return (1);
 }

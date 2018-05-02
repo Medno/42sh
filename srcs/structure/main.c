@@ -79,7 +79,8 @@ int				main(int ac, char **av, char **environ)
 	g_status = 0;
 	if (!isatty(STDIN_FILENO))
 		return (1);
-	init_all(environ, &init);
+	if (init_all(environ, &init) == 0)
+		return (1);
 	g_in = &init;
 	signal(SIGSEGV, (void (*)(int))catch_and_reset);
 	signal(SIGABRT, (void (*)(int))catch_and_reset);
