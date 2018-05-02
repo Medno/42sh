@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 10:47:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/10 08:49:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/05/02 14:38:07 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int		check_valid(t_path **pathlist)
 	tmp = *pathlist;
 	while (tmp)
 	{
-		if (!tmp->perms)
-			return (-1);
+		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
+			tmp = handle_remove(tmp, pathlist);
 		else if (tmp->type == 'd')
 		{
 			if (tmp->perms & 4 && tmp->next)
@@ -44,11 +44,13 @@ static int		check_valid(t_path **pathlist)
 				return (-3);
 		}
 		else if (tmp->type == 'r' && !tmp->next)
+		{
 			if (tmp->perms & 8)
 				return (-2);
-		if (ft_strequ(".", tmp->s) || ft_strequ("..", tmp->s))
-			tmp = handle_remove(tmp, pathlist);
-		else if (tmp)
+		}
+		else if (!tmp->perms)
+			return (-1);
+		if (tmp)
 			tmp = tmp->next;
 	}
 	return (0);

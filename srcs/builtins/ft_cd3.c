@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 11:51:02 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/02 12:06:27 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 14:14:51 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,17 @@ static int	opt_oldpwd(t_init *init)
 	return (0);
 }
 
+static int	print_oldpwd(char *oldpwd)
+{
+	ft_printf("%s\n", oldpwd);
+	ft_strdel(&oldpwd);
+	return (0);
+}
+
 int			do_simple_cd(t_init *init, char *dir, int opt)
 {
+	char	*tmp;
+
 	if (!dir)
 	{
 		if (!ft_getenvloc(init, "HOME") ||
@@ -40,11 +49,11 @@ int			do_simple_cd(t_init *init, char *dir, int opt)
 		if (!ft_getenvloc(init, "OLDPWD") ||
 				ft_strequ(ft_getenvloc(init, "OLDPWD"), ""))
 			return (write(2, "cd: OLDPWD not set\n", 19) ? 1 : 1);
-		ft_printf("%s\n", ft_getenv(&init->new_env, "OLDPWD"));
+		tmp = ft_strdup(ft_getenv(&init->new_env, "OLDPWD"));
 		if (opt)
 			opt_oldpwd(init);
 		if (!do_move(ft_getenvloc(init, "OLDPWD"), init, opt))
-			return (0);
+			return (print_oldpwd(tmp));
 		ft_printf_fd(2, "cd: %s: No such file or directory\n",
 				ft_getenvloc(init, "OLDPWD"));
 	}
