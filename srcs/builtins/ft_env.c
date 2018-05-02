@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 10:25:25 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 11:57:37 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int			fill_env(t_env **env, char **arg)
 	char	*value;
 
 	i = 1;
-	if (ft_strequ(arg[i], "-i") || ft_strequ(arg[i], "-"))
+	if (ft_strequ(arg[i], "-i") || ft_strequ(arg[i], "-") ||
+			ft_strequ(arg[i], "--"))
 		i++;
 	while (arg[i] && ft_strchr(arg[i], '='))
 	{

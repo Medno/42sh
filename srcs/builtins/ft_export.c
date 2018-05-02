@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:27:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/11 08:34:26 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 12:18:38 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ static int	set_bits(char c, int flag)
 
 static int	check_p(t_init *init, char **arg)
 {
-	if (arg[1] && arg[2])
-		return (switch_loc_to_env(init, arg + 1));
+	if (arg && arg[0])
+		return (switch_loc_to_env(init, arg));
 	ft_print_env(init->new_env, '"');
 	return (0);
 }
 
 static int	router(t_init *init, char **arg, int flags)
 {
-	if (flags == 1)
+	if (flags == 1 || !arg[0])
 		return (check_p(init, arg));
 	if (flags & 2)
 		return (switch_env_to_loc(init, arg));
@@ -65,15 +65,17 @@ static int	router(t_init *init, char **arg, int flags)
 
 int			ft_export(t_init *init, char ***entry)
 {
-	char	**arg;
-	int		flags;
 	char	c;
+	char	**arg;
+	int		i;
+	int		flags;
 
 	flags = 0;
 	c = 0;
 	arg = *entry;
 	reset_ft_opt();
-	if (arg && !(arg)[1])
+	if (arg && (!(arg)[1] ||
+				(arg[1] && ft_tablen(arg) == 2 && ft_strequ(arg[1], "--"))))
 	{
 		ft_print_env(init->new_env, '\'');
 		return (0);
@@ -85,5 +87,6 @@ int			ft_export(t_init *init, char ***entry)
 		else if (c == '?')
 			return (export_usage());
 	}
-	return (router(init, arg, flags));
+	i = inc_opt(arg);
+	return (router(init, arg + i, flags));
 }

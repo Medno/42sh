@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 11:22:11 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/27 12:12:29 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 12:15:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		switch_loc_to_env(t_init *init, char **arg);
 
 void	ft_set_variable(t_env **loc, t_env **env, char *arg, int where);
 
+int		inc_opt(char **arg);
 int		export_usage(void);
 int		not_an_identifier(char *function, char *arg);
 int		read_only_error(char *arg, int free);

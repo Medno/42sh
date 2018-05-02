@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:08:12 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/27 13:38:53 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 12:17:46 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			switch_env_to_loc(t_init *init, char **arg)
 	int		i;
 	int		ret;
 
-	i = 2;
+	i = 0;
 	ret = 0;
 	while (arg[i])
 	{
@@ -63,7 +63,7 @@ int			switch_loc_to_env(t_init *init, char **arg)
 	int		i;
 	int		ret;
 
-	i = 1;
+	i = 0;
 	ret = 0;
 	while (arg[i])
 	{
