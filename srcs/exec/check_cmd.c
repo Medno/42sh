@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/30 13:30:00 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 11:37:51 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int			check_cmd(t_ast *ast, t_init *init)
 	char	*path;
 
 	ret = 0;
+	ast->cmd = begin_expansion(init, ast->cmd);
 	ft_set_tmp(init, ast->cmd->arg);
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
 		(check_local(&ast->cmd->arg, CLEAN) || (is_builtin(ast->cmd->arg[0])))

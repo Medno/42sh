@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 17:40:00 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 10:22:10 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/05/02 12:21:31 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,6 @@ static void	el_checking(t_path *tmp, char **s, char **t)
 	}
 }
 
-int			go_to_last(char *str, char c)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	i--;
-	while (i >= 0 && str[i] && str[i] != c)
-		i--;
-	if (i == -1)
-		i++;
-	return (i);
-}
 
 void		set_path_info(t_path *pathlist)
 {
@@ -124,7 +110,7 @@ void		set_path_info(t_path *pathlist)
 			set_perms_type(tmp, t);
 		else if (s)
 			set_perms_type(tmp, s);
-		tmp = (tmp->next && ft_strequ(tmp->next->s, ".."))? tmp->next : tmp;
+		tmp = (tmp->next && ft_strequ(tmp->next->s, "..")) ? tmp->next : tmp;
 		ft_strdel(&t);
 		tmp = tmp->next;
 	}

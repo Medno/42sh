@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/27 14:18:48 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 11:34:55 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@ static int		step_3(t_init *init, t_ast *ast, int quote_again)
 	{
 		while (ast && ast->value == SEMI)
 		{
-			ast_expansion(init, ast->left);
-			if (!init->dollar)
-				quote_again = exec_start(ast->left, init);
+			quote_again = exec_start(ast->left, init);
 			ast = ast->right;
 		}
 		if (ast && ast->value != SEMI)
-		{
-			ast_expansion(init, ast);
-			if (!init->dollar)
-				quote_again = exec_start(ast, init);
-		}
+			quote_again = exec_start(ast, init);
 	}
 	clean_ast(&init->ast);
 	del_lex(init->lex);

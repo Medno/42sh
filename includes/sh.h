@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 15:06:13 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 12:20:30 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ void				catch_and_reset(int sig);
 */
 int					ft_cd(t_init *init, char ***entry);
 int					ft_cd_l(t_init *init, char *curpath, char *dir);
+int					handle_cd_error(char *str);
+int					do_simple_cd(t_init *init, char *dir, int opt);
+int					do_move(char *path, t_init *init, int p);
+char				*ft_handle_cdpath(t_init *init, char *dir, int *do_print);
 
 /*
 ** > echo | env | exit <
@@ -118,4 +122,5 @@ t_path				*new_pathlist(char *str);
 void				remove_elem(t_path *elem, t_path **orig);
 void				set_path_info(t_path *pathlist);
 char				*pathlist_to_str(t_path *pathlist);
+int					go_to_last(char *str, char c);
 #endif

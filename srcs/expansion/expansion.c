@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/30 13:04:06 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 11:38:05 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char		**do_expansion(t_init *init, char *str, char **res)
 	return (res);
 }
 
-static t_cmd	*begin_expansion(t_init *init, t_cmd *cmd)
+t_cmd			*begin_expansion(t_init *init, t_cmd *cmd)
 {
 	char	**res;
 	char	**res_redir;

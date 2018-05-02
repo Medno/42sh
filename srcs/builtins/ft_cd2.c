@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 10:25:03 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/05/02 12:09:35 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ static int		check_elements(t_path **pathlist, char *str)
 static char		*clear_path(char *s1, char *dir)
 {
 	t_path	*pathlist;
+	t_path	*tmp;
 	char	*new;
 
 	new = NULL;
 	if (!(pathlist = new_pathlist(s1)))
 		return (ft_strdup("/"));
-	t_path *tmp;
 	tmp = pathlist;
 	while (tmp)
 	{

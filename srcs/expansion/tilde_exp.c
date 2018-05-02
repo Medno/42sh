@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:37:15 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/30 13:25:08 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 11:28:09 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static char	*copy_home(t_init *init)
 {
-	if (!ft_getenvloc(init, "HOME"))
+	if (!ft_getenv(&init->new_env, "HOME"))
 		return (ft_strdup("/Users"));
-	return (ft_strdup(ft_getenvloc(init, "HOME")));
+	return (ft_strdup(ft_getenv(&init->new_env, "HOME")));
 }
 
 static char	*pwd_tilde(t_init *init, char c)
 {
 	if (c == '+')
-		return (ft_strdup(ft_getenvloc(init, "PWD")));
+		return (ft_strdup(ft_getenv(&init->new_env, "PWD")));
 	if (c == '-')
-		return (ft_strdup(ft_getenvloc(init, "OLDPWD")));
+		return (ft_strdup(ft_getenv(&init->new_env, "OLDPWD")));
 	return (NULL);
 }
 
@@ -41,9 +41,9 @@ static int	check_prefix(t_init *init, char *str, char buf[], int *i)
 	res = 0;
 	if (!buf[0] || (buf[0] && (buf[0] == '-' || buf[0] == '+') && !buf[1]))
 	{
-		if ((buf[0] == '-' && !ft_getenvloc(init, "OLDPWD")) ||
-				(buf[0] == '+' && !ft_getenvloc(init, "PWD")) ||
-				(!buf[0] && !ft_getenvloc(init, "HOME")))
+		if ((buf[0] == '-' && !ft_getenv(&init->new_env, "OLDPWD")) ||
+				(buf[0] == '+' && !ft_getenv(&init->new_env, "PWD")) ||
+				(!buf[0] && !ft_getenv(&init->new_env, "HOME")))
 			res = 1;
 	}
 	else if (buf[0])
