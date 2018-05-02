@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 10:08:45 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 11:57:37 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 15:19:42 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int			fill_env(t_env **env, char **arg)
 	char	*name;
 	char	*value;
 
-	i = 1;
-	if (ft_strequ(arg[i], "-i") || ft_strequ(arg[i], "-") ||
-			ft_strequ(arg[i], "--"))
-		i++;
+	i = inc_opt(arg);
 	while (arg[i] && ft_strchr(arg[i], '='))
 	{
 		name = ft_strsub(arg[i], 0, equ_index(arg[i], '='));
@@ -67,7 +64,7 @@ static int	ft_env_return(t_env *new, t_ast *ast, char **arg)
 		astmp->value = CMD;
 		astmp->cmd->arg = shift_arg(ast->cmd->arg);
 		fork_env_cmd(&initmp, astmp, NULL);
-		ret = wait_pipe(&initmp.pid_list, 0);
+		ret = wait_pipe(&initmp.pid_list, 127);
 		clean_ast(&astmp);
 		clean_init(&initmp);
 		ft_freetab(ast->cmd->arg);

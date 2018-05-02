@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:47:26 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/16 12:23:35 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/05/02 15:05:56 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exit_error(int ret, char *str)
 int		path_error(char *str)
 {
 	ft_printf_fd(STDERR_FILENO, "42sh: %s: command not found\n", str);
-	return (1);
+	return (127);
 }
 
 void	error_execve(void)

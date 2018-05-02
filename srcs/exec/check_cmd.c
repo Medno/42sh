@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/02 11:37:51 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 14:27:12 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,21 @@ int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 	return (-1);
 }
 
+static int	setup_exec(t_init *init, t_ast *ast)
+{
+	g_oldstatus = g_status;
+	g_status = 0;
+	ft_set_tmp(init, ast->cmd->arg);
+	return (0);
+}
+
 int			check_cmd(t_ast *ast, t_init *init)
 {
 	int		ret;
 	char	*path;
 
-	ret = 0;
 	ast->cmd = begin_expansion(init, ast->cmd);
-	ft_set_tmp(init, ast->cmd->arg);
+	ret = setup_exec(init, ast);
 	if (((ast->parent && ast->parent->value != PIPE) || !ast->parent) &&
 		(check_local(&ast->cmd->arg, CLEAN) || (is_builtin(ast->cmd->arg[0])))
 		&& (ret = check_builtins(&ast->cmd->arg, ast->cmd, ast, init)) >= 0)

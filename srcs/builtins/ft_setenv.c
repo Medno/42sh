@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 13:15:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 14:56:42 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 15:33:18 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ int				ft_setenv_init(t_init *init, char **arg)
 		return (1);
 	}
 	ft_getenv(&init->loc_env, arg[1]) ? ft_unsetenv(&init->loc_env, arg[1]) : 0;
+	if (arg && arg[1] && !is_valid_identifier("setenv", arg[1], PRINT))
+		return (1);
 	return (ft_setenv(&init->new_env, arg[1], arg[2]));
 }

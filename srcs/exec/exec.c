@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 14:37:28 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 14:43:58 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int		exec_start(t_ast *ast, t_init *init)
 	int		error;
 
 	error = 0;
-	g_oldstatus = g_status;
-	g_status = 0;
 	saving_fd(std_fd);
 	sig = launch_exec(init, ast, std_fd, error);
 	ret = wait_pipe(&init->pid_list, sig);
