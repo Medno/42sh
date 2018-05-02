@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/04/26 15:22:49 by hlely            ###   ########.fr        #
+#    Updated: 2018/05/02 11:52:36 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -169,7 +169,6 @@ EXEC_NAME = exec.c				\
 			error.c				\
 			only_redir.c		\
 			pid_addlast.c		\
-			return_builtin.c	\
 			check_slash.c
 EXEC_PATH = exec/
 SRCS += $(addprefix $(PATHFS), $(addprefix $(EXEC_PATH), $(EXEC_NAME)))

@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 20:15:54 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/13 12:01:54 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 11:51:13 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void		del_one_pid(t_pid **pid)
+static void	del_one_pid(t_pid **pid)
 {
 	if (*pid)
 	{

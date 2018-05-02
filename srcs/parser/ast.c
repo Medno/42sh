@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/03/15 17:33:08 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 09:14:36 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ t_ast	*and_or(t_lex *first)
 	t_ast	*root;
 	t_lex	*sep;
 
-	if ((sep = get_lex(first, AND_IF, NULL)) ||
-			(sep = get_lex(first, OR_IF, NULL)))
+	if ((sep = get_doublelex(first, AND_IF, OR_IF, NULL)))
 	{
 		root = init_ast();
 		root->value = sep->token;

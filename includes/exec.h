@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/21 14:24:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 11:52:45 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "sh.h"
 
-void		del_one_pid(t_pid **pid);
 void		del_pid(t_pid **pid);
 void		setup_pipe(t_ast *ast);
 void		close_pipe(t_ast *ast);
@@ -23,7 +22,6 @@ void		launch_pipe(t_init *init, t_ast *ast, int std_fd[], int error);
 void		launch_and(t_init *init, t_ast *ast, int std_fd[], int error);
 void		launch_or(t_init *init, t_ast *ast, int std_fd[], int error);
 int			wait_pipe(t_pid **pid, int sig);
-int			return_builtin(t_ast *ast);
 
 int			delete_space(t_ast *ast);
 int			only_redir(t_ast *ast);

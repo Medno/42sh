@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 12:29:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/11 12:08:42 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 09:15:08 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void				del_one_lex(t_lex *tmp);
 void				del_lex(t_lex *first);
 void				print_lex(t_lex *first);
 t_lex				*get_lex(t_lex *first, t_token token, char *value);
+t_lex				*get_doublelex(t_lex *first, t_token token1, t_token token2,
+					char *value);
 t_lex				*put_in_new(t_lex *new, char buf[]);
 int					isredir(char c);
 int					is_op(char c, char buf[]);

@@ -6,13 +6,13 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:43:53 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/17 10:43:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/02 11:52:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void	close_loop(t_ast *ast)
+static void	close_loop(t_ast *ast)
 {
 	while (ast->parent->parent && ast->parent->parent->value == PIPE)
 	{
@@ -21,7 +21,7 @@ void	close_loop(t_ast *ast)
 	}
 }
 
-void	close_pipe(t_ast *ast)
+void		close_pipe(t_ast *ast)
 {
 	if (ast->parent && ast->parent->value == PIPE)
 	{
@@ -36,7 +36,7 @@ void	close_pipe(t_ast *ast)
 	}
 }
 
-void	setup_pipe(t_ast *ast)
+void		setup_pipe(t_ast *ast)
 {
 	if (ast->parent && ast->parent->value == PIPE)
 	{
@@ -55,14 +55,14 @@ void	setup_pipe(t_ast *ast)
 	}
 }
 
-void	launch_pipe(t_init *init, t_ast *ast, int std_fd[], int error)
+void		launch_pipe(t_init *init, t_ast *ast, int std_fd[], int error)
 {
 	pipe(ast->pipefd);
 	launch_exec(init, ast->left, std_fd, error);
 	launch_exec(init, ast->right, std_fd, error);
 }
 
-int		wait_pipe(t_pid **pid, int sig)
+int			wait_pipe(t_pid **pid, int sig)
 {
 	t_pid	*tmp;
 	int		status;
@@ -80,13 +80,10 @@ int		wait_pipe(t_pid **pid, int sig)
 	del_pid(pid);
 	if (!(!WIFEXITED(status) && WIFSIGNALED(status)))
 	{
-		if (g_status == -1 || g_status == 0)
-		{
-			if (status == -1)
-				g_status = sig;
-			else
-				g_status = WEXITSTATUS(status);
-		}
+		if (status == -1)
+			g_status = sig;
+		else
+			g_status = WEXITSTATUS(status);
 	}
 	return (status);
 }
