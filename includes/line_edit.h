@@ -20,7 +20,7 @@
 */
 int					ft_line_edition(char **line, int prompt_len,
 					t_hist **histo, t_init init);
-t_line				*ft_line_usual(t_edit *edit, char c);
+t_line				*ft_line_usual(t_edit *edit, char c, t_init init);
 t_line				*line_delone(t_line *cur, t_curs *curseur);
 t_line				*del_next(t_line *cur, t_curs *curseur);
 void				ansi(char *str, int x, int fd);
@@ -48,7 +48,7 @@ void				hist_to_file(t_hist *historic);
 /*
 ** search
 */
-char				lookup_history(t_edit *edit);
+char				lookup_history(t_edit *edit, t_init init);
 char				*search_hist(t_edit *edit, char *look, char c);
 char				*add_char_str(char *look, char c);
 t_line				*clear(t_edit *edit, char *buf);
@@ -78,7 +78,7 @@ t_line				*move_first(t_line *cur, t_curs *curseur);
 t_line				*move_last(t_line *cur, t_curs *curseur);
 t_line				*move_rword(t_line *cur, t_curs *curseur);
 t_line				*move_lword(t_line *cur, t_curs *curseur);
-t_line				*clearscreen(t_edit *edit);
+t_line				*clearscreen(t_edit *edit, t_init init);
 /*
 ** ft_pos
 */

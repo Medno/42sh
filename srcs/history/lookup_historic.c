@@ -12,7 +12,7 @@
 
 #include "line_edit.h"
 
-static char	reset(t_edit *edit, char c)
+static char	reset(t_edit *edit, char c, t_init init)
 {
 	char	*tmp;
 
@@ -21,7 +21,7 @@ static char	reset(t_edit *edit, char c)
 		*edit->current = move_first(*edit->current, &edit->curseur);
 		ansi("LE", (&edit->curseur)->screen.ws_col, STDIN_FILENO);
 		ansi("CL_END", 0, STDIN_FILENO);
-		edit->prompt_len = put_path(&edit->env);
+		edit->prompt_len = put_path(&init);
 		tmp = line_to_str(*edit->current);
 		ft_putstr_fd(tmp, STDIN_FILENO);
 		ft_strdel(&tmp);
@@ -85,7 +85,7 @@ static void	step_2(t_edit *edit, char **look, char **str, char c)
 		*look = remove_last(*look);
 }
 
-char		lookup_history(t_edit *edit)
+char		lookup_history(t_edit *edit, t_init init)
 {
 	char	*look;
 	char	*str;
@@ -102,7 +102,7 @@ char		lookup_history(t_edit *edit)
 		if (c != ' ' && (!ft_isalnum(c) || c == '\n') && c != 127 && c != 8)
 		{
 			ft_strdel(&look);
-			return (reset(edit, c));
+			return (reset(edit, c, init));
 		}
 		else
 			step_2(edit, &look, &str, c);

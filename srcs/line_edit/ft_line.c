@@ -65,7 +65,7 @@ int		handle_ctrl_d_c(t_edit *edit, char **line, int i)
 	}
 }
 
-int		edit_line(char **line, t_edit *edit)
+int		edit_line(char **line, t_edit *edit, t_init init)
 {
 	char	c;
 
@@ -73,7 +73,7 @@ int		edit_line(char **line, t_edit *edit)
 	while (reset_completion(edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
 		if (c == 18 && *edit->histo)
-			c = lookup_history(edit);
+			c = lookup_history(edit, init);
 		if (c == 3)
 			return (handle_ctrl_d_c(edit, line, 1));
 		else if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)
@@ -89,7 +89,7 @@ int		edit_line(char **line, t_edit *edit)
 		else if (c == 27)
 			*edit->current = ft_line_esc(edit);
 		else
-			*edit->current = ft_line_usual(edit, c);
+			*edit->current = ft_line_usual(edit, c, init);
 	}
 	return (0);
 }
@@ -115,7 +115,7 @@ int		ft_line_edition(char **line, int prompt_len, t_hist **histo,
 	edit.env = init.new_env;
 	edit.loc = init.loc_env;
 	g_ed = &edit;
-	ret = edit_line(line, &edit);
+	ret = edit_line(line, &edit, init);
 	ft_clean_edit(&edit);
 	return (ret);
 }

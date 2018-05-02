@@ -35,7 +35,7 @@ static t_line	*ft_copy(t_line *cur, char c, t_curs *curseur, int checked)
 	return (cur);
 }
 
-t_line			*ft_line_usual(t_edit *edit, char c)
+t_line			*ft_line_usual(t_edit *edit, char c, t_init init)
 {
 	int		checked;
 
@@ -47,7 +47,7 @@ t_line			*ft_line_usual(t_edit *edit, char c)
 	else if (c == '\t')
 		return (completion(edit));
 	else if (c == 12)
-		return (clearscreen(edit));
+		return (clearscreen(edit, init));
 	else if (c >= 32 && c <= 126 && !checked)
 		return (push_new(*edit->current, c, &edit->curseur));
 	else

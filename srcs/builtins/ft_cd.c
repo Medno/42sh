@@ -47,11 +47,12 @@ int				do_move(char *path, t_init *init, int p)
 	return (0);
 }
 
-int				ft_getopt_cd(char **entry)
+int				ft_getopt_cd(char **entry, int *do_print)
 {
 	int c;
 	int opt_p;
 
+	*do_print = 0;
 	c = 0;
 	opt_p = 0;
 	reset_ft_opt();
@@ -88,13 +89,14 @@ int				ft_cd(t_init *init, char ***entry)
 	int		ret;
 	int		do_print;
 
-	if ((opt_p = ft_getopt_cd(*entry)) == -1)
+	if ((opt_p = ft_getopt_cd(*entry, &do_print)) == -1)
 		return (1);
 	if (!((*entry)[g_optind]))
 		return (do_cd_home(init));
-	do_print = 0;
 	if (ft_strequ((*entry)[g_optind], "-"))
 	{
+		if (!ft_getenvloc(init, "OLDPWD"))
+			return (write(STDERR_FILENO, "cd: OLDPWD not set\n", 19) ? 1 : 1);
 		ft_strdel(&(*entry)[g_optind]);
 		(*entry)[g_optind] = ft_strdup(ft_getenvloc(init, "OLDPWD"));
 		do_print = 1;
