@@ -68,6 +68,19 @@ int				ft_getopt_cd(char **entry)
 	return (opt_p);
 }
 
+char			*get_curpath(t_init *init, char *dir, int *do_print)
+{
+	char	*curpath;
+
+	if (!ft_getenvloc(init, "CDPATH") || ft_strnequ("./", dir, 2)
+		|| *dir == '/' || ft_strnequ("../", dir, 3)
+		|| ft_strequ(".", dir) || ft_strequ("..", dir))
+		curpath = ft_strdup(dir);
+	else
+		curpath = ft_handle_cdpath(init, dir, do_print);
+	return (curpath);
+}
+
 int				ft_cd(t_init *init, char ***entry)
 {
 	int		opt_p;
@@ -75,25 +88,23 @@ int				ft_cd(t_init *init, char ***entry)
 	int		ret;
 	int		do_print;
 
-	ft_printf("En entree, pwd = [%s]\n", init->pwd);
 	if ((opt_p = ft_getopt_cd(*entry)) == -1)
 		return (1);
-	if (!((*entry)[g_optind]) || ft_strequ((*entry)[g_optind], "-"))
-		return (do_simple_cd(init, (*entry)[g_optind], opt_p));
+	if (!((*entry)[g_optind]))
+		return (do_cd_home(init));
 	do_print = 0;
-	if (!ft_getenvloc(init, "CDPATH") || ft_strnequ("./", (*entry)[g_optind], 2)
-		|| *(*entry)[g_optind] == '/' ||
-		ft_strnequ("../", (*entry)[g_optind], 3)
-		|| ft_strequ(".", (*entry)[g_optind]) ||
-		ft_strequ("..", (*entry)[g_optind]))
-		curpath = ft_strdup((*entry)[g_optind]);
-	else
-		curpath = ft_handle_cdpath(init, (*entry)[g_optind], &do_print);
+	if (ft_strequ((*entry)[g_optind], "-"))
+	{
+		ft_strdel(&(*entry)[g_optind]);
+		(*entry)[g_optind] = ft_strdup(ft_getenvloc(init, "OLDPWD"));
+		do_print = 1;
+	}
+	curpath = get_curpath(init, (*entry)[g_optind], &do_print);
 	if (opt_p)
 		ret = do_move(curpath, init, 1) ? handle_cd_error(curpath) : 0;
 	else
 		ret = ft_cd_l(init, curpath, (*entry)[g_optind]);
-	do_print ? ft_printf("%s\n", init->pwd) : 0;
+	do_print && !ret ? ft_printf("%s\n", init->pwd) : 0;
 	ft_strdel(&curpath);
 	return (ret);
 }

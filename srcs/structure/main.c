@@ -58,7 +58,7 @@ static void		step_1(t_init init)
 	while (42)
 	{
 		init.dollar = 0;
-		len_prompt = put_path(&init.new_env);
+		len_prompt = put_path(&init);
 		ft_cfmakeraw(&init.current);
 		ret = ft_line_edition(&init.str, len_prompt, &init.historic, init);
 		g_status = (ret == 3) ? 1 : g_status;

@@ -12,53 +12,19 @@
 
 #include "sh.h"
 
-static int	opt_oldpwd(t_init *init)
+int			do_cd_home(t_init *init)
 {
-	char	*tmp;
+	int		ret;
 
-	tmp = NULL;
-	tmp = getcwd(tmp, PATH_MAX);
-	ft_setenv(&init->new_env, "OLDPWD", tmp);
-	ft_strdel(&tmp);
-	return (0);
-}
-
-static int	print_oldpwd(char *oldpwd)
-{
-	ft_printf("%s\n", oldpwd);
-	ft_strdel(&oldpwd);
-	return (0);
-}
-
-int			do_simple_cd(t_init *init, char *dir, int opt)
-{
-	char	*tmp;
-
-	if (!dir)
-	{
-		if (!ft_getenvloc(init, "HOME") ||
-				ft_strequ(ft_getenvloc(init, "HOME"), ""))
-			return (write(STDERR_FILENO, "cd: HOME not set\n", 17) ? 1 : 1);
-		else if (!do_move(ft_getenvloc(init, "HOME"), init, 1))
-			return (0);
-		ft_printf_fd(2, "cd: %s: No such file or directory\n",
-				ft_getenvloc(init, "HOME"));
-	}
-	else
-	{
-		if (!ft_getenvloc(init, "OLDPWD") ||
-				ft_strequ(ft_getenvloc(init, "OLDPWD"), ""))
-			return (write(2, "cd: OLDPWD not set\n", 19) ? 1 : 1);
-		tmp = ft_strdup(ft_getenv(&init->new_env, "OLDPWD"));
-		if (opt)
-			opt_oldpwd(init);
-		if (!do_move(ft_getenvloc(init, "OLDPWD"), init, opt))
-			return (print_oldpwd(tmp));
-		ft_printf_fd(2, "cd: %s: No such file or directory\n",
-				ft_getenvloc(init, "OLDPWD"));
-		ft_strdel(&tmp);
-	}
-	return (1);
+	ret = 1;
+	if (!ft_getenvloc(init, "HOME") ||
+		ft_strequ(ft_getenvloc(init, "HOME"), ""))
+		return (write(STDERR_FILENO, "cd: HOME not set\n", 17) ? 1 : 1);
+	else if (!do_move(ft_getenvloc(init, "HOME"), init, 1))
+		return (0);
+	ft_printf_fd(2, "cd: %s: No such file or directory\n",
+		ft_getenvloc(init, "HOME"));
+	return (ret);
 }
 
 char		*ft_handle_cdpath(t_init *init, char *dir, int *do_print)

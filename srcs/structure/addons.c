@@ -12,20 +12,17 @@
 
 #include "sh.h"
 
-int		put_path(t_env **env)
+int		put_path(t_init *init)
 {
 	char	*new;
 	char	*tmp;
 	int		len;
 
-	new = NULL;
-	if (ft_getenv(env, "PWD"))
-		new = ft_strdup(ft_getenv(env, "PWD"));
-	else if (!(new = getcwd(new, PATH_MAX)))
-		new = ft_strdup("/");
-	if (ft_getenv(env, "HOME") && ft_strstr(new, ft_getenv(env, "HOME")))
+	new = ft_strdup(init->pwd);
+	if (ft_getenv(&init->new_env, "HOME")
+		&& ft_strstr(new, ft_getenv(&init->new_env, "HOME")))
 	{
-		tmp = ft_strdup(&new[ft_strlen(ft_getenv(env, "HOME"))]);
+		tmp = ft_strdup(&new[ft_strlen(ft_getenv(&init->new_env, "HOME"))]);
 		free(new);
 		new = ft_strjoin("~", tmp);
 		ft_strdel(&tmp);

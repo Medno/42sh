@@ -59,7 +59,7 @@ void				catch_and_reset(int sig);
 int					ft_cd(t_init *init, char ***entry);
 int					ft_cd_l(t_init *init, char *curpath, char *dir);
 int					handle_cd_error(char *str);
-int					do_simple_cd(t_init *init, char *dir, int opt);
+int					do_cd_home(t_init *init);
 int					do_move(char *path, t_init *init, int p);
 char				*ft_handle_cdpath(t_init *init, char *dir, int *do_print);
 
@@ -105,7 +105,7 @@ void				insert_env_start(t_env **env);
 /*
 ** addons >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
-int					put_path(t_env **env);
+int					put_path(t_init *init);
 /*
 ** attrs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
