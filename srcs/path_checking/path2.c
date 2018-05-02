@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 17:40:00 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 12:21:31 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 13:43:00 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ void		set_path_info(t_path *pathlist)
 	char	*t;
 	char	*tmp2;
 
-	tmp = pathlist;
 	s = NULL;
 	t = NULL;
+	tmp = pathlist;
 	while (tmp)
 	{
 		if (ft_strequ(tmp->s, "..") && s)
@@ -104,13 +104,13 @@ void		set_path_info(t_path *pathlist)
 			ft_strdel(&s);
 			s = tmp2;
 		}
-		if (!ft_strequ(tmp->s, ".."))
-			el_checking(tmp, &s, &t);
+		(!ft_strequ(tmp->s, "..")) ? el_checking(tmp, &s, &t) : 0;
 		if (t)
 			set_perms_type(tmp, t);
 		else if (s)
 			set_perms_type(tmp, s);
-		tmp = (tmp->next && ft_strequ(tmp->next->s, "..")) ? tmp->next : tmp;
+		tmp = (t && tmp->next && ft_strequ(tmp->next->s, "..")) ?
+			tmp->next : tmp;
 		ft_strdel(&t);
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 12:16:28 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 13:45:21 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int		swap_pwd(t_init *init)
 	tmp = ft_strdup(ft_getenvloc(init, "PWD"));
 	ft_setenv(&init->new_env, "PWD", ft_getenvloc(init, "OLDPWD"));
 	ft_setenv(&init->new_env, "OLDPWD", tmp);
+	ft_strdel(&tmp);
 	return (0);
 }
 
