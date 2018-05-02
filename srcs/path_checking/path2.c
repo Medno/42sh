@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 17:40:00 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 14:37:07 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/02 16:31:17 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,11 @@ static void	el_checking(t_path *tmp, char **s, char **t)
 	}
 }
 
-
 void		set_path_info(t_path *pathlist)
 {
 	t_path	*tmp;
 	char	*s;
 	char	*t;
-	char	*tmp2;
 
 	s = NULL;
 	t = NULL;
@@ -99,11 +97,7 @@ void		set_path_info(t_path *pathlist)
 	while (tmp)
 	{
 		if (ft_strequ(tmp->s, "..") && s)
-		{
-			tmp2 = ft_strsub(s, 0, go_to_last(s, '/'));
-			ft_strdel(&s);
-			s = tmp2;
-		}
+			s = ft_strsubdel(s, 0, go_to_last(s, '/'));
 		(!ft_strequ(tmp->s, "..")) ? el_checking(tmp, &s, &t) : 0;
 		if (t)
 			set_perms_type(tmp, t);
