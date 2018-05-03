@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 13:18:23 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/16 12:24:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/05/03 11:15:24 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ int			err_pars(t_lex *tmp)
 				ft_strequ(tmp->value, ";") || tmp->token == DSEMI ||
 				tmp->token == DLESS || ft_strequ(tmp->value, "&")))
 		if ((tmp->next->token != EOI && tmp->next->token != WORD &&
-					tmp->next->token != QUOTE && tmp->next->token != IO_HERE)
-				|| tmp->token == DSEMI)
+			tmp->next->token != QUOTE && tmp->next->token != IO_HERE
+			&& !ft_strequ(tmp->next->value, ">") &&
+			!ft_strequ(tmp->next->value, "<"))
+			|| tmp->token == DSEMI)
 			return (print_errpars(1, tmp->value, 0));
 	return (0);
 }
