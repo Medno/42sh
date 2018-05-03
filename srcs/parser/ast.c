@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/02 09:14:36 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 12:06:23 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ t_ast	*command(t_lex *first)
 	while (tmp)
 	{
 		loop = 1;
+		root->value = CMD;
 		if (is_redir(tmp) || tmp->token == IO_NUMBER)
 			put_redir(root->cmd, tmp, &loop);
 		else
-		{
-			root->value = CMD;
 			root->cmd = put_in_cmd(root->cmd, tmp);
-		}
 		while (loop)
 		{
 			tmp = tmp->next;

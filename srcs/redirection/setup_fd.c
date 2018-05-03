@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:38:00 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/26 18:56:22 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 11:30:05 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	saving_fd(int fd[])
 	fd[2] = dup2(STDERR_FILENO, fd[2]);
 }
 
-int		reset_fd(int fd[], t_cmd *cmd)
+void	close_fd(t_cmd *cmd)
 {
 	t_redir	*tmp;
 
@@ -35,6 +35,11 @@ int		reset_fd(int fd[], t_cmd *cmd)
 			tmp = tmp->next;
 		}
 	}
+}
+
+int		reset_fd(int fd[], t_cmd *cmd)
+{
+	close_fd(cmd);
 	dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	dup2(fd[2], STDERR_FILENO);
