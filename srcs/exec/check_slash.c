@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 10:47:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 14:38:07 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/03 14:57:39 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int		check_str(char *str)
 	return (1);
 }
 
-int				check_slash(char *str, char **s_fin, int print)
+int				check_slash(t_init *init, char *str, char **s_fin, int print)
 {
 	int		ret;
 	char	*tmp;
@@ -87,7 +87,7 @@ int				check_slash(char *str, char **s_fin, int print)
 		tmp = ft_strdup(str);
 	pathlist = new_pathlist(tmp);
 	ft_strdel(&tmp);
-	set_path_info(pathlist);
+	set_path_info(init, pathlist);
 	ret = check_valid(&pathlist);
 	if (!ret)
 		*s_fin = pathlist_to_str(pathlist);

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:06:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/21 14:25:13 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 15:02:13 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_all_path(char **arg, t_init *init, char **s_fin, int print)
 	if (!arg || !*arg)
 		return (1);
 	if (ft_strchr(*arg, '/'))
-		return (check_slash(*arg, s_fin, print));
+		return (check_slash(init, *arg, s_fin, print));
 	else if (ft_getenv(&init->new_env, "PATH") ||
 			ft_getenv(&init->loc_env, "PATH"))
 		return (check_bin(*arg, init, s_fin, print));

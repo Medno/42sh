@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 12:09:35 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/03 15:01:34 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int		check_elements(t_path **pathlist, char *str)
 	return (0);
 }
 
-static char		*clear_path(char *s1, char *dir)
+static char		*clear_path(t_init *init, char *s1, char *dir)
 {
 	t_path	*pathlist;
 	t_path	*tmp;
@@ -77,7 +77,7 @@ static char		*clear_path(char *s1, char *dir)
 			tmp = handle_remove(tmp, &pathlist);
 		tmp = (!tmp) ? pathlist : tmp->next;
 	}
-	set_path_info(pathlist);
+	set_path_info(init, pathlist);
 	if (check_elements(&pathlist, dir))
 	{
 		free_pathlist(&pathlist);
@@ -98,7 +98,7 @@ int				ft_cd_l(t_init *init, char *curpath, char *dir)
 		tmp2 = paste_path(init->pwd, curpath);
 	if (!tmp2 && curpath)
 		tmp2 = ft_strdup(curpath);
-	if (!(path = clear_path(tmp2, dir)))
+	if (!(path = clear_path(init, tmp2, dir)))
 	{
 		ft_strdel(&tmp2);
 		return (1);

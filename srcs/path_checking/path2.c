@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 17:40:00 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 16:31:17 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 14:56:13 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ char		*pathlist_to_str(t_path *pathlist)
 	return (str);
 }
 
-static void	set_perms_type(t_path *elem, char *s)
+static void	set_perms_type(t_init *init, t_path *elem, char *s)
 {
+	int			res_stat;
 	struct stat	info;
 
-	if (stat(s, &info) < 0)
+	res_stat = stat(s, &info); 
+	if (ft_strequ(elem->s, ft_strrchr(init->pwd, '/') + 1) && res_stat < 0
+			&& elem->next && ft_strequ(elem->next->s, ".."))
+		elem->type = 'd';
+	else if (res_stat < 0)
 		elem->perms = 0;
 	else
 	{
@@ -85,7 +90,7 @@ static void	el_checking(t_path *tmp, char **s, char **t)
 	}
 }
 
-void		set_path_info(t_path *pathlist)
+void		set_path_info(t_init *init, t_path *pathlist)
 {
 	t_path	*tmp;
 	char	*s;
@@ -100,9 +105,9 @@ void		set_path_info(t_path *pathlist)
 			s = ft_strsubdel(s, 0, go_to_last(s, '/'));
 		(!ft_strequ(tmp->s, "..")) ? el_checking(tmp, &s, &t) : 0;
 		if (t)
-			set_perms_type(tmp, t);
+			set_perms_type(init, tmp, t);
 		else if (s)
-			set_perms_type(tmp, s);
+			set_perms_type(init, tmp, s);
 		tmp = (t && tmp->next && ft_strequ(tmp->next->s, "..")) ?
 			tmp->next : tmp;
 		ft_strdel(&t);

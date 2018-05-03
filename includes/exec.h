@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 11:44:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 14:59:56 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			check_bin(char *str, t_init *init, char **s_fin, int print);
 
 void		pid_addlast(t_pid **pid, pid_t proc);
 
-int			check_slash(char *str, char **s_fin, int print);
+int			check_slash(t_init *init, char *str, char **s_fin, int print);
 
 int			check_error(int ret, char *str, int print);
 int			path_error(char *str);

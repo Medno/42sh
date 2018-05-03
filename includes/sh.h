@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:52:35 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 12:20:30 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/03 14:56:37 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void				free_pathlist(t_path **orig);
 t_path				*create_path(char *str);
 t_path				*new_pathlist(char *str);
 void				remove_elem(t_path *elem, t_path **orig);
-void				set_path_info(t_path *pathlist);
+void				set_path_info(t_init *init, t_path *pathlist);
 char				*pathlist_to_str(t_path *pathlist);
 int					go_to_last(char *str, char c);
 #endif
