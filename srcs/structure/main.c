@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/02 11:34:55 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/03 13:45:15 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,30 @@ static void		step_1(t_init init)
 	}
 }
 
+int				backup_closed(void)
+{
+	struct stat	buf;
+	int			fd1;
+	int			fd2;
+
+	fd1 = dup(STDOUT_FILENO);
+	fd2 = dup(STDERR_FILENO);
+	if (fstat(fd1, &buf) == -1 || fstat(fd2, &buf) == -1)
+	{
+		ft_printf_fd(STDIN_FILENO, "42sh: Bad file descriptor\n");
+		return (1);
+	}
+	close(fd1);
+	close(fd2);
+	return (0);
+}
+
 int				main(int ac, char **av, char **environ)
 {
 	t_init			init;
 
 	g_status = 0;
-	if (!isatty(STDIN_FILENO))
+	if (!isatty(STDIN_FILENO) || backup_closed())
 		return (1);
 	if (init_all(environ, &init) == 0)
 		return (1);

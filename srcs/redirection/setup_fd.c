@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 10:38:00 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 11:30:05 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 13:08:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	close_fd(t_cmd *cmd)
 		tmp = cmd->redir;
 		while (tmp)
 		{
-			close(tmp->fd_out);
+			if (tmp->fd_out > 2)
+				close(tmp->fd_out);
 			tmp = tmp->next;
 		}
 	}
