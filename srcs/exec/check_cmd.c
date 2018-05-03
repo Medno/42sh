@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/02 14:27:12 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 15:22:58 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	setup_exec(t_init *init, t_ast *ast)
 {
 	g_oldstatus = g_status;
 	g_status = 0;
-	ft_set_tmp(init, ast->cmd->arg);
+	ft_set_tmp(init, ast, ast->cmd->arg);
 	return (0);
 }
 
