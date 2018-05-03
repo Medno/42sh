@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 17:40:00 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/03 14:56:13 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/03 15:18:09 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	set_perms_type(t_init *init, t_path *elem, char *s)
 	int			res_stat;
 	struct stat	info;
 
-	res_stat = stat(s, &info); 
+	res_stat = stat(s, &info);
 	if (ft_strequ(elem->s, ft_strrchr(init->pwd, '/') + 1) && res_stat < 0
 			&& elem->next && ft_strequ(elem->next->s, ".."))
 		elem->type = 'd';

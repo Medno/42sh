@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 14:47:26 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/02 15:05:56 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 14:52:52 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		path_error(char *str)
 
 void	error_execve(void)
 {
-	ft_printf_fd(STDERR_FILENO, "42sh: error with execve\n");
+	ft_printf_fd(STDERR_FILENO, "42sh: can't execute command\n");
 	exit(EXIT_FAILURE);
 }
 
