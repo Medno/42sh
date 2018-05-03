@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 14:26:39 by hlely             #+#    #+#             */
-/*   Updated: 2018/03/16 16:55:53 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/03 09:17:14 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int			repeat_line(t_init *init, t_lex *tmp)
 	int ret;
 
 	ret = repeat_heredoc(init, tmp);
+	if (ret == -1)
+		return (-1);
 	if (ret)
 		return (1);
 	ret = repeat_line_edition(init, tmp);

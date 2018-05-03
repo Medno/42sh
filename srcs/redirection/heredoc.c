@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 16:30:25 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/14 14:47:17 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/03 09:26:11 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	del_heredoc(void)
 	char	*heredoc;
 
 	nb = 0;
+	wnb = NULL;
 	heredoc = ft_strdup("/tmp/.heredoc");
 	wnb = ft_itoa(nb);
 	heredoc = ft_strjoindel(heredoc, wnb);
