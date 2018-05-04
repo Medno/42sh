@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 14:59:56 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/04 16:52:45 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 void		del_pid(t_pid **pid);
 void		setup_pipe(t_ast *ast);
 void		close_pipe(t_ast *ast);
+int			clean_pipe(t_init *init);
 void		launch_pipe(t_init *init, t_ast *ast, int std_fd[], int error);
 void		launch_and(t_init *init, t_ast *ast, int std_fd[], int error);
 void		launch_or(t_init *init, t_ast *ast, int std_fd[], int error);
@@ -29,7 +30,7 @@ int			only_redir(t_init *init, t_ast *ast);
 int			launch_exec(t_init *init, t_ast *ast, int std_fd[], int error);
 int			exec_start(t_ast *ast, t_init *init);
 int			check_cmd(t_ast *ast, t_init *init);
-void		fork_cmd(t_init *init, t_ast *ast, char *path);
+int			fork_cmd(t_init *init, t_ast *ast, char *path);
 int			is_builtin(char *str);
 int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init);
 int			check_path(char **arg, t_init *init, char **s_fin, int print);

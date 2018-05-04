@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 15:22:58 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/04 17:14:16 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,18 @@ int			check_cmd(t_ast *ast, t_init *init)
 		free_list(&init->env_tmp);
 		return (ret);
 	}
-	else
+	path = NULL;
+	(ast->cmd->arg) ? clean_arg(&ast->cmd->arg) : 0;
+	if (!ast->cmd->arg || (ast->cmd->arg && !ast->cmd->arg[0]))
 	{
-		path = NULL;
-		(ast->cmd->arg) ? clean_arg(&ast->cmd->arg) : 0;
-		if (!ast->cmd->arg || (ast->cmd->arg && !ast->cmd->arg[0]))
-		{
-			free_list(&init->env_tmp);
-			return (0);
-		}
-		fork_cmd(init, ast, path);
 		free_list(&init->env_tmp);
-		return (ret);
+		return (0);
 	}
+	if (!fork_cmd(init, ast, path))
+	{
+		free_list(&init->env_tmp);
+		return (0);
+	}
+	free_list(&init->env_tmp);
+	return (ret);
 }

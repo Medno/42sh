@@ -6,7 +6,7 @@
 #    By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/06 16:40:19 by pchadeni          #+#    #+#              #
-#    Updated: 2018/05/02 12:29:13 by hlely            ###   ########.fr        #
+#    Updated: 2018/05/04 16:50:49 by hlely            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -165,6 +165,7 @@ SRCS += $(addprefix $(PATHFS), $(addprefix $(REDIR_PATH), $(REDIR_NAME)))
 ### EXECUTION ###
 EXEC_NAME = exec.c				\
 			pipe.c				\
+			clean_pipe.c		\
 			check_cmd.c			\
 			ft_check_path.c		\
 			and_or_semi.c		\

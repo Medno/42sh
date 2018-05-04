@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/03 12:11:23 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/04 17:06:49 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void	exec_cmd(t_init *init, t_ast *ast, char *path)
 		exit_error(ret, ast->cmd->arg[0]);
 }
 
-void	fork_cmd(t_init *init, t_ast *ast, char *path)
+int		fork_cmd(t_init *init, t_ast *ast, char *path)
 {
 	pid_t	father;
 
 	father = fork();
+	if (father == -1)
+		return (clean_pipe(init));
 	if (father > 0)
 	{
 		pid_addlast(&init->pid_list, father);
@@ -51,6 +53,7 @@ void	fork_cmd(t_init *init, t_ast *ast, char *path)
 		exec_cmd(init, ast, path);
 	}
 	ft_strdel(&path);
+	return (1);
 }
 
 int		launch_exec(t_init *init, t_ast *ast, int std_fd[], int error)
