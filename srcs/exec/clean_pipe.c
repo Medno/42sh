@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/04 16:41:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/04 17:03:04 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/05 11:56:22 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	close_pipe_err(t_ast *ast)
 	}
 }
 
-int		clean_pipe(t_init *init)
+int			clean_pipe(t_init *init)
 {
 	t_pid	*tmp;
 
@@ -38,5 +38,5 @@ int		clean_pipe(t_init *init)
 		kill(tmp->pid, SIGINT);
 		tmp = tmp->next;
 	}
-	return (1);
+	return (0);
 }
