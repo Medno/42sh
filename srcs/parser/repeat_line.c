@@ -34,7 +34,7 @@ static int	repeat_line_edition(t_init *init, t_lex *tmp)
 	{
 		line_tmp = NULL;
 		ret = line_edit(&line_tmp, -1, init);
-		checkout = (ret == 3) ? 0 : 1;
+		checkout = (ret == 3 || ret == 1) ? 0 : 1;
 		if (!ret)
 			init->str = ft_strjoindel(init->str, line_tmp);
 		else if (ret == 1 && g_quote == '\\' && (init->stop = 1))
