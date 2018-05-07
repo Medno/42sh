@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 08:57:34 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/03/23 17:47:46 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/05/07 14:14:39 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_clean_edit(t_edit *edit)
 		edit->comp = NULL;
 	}
 }
-
 
 int		edit_end(char **line, t_edit *edit)
 {
