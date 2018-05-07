@@ -51,15 +51,28 @@ static int	repeat_line_edition(t_init *init, t_lex *tmp)
 	return (0);
 }
 
+void		clean_history_heredoc(t_hist *hist)
+{
+	char *tmp;
+	char *new;
+
+	hist->line = delete_esc(hist->line, ft_strlen(hist->line));
+	tmp = ft_strchr(hist->line, '\n');
+	new = ft_strsub(hist->line, 0, ft_strlen(hist->line) - ft_strlen(tmp) + 1);
+	ft_strdel(&hist->line);
+	hist->line = new;
+}
+
 int			repeat_line(t_init *init, t_lex *tmp)
 {
 	int ret;
 
 	ret = repeat_heredoc(init, tmp);
-	if (ret == -1)
-		return (-1);
 	if (ret)
-		return (1);
+	{
+		clean_history_heredoc(init->historic);
+		return (ret);
+	}
 	ret = repeat_line_edition(init, tmp);
 	return (ret);
 }

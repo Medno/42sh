@@ -30,6 +30,7 @@ void	ft_clean_edit(t_edit *edit)
 	}
 }
 
+
 int		edit_end(char **line, t_edit *edit)
 {
 	*edit->current = move_last(*edit->current, &edit->curseur);
@@ -72,8 +73,6 @@ int		edit_line(char **line, t_edit *edit, t_init init)
 	c = 0;
 	while (reset_completion(edit->comp) && read(STDIN_FILENO, &c, 1))
 	{
-		if (c == 18 && *edit->histo)
-			c = lookup_history(edit, init);
 		if (c == 3)
 			return (handle_ctrl_d_c(edit, line, 1));
 		else if (c == 4 && !(*edit->current)->next && !(*edit->current)->prev)

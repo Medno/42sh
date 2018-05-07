@@ -81,9 +81,9 @@ int			repeat_heredoc(t_init *init, t_lex *tmp)
 	heredoc = (tmp->token == IO_HERE) ? ft_strdup("") : NULL;
 	while (tmp->token == IO_HERE)
 	{
-		checkout > 1 ? paste_last_hist(&init->historic) : 0;
 		line_tmp = NULL;
 		ret = line_edit(&line_tmp, -1, init);
+		paste_last_hist(&init->historic);
 		if (ret == 3)
 			return (no_heredoc(init, line_tmp, heredoc));
 		if (ft_strequ(line_tmp, tmp->value) || !line_tmp)
