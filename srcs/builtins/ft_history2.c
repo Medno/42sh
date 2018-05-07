@@ -54,6 +54,12 @@ int			free_offset_hist(t_hist **histo, char *offset)
 	t_hist	*tmp;
 
 	nb = ft_atoi(offset);
+	if (nb <= 0 || ft_strlen(offset) >= 10)
+	{
+		ft_printf_fd(2, "42sh: history: %s: history position out of range\n",
+				offset);
+		return (1);
+	}
 	tmp = *histo;
 	while (tmp && tmp->prev)
 		tmp = tmp->prev;

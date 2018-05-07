@@ -65,17 +65,33 @@ int			replace_w_arg(t_hist **histo, char **str)
 static int	check_num(char *str)
 {
 	int		i;
+	int		ret;
 
 	i = -1;
+	ret = 0;
 	while (str[++i])
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			ft_printf_fd(2, "42sh: history: numeric argument required\n");
-			return (-1);
+			ret = -1;
+			break ;
 		}
 	}
-	return (ft_atoi(str));
+	ret = ft_atoi(str);
+	if (ret < 1)
+	{
+		ft_printf_fd(2, "42sh: history: numeric argument required\n");
+		return (-1);
+	}
+	return (ret);
+}
+
+void		print_print_history(int nb, char *line)
+{
+	if (line)
+		ft_printf("%4d  %s", nb, line);
+	else
+		ft_printf("%4d  %s", nb, "\n");
 }
 
 int			print_history(t_hist **histo, char **str)
@@ -86,7 +102,7 @@ int			print_history(t_hist **histo, char **str)
 	nb = -1;
 	if (*str)
 	{
-		if (!(nb = check_num(*str)))
+		if (!(nb = check_num(*str)) && !(*(str + 1)))
 			return (0);
 		if (nb < 0)
 			return (1);
@@ -99,7 +115,7 @@ int			print_history(t_hist **histo, char **str)
 		tmp = tmp->prev;
 	while (tmp)
 	{
-		ft_printf("%4d  %s", tmp->nb, tmp->line);
+		print_print_history(tmp->nb, tmp->line);
 		tmp = tmp->next;
 	}
 	return (0);
