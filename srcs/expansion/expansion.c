@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/02 11:38:05 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/09 12:11:17 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,4 @@ t_cmd			*begin_expansion(t_init *init, t_cmd *cmd)
 	ft_freetab(cmd->arg);
 	cmd->arg = res;
 	return (cmd);
-}
-
-void			ast_expansion(t_init *init, t_ast *ast)
-{
-	if (!ast)
-		return ;
-	if (ast->left)
-		ast_expansion(init, ast->left);
-	if (ast->right)
-		ast_expansion(init, ast->right);
-	if (ast->cmd)
-		ast->cmd = begin_expansion(init, ast->cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/04/09 09:54:01 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/09 12:09:14 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,32 @@ void		put_in_buffer(char buf[], char c)
 	buf[len] = c;
 }
 
+static int	only_backslashandn(char *str, char buf[], int len, char **res)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\\')
+		{
+			ft_bzero(buf, len + 1);
+			*res = ft_strdup("");
+			return (0);
+		}
+		else if (str[i + 1] && str[i + 1] == '\n')
+			i += 2;
+		else
+		{
+			ft_bzero(buf, len + 1);
+			*res = ft_strdup("");
+			return (0);
+		}
+	}
+	ft_strdel(&str);
+	return (1);
+}
+
 static char	*treat_esc(char *res, char *str, int *i)
 {
 	char	*to_join;
@@ -34,10 +60,7 @@ static char	*treat_esc(char *res, char *str, int *i)
 
 	to_join = NULL;
 	len = ft_strlen(str);
-	if (!*i && str[*i] == '\\' && str[*i + 1] && str[*i + 1] == '\n' &&
-			!str[*i + 2])
-		ft_strdel(&res);
-	else if (str[*i] == '\\')
+	if (str[*i] == '\\')
 		to_join = esc_backslash(str, i);
 	else if (str[*i] == '\'')
 		to_join = esc_simple_qu(str, i, len);
@@ -56,8 +79,8 @@ char		*delete_esc(char *str, int len)
 	int		i;
 
 	i = 0;
-	ft_bzero(buf, len + 1);
-	res = ft_strdup("");
+	if (only_backslashandn(str, buf, len, &res))
+		return (NULL);
 	while (str[i])
 	{
 		if (is_quote_bslash(str[i]))
