@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/04 17:06:49 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/09 11:44:36 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		launch_exec(t_init *init, t_ast *ast, int std_fd[], int error)
 {
 	if (ast)
 	{
+		ast->cmd = ast->cmd ? begin_expansion(init, ast->cmd) : ast->cmd;
 		if (ast->value == PIPE)
 			launch_pipe(init, ast, std_fd, error);
 		else if (ast->value == AND_IF)

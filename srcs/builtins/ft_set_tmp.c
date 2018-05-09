@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/26 15:08:31 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 15:25:49 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/09 10:51:01 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_set_tmp(t_init *init, t_ast *ast, char **arg)
 		ft_strdel(&name);
 		i++;
 	}
-	if (!arg[i] &&
+	if (arg && !arg[i] &&
 			(!ast->parent || (ast->parent && ast->parent->value != PIPE)))
 		ft_set_local(&init->loc_env, &init->new_env, arg);
 }

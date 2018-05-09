@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/05 11:55:44 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/09 11:42:34 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 
 static int	setup_exec(t_init *init, t_ast *ast)
 {
-	ast->cmd = begin_expansion(init, ast->cmd);
 	g_oldstatus = g_status;
 	g_status = 0;
 	ft_set_tmp(init, ast, ast->cmd->arg);
