@@ -24,9 +24,7 @@ static void	exec_left(t_init *init, t_ast *ast, int std_fd[], int error)
 
 static void	exec_right(t_init *init, t_ast *ast, int std_fd[], int error)
 {
-	int		ret;
-
-	ret = launch_exec(init, ast, std_fd, error);
+	launch_exec(init, ast, std_fd, error);
 	reset_fd(std_fd, ast->cmd);
 }
 
