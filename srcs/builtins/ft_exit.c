@@ -6,20 +6,24 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/27 14:21:04 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/15 16:57:09 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	final_exit(t_init *init, unsigned char x, char **entry)
+static int	final_exit(t_init *init, unsigned char x)
 {
-	if (entry)
-		ft_freetab(entry);
 	ft_cfmakeinit(&init->current);
 	hist_to_file(init->historic);
 	ft_strdel(&init->str);
 	free_list(&init->new_env);
+	free_list(&init->loc_env);
+	free_list(&init->env_tmp);
+	ft_strdel(&init->pwd);
+	del_pid(&init->pid_list);
+	clean_ast(&init->ast);
+	del_lex(init->lex);
 	if (x == 0)
 		x = g_oldstatus;
 	exit(x);
@@ -47,10 +51,10 @@ int			ft_exit(t_init *init, char **arg)
 			{
 				ft_printf_fd(2, "42sh: exit: %s: numeric argument required\n",
 				arg[1]);
-				return (final_exit(init, 255, arg));
+				return (final_exit(init, 255));
 			}
 		}
 		ret = (unsigned char)ft_atoi(arg[1]);
 	}
-	return (final_exit(init, ret, arg));
+	return (final_exit(init, ret));
 }
