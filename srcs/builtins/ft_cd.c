@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 15:31:24 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 13:45:21 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/15 11:28:47 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				ft_getopt_cd(char **entry, int *do_print)
 	while ((c = ft_getopt(ft_tablen(entry), entry, "LP")) != -1)
 	{
 		if (c == '?')
-			return (write(STDERR_FILENO, "cd: usage: cd[-LP] [dir]\n",
+			return (write(STDERR_FILENO, "cd: usage: cd [-LP] [dir]\n",
 				26) ? -1 : -1);
 		else if (c == 'P')
 			opt_p = 1;
