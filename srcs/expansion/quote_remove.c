@@ -81,7 +81,7 @@ char		*delete_esc(char *str, int len)
 	i = 0;
 	if (only_backslashandn(str, buf, len, &res))
 		return (NULL);
-	while (str[i])
+	while (str && str[i])
 	{
 		if (is_quote_bslash(str[i]))
 		{
