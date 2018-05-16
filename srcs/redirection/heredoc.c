@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 16:30:25 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/16 15:13:49 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 15:44:59 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	is_onlyn(char *line)
 	return (1);
 }
 
-char	*create_newheredoc(char *line)
+char		*create_newheredoc(char *line)
 {
 	int		nb;
 	int		fd;
@@ -54,7 +54,7 @@ char	*create_newheredoc(char *line)
 	return (heredoc);
 }
 
-void	rm_here(char *heredoc)
+void		rm_here(char *heredoc)
 {
 	char	**arg;
 	pid_t	father;
@@ -79,7 +79,7 @@ void	rm_here(char *heredoc)
 		free(arg);
 }
 
-void	del_heredoc(void)
+void		del_heredoc(void)
 {
 	int		nb;
 	int		fd;
