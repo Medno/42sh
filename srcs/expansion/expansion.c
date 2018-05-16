@@ -6,11 +6,19 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 16:32:20 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/09 12:11:17 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/16 11:10:46 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+
+void			put_in_buffer(char buf[], char c)
+{
+	int	len;
+
+	len = ft_strlen(buf);
+	buf[len] = c;
+}
 
 static char		**concat_res(char **res, char **tmp)
 {

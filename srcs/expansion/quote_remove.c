@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 17:28:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/09 12:09:14 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/16 11:09:34 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@ int			is_quote_bslash(char c)
 	if (c == '\\' || c == '\'' || c == '\"')
 		return (1);
 	return (0);
-}
-
-void		put_in_buffer(char buf[], char c)
-{
-	int	len;
-
-	len = ft_strlen(buf);
-	buf[len] = c;
 }
 
 static int	only_backslashandn(char *str, char buf[], int len, char **res)
@@ -53,7 +45,7 @@ static int	only_backslashandn(char *str, char buf[], int len, char **res)
 	return (1);
 }
 
-static char	*treat_esc(char *res, char *str, int *i)
+static char	*treat_esc(char *str, int *i)
 {
 	char	*to_join;
 	int		len;
@@ -66,9 +58,32 @@ static char	*treat_esc(char *res, char *str, int *i)
 		to_join = esc_simple_qu(str, i, len);
 	else if (str[*i] == '\"')
 		to_join = esc_double_qu(str, i, len);
-	if (to_join)
-		res = ft_strjoindel(res, to_join);
-	ft_strdel(&to_join);
+	return (to_join);
+}
+
+char		*treat_quote_bslash(char *res, char buf[], char *str, int *i)
+{
+	char	*tmp;
+	int		j;
+
+	if (buf[0])
+	{
+		res = ft_strjoindel(res, buf);
+		ft_bzero(buf, ft_strlen(str));
+	}
+	j = *i;
+	tmp = treat_esc(str, &j);
+	if (tmp)
+	{
+		*i = j;
+		res = ft_strjoindel(res, tmp);
+		ft_strdel(&tmp);
+		return (res);
+	}
+	if (!tmp && str[*i] == '\\' && (*i = j))
+		return (res);
+	res = ft_strjoindel(res, str + *i);
+	*i = ft_strlen(str) - 1;
 	return (res);
 }
 
@@ -84,14 +99,7 @@ char		*delete_esc(char *str, int len)
 	while (str && str[i])
 	{
 		if (is_quote_bslash(str[i]))
-		{
-			if (buf[0])
-			{
-				res = ft_strjoindel(res, buf);
-				ft_bzero(buf, len);
-			}
-			res = treat_esc(res, str, &i);
-		}
+			res = treat_quote_bslash(res, buf, str, &i);
 		else
 			put_in_buffer(buf, str[i]);
 		i++;
