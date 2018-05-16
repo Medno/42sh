@@ -6,11 +6,25 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 16:30:25 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 09:26:11 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 15:13:49 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+static int	is_onlyn(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line && line[i])
+	{
+		if (line[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 char	*create_newheredoc(char *line)
 {
@@ -32,7 +46,8 @@ char	*create_newheredoc(char *line)
 		wnb = ft_itoa(nb);
 		heredoc = ft_strjoindel(heredoc, wnb);
 	}
-	(line && *line) ? ft_putendl_fd(line, fd) : 0;
+	(line && *line && !is_onlyn(line)) ?
+		ft_putendl_fd(line, fd) : ft_putstr_fd(line, fd);
 	close(fd);
 	ft_strdel(&line);
 	ft_strdel(&wnb);

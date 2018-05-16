@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/16 12:09:26 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 15:40:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ t_redir	*which_error(int error, char *err_file);
 
 void	saving_fd(int fd[]);
 void	close_fd(t_init *init, t_cmd *cmd);
-int		reset_fd(t_init *init,int fd[], t_cmd *cmd);
+int		reset_fd(t_init *init, int fd[], t_cmd *cmd);
 #endif
