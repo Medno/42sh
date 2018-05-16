@@ -6,11 +6,22 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 10:44:14 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/21 12:38:40 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:16:17 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+int		is_in_pipelist(t_pipe *pipe, int fd)
+{
+	while (pipe)
+	{
+		if (pipe->fd == fd)
+			return (1);
+		pipe = pipe->next;
+	}
+	return (0);
+}
 
 t_redir	*closefd(t_redir *redir)
 {
@@ -20,7 +31,7 @@ t_redir	*closefd(t_redir *redir)
 	return (redir);
 }
 
-t_redir	*handle_simplefd(t_redir *redir)
+t_redir	*handle_simplefd(t_init *init, t_redir *redir)
 {
 	struct stat	buf;
 	char		*tmp;
@@ -34,7 +45,8 @@ t_redir	*handle_simplefd(t_redir *redir)
 	if (redir->file && ft_isdigit(**redir->file) &&
 			ft_strchr(*redir->file, '-'))
 		return (handle_closingfd(redir));
-	if (redir->fd_out > 2 && fstat(redir->fd_out, &buf) == -1)
+	if (is_in_pipelist(init->pipe, redir->fd_out) ||
+			(redir->fd_out > 2 && fstat(redir->fd_out, &buf) == -1))
 	{
 		tmp = ft_itoa(redir->fd_out);
 		which_error(BADFD, tmp);

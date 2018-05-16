@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 12:09:07 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/02 11:16:20 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:20:28 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	del_one_lex(t_lex *lex)
 	lex = NULL;
 }
 
-void	del_lex(t_lex *lex)
+void	del_lex(t_lex **lex)
 {
 	t_lex	*tmp;
 
-	while (lex)
+	while (*lex)
 	{
-		tmp = lex->next;
-		del_one_lex(lex);
-		lex = tmp;
+		tmp = (*lex)->next;
+		del_one_lex(*lex);
+		*lex = tmp;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 11:50:47 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/21 12:52:42 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:15:56 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,16 @@ static t_redir	*check_redir_error(t_redir *redir)
 	return (redir);
 }
 
-t_redir			*handle_redir(t_redir *redir)
+t_redir			*handle_redir(t_init *init, t_redir *redir)
 {
 	if (!check_redir_error(redir))
 		return (NULL);
+	else if (is_in_pipelist(init->pipe, redir->fd_out))
+		return (which_error(BADFD, NULL));
 	else if (ft_strequ(redir->token, ">"))
 		redir = handle_simple(redir);
 	else if (ft_strequ(redir->token, ">&"))
-		redir = handle_simplefd(redir);
+		redir = handle_simplefd(init, redir);
 	else if (ft_strequ(redir->token, "<&"))
 		redir = handle_backfd(redir);
 	else if (ft_strequ(redir->token, ">>"))
@@ -64,7 +66,7 @@ t_redir			*handle_redir(t_redir *redir)
 	return (redir);
 }
 
-int				redirection(t_cmd *cmd)
+int				redirection(t_init *init, t_cmd *cmd)
 {
 	t_cmd	*tmp1;
 	t_redir	*tmp;
@@ -73,7 +75,7 @@ int				redirection(t_cmd *cmd)
 	tmp = tmp1->redir;
 	while (tmp1 && tmp1->redir)
 	{
-		tmp1->redir = handle_redir(tmp1->redir);
+		tmp1->redir = handle_redir(init, tmp1->redir);
 		if (!tmp1->redir)
 		{
 			tmp1->redir = tmp;

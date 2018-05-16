@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/18 12:29:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/02 09:15:08 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:21:12 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 t_lex				*lexer(char *str);
 t_lex				*init_lexer(void);
 void				del_one_lex(t_lex *tmp);
-void				del_lex(t_lex *first);
+void				del_lex(t_lex **first);
 void				print_lex(t_lex *first);
 t_lex				*get_lex(t_lex *first, t_token token, char *value);
 t_lex				*get_doublelex(t_lex *first, t_token token1, t_token token2,

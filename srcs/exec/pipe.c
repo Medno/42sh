@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:43:53 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 11:24:52 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:12:11 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,19 @@ void		setup_pipe(t_ast *ast)
 
 void		launch_pipe(t_init *init, t_ast *ast, int std_fd[], int error)
 {
-	pipe(ast->pipefd);
+	int		pipefd[2];
+
+	ast->pipefd[0] = get_newfd(&init->pipe);
+	ast->pipefd[1] = get_newfd(&init->pipe);
+	pipe(pipefd);
+	ast->pipefd[0] = dup2(pipefd[0], ast->pipefd[0]);
+	ast->pipefd[1] = dup2(pipefd[1], ast->pipefd[1]);
+	close(pipefd[0]);
+	close(pipefd[1]);
 	launch_exec(init, ast->left, std_fd, error);
-	close_fd(ast->left->cmd);
+	close_fd(init, ast->left->cmd);
 	launch_exec(init, ast->right, std_fd, error);
-	close_fd(ast->right->cmd);
+	close_fd(init, ast->right->cmd);
 }
 
 int			wait_pipe(t_pid **pid, int sig)

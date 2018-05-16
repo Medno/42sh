@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 18:04:49 by hlely             #+#    #+#             */
-/*   Updated: 2018/04/26 15:17:42 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 11:38:55 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int			init_all(char **env, t_init *init)
 	init->loc_env = NULL;
 	init->env_tmp = NULL;
 	init->pid_list = NULL;
+	init->pipe = NULL;
 	if (!get_pwd(init))
 		return (0);
 	init->new_env = (env) ? create_env(env) : NULL;

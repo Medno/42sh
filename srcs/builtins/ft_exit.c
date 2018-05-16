@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 09:57:12 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/15 16:57:09 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:21:57 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	final_exit(t_init *init, unsigned char x)
 	ft_strdel(&init->pwd);
 	del_pid(&init->pid_list);
 	clean_ast(&init->ast);
-	del_lex(init->lex);
+	del_lex(&init->lex);
 	if (x == 0)
 		x = g_oldstatus;
 	exit(x);

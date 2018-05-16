@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 14:24:09 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/09 11:44:36 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:10:04 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		fork_cmd(t_init *init, t_ast *ast, char *path)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		setup_pipe(ast);
-		if (!redirection(ast->cmd))
+		if (!redirection(init, ast->cmd))
 			exit(EXIT_FAILURE);
 		exec_cmd(init, ast, path);
 	}
@@ -92,6 +92,7 @@ int		exec_start(t_ast *ast, t_init *init)
 	saving_fd(std_fd);
 	sig = launch_exec(init, ast, std_fd, error);
 	ret = wait_pipe(&init->pid_list, sig);
-	reset_fd(std_fd, ast->cmd);
+	del_pipe(&init->pipe);
+	reset_fd(init, std_fd, ast->cmd);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 15:17:46 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/09 11:42:34 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 11:58:02 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			is_builtin(char *str)
 
 int			check_builtins(char ***entry, t_cmd *cmd, t_ast *ast, t_init *init)
 {
-	if (!redirection(cmd))
+	if (!redirection(init, cmd))
 		return (1);
 	if (ft_strequ(**entry, "cd"))
 		return (ft_cd(init, entry));

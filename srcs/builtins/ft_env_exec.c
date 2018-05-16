@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 14:06:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 15:02:13 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/16 11:57:18 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		fork_env_cmd(t_init *init, t_ast *ast, char *path)
 		{
 			signal(SIGINT, SIG_DFL);
 			setup_pipe(ast);
-			if (!redirection(ast->cmd))
+			if (!redirection(init, ast->cmd))
 				exit(EXIT_FAILURE);
 			exec_env_cmd(init, ast, path);
 		}

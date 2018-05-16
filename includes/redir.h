@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 13:17:42 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 11:24:12 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:09:26 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 # define AMBIGOUS	-6
 # define TOCLOSE	-10
 
-int		redirection(t_cmd *cmd);
+int		redirection(t_init *init, t_cmd *cmd);
 
 char	*create_newheredoc(char *heredoc);
 
 t_redir	*handle_simple(t_redir *redir);
-t_redir	*handle_simplefd(t_redir *redir);
+t_redir	*handle_simplefd(t_init *init, t_redir *redir);
 t_redir	*handle_double(t_redir *redir);
 t_redir	*handle_back(t_redir *redir);
 t_redir	*handle_backfd(t_redir *redir);
@@ -44,6 +44,7 @@ void	del_heredoc(void);
 ** Error case >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 */
 
+int		is_in_pipelist(t_pipe *pipe, int fd);
 int		file_error(char *file);
 t_redir	*backup_error(void);
 t_redir	*which_error(int error, char *err_file);
@@ -53,6 +54,6 @@ t_redir	*which_error(int error, char *err_file);
 */
 
 void	saving_fd(int fd[]);
-void	close_fd(t_cmd *cmd);
-int		reset_fd(int fd[], t_cmd *cmd);
+void	close_fd(t_init *init, t_cmd *cmd);
+int		reset_fd(t_init *init,int fd[], t_cmd *cmd);
 #endif

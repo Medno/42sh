@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 11:08:58 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/04/26 15:17:35 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 11:41:20 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,19 @@ typedef struct		s_pid
 	struct s_pid	*next;
 }					t_pid;
 
+typedef struct		s_pipe
+{
+	int				fd;
+	struct s_pipe	*next;
+}					t_pipe;
+
 typedef struct		s_init
 {
 	char			*str;
 	char			*pwd;
 	int				stop;
 	int				dollar;
+	t_pipe			*pipe;
 	t_pid			*pid_list;
 	t_lex			*lex;
 	t_env			*loc_env;

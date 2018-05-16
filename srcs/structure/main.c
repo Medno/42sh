@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 10:55:49 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/03 13:45:15 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:22:12 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		step_3(t_init *init, t_ast *ast, int quote_again)
 			quote_again = exec_start(ast, init);
 	}
 	clean_ast(&init->ast);
-	del_lex(init->lex);
+	del_lex(&init->lex);
 	del_heredoc();
 	return (quote_again);
 }

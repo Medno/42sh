@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 15:53:32 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/04 16:52:45 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 11:39:07 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,8 @@ int			path_error(char *str);
 void		exit_error(int ret, char *str);
 void		error_execve(void);
 void		signal_error(int signal, int pid);
+
+int			get_newfd(t_pipe **pipe);
+void		pipe_addlast(t_pipe **pipe, int fd);
+void		del_pipe(t_pipe **pipe);
 #endif

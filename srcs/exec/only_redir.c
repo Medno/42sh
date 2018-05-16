@@ -6,7 +6,7 @@
 /*   By: hlely <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 15:42:52 by hlely             #+#    #+#             */
-/*   Updated: 2018/05/03 12:11:30 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 11:58:25 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		only_redir(t_init *init, t_ast *ast)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		setup_pipe(ast);
-		if (!redirection(ast->cmd))
+		if (!redirection(init, ast->cmd))
 			exit(EXIT_FAILURE);
 		exit(EXIT_SUCCESS);
 	}

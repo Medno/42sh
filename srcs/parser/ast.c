@@ -6,7 +6,7 @@
 /*   By: pchadeni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 17:21:18 by pchadeni          #+#    #+#             */
-/*   Updated: 2018/05/03 12:06:23 by hlely            ###   ########.fr       */
+/*   Updated: 2018/05/16 12:22:29 by hlely            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_ast	*pipeline(t_lex *first)
 		root->left = command(first);
 		if (sep->next && sep->next->token != EOI)
 			root->right = pipeline(sep->next);
-		del_lex(sep);
+		del_lex(&sep);
 		if (root->left)
 			root->left->parent = root;
 		if (root->right)
@@ -79,7 +79,7 @@ t_ast	*and_or(t_lex *first)
 		root->left = and_or(first);
 		if (sep->next && sep->next->token != EOI)
 			root->right = and_or(sep->next);
-		del_lex(sep);
+		del_lex(&sep);
 		if (root->left)
 			root->left->parent = root;
 		if (root->right)
@@ -105,7 +105,7 @@ t_ast	*build_ast(t_lex *first)
 		root->left = and_or(first);
 		if (sep->next && sep->next->token != EOI)
 			root->right = build_ast(sep->next);
-		del_lex(sep);
+		del_lex(&sep);
 		root->left->parent = root;
 		if (root->right)
 			root->right->parent = root;
