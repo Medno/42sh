@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 08:17:18 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/05/03 15:01:34 by pchadeni         ###   ########.fr       */
+/*   Updated: 2018/05/18 09:29:58 by pchadeni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int				ft_cd_l(t_init *init, char *curpath, char *dir)
 	ft_setenv(&init->new_env, "OLDPWD", init->pwd);
 	ft_setenv(&init->new_env, "PWD", path);
 	ft_strdel(&init->pwd);
-	init->pwd = strdup(path);
+	init->pwd = ft_strdup(path);
 	ft_strdel(&path);
 	ft_strdel(&tmp2);
 	return (0);
