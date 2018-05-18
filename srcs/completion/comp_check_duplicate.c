@@ -15,9 +15,15 @@
 static void	rem_duplicate(t_lcomp *elm)
 {
 	t_lcomp *tmp;
+	t_lcomp *tmp2;
 
 	tmp = elm->next;
-	elm->next = elm->next->next;
+	tmp2 = NULL;
+	if (tmp)
+		tmp2 = tmp->next;
+	elm->next = tmp2;
+	if (tmp2)
+		tmp2->prev = elm;
 	ft_clean_lcomp(tmp);
 }
 
