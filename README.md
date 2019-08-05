@@ -78,4 +78,4 @@ make
 ```
 
 # Auteurs
-Projet réalisé par : [Hugo Lely](https://github.com/Millasdur), [Hugo Fouques](https://github.com/fookh), [Kiyan Yazdani](https://github.com/kyazdani42) et [Philippe Chadenier](https://github.com/Medno)
+Projet réalisé par : [Hugo Lely](https://github.com/hlely), [Hugo Fouques](https://github.com/fookh), [Kiyan Yazdani](https://github.com/kyazdani42) et [Philippe Chadenier](https://github.com/Medno)
